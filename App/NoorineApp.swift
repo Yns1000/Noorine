@@ -1,21 +1,19 @@
-//
-//  NoorineApp.swift
-//  Noorine
-//
-//  Created by Younes Boughriet on 27/01/2026.
-//
-
 import SwiftUI
 import SwiftData
 
 @main
 struct NoorineApp: App {
+    @StateObject private var languageManager = LanguageManager()
+    @StateObject private var dataManager = DataManager.shared
+    @State private var showMainApp = false
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            UserProgress.self,
+            LevelProgress.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
+        
         do {
             return try ModelContainer(for: schema, configurations: [modelConfiguration])
         } catch {
@@ -25,7 +23,22 @@ struct NoorineApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ZStack {
+                ContentView()
+                    .environment(\.locale, .init(identifier: languageManager.currentLanguage.rawValue))
+                    .environmentObject(languageManager)
+                    .environmentObject(dataManager)
+                    .id(languageManager.currentLanguage.rawValue)
+                
+                if !showMainApp {
+                    SplashScreenView(isActive: $showMainApp)
+                        .transition(.opacity.animation(.easeInOut(duration: 0.5)))
+                        .zIndex(1)
+                }
+            }
+            .onAppear {
+                dataManager.configure(with: sharedModelContainer.mainContext)
+            }
         }
         .modelContainer(sharedModelContainer)
     }

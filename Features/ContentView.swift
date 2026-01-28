@@ -1,61 +1,50 @@
-//
-//  ContentView.swift
-//  Noorine
-//
-//  Created by Younes Boughriet on 27/01/2026.
-//
-
 import SwiftUI
-import SwiftData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
-
+    @State private var selectedTab = 0
+    
+    init() {
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor(Color.noorBackground)
+        
+        appearance.stackedLayoutAppearance.selected.iconColor = UIColor(Color.noorGold)
+        appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor(Color.noorGold)]
+        
+        appearance.stackedLayoutAppearance.normal.iconColor = UIColor(Color.noorSecondary)
+        appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor(Color.noorSecondary)]
+        
+        UITabBar.appearance().standardAppearance = appearance
+        UITabBar.appearance().scrollEdgeAppearance = appearance
+    }
+    
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
+        TabView(selection: $selectedTab) {
+            HomeView()
+                .tabItem {
+                    Image(systemName: selectedTab == 0 ? "map.fill" : "map")
+                    Text("Apprendre")
                 }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
+                .tag(0)
+            
+            PracticeView()
+                .tabItem {
+                    Image(systemName: selectedTab == 1 ? "book.fill" : "book")
+                    Text("Réviser")
                 }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
+                .tag(1)
+            
+            ProfileView()
+                .tabItem {
+                    Image(systemName: selectedTab == 2 ? "person.fill" : "person")
+                    Text("Profil")
                 }
-            }
-        } detail: {
-            Text("Select an item")
+                .tag(2)
         }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
-        }
+        .tint(.noorGold)
     }
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
 }
