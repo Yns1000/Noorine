@@ -24,32 +24,34 @@ struct HomeView: View {
             ZStack {
                 PremiumBackground()
                 
-                ScrollView(showsIndicators: false) {
-                    ZStack(alignment: .top) {
-                        PathLayer(levels: dataManager.levels)
-                            .frame(width: UIScreen.main.bounds.width)
-                            .frame(height: CGFloat(dataManager.levels.count) * LayoutConfig.verticalSpacing + 50)
-                        
-                        VStack(spacing: 0) {
-                            ForEach(Array(dataManager.levels.enumerated()), id: \.element.levelNumber) { index, level in
-                                LevelNode(
-                                    levelNumber: level.levelNumber,
-                                    title: level.title,
-                                    subtitle: level.subtitle,
-                                    state: dataManager.levelState(for: level.levelNumber),
-                                    index: index
-                                )
-                                .frame(height: LayoutConfig.verticalSpacing)
-                                .onTapGesture {
-                                    let state = dataManager.levelState(for: level.levelNumber)
-                                    if state != .locked {
-                                        selectedLevel = level
+                GeometryReader { geometry in
+                    ScrollView(showsIndicators: false) {
+                        ZStack(alignment: .top) {
+                            PathLayer(levels: dataManager.levels)
+                                .frame(width: geometry.size.width)
+                                .frame(height: CGFloat(dataManager.levels.count) * LayoutConfig.verticalSpacing + 50)
+                            
+                            VStack(spacing: 0) {
+                                ForEach(Array(dataManager.levels.enumerated()), id: \.element.levelNumber) { index, level in
+                                    LevelNode(
+                                        levelNumber: level.levelNumber,
+                                        title: level.title,
+                                        subtitle: level.subtitle,
+                                        state: dataManager.levelState(for: level.levelNumber),
+                                        index: index
+                                    )
+                                    .frame(height: LayoutConfig.verticalSpacing)
+                                    .onTapGesture {
+                                        let state = dataManager.levelState(for: level.levelNumber)
+                                        if state != .locked {
+                                            selectedLevel = level
+                                        }
                                     }
                                 }
                             }
                         }
+                        .padding(.bottom, 120)
                     }
-                    .padding(.bottom, 120)
                 }
             }
             .safeAreaInset(edge: .top) {

@@ -211,66 +211,40 @@ struct ModernCardView: View {
         let translationTarget = isEnglish ? card.english : card.french
         let transliterationTarget = card.transliteration
         
-        let words = fullText.split(separator: " ")
+        var attributedString = AttributedString(fullText)
+        attributedString.font = .system(size: 15, weight: .medium)
+        attributedString.foregroundColor = .noorSecondary
         
-        return words.reduce(Text("")) { (result, wordSubstring) -> Text in
-            let word = String(wordSubstring)
-            
-            var processedText = Text(word)
-                .font(.system(size: 15, weight: .medium))
-                .foregroundColor(.noorSecondary)
-            
-            if let range = word.range(of: translationTarget, options: [.caseInsensitive, .diacriticInsensitive]) {
-                processedText = highlightRange(in: word, range: range, color: .noorGold, font: .system(size: 15, weight: .bold))
+        if let range = attributedString.range(of: translationTarget, options: [.caseInsensitive, .diacriticInsensitive]) {
+            attributedString[range].foregroundColor = .noorGold
+            attributedString[range].font = .system(size: 15, weight: .bold)
+        } else if let range = attributedString.range(of: transliterationTarget, options: [.caseInsensitive, .diacriticInsensitive]) {
+            attributedString[range].foregroundColor = .noorGold
+            attributedString[range].font = .system(size: 15, weight: .bold)
+        } else {
+            let cleanTrans = transliterationTarget.folding(options: .diacriticInsensitive, locale: .current)
+            if let range = attributedString.range(of: cleanTrans, options: [.caseInsensitive, .diacriticInsensitive]) {
+                attributedString[range].foregroundColor = .noorGold
+                attributedString[range].font = .system(size: 15, weight: .bold)
             }
-            else if let range = word.range(of: transliterationTarget, options: [.caseInsensitive, .diacriticInsensitive]) {
-                processedText = highlightRange(in: word, range: range, color: .noorGold, font: .system(size: 15, weight: .bold))
-            }
-            else {
-                 let cleanTrans = transliterationTarget.folding(options: .diacriticInsensitive, locale: .current)
-                 if let range = word.range(of: cleanTrans, options: [.caseInsensitive, .diacriticInsensitive]) {
-                     processedText = highlightRange(in: word, range: range, color: .noorGold, font: .system(size: 15, weight: .bold))
-                 }
-            }
-            
-            return result + processedText + Text(" ")
         }
+        
+        return Text(attributedString)
     }
     
     private func highlightedArabicText(for card: Flashcard) -> some View {
         let text = card.exampleArabic
         let targetWord = card.arabic
         
-        let words = text.split(separator: " ")
+        var attributedString = AttributedString(text)
+        attributedString.font = .system(size: 24, weight: .bold, design: .rounded)
+        attributedString.foregroundColor = .noorText
         
-        return words.reduce(Text("")) { (result, wordSubstring) -> Text in
-            let word = String(wordSubstring)
-            
-            var processedText = Text(word)
-                .font(.system(size: 24, weight: .bold, design: .rounded))
-                .foregroundColor(.noorText)
-                
-            if let range = word.range(of: targetWord, options: [.diacriticInsensitive]) {
-                processedText = highlightRange(in: word, range: range, color: .noorGold)
-            }
-            
-            return result + processedText + Text(" ")
-        }
-        .environment(\.layoutDirection, .rightToLeft)
-    }
-    
-    private func highlightRange(in text: String, range: Range<String.Index>, color: Color, font: Font? = nil) -> Text {
-        let prefix = text[..<range.lowerBound]
-        let match = text[range]
-        let suffix = text[range.upperBound...]
-        
-        var matchText = Text(String(match))
-            .foregroundColor(color)
-        
-        if let f = font {
-            matchText = matchText.font(f)
+        if let range = attributedString.range(of: targetWord, options: [.diacriticInsensitive]) {
+            attributedString[range].foregroundColor = .noorGold
         }
         
-        return Text(String(prefix)) + matchText + Text(String(suffix))
+        return Text(attributedString)
+            .environment(\.layoutDirection, .rightToLeft)
     }
 }

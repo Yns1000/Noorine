@@ -63,6 +63,7 @@ class NotificationManager {
         content3.body = LanguageManager().localizedString("notification_inactivity3_body")
         let trigger3 = UNTimeIntervalNotificationTrigger(timeInterval: 3 * 24 * 3600, repeats: false)
         let request3 = UNNotificationRequest(identifier: "inactivity_3d", content: content3, trigger: trigger3)
+        UNUserNotificationCenter.current().add(request3)
         
         let content7 = UNMutableNotificationContent()
         content7.title = LanguageManager().localizedString("notification_inactivity7_title")

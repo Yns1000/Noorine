@@ -55,7 +55,7 @@ struct SpeakingPracticeView: View {
             speechManager.requestAuthorization()
             currentLetter = ArabicLetter.alphabet.randomElement()!
         }
-        .onChange(of: speechManager.recognizedText) { newText in
+        .onChange(of: speechManager.recognizedText) { _, newText in
             if isListening && !showSuccess {
                 debugHeardText = newText
                 let cleaned = cleanString(newText)

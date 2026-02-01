@@ -56,12 +56,14 @@ struct FlashcardsView: View {
                         }
                         .frame(width: 140, height: 8)
                         
-                        Text("\(knownCount)/\(totalCards) ")
-                            .font(.system(size: 11, weight: .medium))
-                            .foregroundColor(.noorSecondary)
-                        + Text(LocalizedStringKey("Maîtrisés"))
-                            .font(.system(size: 11, weight: .medium))
-                            .foregroundColor(.noorSecondary)
+                        HStack(spacing: 0) {
+                            Text("\(knownCount)/\(totalCards) ")
+                                .font(.system(size: 11, weight: .medium))
+                                .foregroundColor(.noorSecondary)
+                            Text(LocalizedStringKey("Maîtrisés"))
+                                .font(.system(size: 11, weight: .medium))
+                                .foregroundColor(.noorSecondary)
+                        }
                     }
                     
                     Spacer()

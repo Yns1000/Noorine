@@ -30,214 +30,273 @@ struct MistakesReviewView: View {
             Color.noorBackground.ignoresSafeArea()
             
             VStack(spacing: 0) {
-                HStack {
-                    Button(action: {
-                        let hasPartialProgress = dataManager.mistakes.contains { $0.correctionCount == 1 }
-                        if hasPartialProgress {
-                            withAnimation { showExitAlert = true }
-                        } else {
-                            dismiss()
-                        }
-                    }) {
-                        Image(systemName: "xmark")
-                            .font(.system(size: 18, weight: .bold))
-                            .foregroundColor(.noorSecondary)
-                            .padding(12)
-                            .background(
-                                Circle()
-                                    .fill(Color(UIColor.secondarySystemGroupedBackground))
-                                    .shadow(color: .black.opacity(0.05), radius: 5)
-                            )
-                    }
-                    
-                    Spacer()
-                    
-                    if !dataManager.mistakes.isEmpty {
-                        HStack(spacing: 6) {
-                            Image(systemName: "heart.slash.fill")
-                                .foregroundColor(.red)
-                            Text("\(dataManager.mistakes.count) à corriger")
-                                .font(.system(size: 16, weight: .bold))
-                                .foregroundColor(.red)
-                        }
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 8)
-                        .background(Color.red.opacity(0.1))
-                        .cornerRadius(20)
-                    }
-                    
-                    Spacer()
-                    
-                    Color.clear.frame(width: 44, height: 44)
-                }
-                .padding(.horizontal, 20)
-                .padding(.top, 20)
-                .padding(.bottom, 20)
+                headerView
                 
                 if dataManager.mistakes.isEmpty {
-                    Spacer()
-                    VStack(spacing: 20) {
-                        ZStack {
-                            Circle()
-                                .fill(Color.green.opacity(0.1))
-                                .frame(width: 120, height: 120)
-                            Image(systemName: "checkmark.seal.fill")
-                                .font(.system(size: 60))
-                                .foregroundColor(.green)
-                        }
-                        
-                        Text("Tout est propre !")
-                            .font(.system(size: 28, weight: .bold, design: .serif))
-                            .foregroundColor(.noorText)
-                        
-                        Text("Aucune erreur à corriger pour le moment.\nContinue comme ça !")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(.noorSecondary)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 40)
-                        
-                        Button(action: { dismiss() }) {
-                            Text("Continuer")
-                                .font(.system(size: 16, weight: .bold))
-                                .foregroundColor(.white)
-                                .padding(.horizontal, 40)
-                                .padding(.vertical, 16)
-                                .background(Color.noorGold)
-                                .cornerRadius(30)
-                        }
-                        .padding(.top, 20)
-                    }
-                    Spacer()
+                    emptyStateView
                 } else if let letter = currentLetter, let mistake = currentMistake {
-                    VStack {
-                        Spacer()
-                        
-                        HStack(spacing: 4) {
-                            Text("Maîtrise :")
-                                .font(.caption)
-                                .foregroundColor(.noorSecondary)
-                            
-                            ForEach(0..<2) { index in
-                                Circle()
-                                    .fill(index < mistake.correctionCount ? Color.green : Color.gray.opacity(0.3))
-                                    .frame(width: 8, height: 8)
-                            }
-                            
-                            if mistake.correctionCount == 1 {
-                                Text("• Validation finale")
-                                    .font(.caption)
-                                    .foregroundColor(.orange)
-                                    .bold()
-                            }
-                        }
-                        .padding(.bottom, 30)
-                        
-                        FreeDrawingStep(
-                            letter: letter,
-                            formType: currentForm,
-                            onComplete: {
-                                handleSuccess(for: mistake)
-                            },
-                            isChallengeMode: false
-                        )
-                        .id(stepId)
-                        
-                        Spacer()
-                    }
+                    contentView(letter: letter, mistake: mistake)
                 } else {
+                    Spacer()
                     ProgressView()
+                        .tint(.noorGold)
+                    Spacer()
                 }
             }
             
             if showExitAlert {
-                Color.black.opacity(0.4)
-                    .ignoresSafeArea()
-                    .transition(.opacity)
-                    .onTapGesture {
-                        withAnimation { showExitAlert = false }
-                    }
+                exitAlertView
+            }
+            
+            if showFeedback {
+                feedbackOverlay
+            }
+        }
+        .navigationBarHidden(true)
+        .toolbar(.hidden, for: .tabBar)
+        .onAppear {
+            loadNextMistake()
+        }
+    }
+    
+    private var headerView: some View {
+        HStack {
+            Button(action: {
+                let hasPartialProgress = dataManager.mistakes.contains { $0.correctionCount == 1 }
+                if hasPartialProgress {
+                    withAnimation(.spring()) { showExitAlert = true }
+                } else {
+                    dismiss()
+                }
+            }) {
+                Image(systemName: "xmark")
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(.noorSecondary)
+                    .frame(width: 44, height: 44)
+                    .background(
+                        Circle()
+                            .fill(colorScheme == .dark ? Color(UIColor.secondarySystemGroupedBackground) : .white)
+                            .shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: 4)
+                    )
+            }
+            
+            Spacer()
+            
+            if !dataManager.mistakes.isEmpty {
+                HStack(spacing: 8) {
+                    Image(systemName: "heart.slash.fill")
+                        .font(.system(size: 14))
+                        .foregroundColor(.red)
+                    Text("\(dataManager.mistakes.count) erreurs")
+                        .font(.system(size: 14, weight: .bold, design: .rounded))
+                        .foregroundColor(.red)
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 10)
+                .background(
+                    Capsule()
+                        .fill(Color.red.opacity(0.1))
+                        .overlay(
+                            Capsule().stroke(Color.red.opacity(0.2), lineWidth: 1)
+                        )
+                )
+            }
+        }
+        .padding(.horizontal, 24)
+        .padding(.top, 16)
+        .padding(.bottom, 10)
+    }
+    
+    private func contentView(letter: ArabicLetter, mistake: MistakeItem) -> some View {
+        VStack(spacing: 24) {
+            
+            VStack(spacing: 8) {
+                Text("Correction")
+                    .font(.subheadline)
+                    .fontWeight(.medium)
+                    .foregroundColor(.noorSecondary)
+                    .textCase(.uppercase)
+                    .tracking(1)
                 
-                VStack(spacing: 20) {
+                HStack(spacing: 6) {
+                    ForEach(0..<2) { index in
+                        if index < mistake.correctionCount {
+                            Circle()
+                                .fill(Color.green)
+                                .frame(width: 10, height: 10)
+                                .shadow(color: .green.opacity(0.3), radius: 4)
+                        } else {
+                            Circle()
+                                .fill(Color.noorSecondary.opacity(0.2))
+                                .frame(width: 10, height: 10)
+                        }
+                    }
+                }
+                .padding(.top, 4)
+            }
+            .padding(.top, 10)
+            
+            ZStack {
+                RoundedRectangle(cornerRadius: 32)
+                    .fill(colorScheme == .dark ? Color(UIColor.secondarySystemGroupedBackground) : .white)
+                    .shadow(color: .black.opacity(0.05), radius: 20, y: 10)
+                
+                FreeDrawingStep(
+                    letter: letter,
+                    formType: currentForm,
+                    onComplete: {
+                        handleSuccess(for: mistake)
+                    },
+                    isChallengeMode: false
+                )
+                .id(stepId)
+                .clipShape(RoundedRectangle(cornerRadius: 32))
+            }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 20)
+        }
+    }
+    
+    private var emptyStateView: some View {
+        VStack(spacing: 30) {
+            Spacer()
+            
+            ZStack {
+                Circle()
+                    .fill(Color.green.opacity(0.1))
+                    .frame(width: 140, height: 140)
+                
+                Circle()
+                    .stroke(Color.green.opacity(0.2), lineWidth: 2)
+                    .frame(width: 170, height: 170)
+                
+                Image(systemName: "checkmark.seal.fill")
+                    .font(.system(size: 70))
+                    .foregroundColor(.green)
+                    .shadow(color: .green.opacity(0.3), radius: 10, y: 5)
+            }
+            
+            VStack(spacing: 12) {
+                Text("Tout est propre !")
+                    .font(.system(size: 28, weight: .bold, design: .rounded))
+                    .foregroundColor(.noorText)
+                
+                Text("Tu as corrigé toutes tes erreurs.\nExcellent travail.")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundColor(.noorSecondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 40)
+            }
+            
+            Button(action: { dismiss() }) {
+                Text("Continuer")
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 56)
+                    .background(
+                        LinearGradient(colors: [.noorGold, .orange], startPoint: .leading, endPoint: .trailing)
+                    )
+                    .cornerRadius(18)
+                    .shadow(color: .noorGold.opacity(0.4), radius: 10, y: 5)
+            }
+            .padding(.horizontal, 40)
+            .padding(.top, 20)
+            
+            Spacer()
+        }
+    }
+    
+    private var exitAlertView: some View {
+        ZStack {
+            Color.black.opacity(0.6)
+                .ignoresSafeArea()
+                .onTapGesture {
+                    withAnimation(.spring()) { showExitAlert = false }
+                }
+            
+            VStack(spacing: 24) {
+                VStack(spacing: 16) {
                     Image(systemName: "exclamationmark.triangle.fill")
-                        .font(.system(size: 40))
+                        .font(.system(size: 44))
                         .foregroundColor(.orange)
-                        .padding(.top, 10)
+                        .padding(.top, 8)
                     
                     VStack(spacing: 8) {
-                        Text("Attention")
+                        Text("Déjà fatigué ?")
                             .font(.title3)
                             .bold()
                             .foregroundColor(.noorText)
                         
-                        Text("Si vous quittez maintenant, la progression des erreurs en cours (1/2) sera perdue.")
+                        Text("Si tu quittes maintenant, la progression de l'erreur en cours sera perdue.")
                             .font(.subheadline)
                             .foregroundColor(.noorSecondary)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal)
                     }
-                    
-                    HStack(spacing: 12) {
-                        Button(action: {
-                            withAnimation { showExitAlert = false }
-                        }) {
-                            Text("Continuer")
-                                .font(.headline)
-                                .foregroundColor(.noorText)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color.noorSecondary.opacity(0.1))
-                                .cornerRadius(12)
-                        }
-                        
-                        Button(action: {
-                            resetPartialProgress()
-                            dismiss()
-                        }) {
-                            Text("Quitter")
-                                .font(.headline)
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color.red)
-                                .cornerRadius(12)
-                        }
-                    }
-                    .padding(.top, 10)
                 }
-                .padding(24)
-                .background(colorScheme == .dark ? Color(UIColor.secondarySystemGroupedBackground) : Color.white)
-                .cornerRadius(24)
-                .shadow(radius: 20)
-                .padding(.horizontal, 40)
-                .transition(.scale.combined(with: .opacity))
-                .zIndex(200)
-            }
-            
-            if showFeedback {
-                VStack {
-                    HStack(spacing: 12) {
-                        Image(systemName: feedbackIcon)
-                            .font(.title2)
-                        Text(feedbackMessage)
+                
+                HStack(spacing: 16) {
+                    Button(action: {
+                        resetPartialProgress()
+                        dismiss()
+                    }) {
+                        Text("Quitter")
                             .font(.headline)
+                            .foregroundColor(.red)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 16)
+                            .background(Color.red.opacity(0.1))
+                            .cornerRadius(16)
                     }
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(feedbackColor)
-                    .cornerRadius(30)
-                    .shadow(radius: 10)
-                    .padding(.top, 100)
                     
-                    Spacer()
+                    Button(action: {
+                        withAnimation(.spring()) { showExitAlert = false }
+                    }) {
+                        Text("Continuer")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 16)
+                            .background(Color.noorGold)
+                            .cornerRadius(16)
+                    }
                 }
-                .transition(.move(edge: .top).combined(with: .opacity))
-                .zIndex(300)
             }
+            .padding(24)
+            .background(colorScheme == .dark ? Color(UIColor.secondarySystemGroupedBackground) : .white)
+            .cornerRadius(32)
+            .shadow(color: .black.opacity(0.2), radius: 20, y: 10)
+            .padding(.horizontal, 30)
+            .transition(.scale.combined(with: .opacity))
         }
-        .onAppear {
-            loadNextMistake()
+        .zIndex(100)
+    }
+    
+    private var feedbackOverlay: some View {
+        VStack {
+            HStack(spacing: 16) {
+                Image(systemName: feedbackIcon)
+                    .font(.title2)
+                    .fontWeight(.bold)
+                Text(feedbackMessage)
+                    .font(.headline)
+                    .fontWeight(.bold)
+            }
+            .foregroundColor(.white)
+            .padding(.horizontal, 24)
+            .padding(.vertical, 16)
+            .background(
+                Capsule()
+                    .fill(feedbackColor)
+                    .shadow(color: feedbackColor.opacity(0.4), radius: 10, y: 5)
+            )
+            .padding(.top, 60)
+            
+            Spacer()
         }
-        .navigationBarHidden(true)
+        .transition(.move(edge: .top).combined(with: .opacity))
+        .zIndex(200)
     }
     
     private func loadNextMistake() {
@@ -258,22 +317,22 @@ struct MistakesReviewView: View {
                     currentForm = LetterFormType.allCases.randomElement() ?? .isolated
                 }
             }
-            
             stepId = UUID()
         }
     }
     
     private func handleSuccess(for mistake: MistakeItem) {
         let isFullyCorrected = dataManager.recordMistakeSuccess(item: mistake)
+        HapticManager.shared.trigger(.success)
         
-        withAnimation {
+        withAnimation(.spring()) {
             showFeedback = true
             if isFullyCorrected {
                 feedbackMessage = "Corrigé ! Plus d'erreur."
                 feedbackColor = .green
                 feedbackIcon = "checkmark.seal.fill"
             } else {
-                feedbackMessage = "Bien ! À confirmer plus tard."
+                feedbackMessage = "Bien joué ! Encore une fois."
                 feedbackColor = .orange
                 feedbackIcon = "arrow.triangle.2.circlepath"
             }

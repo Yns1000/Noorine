@@ -330,8 +330,8 @@ struct MenuToggleRow: View {
             Toggle("", isOn: $isOn)
                 .labelsHidden()
                 .tint(.noorGold)
-                .onChange(of: isOn) {
-                    onChanged(isOn)
+                .onChange(of: isOn) { _, newValue in
+                    onChanged(newValue)
                 }
         }
         .padding(16)
@@ -1173,8 +1173,12 @@ struct LeagueDetailView: View {
                         .padding(.top, 40)
                         
                         VStack(spacing: 8) {
-                            (Text(LocalizedStringKey("Ligue")) + Text(" ") + Text(LocalizedStringKey(leagueName)))
-                                .font(.system(size: 28, weight: .bold, design: .rounded))
+                            HStack(spacing: 4) {
+                                Text(LocalizedStringKey("Ligue"))
+                                    .font(.system(size: 28, weight: .bold, design: .rounded))
+                                Text(LocalizedStringKey(leagueName))
+                                    .font(.system(size: 28, weight: .bold, design: .rounded))
+                            }
                             
                             Text(LocalizedStringKey("Ton rang est basé sur tes XP de la semaine."))
                                 .font(.subheadline)

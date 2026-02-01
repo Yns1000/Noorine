@@ -19,7 +19,6 @@ final class LevelProgress {
     
     var state: LevelState {
         if isCompleted { return .completed }
-        let letters = ArabicLetter.letters(forLevel: levelNumber)
         if !completedLetterIds.isEmpty || levelNumber == 1 {
             return .current
         }

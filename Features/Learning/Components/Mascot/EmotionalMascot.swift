@@ -61,7 +61,7 @@ struct EmotionalMascot: View {
                 startBouncing()
             }
         }
-        .onChange(of: mood) { newMood in
+        .onChange(of: mood) { _, newMood in
             if newMood == .happy {
                 startBouncing()
             }
