@@ -147,11 +147,19 @@ class SpeechManager: ObservableObject {
     }
     
     func stopRecording() {
+        recognitionRequest?.endAudio()
         audioEngine.stop()
         audioEngine.inputNode.removeTap(onBus: 0)
-        recognitionRequest?.endAudio()
-        recognitionTask?.cancel()
+        recognitionTask?.finish()
         recognitionTask = nil
+        
+        do {
+            let audioSession = AVAudioSession.sharedInstance()
+            try audioSession.setCategory(.playback, mode: .default)
+            try audioSession.setActive(true)
+        } catch {
+            print("Failed to reset audio session: \(error)")
+        }
         
         DispatchQueue.main.async {
             self.isRecording = false

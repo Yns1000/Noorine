@@ -10,6 +10,40 @@ struct ArabicLetter: Identifiable, Codable {
     let final: String
     let order: Int
     
+    var pronunciationTip: String {
+        switch id {
+        case 1: return "pronunciation_tip_alif"
+        case 2: return "pronunciation_tip_ba"
+        case 3: return "pronunciation_tip_ta"
+        case 4: return "pronunciation_tip_tha"
+        case 5: return "pronunciation_tip_jim"
+        case 6: return "pronunciation_tip_ha"
+        case 7: return "pronunciation_tip_kha"
+        case 8: return "pronunciation_tip_dal"
+        case 9: return "pronunciation_tip_dhal"
+        case 10: return "pronunciation_tip_ra"
+        case 11: return "pronunciation_tip_zay"
+        case 12: return "pronunciation_tip_sin"
+        case 13: return "pronunciation_tip_shin"
+        case 14: return "pronunciation_tip_sad"
+        case 15: return "pronunciation_tip_dad"
+        case 16: return "pronunciation_tip_ta_emphatic"
+        case 17: return "pronunciation_tip_za"
+        case 18: return "pronunciation_tip_ayn"
+        case 19: return "pronunciation_tip_ghayn"
+        case 20: return "pronunciation_tip_fa"
+        case 21: return "pronunciation_tip_qaf"
+        case 22: return "pronunciation_tip_kaf"
+        case 23: return "pronunciation_tip_lam"
+        case 24: return "pronunciation_tip_mim"
+        case 25: return "pronunciation_tip_nun"
+        case 26: return "pronunciation_tip_ha_light"
+        case 27: return "pronunciation_tip_waw"
+        case 28: return "pronunciation_tip_ya"
+        default: return "pronunciation_tip_default"
+        }
+    }
+    
     static let alphabet: [ArabicLetter] = [
         ArabicLetter(id: 1, name: "أَلِف", transliteration: "Alif", isolated: "ا", initial: "ا", medial: "ـا", final: "ـا", order: 1),
         ArabicLetter(id: 2, name: "بَاء", transliteration: "Bā'", isolated: "ب", initial: "بـ", medial: "ـبـ", final: "ـب", order: 2),
