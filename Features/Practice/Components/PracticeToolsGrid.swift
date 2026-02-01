@@ -49,10 +49,9 @@ struct ToolCard: View {
     let icon: String
     let color: Color
     let title: LocalizedStringKey
-    let subtitle: LocalizedStringKey // String interpolée convertie
+    let subtitle: LocalizedStringKey
     var action: (() -> Void)? = nil
     
-    // Initialiseur personnalisé pour gérer String vs LocalizedStringKey si besoin
     init(icon: String, color: Color, title: LocalizedStringKey, subtitle: String, action: (() -> Void)? = nil) {
         self.icon = icon
         self.color = color

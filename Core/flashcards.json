@@ -1,0 +1,182 @@
+[
+  {
+    "arabic": "كِتَاب",
+    "transliteration": "Kitāb",
+    "french": "Livre",
+    "english": "Book",
+    "example": "Al-kitāb kabīr (Le livre est grand)",
+    "exampleEnglish": "Al-kitāb kabīr (The book is big)",
+    "exampleArabic": "الكِتَابُ كَبِيرٌ"
+  },
+  {
+    "arabic": "قَلَم",
+    "transliteration": "Qalam",
+    "french": "Stylo",
+    "english": "Pen",
+    "example": "Hādhā qalam (Ceci est un stylo)",
+    "exampleEnglish": "Hādhā qalam (This is a pen)",
+    "exampleArabic": "هَذَا قَلَمٌ"
+  },
+  {
+    "arabic": "بَيْت",
+    "transliteration": "Bayt",
+    "french": "Maison",
+    "english": "House",
+    "example": "Al-bayt jamīl (La maison est belle)",
+    "exampleEnglish": "Al-bayt jamīl (The house is beautiful)",
+    "exampleArabic": "البَيْتُ جَمِيلٌ"
+  },
+  {
+    "arabic": "مَسْجِد",
+    "transliteration": "Masjid",
+    "french": "Mosquée",
+    "english": "Mosque",
+    "example": "Ana fī al-masjid (Je suis à la mosquée)",
+    "exampleEnglish": "Ana fī al-masjid (I am in the mosque)",
+    "exampleArabic": "أَنَا فِي المَسْجِدِ"
+  },
+  {
+    "arabic": "شَمْس",
+    "transliteration": "Shams",
+    "french": "Soleil",
+    "english": "Sun",
+    "example": "Ash-shams mushriqa (Le soleil est brillant)",
+    "exampleEnglish": "Ash-shams mushriqa (The sun is bright)",
+    "exampleArabic": "الشَّمْسُ مُشْرِقَةٌ"
+  },
+  {
+    "arabic": "قَمَر",
+    "transliteration": "Qamar",
+    "french": "Lune",
+    "english": "Moon",
+    "example": "Al-qamar munīr (La lune est lumineuse)",
+    "exampleEnglish": "Al-qamar munīr (The moon is luminous)",
+    "exampleArabic": "القَمَرُ مُنِيرٌ"
+  },
+  {
+    "arabic": "مَاء",
+    "transliteration": "Mā'",
+    "french": "Eau",
+    "english": "Water",
+    "example": "Sharibt al-mā' (J'ai bu de l'eau)",
+    "exampleEnglish": "Sharibt al-mā' (I drank water)",
+    "exampleArabic": "شَرِبْتُ المَاءَ"
+  },
+  {
+    "arabic": "خُبْز",
+    "transliteration": "Khubz",
+    "french": "Pain",
+    "english": "Bread",
+    "example": "Akkalt al-khubz (J'ai mangé du pain)",
+    "exampleEnglish": "Akkalt al-khubz (I ate bread)",
+    "exampleArabic": "أَكَلْتُ الخُبْزَ"
+  },
+  {
+    "arabic": "سَلَام",
+    "transliteration": "Salām",
+    "french": "Paix",
+    "english": "Peace",
+    "example": "As-salāmu 'alaykum (La paix soit sur vous)",
+    "exampleEnglish": "As-salāmu 'alaykum (Peace be upon you)",
+    "exampleArabic": "السَّلَامُ عَلَيْكُمْ"
+  },
+  {
+    "arabic": "شُكْرًا",
+    "transliteration": "Shukran",
+    "french": "Merci",
+    "english": "Thank you",
+    "example": "Shukran jazīlan (Merci beaucoup)",
+    "exampleEnglish": "Shukran jazīlan (Thank you very much)",
+    "exampleArabic": "شُكْرًا جَزِيلًا"
+  },
+  {
+    "arabic": "بَاب",
+    "transliteration": "Bāb",
+    "french": "Porte",
+    "english": "Door",
+    "example": "Iftaḥ al-bāb (Ouvre la porte)",
+    "exampleEnglish": "Iftaḥ al-bāb (Open the door)",
+    "exampleArabic": "افْتَحِ البَابَ"
+  },
+  {
+    "arabic": "كُرْسِيّ",
+    "transliteration": "Kursiyy",
+    "french": "Chaise",
+    "english": "Chair",
+    "example": "Al-kursiyy rāḥah (La chaise est confortable)",
+    "exampleEnglish": "Al-kursiyy rāḥah (The chair is comfortable)",
+    "exampleArabic": "الكُرْسِيُّ مُرِيحٌ"
+  },
+  {
+    "arabic": "مِفْتَاح",
+    "transliteration": "Miftāḥ",
+    "french": "Clé",
+    "english": "Key",
+    "example": "Ayna al-miftāḥ? (Où est la clé ?)",
+    "exampleEnglish": "Ayna al-miftāḥ? (Where is the key?)",
+    "exampleArabic": "أَيْنَ المِفْتَاحُ؟"
+  },
+  {
+    "arabic": "نَجْم",
+    "transliteration": "Najm",
+    "french": "Étoile",
+    "english": "Star",
+    "example": "An-najm ba'īd (L'étoile est lointaine)",
+    "exampleEnglish": "An-najm ba'īd (The star is distant)",
+    "exampleArabic": "النَّجْمُ بَعِيدٌ"
+  },
+  {
+    "arabic": "لَيْل",
+    "transliteration": "Layl",
+    "french": "Nuit",
+    "english": "Night",
+    "example": "Al-layl sakin (La nuit est calme)",
+    "exampleEnglish": "Al-layl sakin (The night is calm)",
+    "exampleArabic": "اللَّيْلُ سَاكِنٌ"
+  },
+  {
+    "arabic": "نَهَار",
+    "transliteration": "Nahār",
+    "french": "Jour",
+    "english": "Day",
+    "example": "An-nahār mushmis (Le jour est ensoleillé)",
+    "exampleEnglish": "An-nahār mushmis (The day is sunny)",
+    "exampleArabic": "النَّهَارُ مُشْمِسٌ"
+  },
+  {
+    "arabic": "قِطّ",
+    "transliteration": "Qiṭṭ",
+    "french": "Chat",
+    "english": "Cat",
+    "example": "Al-qiṭṭ yal'ab (Le chat joue)",
+    "exampleEnglish": "Al-qiṭṭ yal'ab (The cat is playing)",
+    "exampleArabic": "القِطُّ يَلْعَبُ"
+  },
+  {
+    "arabic": "كَلْب",
+    "transliteration": "Kalb",
+    "french": "Chien",
+    "english": "Dog",
+    "example": "Al-kalb wafī (Le chien est fidèle)",
+    "exampleEnglish": "Al-kalb wafī (The dog is loyal)",
+    "exampleArabic": "الكَلْبُ وَفِيٌّ"
+  },
+  {
+    "arabic": "أُمّ",
+    "transliteration": "Umm",
+    "french": "Mère",
+    "english": "Mother",
+    "example": "Ummī ḥabībatī (Ma mère est mon amour)",
+    "exampleEnglish": "Ummī ḥabībatī (My mother is my love)",
+    "exampleArabic": "أُمِّي حَبِيبَتِي"
+  },
+  {
+    "arabic": "أَب",
+    "transliteration": "Ab",
+    "french": "Père",
+    "english": "Father",
+    "example": "Abī ya'mal (Mon père travaille)",
+    "exampleEnglish": "Abī ya'mal (My father works)",
+    "exampleArabic": "أَبِي يَعْمَلُ"
+  }
+]

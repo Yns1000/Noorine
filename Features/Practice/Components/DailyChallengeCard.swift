@@ -29,7 +29,6 @@ struct DailyChallengeCard: View {
                         .foregroundColor(.white)
                         .fixedSize(horizontal: false, vertical: true)
                     
-                    // Note: Assure-toi que DailyChallengeView existe ou crée-le
                     NavigationLink(destination: Text("Challenge View Placeholder")) { 
                         Text(LocalizedStringKey("LANCER (+60 XP)"))
                             .font(.system(size: 14, weight: .bold))

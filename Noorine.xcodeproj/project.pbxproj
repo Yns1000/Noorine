@@ -29,6 +29,30 @@
 		F190A1482F2B0F5B00F0A090 /* EmotionalMascot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A1372F2B0F5B00F0A090 /* EmotionalMascot.swift */; };
 		F190A1492F2B0F5B00F0A090 /* SpeechBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A1382F2B0F5B00F0A090 /* SpeechBubble.swift */; };
 		F190A14C2F2B0F6800F0A090 /* LetterFormType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A14A2F2B0F6800F0A090 /* LetterFormType.swift */; };
+		F1BDF6572F2FB868008A9EBC /* PracticeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6532F2FB868008A9EBC /* PracticeHeader.swift */; };
+		F1BDF6582F2FB868008A9EBC /* DailyChallengeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6522F2FB868008A9EBC /* DailyChallengeCard.swift */; };
+		F1BDF6592F2FB868008A9EBC /* PracticeToolsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6542F2FB868008A9EBC /* PracticeToolsGrid.swift */; };
+		F1BDF65A2F2FB868008A9EBC /* WordsReviewList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6552F2FB868008A9EBC /* WordsReviewList.swift */; };
+		F1BDF6652F2FB8A5008A9EBC /* SpeakingPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6632F2FB8A5008A9EBC /* SpeakingPracticeView.swift */; };
+		F1BDF6662F2FB8A5008A9EBC /* ListeningComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF65B2F2FB8A5008A9EBC /* ListeningComponents.swift */; };
+		F1BDF6672F2FB8A5008A9EBC /* ListeningModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF65E2F2FB8A5008A9EBC /* ListeningModuleView.swift */; };
+		F1BDF6682F2FB8A5008A9EBC /* MistakesReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6602F2FB8A5008A9EBC /* MistakesReviewView.swift */; };
+		F1BDF6692F2FB8A5008A9EBC /* AlphabetAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF65D2F2FB8A5008A9EBC /* AlphabetAudioView.swift */; };
+		F1BDF66A2F2FB8A5008A9EBC /* PronunciationLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6622F2FB8A5008A9EBC /* PronunciationLibraryView.swift */; };
+		F1BDF6702F2FB8C7008A9EBC /* ModernCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF66B2F2FB8C7008A9EBC /* ModernCardView.swift */; };
+		F1BDF6712F2FB8C7008A9EBC /* FlashcardLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF66D2F2FB8C7008A9EBC /* FlashcardLibraryView.swift */; };
+		F1BDF6722F2FB8C7008A9EBC /* FlashcardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF66E2F2FB8C7008A9EBC /* FlashcardsView.swift */; };
+		F1BDF6792F2FB8DB008A9EBC /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6742F2FB8DB008A9EBC /* DataLoader.swift */; };
+		F1BDF67A2F2FB8DB008A9EBC /* FlashcardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6752F2FB8DB008A9EBC /* FlashcardManager.swift */; };
+		F1BDF67B2F2FB8DB008A9EBC /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6732F2FB8DB008A9EBC /* AudioManager.swift */; };
+		F1BDF67C2F2FB8DB008A9EBC /* SpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6782F2FB8DB008A9EBC /* SpeechManager.swift */; };
+		F1BDF67D2F2FB8DB008A9EBC /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6772F2FB8DB008A9EBC /* HapticManager.swift */; };
+		F1BDF67E2F2FB8DB008A9EBC /* flashcards.json in Resources */ = {isa = PBXBuildFile; fileRef = F1BDF6762F2FB8DB008A9EBC /* flashcards.json */; };
+		F1BDF6822F2FBAA8008A9EBC /* Flashcard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6812F2FBAA8008A9EBC /* Flashcard.swift */; };
+		F1BDF6842F2FBB2F008A9EBC /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6832F2FBB1F008A9EBC /* NotificationManager.swift */; };
+		F1BDF6862F2FCA9B008A9EBC /* PhoneticDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6852F2FCA9A008A9EBC /* PhoneticDictionary.swift */; };
+		F1BDF6882F2FCF72008A9EBC /* TipBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6872F2FCF70008A9EBC /* TipBanner.swift */; };
+		F1BDF68A2F2FD31B008A9EBC /* FactsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6892F2FD31A008A9EBC /* FactsData.swift */; };
 		F1FCEB372F28D60900AE6497 /* NoorineApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEB362F28D60900AE6497 /* NoorineApp.swift */; };
 		F1FCEB392F28D60900AE6497 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEB382F28D60900AE6497 /* ContentView.swift */; };
 		F1FCEB3D2F28D60B00AE6497 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1FCEB3C2F28D60B00AE6497 /* Assets.xcassets */; };
@@ -81,6 +105,30 @@
 		F190A13C2F2B0F5B00F0A090 /* LetterFormsStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterFormsStep.swift; sourceTree = "<group>"; };
 		F190A13D2F2B0F5B00F0A090 /* LetterPresentationStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterPresentationStep.swift; sourceTree = "<group>"; };
 		F190A14A2F2B0F6800F0A090 /* LetterFormType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterFormType.swift; sourceTree = "<group>"; };
+		F1BDF6522F2FB868008A9EBC /* DailyChallengeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyChallengeCard.swift; sourceTree = "<group>"; };
+		F1BDF6532F2FB868008A9EBC /* PracticeHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeHeader.swift; sourceTree = "<group>"; };
+		F1BDF6542F2FB868008A9EBC /* PracticeToolsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeToolsGrid.swift; sourceTree = "<group>"; };
+		F1BDF6552F2FB868008A9EBC /* WordsReviewList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsReviewList.swift; sourceTree = "<group>"; };
+		F1BDF65B2F2FB8A5008A9EBC /* ListeningComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningComponents.swift; sourceTree = "<group>"; };
+		F1BDF65D2F2FB8A5008A9EBC /* AlphabetAudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphabetAudioView.swift; sourceTree = "<group>"; };
+		F1BDF65E2F2FB8A5008A9EBC /* ListeningModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningModuleView.swift; sourceTree = "<group>"; };
+		F1BDF6602F2FB8A5008A9EBC /* MistakesReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MistakesReviewView.swift; sourceTree = "<group>"; };
+		F1BDF6622F2FB8A5008A9EBC /* PronunciationLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PronunciationLibraryView.swift; sourceTree = "<group>"; };
+		F1BDF6632F2FB8A5008A9EBC /* SpeakingPracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakingPracticeView.swift; sourceTree = "<group>"; };
+		F1BDF66B2F2FB8C7008A9EBC /* ModernCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernCardView.swift; sourceTree = "<group>"; };
+		F1BDF66D2F2FB8C7008A9EBC /* FlashcardLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardLibraryView.swift; sourceTree = "<group>"; };
+		F1BDF66E2F2FB8C7008A9EBC /* FlashcardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardsView.swift; sourceTree = "<group>"; };
+		F1BDF6732F2FB8DB008A9EBC /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
+		F1BDF6742F2FB8DB008A9EBC /* DataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoader.swift; sourceTree = "<group>"; };
+		F1BDF6752F2FB8DB008A9EBC /* FlashcardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardManager.swift; sourceTree = "<group>"; };
+		F1BDF6762F2FB8DB008A9EBC /* flashcards.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = flashcards.json; sourceTree = "<group>"; };
+		F1BDF6772F2FB8DB008A9EBC /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
+		F1BDF6782F2FB8DB008A9EBC /* SpeechManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechManager.swift; sourceTree = "<group>"; };
+		F1BDF6812F2FBAA8008A9EBC /* Flashcard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flashcard.swift; sourceTree = "<group>"; };
+		F1BDF6832F2FBB1F008A9EBC /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		F1BDF6852F2FCA9A008A9EBC /* PhoneticDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneticDictionary.swift; sourceTree = "<group>"; };
+		F1BDF6872F2FCF70008A9EBC /* TipBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipBanner.swift; sourceTree = "<group>"; };
+		F1BDF6892F2FD31A008A9EBC /* FactsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsData.swift; sourceTree = "<group>"; };
 		F1FCEB332F28D60900AE6497 /* Noorine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Noorine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1FCEB362F28D60900AE6497 /* NoorineApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoorineApp.swift; sourceTree = "<group>"; };
 		F1FCEB382F28D60900AE6497 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -194,6 +242,70 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		F1BDF6562F2FB868008A9EBC /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F1BDF6522F2FB868008A9EBC /* DailyChallengeCard.swift */,
+				F1BDF6532F2FB868008A9EBC /* PracticeHeader.swift */,
+				F1BDF6542F2FB868008A9EBC /* PracticeToolsGrid.swift */,
+				F1BDF6552F2FB868008A9EBC /* WordsReviewList.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		F1BDF65C2F2FB8A5008A9EBC /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F1BDF65B2F2FB8A5008A9EBC /* ListeningComponents.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		F1BDF65F2F2FB8A5008A9EBC /* Listening */ = {
+			isa = PBXGroup;
+			children = (
+				F1BDF65C2F2FB8A5008A9EBC /* Components */,
+				F1BDF65D2F2FB8A5008A9EBC /* AlphabetAudioView.swift */,
+				F1BDF65E2F2FB8A5008A9EBC /* ListeningModuleView.swift */,
+			);
+			path = Listening;
+			sourceTree = "<group>";
+		};
+		F1BDF6612F2FB8A5008A9EBC /* Mistakes */ = {
+			isa = PBXGroup;
+			children = (
+				F1BDF6602F2FB8A5008A9EBC /* MistakesReviewView.swift */,
+			);
+			path = Mistakes;
+			sourceTree = "<group>";
+		};
+		F1BDF6642F2FB8A5008A9EBC /* Speaking */ = {
+			isa = PBXGroup;
+			children = (
+				F1BDF6622F2FB8A5008A9EBC /* PronunciationLibraryView.swift */,
+				F1BDF6632F2FB8A5008A9EBC /* SpeakingPracticeView.swift */,
+			);
+			path = Speaking;
+			sourceTree = "<group>";
+		};
+		F1BDF66C2F2FB8C7008A9EBC /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F1BDF66B2F2FB8C7008A9EBC /* ModernCardView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		F1BDF66F2F2FB8C7008A9EBC /* Flashcards */ = {
+			isa = PBXGroup;
+			children = (
+				F1BDF66C2F2FB8C7008A9EBC /* Components */,
+				F1BDF66D2F2FB8C7008A9EBC /* FlashcardLibraryView.swift */,
+				F1BDF66E2F2FB8C7008A9EBC /* FlashcardsView.swift */,
+			);
+			path = Flashcards;
+			sourceTree = "<group>";
+		};
 		F1FCEB2A2F28D60900AE6497 = {
 			isa = PBXGroup;
 			children = (
@@ -230,6 +342,15 @@
 		F1FCEB602F28D77000AE6497 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				F1BDF6892F2FD31A008A9EBC /* FactsData.swift */,
+				F1BDF6852F2FCA9A008A9EBC /* PhoneticDictionary.swift */,
+				F1BDF6832F2FBB1F008A9EBC /* NotificationManager.swift */,
+				F1BDF6732F2FB8DB008A9EBC /* AudioManager.swift */,
+				F1BDF6742F2FB8DB008A9EBC /* DataLoader.swift */,
+				F1BDF6752F2FB8DB008A9EBC /* FlashcardManager.swift */,
+				F1BDF6762F2FB8DB008A9EBC /* flashcards.json */,
+				F1BDF6772F2FB8DB008A9EBC /* HapticManager.swift */,
+				F1BDF6782F2FB8DB008A9EBC /* SpeechManager.swift */,
 				F11376792F291E5800D25275 /* LanguageManager.swift */,
 				AAAA00062F2A000000000004 /* DataManager.swift */,
 			);
@@ -239,6 +360,7 @@
 		F1FCEB612F28D77F00AE6497 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				F1BDF6872F2FCF70008A9EBC /* TipBanner.swift */,
 				F1FCEB642F28D84200AE6497 /* Theme.swift */,
 				F1FCEB3C2F28D60B00AE6497 /* Assets.xcassets */,
 				F1FCEB6B2F2906AD00AE6497 /* NoorineMascot.swift */,
@@ -249,6 +371,10 @@
 		F1FCEB622F28D78C00AE6497 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				F1BDF66F2F2FB8C7008A9EBC /* Flashcards */,
+				F1BDF65F2F2FB8A5008A9EBC /* Listening */,
+				F1BDF6612F2FB8A5008A9EBC /* Mistakes */,
+				F1BDF6642F2FB8A5008A9EBC /* Speaking */,
 				AAAA000C2F2A000000000007 /* Learning */,
 				F1FCEB702F2909CF00AE6497 /* Profile */,
 				F1FCEB6F2F2909C800AE6497 /* Practice */,
@@ -262,6 +388,7 @@
 		F1FCEB632F28D79800AE6497 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F1BDF6812F2FBAA8008A9EBC /* Flashcard.swift */,
 				AAAA00002F2A000000000001 /* ArabicLetter.swift */,
 				AAAA00022F2A000000000002 /* LevelProgress.swift */,
 				AAAA00042F2A000000000003 /* UserProgress.swift */,
@@ -288,6 +415,7 @@
 		F1FCEB6F2F2909C800AE6497 /* Practice */ = {
 			isa = PBXGroup;
 			children = (
+				F1BDF6562F2FB868008A9EBC /* Components */,
 				F1FCEB732F2909EF00AE6497 /* PracticeView.swift */,
 				AAAA01002F2B000000000100 /* DailyChallengeView.swift */,
 				AAAA01022F2B000000000100 /* DailyChallengeInviteView.swift */,
@@ -423,6 +551,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F113767C2F291F9B00D25275 /* Localizable.xcstrings in Resources */,
+				F1BDF67E2F2FB8DB008A9EBC /* flashcards.json in Resources */,
 				F1FCEB3D2F28D60B00AE6497 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -450,21 +579,43 @@
 			files = (
 				F1FCEB392F28D60900AE6497 /* ContentView.swift in Sources */,
 				F1FCEB762F2909FB00AE6497 /* ProfileView.swift in Sources */,
+				F1BDF6882F2FCF72008A9EBC /* TipBanner.swift in Sources */,
 				F1FCEB722F2909E100AE6497 /* HomeView.swift in Sources */,
+				F1BDF6702F2FB8C7008A9EBC /* ModernCardView.swift in Sources */,
+				F1BDF6712F2FB8C7008A9EBC /* FlashcardLibraryView.swift in Sources */,
+				F1BDF6862F2FCA9B008A9EBC /* PhoneticDictionary.swift in Sources */,
+				F1BDF6722F2FB8C7008A9EBC /* FlashcardsView.swift in Sources */,
 				F1FCEB652F28D84600AE6497 /* Theme.swift in Sources */,
 				F1FCEB742F2909EF00AE6497 /* PracticeView.swift in Sources */,
 				F1FCEB6A2F28D8E700AE6497 /* SplashScreenView.swift in Sources */,
 				F1FCEB372F28D60900AE6497 /* NoorineApp.swift in Sources */,
 				F1FCEB6C2F2906AD00AE6497 /* NoorineMascot.swift in Sources */,
 				F113767A2F291E5800D25275 /* LanguageManager.swift in Sources */,
+				F1BDF6572F2FB868008A9EBC /* PracticeHeader.swift in Sources */,
+				F1BDF6582F2FB868008A9EBC /* DailyChallengeCard.swift in Sources */,
+				F1BDF6592F2FB868008A9EBC /* PracticeToolsGrid.swift in Sources */,
+				F1BDF68A2F2FD31B008A9EBC /* FactsData.swift in Sources */,
+				F1BDF65A2F2FB868008A9EBC /* WordsReviewList.swift in Sources */,
 				AAAA00012F2A000000000001 /* ArabicLetter.swift in Sources */,
 				AAAA00032F2A000000000002 /* LevelProgress.swift in Sources */,
+				F1BDF6822F2FBAA8008A9EBC /* Flashcard.swift in Sources */,
 				AAAA00052F2A000000000003 /* UserProgress.swift in Sources */,
 				F190A1402F2B0F5B00F0A090 /* CelebrationOverlay.swift in Sources */,
 				F190A1412F2B0F5B00F0A090 /* ArabicFunFacts.swift in Sources */,
 				F190A1422F2B0F5B00F0A090 /* RecognitionEngine.swift in Sources */,
 				F190A1432F2B0F5B00F0A090 /* LetterPresentationStep.swift in Sources */,
 				F190A1442F2B0F5B00F0A090 /* DrawingCanvasModel.swift in Sources */,
+				F1BDF6652F2FB8A5008A9EBC /* SpeakingPracticeView.swift in Sources */,
+				F1BDF6662F2FB8A5008A9EBC /* ListeningComponents.swift in Sources */,
+				F1BDF6672F2FB8A5008A9EBC /* ListeningModuleView.swift in Sources */,
+				F1BDF6682F2FB8A5008A9EBC /* MistakesReviewView.swift in Sources */,
+				F1BDF6692F2FB8A5008A9EBC /* AlphabetAudioView.swift in Sources */,
+				F1BDF6792F2FB8DB008A9EBC /* DataLoader.swift in Sources */,
+				F1BDF67A2F2FB8DB008A9EBC /* FlashcardManager.swift in Sources */,
+				F1BDF67B2F2FB8DB008A9EBC /* AudioManager.swift in Sources */,
+				F1BDF67C2F2FB8DB008A9EBC /* SpeechManager.swift in Sources */,
+				F1BDF67D2F2FB8DB008A9EBC /* HapticManager.swift in Sources */,
+				F1BDF66A2F2FB8A5008A9EBC /* PronunciationLibraryView.swift in Sources */,
 				F190A1452F2B0F5B00F0A090 /* LessonHeader.swift in Sources */,
 				F190A1462F2B0F5B00F0A090 /* LetterFormsStep.swift in Sources */,
 				F190A1472F2B0F5B00F0A090 /* FreeDrawingCanvas.swift in Sources */,
@@ -475,6 +626,7 @@
 				AAAA00092F2A000000000005 /* LevelDetailView.swift in Sources */,
 				AAAA000B2F2A000000000006 /* LetterLessonView.swift in Sources */,
 				AAAA00112F2A000000000011 /* FreeDrawingView.swift in Sources */,
+				F1BDF6842F2FBB2F008A9EBC /* NotificationManager.swift in Sources */,
 				AAAA01012F2B000000000101 /* DailyChallengeView.swift in Sources */,
 				AAAA01032F2B000000000101 /* DailyChallengeInviteView.swift in Sources */,
 			);
@@ -644,6 +796,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Noorine-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Pour t'entendre prononcer les lettres.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Pour vérifier ta prononciation.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -679,6 +832,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Noorine-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Pour t'entendre prononcer les lettres.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Pour vérifier ta prononciation.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

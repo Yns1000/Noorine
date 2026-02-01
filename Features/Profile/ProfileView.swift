@@ -38,7 +38,6 @@ struct ProfileView: View {
                                         get: { dataManager.userProgress?.notificationsEnabled ?? true },
                                         set: { newValue in
                                             dataManager.userProgress?.notificationsEnabled = newValue
-                                            NotificationManager.shared.scheduleAllNotifications()
                                         }
                                     )
                                 )
@@ -106,65 +105,6 @@ struct ProfileView: View {
 
                             MenuSection(title: "Développement") {
                                 VStack(spacing: 0) {
-                                    ForEach(NotificationManager.TestNotificationType.allCases, id: \.rawValue) { notifType in
-                                        Button {
-                                            NotificationManager.shared.triggerTestNotification(notifType)
-                                            HapticManager.shared.impact(.light)
-                                        } label: {
-                                            HStack(spacing: 16) {
-                                                ZStack {
-                                                    RoundedRectangle(cornerRadius: 12)
-                                                        .fill(notifType.color.opacity(0.15))
-                                                        .frame(width: 40, height: 40)
-                                                    Image(systemName: notifType.icon)
-                                                        .font(.system(size: 18))
-                                                        .foregroundColor(notifType.color)
-                                                }
-                                                VStack(alignment: .leading, spacing: 2) {
-                                                    Text("Test \(notifType.displayName)")
-                                                        .font(.system(size: 16, weight: .medium))
-                                                        .foregroundColor(.noorText)
-                                                    Text("Notification dans 2s")
-                                                        .font(.system(size: 12))
-                                                        .foregroundColor(.noorSecondary)
-                                                }
-                                                Spacer()
-                                                Image(systemName: "bell.badge")
-                                                    .font(.system(size: 14))
-                                                    .foregroundColor(.noorSecondary.opacity(0.5))
-                                            }
-                                            .padding(16)
-                                            .contentShape(Rectangle())
-                                        }
-                                        
-                                        if notifType != NotificationManager.TestNotificationType.allCases.last {
-                                            Divider().padding(.leading, 56)
-                                        }
-                                    }
-                                    
-                                    Divider().padding(.leading, 56)
-                                    
-                                    ShareLink(item: renderMascotIcon(style: .light), preview: SharePreview("Icône Noorine (Claire)", image: renderMascotIcon(style: .light))) {
-                                        ExportRow(title: "Export Icône Claire", subtitle: "Fond Crème (Standard)", icon: "sun.max.fill", color: .orange)
-                                    }
-                                    
-                                    Divider().padding(.leading, 56)
-                                    
-                                    ShareLink(item: renderMascotIcon(style: .dark), preview: SharePreview("Icône Noorine (Sombre)", image: renderMascotIcon(style: .dark))) {
-                                        ExportRow(title: "Export Icône Sombre", subtitle: "Fond Noir (Glow)", icon: "moon.stars.fill", color: .indigo)
-                                    }
-                                    
-                                    Divider().padding(.leading, 56)
-                                    
-                                    ShareLink(item: renderMascotIcon(style: .tinted), preview: SharePreview("Icône Noorine (Teintée)", image: renderMascotIcon(style: .tinted))) {
-                                        ExportRow(title: "Export Icône Teintée", subtitle: "Gabarit iOS (Grayscale)", icon: "paintpalette.fill", color: .purple)
-                                    }
-                                }
-
-                            }
-                            
-                            MenuSection(title: "Toolbox (Développeur)") {
-                                VStack(spacing: 0) {
                                     DevActionRow(
                                         title: "Réinitialiser le nom",
                                         subtitle: "Remettre 'Apprenti'",
@@ -195,9 +135,23 @@ struct ProfileView: View {
                                 }
                             }
                             
+                            MenuSection(title: "Partage & Export") {
+                                VStack(spacing: 0) {
+                                    ShareLink(item: renderMascotIcon(style: .light), preview: SharePreview("Icône Noorine (Claire)", image: renderMascotIcon(style: .light))) {
+                                        ExportRow(title: "Export Icône Claire", subtitle: "Fond Crème (Standard)", icon: "sun.max.fill", color: .orange)
+                                    }
+                                    Divider().padding(.leading, 56)
+                                    ShareLink(item: renderMascotIcon(style: .dark), preview: SharePreview("Icône Noorine (Sombre)", image: renderMascotIcon(style: .dark))) {
+                                        ExportRow(title: "Export Icône Sombre", subtitle: "Fond Noir (Glow)", icon: "moon.stars.fill", color: .indigo)
+                                    }
+                                    Divider().padding(.leading, 56)
+                                    ShareLink(item: renderMascotIcon(style: .tinted), preview: SharePreview("Icône Noorine (Teintée)", image: renderMascotIcon(style: .tinted))) {
+                                        ExportRow(title: "Export Icône Teintée", subtitle: "Gabarit iOS (Grayscale)", icon: "paintpalette.fill", color: .purple)
+                                    }
+                                }
+                            }
 
-
-                         VStack(spacing: 6) {
+                            VStack(spacing: 6) {
                                 Text(LocalizedStringKey("Développé par Sny avec ❤️ pour Lau"))
                                     .font(.system(size: 13, weight: .medium))
                                     .foregroundColor(.noorSecondary)
@@ -265,6 +219,125 @@ struct ProfileView: View {
         return Image(systemName: "photo")
     }
 }
+
+
+struct MenuSection<Content: View>: View {
+    @Environment(\.colorScheme) var colorScheme
+    let title: LocalizedStringKey
+    let content: Content
+    
+    init(title: LocalizedStringKey, @ViewBuilder content: () -> Content) {
+        self.title = title
+        self.content = content()
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text(title)
+                .font(.system(size: 11, weight: .bold))
+                .foregroundColor(.noorSecondary)
+                .tracking(1)
+                .textCase(.uppercase)
+                .padding(.leading, 10)
+            
+            VStack(spacing: 0) {
+                content
+            }
+            .background(colorScheme == .dark ? Color(UIColor.secondarySystemGroupedBackground) : Color.white)
+            .cornerRadius(20)
+            .shadow(color: Color.black.opacity(0.04), radius: 10, y: 5)
+        }
+    }
+}
+
+struct MenuRowContent: View {
+    let icon: String
+    let color: Color
+    let title: LocalizedStringKey
+    let subtitle: LocalizedStringKey
+    
+    var body: some View {
+        HStack(spacing: 16) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(color.opacity(0.15))
+                    .frame(width: 40, height: 40)
+                
+                Image(systemName: icon)
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundColor(color)
+            }
+            
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title)
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundColor(.noorText)
+                
+                Text(subtitle)
+                    .font(.system(size: 13))
+                    .foregroundColor(.noorSecondary)
+            }
+            
+            Spacer()
+            
+            Image(systemName: "chevron.right")
+                .font(.system(size: 14, weight: .bold))
+                .foregroundColor(.noorSecondary.opacity(0.4))
+        }
+        .padding(16)
+    }
+}
+
+struct MenuRow: View {
+    let icon: String
+    let color: Color
+    let title: LocalizedStringKey
+    let subtitle: LocalizedStringKey
+    var action: () -> Void = {}
+    
+    var body: some View {
+        Button(action: action) {
+            MenuRowContent(icon: icon, color: color, title: title, subtitle: subtitle)
+        }
+    }
+}
+
+struct MenuToggleRow: View {
+    let icon: String
+    let color: Color
+    let title: LocalizedStringKey
+    @Binding var isOn: Bool
+    var onChanged: (Bool) -> Void = { _ in }
+    
+    var body: some View {
+        HStack(spacing: 16) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(color.opacity(0.15))
+                    .frame(width: 40, height: 40)
+                
+                Image(systemName: icon)
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundColor(color)
+            }
+            
+            Text(title)
+                .font(.system(size: 16, weight: .medium))
+                .foregroundColor(.noorText)
+            
+            Spacer()
+            
+            Toggle("", isOn: $isOn)
+                .labelsHidden()
+                .tint(.noorGold)
+                .onChange(of: isOn) {
+                    onChanged(isOn)
+                }
+        }
+        .padding(16)
+    }
+}
+
 
 struct ExportRow: View {
     let title: LocalizedStringKey
@@ -358,7 +431,7 @@ struct LanguageSelectionView: View {
                 VStack(spacing: 12) {
                     ForEach(AppLanguage.allCases) { lang in
                         Button(action: {
-                            languageManager.setLanguage(lang)
+                            languageManager.currentLanguage = lang
                             dismiss()
                         }) {
                             HStack {
@@ -640,123 +713,6 @@ struct ActivityCard: View {
     }
 }
 
-struct MenuSection<Content: View>: View {
-    @Environment(\.colorScheme) var colorScheme
-    let title: LocalizedStringKey
-    let content: Content
-    
-    init(title: LocalizedStringKey, @ViewBuilder content: () -> Content) {
-        self.title = title
-        self.content = content()
-    }
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text(title)
-                .font(.system(size: 11, weight: .bold))
-                .foregroundColor(.noorSecondary)
-                .tracking(1)
-                .textCase(.uppercase)
-                .padding(.leading, 10)
-            
-            VStack(spacing: 0) {
-                content
-            }
-            .background(colorScheme == .dark ? Color(UIColor.secondarySystemGroupedBackground) : Color.white)
-            .cornerRadius(20)
-            .shadow(color: Color.black.opacity(0.04), radius: 10, y: 5)
-        }
-    }
-}
-
-struct MenuRowContent: View {
-    let icon: String
-    let color: Color
-    let title: LocalizedStringKey
-    let subtitle: LocalizedStringKey
-    
-    var body: some View {
-        HStack(spacing: 16) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(color.opacity(0.15))
-                    .frame(width: 40, height: 40)
-                
-                Image(systemName: icon)
-                    .font(.system(size: 18, weight: .semibold))
-                    .foregroundColor(color)
-            }
-            
-            VStack(alignment: .leading, spacing: 2) {
-                Text(title)
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundColor(.noorText)
-                
-                Text(subtitle)
-                    .font(.system(size: 13))
-                    .foregroundColor(.noorSecondary)
-            }
-            
-            Spacer()
-            
-            Image(systemName: "chevron.right")
-                .font(.system(size: 14, weight: .bold))
-                .foregroundColor(.noorSecondary.opacity(0.4))
-        }
-        .padding(16)
-    }
-}
-
-struct MenuRow: View {
-    let icon: String
-    let color: Color
-    let title: LocalizedStringKey
-    let subtitle: LocalizedStringKey
-    var action: () -> Void = {}
-    
-    var body: some View {
-        Button(action: action) {
-            MenuRowContent(icon: icon, color: color, title: title, subtitle: subtitle)
-        }
-    }
-}
-
-struct MenuToggleRow: View {
-    let icon: String
-    let color: Color
-    let title: LocalizedStringKey
-    @Binding var isOn: Bool
-    var onChanged: (Bool) -> Void = { _ in }
-    
-    var body: some View {
-        HStack(spacing: 16) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(color.opacity(0.15))
-                    .frame(width: 40, height: 40)
-                
-                Image(systemName: icon)
-                    .font(.system(size: 18, weight: .semibold))
-                    .foregroundColor(color)
-            }
-            
-            Text(title)
-                .font(.system(size: 16, weight: .medium))
-                .foregroundColor(.noorText)
-            
-            Spacer()
-            
-            Toggle("", isOn: $isOn)
-                .labelsHidden()
-                .tint(.noorGold)
-                .onChange(of: isOn) {
-                    onChanged(isOn)
-                }
-        }
-        .padding(16)
-    }
-}
-
 struct StreakDetailView: View {
     @EnvironmentObject var dataManager: DataManager
     @Environment(\.dismiss) var dismiss
@@ -824,12 +780,6 @@ struct StreakDetailView: View {
         }
         
         return months
-    }
-    
-    private func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.string(from: date)
     }
 }
 
@@ -1159,8 +1109,8 @@ struct MilestoneCard: View {
                 
                 ZStack {
                     Circle()
-                        .fill(isUnlocked ? 
-                            AnyShapeStyle(LinearGradient(colors: [color.opacity(0.8), color], startPoint: .topLeading, endPoint: .bottomTrailing)) : 
+                        .fill(isUnlocked ?
+                            AnyShapeStyle(LinearGradient(colors: [color.opacity(0.8), color], startPoint: .topLeading, endPoint: .bottomTrailing)) :
                             AnyShapeStyle(Color.noorSecondary.opacity(0.1)))
                         .frame(width: 64, height: 64)
                     
