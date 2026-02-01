@@ -25,17 +25,23 @@ struct HomeView: View {
                 AmbientBackground()
                     .zIndex(0)
                 
-                OrganizedWordLayer()
-                    .zIndex(3)
-                    .id(animationId)
-                
+
                 GeometryReader { geometry in
                     ScrollView(showsIndicators: false) {
                         ZStack(alignment: .top) {
+                            GeometryReader { proxy in
+                                OrganizedWordLayer()
+                                    .frame(width: geometry.size.width, height: geometry.size.height)
+                                    .offset(y: -proxy.frame(in: .named("homeScroll")).minY)
+                                    .id(animationId)
+                            }
+                            .zIndex(0)
+                            
                             PathLayer(levels: dataManager.levels)
                                 .frame(width: geometry.size.width)
                                 .frame(height: CGFloat(dataManager.levels.count) * LayoutConfig.verticalSpacing + 50)
                                 .allowsHitTesting(false)
+                                .zIndex(1)
                             
                             VStack(spacing: 0) {
                                 ForEach(Array(dataManager.levels.enumerated()), id: \.element.levelNumber) { index, level in
@@ -55,10 +61,12 @@ struct HomeView: View {
                                     .frame(height: LayoutConfig.verticalSpacing)
                                 }
                             }
+                            .zIndex(2)
                         }
                         .padding(.bottom, 120)
                         .padding(.top, 20)
                     }
+                    .coordinateSpace(name: "homeScroll")
                 }
                 .zIndex(2)
             }
@@ -470,7 +478,7 @@ struct LevelInfoCard: View {
         .background(
             ZStack {
                 if isCurrent { RoundedRectangle(cornerRadius: 14).fill(Color.noorGold.opacity(0.15)).blur(radius: 8).scaleEffect(glowPulse ? 1.1 : 1.0) }
-                RoundedRectangle(cornerRadius: 14).fill(.ultraThinMaterial).overlay(RoundedRectangle(cornerRadius: 14).stroke(isCurrent ? LinearGradient(colors: [Color.noorGold.opacity(0.6), Color.orange.opacity(0.3)], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [Color.white.opacity(0.2), Color.white.opacity(0.05)], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: isCurrent ? 1.5 : 1)).shadow(color: isCurrent ? Color.noorGold.opacity(0.2) : Color.black.opacity(0.06), radius: 6, y: 3)
+                RoundedRectangle(cornerRadius: 14).fill(Color.noorBackground).overlay(RoundedRectangle(cornerRadius: 14).stroke(isCurrent ? LinearGradient(colors: [Color.noorGold.opacity(0.6), Color.orange.opacity(0.3)], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [Color.white.opacity(0.2), Color.white.opacity(0.05)], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: isCurrent ? 1.5 : 1)).shadow(color: isCurrent ? Color.noorGold.opacity(0.2) : Color.black.opacity(0.06), radius: 6, y: 3)
             }
         )
         .onAppear { if isCurrent { withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) { glowPulse = true } } }
