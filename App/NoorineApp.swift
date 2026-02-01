@@ -39,9 +39,6 @@ struct NoorineApp: App {
         WindowGroup {
             ZStack {
                 ContentView()
-                    .environment(\.locale, .init(identifier: languageManager.currentLanguage.rawValue))
-                    .environmentObject(languageManager)
-                    .id(languageManager.currentLanguage.rawValue)
                 
                 if !showMainApp {
                     SplashScreenView(isActive: $showMainApp)
@@ -59,6 +56,9 @@ struct NoorineApp: App {
                 }
             }
             .environmentObject(dataManager)
+            .environmentObject(languageManager)
+            .environment(\.locale, .init(identifier: languageManager.currentLanguage.rawValue))
+            .id(languageManager.currentLanguage.rawValue)
             .onAppear {
                 dataManager.configure(with: sharedModelContainer.mainContext)
             }

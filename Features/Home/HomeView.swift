@@ -78,7 +78,10 @@ struct HomeView: View {
                         showDailyChallengeInvite = false
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { showDailyChallenge = true }
                     },
-                    onDismiss: { showDailyChallengeInvite = false }
+                    onDismiss: {
+                        dataManager.dismissDailyChallenge()
+                        showDailyChallengeInvite = false
+                    }
                 )
                 .presentationDetents([.height(240)])
             }
@@ -90,7 +93,12 @@ struct HomeView: View {
             }
             .onAppear {
                 animationId = UUID()
-                if dataManager.canShowDailyChallenge() {
+                if dataManager.isAppReady && dataManager.canShowDailyChallenge() {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { showDailyChallengeInvite = true }
+                }
+            }
+            .onChange(of: dataManager.isAppReady) { _, ready in
+                if ready && dataManager.canShowDailyChallenge() {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { showDailyChallengeInvite = true }
                 }
             }

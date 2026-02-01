@@ -31,9 +31,11 @@ final class UserProgress {
         self.lastResetDate = lastResetDate
         self.notificationsEnabled = notificationsEnabled
         self.hapticsEnabled = hapticsEnabled
-        self.soundEnabled = soundEnabled
         self.lastDailyChallengeDate = nil
+        self.lastDailyChallengeDismissedDate = nil
     }
+    
+    var lastDailyChallengeDismissedDate: Date? = nil
     
     enum AchievementID: String, CaseIterable {
         case beginner = "beginner"

@@ -25,6 +25,7 @@ struct HandDrawnArrow: Shape {
 struct SplashScreenView: View {
     @Binding var isActive: Bool
     @EnvironmentObject var dataManager: DataManager
+    @EnvironmentObject var languageManager: LanguageManager
     
     @State private var sunScale = 0.6
     @State private var contentOpacity = 0.0
@@ -83,7 +84,7 @@ struct SplashScreenView: View {
                                 .offset(y: -5)
                         }
                         
-                        Text(LocalizedStringKey("L'APPRENTISSAGE ÉCLAIRÉ"))
+                        Text(languageManager.currentLanguage == .english ? "ENLIGHTENED LEARNING" : "L'APPRENTISSAGE ÉCLAIRÉ")
                             .font(.system(size: 14, weight: .semibold, design: .rounded))
                             .foregroundColor(.noorText.opacity(0.5))
                             .tracking(4)
@@ -137,6 +138,7 @@ struct OnboardingView: View {
     @State private var name: String = ""
     @State private var showMascot = false
     @EnvironmentObject var dataManager: DataManager
+    @EnvironmentObject var languageManager: LanguageManager
     
     var body: some View {
         ZStack {
@@ -151,8 +153,8 @@ struct OnboardingView: View {
                             .transition(.scale.combined(with: .opacity))
                         
                         TopSpeechBubble(
-                            message: LocalizedStringKey("Salam ! Je m'appelle Noorine."),
-                            detail: LocalizedStringKey("Je serai ton guide pour apprendre l'arabe."),
+                            message: LocalizedStringKey(languageManager.currentLanguage == .english ? "Salam! I'm Noorine." : "Salam ! Je m'appelle Noorine."),
+                            detail: LocalizedStringKey(languageManager.currentLanguage == .english ? "I'll be your guide to learn Arabic." : "Je serai ton guide pour apprendre l'arabe."),
                             accentColor: .noorGold
                         )
                         .transition(.move(edge: .bottom).combined(with: .opacity))
@@ -160,11 +162,11 @@ struct OnboardingView: View {
                 }
                 
                 VStack(spacing: 24) {
-                    Text(LocalizedStringKey("Comment t'appelles-tu ?"))
+                    Text(languageManager.currentLanguage == .english ? "What is your name?" : "Comment t'appelles-tu ?")
                         .font(.system(size: 24, weight: .bold, design: .serif))
                         .foregroundColor(.noorText)
                     
-                    TextField("Ton prénom", text: $name)
+                    TextField(languageManager.currentLanguage == .english ? "Your name" : "Ton prénom", text: $name)
                         .font(.system(size: 20, weight: .medium))
                         .foregroundColor(.black)
                         .multilineTextAlignment(.center)
@@ -177,7 +179,7 @@ struct OnboardingView: View {
                     
                     Button(action: completeOnboarding) {
                         HStack {
-                            Text(LocalizedStringKey("Commencer l'aventure"))
+                            Text(languageManager.currentLanguage == .english ? "Start the adventure" : "Commencer l'aventure")
                             Image(systemName: "arrow.right")
                         }
                         .font(.system(size: 18, weight: .bold))

@@ -105,6 +105,11 @@ class DataManager: ObservableObject {
         try? modelContext?.save()
     }
     
+    func dismissDailyChallenge() {
+        userProgress?.lastDailyChallengeDismissedDate = Date()
+        try? modelContext?.save()
+    }
+    
     func getMasteredLetters() -> [ArabicLetter] {
         let completedLevelsNumbers = levels.filter { $0.isCompleted }.map { $0.levelNumber }
         var letters: [ArabicLetter] = []
@@ -120,8 +125,12 @@ class DataManager: ObservableObject {
         let hasStarted = progress.xpTotal > 0 || levels.contains(where: { $0.isCompleted })
         guard hasStarted else { return false }
         
-        if let lastDate = progress.lastDailyChallengeDate {
-            return !Calendar.current.isDateInToday(lastDate)
+        if let lastDate = progress.lastDailyChallengeDate, Calendar.current.isDateInToday(lastDate) {
+            return false
+        }
+        
+        if let dismissed = progress.lastDailyChallengeDismissedDate, Calendar.current.isDateInToday(dismissed) {
+            return false
         }
         
         return true
@@ -169,6 +178,7 @@ class DataManager: ObservableObject {
     
     func devResetDailyChallenge() {
         userProgress?.lastDailyChallengeDate = nil
+        userProgress?.lastDailyChallengeDismissedDate = nil
         try? modelContext?.save()
     }
     
