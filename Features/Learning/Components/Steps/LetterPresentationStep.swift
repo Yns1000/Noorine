@@ -25,7 +25,18 @@ struct LetterPresentationStep: View {
                     .font(.system(size: 120, weight: .medium))
                     .foregroundColor(.noorText)
             }
+            .onTapGesture {
+                AudioManager.shared.playLetter(letter.isolated)
+                HapticManager.shared.impact(.medium)
+                withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
+                    animate = true
+                }
+            }
             .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    AudioManager.shared.playLetter(letter.isolated)
+                }
+                
                 withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
                     animate = true
                 }

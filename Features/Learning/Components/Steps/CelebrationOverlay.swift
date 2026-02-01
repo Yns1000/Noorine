@@ -31,11 +31,11 @@ struct CelebrationOverlay: View {
                     .font(.system(size: 80))
                     .foregroundColor(.noorGold)
                 
-                Text("Bravo !")
+                Text(LocalizedStringKey("Bravo !"))
                     .font(.system(size: 36, weight: .black, design: .serif))
                     .foregroundColor(.white)
                 
-                Text("Tu as maîtrisé les 4 formes !")
+                Text(LocalizedStringKey("Tu as maîtrisé les 4 formes !"))
                     .font(.system(size: 16, weight: .medium))
                     .foregroundColor(.white.opacity(0.8))
                 
@@ -47,7 +47,7 @@ struct CelebrationOverlay: View {
                     if let onNext = onNext {
                         Button(action: onNext) {
                             HStack {
-                                Text("Lettre Suivante")
+                                Text(LocalizedStringKey("Lettre Suivante"))
                                 Image(systemName: "arrow.right")
                             }
                             .font(.system(size: 18, weight: .bold))
@@ -59,8 +59,8 @@ struct CelebrationOverlay: View {
                         }
                     }
                     
-                    Button(action: onDismiss) {
-                        Text(onNext == nil ? "Terminer" : "Menu Principal")
+                        Button(action: onDismiss) {
+                            Text(onNext == nil ? LocalizedStringKey("Terminer") : LocalizedStringKey("Menu Principal"))
                             .font(.system(size: 16, weight: .bold))
                             .foregroundColor(.white)
                             .padding(.vertical, 12)

@@ -1,17 +1,15 @@
 import Foundation
 
-/// Représente une lettre de l'alphabet arabe avec ses 4 formes
 struct ArabicLetter: Identifiable, Codable {
     let id: Int
-    let name: String           // Nom arabe (ex: "أَلِف")
-    let transliteration: String // Translittération (ex: "Alif")
-    let isolated: String       // Forme isolée
-    let initial: String        // Forme initiale
-    let medial: String         // Forme médiane
-    let final: String          // Forme finale
-    let order: Int             // Position dans l'alphabet (1-28)
+    let name: String
+    let transliteration: String
+    let isolated: String
+    let initial: String
+    let medial: String
+    let final: String
+    let order: Int
     
-    /// Les 28 lettres de l'alphabet arabe
     static let alphabet: [ArabicLetter] = [
         ArabicLetter(id: 1, name: "أَلِف", transliteration: "Alif", isolated: "ا", initial: "ا", medial: "ـا", final: "ـا", order: 1),
         ArabicLetter(id: 2, name: "بَاء", transliteration: "Bā'", isolated: "ب", initial: "بـ", medial: "ـبـ", final: "ـب", order: 2),
@@ -43,12 +41,10 @@ struct ArabicLetter: Identifiable, Codable {
         ArabicLetter(id: 28, name: "يَاء", transliteration: "Yā'", isolated: "ي", initial: "يـ", medial: "ـيـ", final: "ـي", order: 28)
     ]
     
-    /// Récupère une lettre par son ID
     static func letter(byId id: Int) -> ArabicLetter? {
         alphabet.first { $0.id == id }
     }
     
-    /// Récupère les lettres pour un niveau donné (7 lettres par niveau)
     static func letters(forLevel levelNumber: Int) -> [ArabicLetter] {
         let startIndex = (levelNumber - 1) * 7
         let endIndex = min(startIndex + 7, alphabet.count)

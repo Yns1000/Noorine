@@ -1,6 +1,5 @@
 import SwiftUI
 
-/// Vue de détail d'un niveau - affiche les lettres à apprendre
 struct LevelDetailView: View {
     @EnvironmentObject var dataManager: DataManager
     @Environment(\.dismiss) var dismiss
@@ -54,9 +53,9 @@ struct LevelDetailView: View {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: { dismiss() }) {
                     HStack(spacing: 4) {
-                        Image(systemName: "chevron.left")
+                            Image(systemName: "chevron.left")
                             .font(.system(size: 16, weight: .semibold))
-                            Text("Retour")
+                            Text(LocalizedStringKey("Retour"))
                     }
                     .foregroundColor(.noorGold)
                 }
@@ -98,15 +97,15 @@ struct LevelDetailHeader: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text(title)
+            Text(LocalizedStringKey(title))
                 .font(.system(size: 28, weight: .bold, design: .serif))
                 .foregroundColor(.noorText)
             
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
-                    Text("\(masteredCount)/\(totalCount) lettres maîtrisées")
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(.noorSecondary)
+                    Text(LocalizedStringKey("\(masteredCount)/\(totalCount) lettres maîtrisées"))
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(.noorSecondary)
                     
                     Spacer()
                     

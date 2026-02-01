@@ -7,8 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AAAA00012F2A000000000001 /* ArabicLetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00002F2A000000000001 /* ArabicLetter.swift */; };
+		AAAA00032F2A000000000002 /* LevelProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00022F2A000000000002 /* LevelProgress.swift */; };
+		AAAA00052F2A000000000003 /* UserProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00042F2A000000000003 /* UserProgress.swift */; };
+		AAAA00072F2A000000000004 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00062F2A000000000004 /* DataManager.swift */; };
+		AAAA00092F2A000000000005 /* LevelDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00082F2A000000000005 /* LevelDetailView.swift */; };
+		AAAA000B2F2A000000000006 /* LetterLessonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000A2F2A000000000006 /* LetterLessonView.swift */; };
+		AAAA00112F2A000000000011 /* FreeDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00102F2A000000000010 /* FreeDrawingView.swift */; };
+		AAAA01012F2B000000000101 /* DailyChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA01002F2B000000000100 /* DailyChallengeView.swift */; };
+		AAAA01032F2B000000000101 /* DailyChallengeInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA01022F2B000000000100 /* DailyChallengeInviteView.swift */; };
 		F113767A2F291E5800D25275 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11376792F291E5800D25275 /* LanguageManager.swift */; };
 		F113767C2F291F9B00D25275 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F113767B2F291F9B00D25275 /* Localizable.xcstrings */; };
+		F190A1402F2B0F5B00F0A090 /* CelebrationOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A13A2F2B0F5B00F0A090 /* CelebrationOverlay.swift */; };
+		F190A1412F2B0F5B00F0A090 /* ArabicFunFacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A1362F2B0F5B00F0A090 /* ArabicFunFacts.swift */; };
+		F190A1422F2B0F5B00F0A090 /* RecognitionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A1342F2B0F5B00F0A090 /* RecognitionEngine.swift */; };
+		F190A1432F2B0F5B00F0A090 /* LetterPresentationStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A13D2F2B0F5B00F0A090 /* LetterPresentationStep.swift */; };
+		F190A1442F2B0F5B00F0A090 /* DrawingCanvasModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A1322F2B0F5B00F0A090 /* DrawingCanvasModel.swift */; };
+		F190A1452F2B0F5B00F0A090 /* LessonHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A13B2F2B0F5B00F0A090 /* LessonHeader.swift */; };
+		F190A1462F2B0F5B00F0A090 /* LetterFormsStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A13C2F2B0F5B00F0A090 /* LetterFormsStep.swift */; };
+		F190A1472F2B0F5B00F0A090 /* FreeDrawingCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A1332F2B0F5B00F0A090 /* FreeDrawingCanvas.swift */; };
+		F190A1482F2B0F5B00F0A090 /* EmotionalMascot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A1372F2B0F5B00F0A090 /* EmotionalMascot.swift */; };
+		F190A1492F2B0F5B00F0A090 /* SpeechBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A1382F2B0F5B00F0A090 /* SpeechBubble.swift */; };
+		F190A14C2F2B0F6800F0A090 /* LetterFormType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A14A2F2B0F6800F0A090 /* LetterFormType.swift */; };
 		F1FCEB372F28D60900AE6497 /* NoorineApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEB362F28D60900AE6497 /* NoorineApp.swift */; };
 		F1FCEB392F28D60900AE6497 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEB382F28D60900AE6497 /* ContentView.swift */; };
 		F1FCEB3D2F28D60B00AE6497 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1FCEB3C2F28D60B00AE6497 /* Assets.xcassets */; };
@@ -18,13 +38,6 @@
 		F1FCEB722F2909E100AE6497 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEB712F2909E100AE6497 /* HomeView.swift */; };
 		F1FCEB742F2909EF00AE6497 /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEB732F2909EF00AE6497 /* PracticeView.swift */; };
 		F1FCEB762F2909FB00AE6497 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEB752F2909FB00AE6497 /* ProfileView.swift */; };
-		AAAA00012F2A000000000001 /* ArabicLetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00002F2A000000000001 /* ArabicLetter.swift */; };
-		AAAA00032F2A000000000002 /* LevelProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00022F2A000000000002 /* LevelProgress.swift */; };
-		AAAA00052F2A000000000003 /* UserProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00042F2A000000000003 /* UserProgress.swift */; };
-		AAAA00072F2A000000000004 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00062F2A000000000004 /* DataManager.swift */; };
-		AAAA00092F2A000000000005 /* LevelDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00082F2A000000000005 /* LevelDetailView.swift */; };
-		AAAA000B2F2A000000000006 /* LetterLessonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000A2F2A000000000006 /* LetterLessonView.swift */; };
-		AAAA00112F2A000000000011 /* FreeDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00102F2A000000000010 /* FreeDrawingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,8 +58,29 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AAAA00002F2A000000000001 /* ArabicLetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArabicLetter.swift; sourceTree = "<group>"; };
+		AAAA00022F2A000000000002 /* LevelProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelProgress.swift; sourceTree = "<group>"; };
+		AAAA00042F2A000000000003 /* UserProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProgress.swift; sourceTree = "<group>"; };
+		AAAA00062F2A000000000004 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		AAAA00082F2A000000000005 /* LevelDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelDetailView.swift; sourceTree = "<group>"; };
+		AAAA000A2F2A000000000006 /* LetterLessonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterLessonView.swift; sourceTree = "<group>"; };
+		AAAA00102F2A000000000010 /* FreeDrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeDrawingView.swift; sourceTree = "<group>"; };
+		AAAA01002F2B000000000100 /* DailyChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyChallengeView.swift; sourceTree = "<group>"; };
+		AAAA01022F2B000000000100 /* DailyChallengeInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyChallengeInviteView.swift; sourceTree = "<group>"; };
 		F11376792F291E5800D25275 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
 		F113767B2F291F9B00D25275 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		F190A12B2F2AFF2600F0A090 /* Noorine-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Noorine-Info.plist"; sourceTree = "<group>"; };
+		F190A1322F2B0F5B00F0A090 /* DrawingCanvasModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingCanvasModel.swift; sourceTree = "<group>"; };
+		F190A1332F2B0F5B00F0A090 /* FreeDrawingCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeDrawingCanvas.swift; sourceTree = "<group>"; };
+		F190A1342F2B0F5B00F0A090 /* RecognitionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionEngine.swift; sourceTree = "<group>"; };
+		F190A1362F2B0F5B00F0A090 /* ArabicFunFacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArabicFunFacts.swift; sourceTree = "<group>"; };
+		F190A1372F2B0F5B00F0A090 /* EmotionalMascot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionalMascot.swift; sourceTree = "<group>"; };
+		F190A1382F2B0F5B00F0A090 /* SpeechBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechBubble.swift; sourceTree = "<group>"; };
+		F190A13A2F2B0F5B00F0A090 /* CelebrationOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CelebrationOverlay.swift; sourceTree = "<group>"; };
+		F190A13B2F2B0F5B00F0A090 /* LessonHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonHeader.swift; sourceTree = "<group>"; };
+		F190A13C2F2B0F5B00F0A090 /* LetterFormsStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterFormsStep.swift; sourceTree = "<group>"; };
+		F190A13D2F2B0F5B00F0A090 /* LetterPresentationStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterPresentationStep.swift; sourceTree = "<group>"; };
+		F190A14A2F2B0F6800F0A090 /* LetterFormType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterFormType.swift; sourceTree = "<group>"; };
 		F1FCEB332F28D60900AE6497 /* Noorine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Noorine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1FCEB362F28D60900AE6497 /* NoorineApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoorineApp.swift; sourceTree = "<group>"; };
 		F1FCEB382F28D60900AE6497 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -59,13 +93,6 @@
 		F1FCEB712F2909E100AE6497 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		F1FCEB732F2909EF00AE6497 /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
 		F1FCEB752F2909FB00AE6497 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		AAAA00002F2A000000000001 /* ArabicLetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArabicLetter.swift; sourceTree = "<group>"; };
-		AAAA00022F2A000000000002 /* LevelProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelProgress.swift; sourceTree = "<group>"; };
-		AAAA00042F2A000000000003 /* UserProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProgress.swift; sourceTree = "<group>"; };
-		AAAA00062F2A000000000004 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		AAAA00082F2A000000000005 /* LevelDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelDetailView.swift; sourceTree = "<group>"; };
-		AAAA000A2F2A000000000006 /* LetterLessonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterLessonView.swift; sourceTree = "<group>"; };
-		AAAA00102F2A000000000010 /* FreeDrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeDrawingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -106,9 +133,71 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AAAA000C2F2A000000000007 /* Learning */ = {
+			isa = PBXGroup;
+			children = (
+				AAAA00082F2A000000000005 /* LevelDetailView.swift */,
+				AAAA000A2F2A000000000006 /* LetterLessonView.swift */,
+				AAAA00102F2A000000000010 /* FreeDrawingView.swift */,
+				F190A13F2F2B0F5B00F0A090 /* Components */,
+				F190A14B2F2B0F6800F0A090 /* Models */,
+			);
+			path = Learning;
+			sourceTree = "<group>";
+		};
+		F190A1352F2B0F5B00F0A090 /* Drawing */ = {
+			isa = PBXGroup;
+			children = (
+				F190A1322F2B0F5B00F0A090 /* DrawingCanvasModel.swift */,
+				F190A1332F2B0F5B00F0A090 /* FreeDrawingCanvas.swift */,
+				F190A1342F2B0F5B00F0A090 /* RecognitionEngine.swift */,
+			);
+			path = Drawing;
+			sourceTree = "<group>";
+		};
+		F190A1392F2B0F5B00F0A090 /* Mascot */ = {
+			isa = PBXGroup;
+			children = (
+				F190A1362F2B0F5B00F0A090 /* ArabicFunFacts.swift */,
+				F190A1372F2B0F5B00F0A090 /* EmotionalMascot.swift */,
+				F190A1382F2B0F5B00F0A090 /* SpeechBubble.swift */,
+			);
+			path = Mascot;
+			sourceTree = "<group>";
+		};
+		F190A13E2F2B0F5B00F0A090 /* Steps */ = {
+			isa = PBXGroup;
+			children = (
+				F190A13A2F2B0F5B00F0A090 /* CelebrationOverlay.swift */,
+				F190A13B2F2B0F5B00F0A090 /* LessonHeader.swift */,
+				F190A13C2F2B0F5B00F0A090 /* LetterFormsStep.swift */,
+				F190A13D2F2B0F5B00F0A090 /* LetterPresentationStep.swift */,
+			);
+			path = Steps;
+			sourceTree = "<group>";
+		};
+		F190A13F2F2B0F5B00F0A090 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F190A1352F2B0F5B00F0A090 /* Drawing */,
+				F190A1392F2B0F5B00F0A090 /* Mascot */,
+				F190A13E2F2B0F5B00F0A090 /* Steps */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		F190A14B2F2B0F6800F0A090 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F190A14A2F2B0F6800F0A090 /* LetterFormType.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		F1FCEB2A2F28D60900AE6497 = {
 			isa = PBXGroup;
 			children = (
+				F190A12B2F2AFF2600F0A090 /* Noorine-Info.plist */,
 				F1FCEB632F28D79800AE6497 /* Models */,
 				F1FCEB622F28D78C00AE6497 /* Features */,
 				F1FCEB612F28D77F00AE6497 /* DesignSystem */,
@@ -200,6 +289,8 @@
 			isa = PBXGroup;
 			children = (
 				F1FCEB732F2909EF00AE6497 /* PracticeView.swift */,
+				AAAA01002F2B000000000100 /* DailyChallengeView.swift */,
+				AAAA01022F2B000000000100 /* DailyChallengeInviteView.swift */,
 			);
 			path = Practice;
 			sourceTree = "<group>";
@@ -211,16 +302,6 @@
 				F113767B2F291F9B00D25275 /* Localizable.xcstrings */,
 			);
 			path = Profile;
-			sourceTree = "<group>";
-		};
-		AAAA000C2F2A000000000007 /* Learning */ = {
-			isa = PBXGroup;
-			children = (
-				AAAA00082F2A000000000005 /* LevelDetailView.swift */,
-				AAAA000A2F2A000000000006 /* LetterLessonView.swift */,
-				AAAA00102F2A000000000010 /* FreeDrawingView.swift */,
-			);
-			path = Learning;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -379,10 +460,23 @@
 				AAAA00012F2A000000000001 /* ArabicLetter.swift in Sources */,
 				AAAA00032F2A000000000002 /* LevelProgress.swift in Sources */,
 				AAAA00052F2A000000000003 /* UserProgress.swift in Sources */,
+				F190A1402F2B0F5B00F0A090 /* CelebrationOverlay.swift in Sources */,
+				F190A1412F2B0F5B00F0A090 /* ArabicFunFacts.swift in Sources */,
+				F190A1422F2B0F5B00F0A090 /* RecognitionEngine.swift in Sources */,
+				F190A1432F2B0F5B00F0A090 /* LetterPresentationStep.swift in Sources */,
+				F190A1442F2B0F5B00F0A090 /* DrawingCanvasModel.swift in Sources */,
+				F190A1452F2B0F5B00F0A090 /* LessonHeader.swift in Sources */,
+				F190A1462F2B0F5B00F0A090 /* LetterFormsStep.swift in Sources */,
+				F190A1472F2B0F5B00F0A090 /* FreeDrawingCanvas.swift in Sources */,
+				F190A14C2F2B0F6800F0A090 /* LetterFormType.swift in Sources */,
+				F190A1482F2B0F5B00F0A090 /* EmotionalMascot.swift in Sources */,
+				F190A1492F2B0F5B00F0A090 /* SpeechBubble.swift in Sources */,
 				AAAA00072F2A000000000004 /* DataManager.swift in Sources */,
 				AAAA00092F2A000000000005 /* LevelDetailView.swift in Sources */,
 				AAAA000B2F2A000000000006 /* LetterLessonView.swift in Sources */,
 				AAAA00112F2A000000000011 /* FreeDrawingView.swift in Sources */,
+				AAAA01012F2B000000000101 /* DailyChallengeView.swift in Sources */,
+				AAAA01032F2B000000000101 /* DailyChallengeInviteView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,7 +563,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -528,7 +622,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -549,6 +643,9 @@
 				DEVELOPMENT_TEAM = 25FS3X3RCW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Noorine-Info.plist";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Pour t'entendre prononcer les lettres.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Pour vérifier ta prononciation.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -581,6 +678,9 @@
 				DEVELOPMENT_TEAM = 25FS3X3RCW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Noorine-Info.plist";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Pour t'entendre prononcer les lettres.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Pour vérifier ta prononciation.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -611,7 +711,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 25FS3X3RCW;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yns.NoorineTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -633,7 +733,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 25FS3X3RCW;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yns.NoorineTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

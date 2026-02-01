@@ -12,7 +12,12 @@ struct LayoutConfig {
 // MARK: - Main Home View
 struct HomeView: View {
     @EnvironmentObject var dataManager: DataManager
+    @EnvironmentObject var languageManager: LanguageManager
     @State private var selectedLevel: LevelProgress?
+    @State private var showStreakDetails = false
+    @State private var showXPDetails = false
+    @State private var showDailyChallengeInvite = false
+    @State private var showDailyChallenge = false
     
     var body: some View {
         NavigationStack {
@@ -50,13 +55,45 @@ struct HomeView: View {
             .safeAreaInset(edge: .top) {
                 HomeHeader(
                     xp: dataManager.userProgress?.xpTotal ?? 0,
-                    streak: dataManager.userProgress?.streakDays ?? 0
+                    streak: dataManager.userProgress?.streakDays ?? 0,
+                    onStreakTap: { showStreakDetails = true },
+                    onXPTap: { showXPDetails = true }
                 )
             }
+            .sheet(isPresented: $showStreakDetails) {
+                StreakDetailView()
+            }
+            .sheet(isPresented: $showXPDetails) {
+                XPDetailView()
+            }
+            .sheet(isPresented: $showDailyChallengeInvite) {
+                DailyChallengeInviteView(
+                    onStart: {
+                        showDailyChallengeInvite = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            showDailyChallenge = true
+                        }
+                    },
+                    onDismiss: { showDailyChallengeInvite = false }
+                )
+                .presentationDetents([.height(240)])
+                .presentationDragIndicator(.visible)
+            }
+            .fullScreenCover(isPresented: $showDailyChallenge) {
+                DailyChallengeView()
+            }
+
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(item: $selectedLevel) { level in
                 LevelDetailView(levelNumber: level.levelNumber, title: level.title)
+            }
+            .onAppear {
+                if dataManager.canShowDailyChallenge() {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        showDailyChallengeInvite = true
+                    }
+                }
             }
         }
     }
@@ -272,11 +309,11 @@ struct LevelInfoCard: View {
     
     var body: some View {
         VStack(spacing: 2) {
-            Text(title)
+            Text(LocalizedStringKey(title))
                 .font(.system(size: 14, weight: .bold, design: .rounded))
                 .foregroundColor(Color.noorText)
             
-            Text(subtitle)
+            Text(LocalizedStringKey(subtitle))
                 .font(.system(size: 11, weight: .medium, design: .rounded))
                 .foregroundColor(Color.noorSecondary)
         }
@@ -294,30 +331,38 @@ struct LevelInfoCard: View {
 struct HomeHeader: View {
     let xp: Int
     let streak: Int
+    var onStreakTap: () -> Void = {}
+    var onXPTap: () -> Void = {}
     
     var body: some View {
-        VStack(spacing: 4) {
-            HStack(spacing: 12) {
-                StatBadge(icon: "flame.fill", value: "\(streak)", iconColor: .orange)
-                
-                Spacer()
-                
-                StatBadge(icon: "star.fill", value: "\(xp)", iconColor: .noorGold)
-            }
-            .padding(.horizontal, 20)
-            
-            VStack(spacing: 2) {
+        ZStack {
+            VStack(spacing: 0) {
                 Text("NOORINE")
-                    .font(.system(size: 22, weight: .black, design: .serif))
+                    .font(.system(size: 20, weight: .black, design: .serif))
                     .tracking(4)
                     .foregroundColor(Color.noorText)
                 
                 Text("نورين")
-                    .font(.system(size: 12, weight: .medium))
+                    .font(.system(size: 11, weight: .medium))
                     .foregroundColor(Color.noorGold)
             }
-            .padding(.bottom, 4)
+            
+            HStack(spacing: 12) {
+                Button(action: onStreakTap) {
+                    StatBadge(icon: "flame.fill", value: "\(streak)", iconColor: .orange)
+                }
+                .buttonStyle(PlainButtonStyle())
+                
+                Spacer()
+                
+                Button(action: onXPTap) {
+                    StatBadge(icon: "star.fill", value: "\(xp)", iconColor: .noorGold)
+                }
+                .buttonStyle(PlainButtonStyle())
+            }
+            .padding(.horizontal, 20)
         }
+        .padding(.vertical, 8)
         .padding(.top, 8)
         .frame(maxWidth: .infinity)
         .background(

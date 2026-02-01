@@ -1,7 +1,6 @@
 import Foundation
 import SwiftData
 
-/// Représente un niveau d'apprentissage
 @Model
 final class LevelProgress {
     var levelNumber: Int
@@ -18,7 +17,6 @@ final class LevelProgress {
         self.completedLetterIds = completedLetterIds
     }
     
-    /// État du niveau basé sur la progression
     var state: LevelState {
         if isCompleted { return .completed }
         let letters = ArabicLetter.letters(forLevel: levelNumber)
@@ -28,17 +26,14 @@ final class LevelProgress {
         return .locked
     }
     
-    /// Nombre de lettres maîtrisées dans ce niveau
     var masteredCount: Int {
         completedLetterIds.count
     }
     
-    /// Nombre total de lettres dans ce niveau
     var totalLetters: Int {
         ArabicLetter.letters(forLevel: levelNumber).count
     }
     
-    /// Les niveaux par défaut
     static let defaultLevels: [(number: Int, title: String, subtitle: String)] = [
         (1, "L'Alphabet (1-7)", "أ ب ت ث ج ح خ"),
         (2, "L'Alphabet (8-14)", "د ذ ر ز س ش ص"),
@@ -47,7 +42,6 @@ final class LevelProgress {
     ]
 }
 
-/// État visuel d'un niveau
 enum LevelState {
     case locked
     case current

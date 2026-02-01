@@ -1,34 +1,44 @@
 import Foundation
 
 struct ArabicFunFacts {
-    static let facts = [
-        "L'arabe est parlé par plus de 420 millions de personnes dans le monde.",
-        "L'alphabet arabe compte 28 lettres, toutes des consonnes.",
-        "L'arabe s'écrit de droite à gauche, une particularité partagée avec l'hébreu.",
-        "Le mot 'algorithme' vient du mathématicien arabe Al-Khwarizmi.",
-        "L'arabe est l'une des 6 langues officielles de l'ONU.",
-        "Chaque lettre arabe peut avoir jusqu'à 4 formes différentes.",
-        "Le Coran est écrit en arabe classique, considéré comme la forme la plus pure.",
-        "L'arabe a influencé de nombreuses langues : espagnol, portugais, français...",
-        "Le mot 'café' vient de l'arabe 'qahwa'.",
-        "L'arabe possède plus de 12 millions de mots, contre 600 000 en anglais.",
-        "La calligraphie arabe est considérée comme un art majeur dans le monde islamique.",
-        "Les chiffres 'arabes' que nous utilisons viennent en fait de l'Inde.",
-        "L'arabe distingue les nombres singulier, duel (pour 2) et pluriel.",
-        "Le plus ancien texte arabe date du 1er siècle avant J.-C.",
-        "L'arabe a 3 voyelles longues et 3 voyelles courtes."
-    ]
+    static var facts: [String] {
+        [
+            "fact_1",
+            "fact_2",
+            "fact_3",
+            "fact_4",
+            "fact_5",
+            "fact_6",
+            "fact_7",
+            "fact_8",
+            "fact_9",
+            "fact_10",
+            "fact_11",
+            "fact_12",
+            "fact_13",
+            "fact_14",
+            "fact_15",
+            "fact_listening_1",
+            "fact_listening_2",
+            "fact_listening_3",
+            "fact_listening_4",
+            "fact_listening_5",
+            "fact_listening_6"
+        ]
+    }
     
-    static let encouragements = [
-        "La persévérance est la clé de l'apprentissage.",
-        "Chaque erreur est une opportunité d'apprendre.",
-        "Les plus grands calligraphes ont tous commencé comme toi.",
-        "La patience est le secret des maîtres arabes.",
-        "Continue, tu progresses à chaque essai.",
-        "L'apprentissage est un voyage, pas une destination.",
-        "Même les experts ont eu besoin de pratique.",
-        "Ton effort d'aujourd'hui est ton succès de demain."
-    ]
+    static var encouragements: [String] {
+        [
+            "encouragement_1",
+            "encouragement_2",
+            "encouragement_3",
+            "encouragement_4",
+            "encouragement_5",
+            "encouragement_6",
+            "encouragement_7",
+            "encouragement_8"
+        ]
+    }
     
     static func randomFact() -> String {
         facts.randomElement() ?? facts[0]

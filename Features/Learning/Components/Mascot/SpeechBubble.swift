@@ -5,59 +5,102 @@ struct SpeechBubble: View {
     let detail: String
     let accentColor: Color
     
+    private let bubbleColor = Color(red: 0.10, green: 0.12, blue: 0.16)
+    
     var body: some View {
-        HStack(alignment: .center, spacing: 0) {
-            LeftPointingTriangle()
-                .fill(Color(red: 0.12, green: 0.14, blue: 0.18))
-                .frame(width: 14, height: 24)
-                .overlay(
-                    LeftPointingTriangle()
-                        .stroke(accentColor.opacity(0.4), lineWidth: 1.5)
-                )
+        VStack(alignment: .leading, spacing: 6) {
+            Text(LocalizedStringKey(message))
+                .font(.system(size: 15, weight: .bold, design: .rounded))
+                .foregroundColor(.white)
             
-            VStack(alignment: .leading, spacing: 5) {
-                Text(message)
-                    .font(.system(size: 17, weight: .semibold, design: .rounded))
-                    .foregroundColor(.noorText)
-                
-                if !detail.isEmpty {
-                    Text(detail)
-                        .font(.system(size: 13, weight: .regular))
-                        .foregroundColor(.noorSecondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
+            if !detail.isEmpty {
+                Text(LocalizedStringKey(detail))
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundColor(.white.opacity(0.8))
+                    .fixedSize(horizontal: false, vertical: true)
+                    .lineSpacing(2)
             }
-            .multilineTextAlignment(.leading)
-            .padding(.horizontal, 18)
-            .padding(.vertical, 14)
-            .background(
-                RoundedRectangle(cornerRadius: 18)
-                    .fill(Color(red: 0.12, green: 0.14, blue: 0.18))
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 18)
-                    .stroke(
-                        LinearGradient(
-                            colors: [accentColor.opacity(0.5), accentColor.opacity(0.2)],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ),
-                        lineWidth: 1.5
-                    )
-            )
         }
+        .multilineTextAlignment(.leading)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 14)
+        .frame(minWidth: 200, maxWidth: 280, alignment: .leading)
+        .background(
+            ZStack {
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(bubbleColor)
+                
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(accentColor.opacity(0.35), lineWidth: 1.5)
+            }
+        )
     }
 }
 
-struct LeftPointingTriangle: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        
-        path.move(to: CGPoint(x: rect.maxX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.minX, y: rect.midY))
-        path.closeSubpath()
-        
-        return path
+struct BubbleTriangle: View {
+    let color: Color
+    let borderColor: Color
+    
+    var body: some View {
+        ZStack {
+            Path { path in
+                path.move(to: CGPoint(x: 0, y: 0))
+                path.addLine(to: CGPoint(x: 20, y: 0))
+                path.addLine(to: CGPoint(x: 10, y: 12))
+                path.closeSubpath()
+            }
+            .fill(color)
+            
+            Path { path in
+                path.move(to: CGPoint(x: 0, y: 0))
+                path.addLine(to: CGPoint(x: 10, y: 12))
+                path.addLine(to: CGPoint(x: 20, y: 0))
+            }
+            .stroke(borderColor.opacity(0.35), lineWidth: 1.5)
+        }
+        .frame(width: 20, height: 12)
     }
 }
+
+struct MascotWithBubble: View {
+    let message: String
+    let detail: String
+    let accentColor: Color
+    let mood: EmotionalMascot.Mood
+    var mascotSize: CGFloat = 75
+    var onSkipToPronunciation: (() -> Void)? = nil
+    
+    private let bubbleColor = Color(red: 0.10, green: 0.12, blue: 0.16)
+    
+    var body: some View {
+        HStack(alignment: .bottom, spacing: 0) {
+            VStack(alignment: .leading, spacing: 0) {
+                SpeechBubble(
+                    message: message,
+                    detail: detail,
+                    accentColor: accentColor
+                )
+                
+                HStack(spacing: 0) {
+                    Spacer().frame(width: 40)
+                    
+                    BubbleTriangle(color: bubbleColor, borderColor: accentColor)
+                        .offset(y: -1)
+                }
+                
+                Spacer().frame(height: 6)
+                
+                HStack(spacing: 0) {
+                    Spacer().frame(width: 8)
+                    
+                    EmotionalMascot(mood: mood, size: mascotSize, showAura: false)
+                        .frame(width: mascotSize, height: mascotSize)
+                }
+            }
+            
+            Spacer()
+        }
+        .padding(.leading, 16)
+    }
+}
+

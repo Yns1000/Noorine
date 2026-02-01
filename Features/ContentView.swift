@@ -23,21 +23,21 @@ struct ContentView: View {
             HomeView()
                 .tabItem {
                     Image(systemName: selectedTab == 0 ? "map.fill" : "map")
-                    Text("Apprendre")
+                    Text(LocalizedStringKey("Apprendre"))
                 }
                 .tag(0)
             
             PracticeView()
                 .tabItem {
                     Image(systemName: selectedTab == 1 ? "book.fill" : "book")
-                    Text("Réviser")
+                    Text(LocalizedStringKey("Réviser"))
                 }
                 .tag(1)
             
             ProfileView()
                 .tabItem {
                     Image(systemName: selectedTab == 2 ? "person.fill" : "person")
-                    Text("Profil")
+                    Text(LocalizedStringKey("Profil"))
                 }
                 .tag(2)
         }

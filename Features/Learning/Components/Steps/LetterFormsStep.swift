@@ -5,12 +5,12 @@ struct LetterFormsStep: View {
     
     var body: some View {
         VStack(spacing: 30) {
-            Text("Les 4 formes")
+            Text(LocalizedStringKey("Les 4 formes"))
                 .font(.system(size: 24, weight: .bold, design: .serif))
                 .foregroundColor(.noorText)
                 .padding(.top, 30)
             
-            Text("Tu vas maintenant les tracer une par une !")
+            Text(LocalizedStringKey("Tu vas maintenant les tracer une par une !"))
                 .font(.system(size: 14, weight: .medium))
                 .foregroundColor(.noorSecondary)
             
@@ -46,10 +46,10 @@ struct FormRow: View {
             }
             
             VStack(alignment: .leading, spacing: 4) {
-                Text(formType.rawValue)
+                Text(LocalizedStringKey(formType.rawValue))
                     .font(.system(size: 16, weight: .bold))
                     .foregroundColor(.noorText)
-                Text(formType.description)
+                Text(LocalizedStringKey(formType.description))
                     .font(.system(size: 12))
                     .foregroundColor(.noorSecondary)
             }

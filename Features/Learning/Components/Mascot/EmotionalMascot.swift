@@ -10,12 +10,17 @@ struct EmotionalMascot: View {
     
     let mood: Mood
     let size: CGFloat
+    var showAura: Bool = true
     
     @State private var isBlinking = false
     @State private var bounceOffset: CGFloat = 0
     
     var body: some View {
         ZStack {
+            if showAura {
+                NoorineAura(size: size)
+            }
+            
             ZStack {
                 Circle()
                     .fill(
@@ -37,15 +42,15 @@ struct EmotionalMascot: View {
                         eyeView
                         eyeView
                     }
-                    .offset(y: -size * 0.12)
+                    .offset(y: mood == .sad ? -size * 0.08 : -size * 0.12)
                     
                     mouthView
-                        .offset(y: size * 0.05)
+                        .offset(y: mood == .sad ? size * 0.22 : (mood == .happy ? size * 0.025 : size * 0.08))
                     
                     Circle()
-                        .fill(Color(red: 0.8, green: 0.4, blue: 0.1).opacity(0.6))
-                        .frame(width: size * 0.06, height: size * 0.06)
-                        .offset(x: -size * 0.22, y: size * 0.03)
+                        .fill(Color(red: 0.75, green: 0.35, blue: 0.1))
+                        .frame(width: size * 0.07, height: size * 0.07)
+                        .offset(x: -size * 0.24, y: size * 0.04)
                 }
             }
             .offset(y: bounceOffset)
@@ -81,7 +86,7 @@ struct EmotionalMascot: View {
                     .foregroundColor(Color.white.opacity(0.9))
             } else {
                 Ellipse()
-                    .frame(width: size * 0.08, height: size * 0.1)
+                    .frame(width: size * 0.075, height: size * 0.1)
                     .foregroundColor(Color.white.opacity(0.9))
                     .scaleEffect(y: isBlinking ? 0.1 : 1.0)
             }
@@ -98,13 +103,13 @@ struct EmotionalMascot: View {
         case .happy:
             Circle()
                 .trim(from: 0.1, to: 0.4)
-                .stroke(Color.white.opacity(0.9), style: StrokeStyle(lineWidth: 2.5, lineCap: .round))
-                .frame(width: size * 0.35, height: size * 0.35)
+                .stroke(Color.white.opacity(0.85), style: StrokeStyle(lineWidth: size * 0.025, lineCap: .round))
+                .frame(width: size * 0.42, height: size * 0.42)
         case .sad:
             Circle()
                 .trim(from: 0.6, to: 0.9)
-                .stroke(Color.white.opacity(0.8), style: StrokeStyle(lineWidth: 2, lineCap: .round))
-                .frame(width: size * 0.3, height: size * 0.3)
+                .stroke(Color.white.opacity(0.8), style: StrokeStyle(lineWidth: size * 0.025, lineCap: .round))
+                .frame(width: size * 0.35, height: size * 0.35)
         }
     }
     
