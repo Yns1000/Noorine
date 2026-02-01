@@ -41,12 +41,18 @@ final class UserProgress {
         case expert = "expert"
         case alphabetic = "alphabetic"
         case weeklyHero = "weeklyHero"
+        case scholar = "scholar"
+        case committed = "committed"
+        case sage = "sage"
     }
     
     func checkAchievements() {
         if xpTotal > 0 { unlock(.beginner) }
         if streakDays >= 3 { unlock(.persistent) }
+        if streakDays >= 7 { unlock(.committed) }
         if xpTotal >= 100 { unlock(.expert) }
+        if xpTotal >= 500 { unlock(.scholar) }
+        if xpTotal >= 1000 { unlock(.sage) }
         if totalLettersMastered >= 10 { unlock(.alphabetic) }
         if currentWeekXP() >= 50 { unlock(.weeklyHero) }
     }
@@ -91,12 +97,11 @@ final class UserProgress {
     
     func currentWeekXP() -> Int {
         let calendar = Calendar.current
-        let today = Date()
-        guard let monday = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today)) else { return 0 }
+        let today = calendar.startOfDay(for: Date())
         
         var total = 0
         for dayOffset in 0..<7 {
-            if let date = calendar.date(byAdding: .day, value: dayOffset, to: monday) {
+            if let date = calendar.date(byAdding: .day, value: -dayOffset, to: today) {
                 let key = formatDate(date)
                 total += dailyXP[key] ?? 0
             }

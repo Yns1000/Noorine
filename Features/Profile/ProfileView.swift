@@ -555,7 +555,7 @@ struct StatsBentoGrid: View {
                     iconColor: .noorGold,
                     value: LocalizedStringKey(formatNumber(progress.xpTotal)),
                     label: "XP",
-                    subLabel: "Total gagné",
+                    subLabel: LocalizedStringKey("+\(progress.currentWeekXP()) cette sem."),
                     action: onXPTap
                 )
                 
@@ -609,8 +609,10 @@ struct StatCardModern: View {
                 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(value)
-                        .font(.system(size: 20, weight: .bold, design: .rounded))
+                        .font(.system(size: 16, weight: .bold, design: .rounded))
                         .foregroundColor(.noorText)
+                        .minimumScaleFactor(0.7)
+                        .lineLimit(1)
                     
                     Text(label)
                         .font(.system(size: 12, weight: .bold, design: .rounded))
@@ -755,10 +757,6 @@ struct StreakDetailView: View {
                     .buttonStyle(NoorPrimaryButtonStyle())
                     .padding(.horizontal, 30)
                     .padding(.bottom, 20)
-                    .background(
-                        LinearGradient(colors: [.noorBackground.opacity(0), .noorBackground], startPoint: .top, endPoint: .bottom)
-                            .frame(height: 100)
-                    )
             }
         }
         .background(Color.noorBackground.ignoresSafeArea())
@@ -796,26 +794,47 @@ struct MonthCalendarView: View {
                 .padding(.leading, 5)
             
             let columns = Array(repeating: GridItem(.flexible()), count: 7)
+            let weekdays = getWeekdays()
+            
             LazyVGrid(columns: columns, spacing: 12) {
-                ForEach(getWeekdays(), id: \.self) { day in
-                    Text(day)
+                ForEach(0..<7, id: \.self) { index in
+                    Text(weekdays[index])
                         .font(.caption2)
                         .fontWeight(.bold)
                         .foregroundColor(.noorSecondary.opacity(0.5))
                 }
                 
-                ForEach(0..<paddingDays, id: \.self) { _ in
-                    Color.clear.frame(height: 34)
-                }
-                
-                ForEach(daysInMonth, id: \.self) { day in
-                    DayCircleView(date: date(for: day))
+                ForEach(gridItems) { item in
+                    if let day = item.day {
+                        DayCircleView(date: date(for: day))
+                    } else {
+                        Color.clear.frame(height: 34)
+                    }
                 }
             }
             .padding(20)
             .background(Color.noorSecondary.opacity(0.04))
             .cornerRadius(24)
         }
+    }
+    
+    struct CalendarGridItem: Identifiable {
+        let id = UUID()
+        let day: Int?
+    }
+    
+    private var gridItems: [CalendarGridItem] {
+        var items: [CalendarGridItem] = []
+        
+        for _ in 0..<paddingDays {
+            items.append(CalendarGridItem(day: nil))
+        }
+        
+        for day in daysInMonth {
+            items.append(CalendarGridItem(day: day))
+        }
+        
+        return items
     }
     
     private var monthName: String {
@@ -832,13 +851,14 @@ struct MonthCalendarView: View {
     
     private var paddingDays: Int {
         let calendar = Calendar.current
-        var firstDay = calendar.component(.weekday, from: monthDate)
-        firstDay = (firstDay + 5) % 7
-        return firstDay
+        let firstDay = calendar.component(.weekday, from: monthDate)
+        return (firstDay + 5) % 7
     }
     
     private func date(for day: Int) -> Date {
-        Calendar.current.date(byAdding: .day, value: day - 1, to: monthDate)!
+        var components = Calendar.current.dateComponents([.year, .month], from: monthDate)
+        components.day = day
+        return Calendar.current.date(from: components)!
     }
     
     private func getWeekdays() -> [String] {
@@ -885,7 +905,8 @@ struct DayCircleView: View {
 
 extension Calendar {
     func startOfMonth(for date: Date) -> Date {
-        let components = dateComponents([.year, .month], from: date)
+        var components = dateComponents([.year, .month], from: date)
+        components.day = 1
         return self.date(from: components)!
     }
 }
@@ -1036,10 +1057,6 @@ struct XPDetailView: View {
                     .buttonStyle(NoorPrimaryButtonStyle())
                     .padding(.horizontal, 30)
                     .padding(.bottom, 20)
-                    .background(
-                        LinearGradient(colors: [.noorBackground.opacity(0), .noorBackground], startPoint: .top, endPoint: .bottom)
-                            .frame(height: 100)
-                    )
             }
         }
         .background(Color.noorBackground.ignoresSafeArea())
@@ -1056,7 +1073,7 @@ struct XPDetailView: View {
         if Calendar.current.isDateInYesterday(date) { return "Hier" }
         let df = DateFormatter()
         df.dateStyle = .medium
-        df.locale = Locale(identifier: "fr_FR")
+        df.locale = Locale(identifier: languageManager.currentLanguage.rawValue)
         return df.string(from: date)
     }
     
@@ -1070,15 +1087,37 @@ struct XPDetailView: View {
     private func achievementInfo(for id: UserProgress.AchievementID) -> AchievementInfo {
         switch id {
         case .beginner:
-            return AchievementInfo(title: "Débutant", subtitle: "Premier XP gagné", icon: "sparkles", color: .blue)
+            let title = languageManager.currentLanguage == .english ? "Beginner" : "Débutant"
+            let sub = languageManager.currentLanguage == .english ? "First XP earned" : "Premier XP gagné"
+            return AchievementInfo(title: LocalizedStringKey(title), subtitle: LocalizedStringKey(sub), icon: "sparkles", color: .blue)
         case .persistent:
-            return AchievementInfo(title: "Persistant", subtitle: "3 jours de série", icon: "flame", color: .orange)
+            let title = languageManager.currentLanguage == .english ? "Persistent" : "Persistant"
+            let sub = languageManager.currentLanguage == .english ? "3 day streak" : "3 jours de série"
+            return AchievementInfo(title: LocalizedStringKey(title), subtitle: LocalizedStringKey(sub), icon: "flame", color: .orange)
         case .expert:
-            return AchievementInfo(title: "Expert", subtitle: "100 XP atteint", icon: "shield.fill", color: .purple)
+            let title = languageManager.currentLanguage == .english ? "Expert" : "Expert"
+            let sub = languageManager.currentLanguage == .english ? "100 XP reached" : "100 XP atteint"
+            return AchievementInfo(title: LocalizedStringKey(title), subtitle: LocalizedStringKey(sub), icon: "shield.fill", color: .purple)
         case .alphabetic:
-            return AchievementInfo(title: "Linguiste", subtitle: "10 lettres apprises", icon: "character.book.closed.fill", color: .green)
+            let title = languageManager.currentLanguage == .english ? "Linguist" : "Linguiste"
+            let sub = languageManager.currentLanguage == .english ? "10 letters mastered" : "10 lettres apprises"
+            return AchievementInfo(title: LocalizedStringKey(title), subtitle: LocalizedStringKey(sub), icon: "character.book.closed.fill", color: .green)
         case .weeklyHero:
-            return AchievementInfo(title: "Héros", subtitle: "50 XP cette semaine", icon: "bolt.fill", color: .yellow)
+            let title = languageManager.currentLanguage == .english ? "Hero" : "Héros"
+            let sub = languageManager.currentLanguage == .english ? "50 XP this week" : "50 XP cette semaine"
+            return AchievementInfo(title: LocalizedStringKey(title), subtitle: LocalizedStringKey(sub), icon: "bolt.fill", color: .yellow)
+        case .scholar:
+            let title = languageManager.currentLanguage == .english ? "Scholar" : "Érudit"
+            let sub = languageManager.currentLanguage == .english ? "500 XP reached" : "500 XP atteints"
+            return AchievementInfo(title: LocalizedStringKey(title), subtitle: LocalizedStringKey(sub), icon: "book.closed.fill", color: .indigo)
+        case .committed:
+            let title = languageManager.currentLanguage == .english ? "Committed" : "Dévoué"
+            let sub = languageManager.currentLanguage == .english ? "7 day streak" : "7 jours de série"
+            return AchievementInfo(title: LocalizedStringKey(title), subtitle: LocalizedStringKey(sub), icon: "flame.circle.fill", color: .red)
+        case .sage:
+            let title = languageManager.currentLanguage == .english ? "Sage" : "Sage"
+            let sub = languageManager.currentLanguage == .english ? "1000 XP reached" : "1000 XP atteints"
+            return AchievementInfo(title: LocalizedStringKey(title), subtitle: LocalizedStringKey(sub), icon: "crown.fill", color: .teal)
         }
     }
     
@@ -1149,6 +1188,7 @@ struct MilestoneCard: View {
 
 struct LeagueDetailView: View {
     @EnvironmentObject var dataManager: DataManager
+    @EnvironmentObject var languageManager: LanguageManager
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -1180,7 +1220,11 @@ struct LeagueDetailView: View {
                                     .font(.system(size: 28, weight: .bold, design: .rounded))
                             }
                             
-                            Text(LocalizedStringKey("Ton rang est basé sur tes XP de la semaine."))
+                            Text("+\(weeklyXP) XP")
+                                .font(.system(size: 16, weight: .bold, design: .rounded))
+                                .foregroundColor(leagueColor)
+                            
+                            Text(languageManager.currentLanguage == .english ? "Based on the last 7 days" : "Basée sur les 7 derniers jours")
                                 .font(.subheadline)
                                 .foregroundColor(.noorSecondary)
                         }
@@ -1199,7 +1243,7 @@ struct LeagueDetailView: View {
                     .cornerRadius(28)
                     .padding(.horizontal)
                     
-                    Text(LocalizedStringKey("La ligue est réinitialisée chaque lundi."))
+                    Text(languageManager.currentLanguage == .english ? "Keep practicing to level up!" : "Continue tes leçons pour monter de ligue !")
                         .font(.caption)
                         .foregroundColor(.noorSecondary.opacity(0.6))
                         .padding(.bottom, 120)
@@ -1212,10 +1256,6 @@ struct LeagueDetailView: View {
                     .buttonStyle(NoorPrimaryButtonStyle())
                     .padding(.horizontal, 30)
                     .padding(.bottom, 20)
-                    .background(
-                        LinearGradient(colors: [.noorBackground.opacity(0), .noorBackground], startPoint: .top, endPoint: .bottom)
-                            .frame(height: 100)
-                    )
             }
         }
         .background(Color.noorBackground.ignoresSafeArea())
@@ -1295,7 +1335,6 @@ struct NoorPrimaryButtonStyle: ButtonStyle {
     }
 }
 
-// MARK: - FAQ View
 struct FAQView: View {
     @Environment(\.dismiss) var dismiss
     
