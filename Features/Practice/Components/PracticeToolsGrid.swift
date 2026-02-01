@@ -4,6 +4,7 @@ struct PracticeToolsGrid: View {
     @EnvironmentObject var dataManager: DataManager
     @State private var showSpeakingPractice = false
     @State private var showFlashcards = false
+    @State private var showMistakes = false
     
     let columns = [
         GridItem(.flexible()),
@@ -21,15 +22,15 @@ struct PracticeToolsGrid: View {
             }
             .buttonStyle(PlainButtonStyle())
             
-            NavigationLink(destination: MistakesReviewView()) {
-                ToolCard(
-                    icon: "heart.slash.fill",
-                    color: .red,
-                    title: "Erreurs",
-                    subtitle: "\(dataManager.mistakes.count) à corriger"
-                )
-            }
-            .buttonStyle(PlainButtonStyle())
+            ToolCard(
+                icon: "heart.slash.fill",
+                color: .red,
+                title: "Erreurs",
+                subtitle: "\(dataManager.mistakes.count) à corriger",
+                action: {
+                    showMistakes = true
+                }
+            )
 
             ToolCard(icon: "mic.fill", color: .green, title: "Parler", subtitle: "Prononciation", action: {
                 showSpeakingPractice = true
@@ -40,6 +41,9 @@ struct PracticeToolsGrid: View {
         }
         .fullScreenCover(isPresented: $showFlashcards) {
             FlashcardsView()
+        }
+        .fullScreenCover(isPresented: $showMistakes) {
+            MistakesReviewView()
         }
     }
 }
