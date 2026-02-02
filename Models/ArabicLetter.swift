@@ -44,7 +44,25 @@ struct ArabicLetter: Identifiable, Codable {
         }
     }
     
-    static let alphabet: [ArabicLetter] = [
+    static var alphabet: [ArabicLetter] {
+        CourseContent.letters
+    }
+    
+    static func letter(byId id: Int) -> ArabicLetter? {
+        alphabet.first { $0.id == id }
+    }
+    
+    static func letters(forLevel levelNumber: Int) -> [ArabicLetter] {
+        let startIndex = (levelNumber - 1) * 7
+        let endIndex = min(startIndex + 7, alphabet.count)
+        guard startIndex < alphabet.count else { return [] }
+        return Array(alphabet[startIndex..<endIndex])
+    }
+}
+import Foundation
+
+struct CourseContent {
+    static let letters: [ArabicLetter] = [
         ArabicLetter(id: 1, name: "أَلِف", transliteration: "Alif", isolated: "ا", initial: "ا", medial: "ـا", final: "ـا", order: 1),
         ArabicLetter(id: 2, name: "بَاء", transliteration: "Bā'", isolated: "ب", initial: "بـ", medial: "ـبـ", final: "ـب", order: 2),
         ArabicLetter(id: 3, name: "تَاء", transliteration: "Tā'", isolated: "ت", initial: "تـ", medial: "ـتـ", final: "ـت", order: 3),
@@ -75,14 +93,21 @@ struct ArabicLetter: Identifiable, Codable {
         ArabicLetter(id: 28, name: "يَاء", transliteration: "Yā'", isolated: "ي", initial: "يـ", medial: "ـيـ", final: "ـي", order: 28)
     ]
     
-    static func letter(byId id: Int) -> ArabicLetter? {
-        alphabet.first { $0.id == id }
+    static func getLevels(language: AppLanguage) -> [(number: Int, title: String, subtitle: String)] {
+        let isEnglish = language == .english
+        
+        return [
+            (1, isEnglish ? "Alphabet (1-7)" : "L'Alphabet (1-7)", "أ ب ت ث ج ح خ"),
+            (2, isEnglish ? "Alphabet (8-14)" : "L'Alphabet (8-14)", "د ذ ر ز س ش ص"),
+            (3, isEnglish ? "Alphabet (15-21)" : "L'Alphabet (15-21)", "ض ط ظ ع غ ف ق"),
+            (4, isEnglish ? "Alphabet (22-28)" : "L'Alphabet (22-28)", "ك ل م ن ه و ي")
+        ]
     }
     
-    static func letters(forLevel levelNumber: Int) -> [ArabicLetter] {
-        let startIndex = (levelNumber - 1) * 7
-        let endIndex = min(startIndex + 7, alphabet.count)
-        guard startIndex < alphabet.count else { return [] }
-        return Array(alphabet[startIndex..<endIndex])
+    static func getLevelTitle(for levelNumber: Int, language: AppLanguage) -> String {
+        guard let level = getLevels(language: language).first(where: { $0.number == levelNumber }) else {
+            return language == .english ? "Level \(levelNumber)" : "Niveau \(levelNumber)"
+        }
+        return level.title
     }
 }

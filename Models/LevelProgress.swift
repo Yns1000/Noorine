@@ -33,12 +33,7 @@ final class LevelProgress {
         ArabicLetter.letters(forLevel: levelNumber).count
     }
     
-    static let defaultLevels: [(number: Int, title: String, subtitle: String)] = [
-        (1, "L'Alphabet (1-7)", "أ ب ت ث ج ح خ"),
-        (2, "L'Alphabet (8-14)", "د ذ ر ز س ش ص"),
-        (3, "L'Alphabet (15-21)", "ض ط ظ ع غ ف ق"),
-        (4, "L'Alphabet (22-28)", "ك ل م ن ه و ي")
-    ]
+
 }
 
 enum LevelState {

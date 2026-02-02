@@ -15,6 +15,34 @@ enum LetterFormType: String, CaseIterable {
         }
     }
     
+    func localizedName(language: AppLanguage) -> String {
+        switch language {
+        case .english:
+            switch self {
+            case .isolated: return "Isolated"
+            case .initial: return "Initial"
+            case .medial: return "Medial"
+            case .final: return "Final"
+            }
+        case .french:
+            return self.rawValue
+        }
+    }
+    
+    func localizedDescription(language: AppLanguage) -> String {
+        switch language {
+        case .english:
+            switch self {
+            case .isolated: return "Alone"
+            case .initial: return "Start of word"
+            case .medial: return "Middle of word"
+            case .final: return "End of word"
+            }
+        case .french:
+            return self.description
+        }
+    }
+    
     func getForm(from letter: ArabicLetter) -> String {
         switch self {
         case .isolated: return letter.isolated

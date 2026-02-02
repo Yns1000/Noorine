@@ -2,6 +2,7 @@ import SwiftUI
 
 struct LetterFormsStep: View {
     let letter: ArabicLetter
+    @EnvironmentObject var languageManager: LanguageManager
     
     var body: some View {
         VStack(spacing: 30) {
@@ -29,6 +30,7 @@ struct LetterFormsStep: View {
 
 struct FormRow: View {
     @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var languageManager: LanguageManager
     let formType: LetterFormType
     let form: String
     let stepNumber: Int
@@ -46,10 +48,10 @@ struct FormRow: View {
             }
             
             VStack(alignment: .leading, spacing: 4) {
-                Text(LocalizedStringKey(formType.rawValue))
+                Text(formType.localizedName(language: languageManager.currentLanguage))
                     .font(.system(size: 16, weight: .bold))
                     .foregroundColor(.noorText)
-                Text(LocalizedStringKey(formType.description))
+                Text(formType.localizedDescription(language: languageManager.currentLanguage))
                     .font(.system(size: 12))
                     .foregroundColor(.noorSecondary)
             }

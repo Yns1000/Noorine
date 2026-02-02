@@ -44,12 +44,12 @@ struct FreeDrawingStep: View {
                             .font(.system(size: 16, weight: .medium, design: .rounded))
                             .foregroundColor(.noorGold)
                         
-                        Text(LocalizedStringKey("Forme \(languageManager.localizedString(formType.rawValue).lowercased())"))
+                        Text(languageManager.currentLanguage == .english ? "\(formType.localizedName(language: .english)) form" : "Forme \(formType.localizedName(language: .french).lowercased())")
                             .font(.system(size: 12, weight: .medium))
                             .foregroundColor(.noorSecondary)
                             .padding(.top, 2)
                     } else {
-                        Text(LocalizedStringKey("Forme \(languageManager.localizedString(formType.rawValue).lowercased())"))
+                        Text(languageManager.currentLanguage == .english ? "\(formType.localizedName(language: .english)) form" : "Forme \(formType.localizedName(language: .french).lowercased())")
                             .font(.system(size: 14, weight: .medium, design: .rounded))
                             .foregroundColor(.noorSecondary)
                         

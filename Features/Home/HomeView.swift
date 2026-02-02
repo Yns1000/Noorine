@@ -47,7 +47,7 @@ struct HomeView: View {
                                 ForEach(Array(dataManager.levels.enumerated()), id: \.element.levelNumber) { index, level in
                                     LevelNode(
                                         levelNumber: level.levelNumber,
-                                        title: level.title,
+                                        title: CourseContent.getLevelTitle(for: level.levelNumber, language: languageManager.currentLanguage),
                                         subtitle: level.subtitle,
                                         state: dataManager.levelState(for: level.levelNumber),
                                         index: index,

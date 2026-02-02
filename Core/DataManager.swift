@@ -68,7 +68,7 @@ class DataManager: ObservableObject {
         if let existing = try? context.fetch(descriptor), !existing.isEmpty {
             levels = existing
         } else {
-            for levelData in LevelProgress.defaultLevels {
+            for levelData in CourseContent.getLevels(language: .french) {
                 let level = LevelProgress(
                     levelNumber: levelData.number,
                     title: levelData.title,
