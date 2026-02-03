@@ -1,6 +1,6 @@
 import Foundation
 
-struct ArabicLetter: Identifiable, Codable {
+struct ArabicLetter: Identifiable, Codable, Equatable {
     let id: Int
     let name: String
     let transliteration: String
@@ -53,13 +53,66 @@ struct ArabicLetter: Identifiable, Codable {
     }
     
     static func letters(forLevel levelNumber: Int) -> [ArabicLetter] {
-        let startIndex = (levelNumber - 1) * 7
-        let endIndex = min(startIndex + 7, alphabet.count)
-        guard startIndex < alphabet.count else { return [] }
-        return Array(alphabet[startIndex..<endIndex])
+        guard let levelDef = CourseContent.getLevels(language: AppLanguage.english).first(where: { $0.id == levelNumber }),
+              levelDef.type == LevelType.alphabet else {
+            return []
+        }
+        
+        return levelDef.contentIds.compactMap { letter(byId: $0) }
     }
 }
 import Foundation
+
+
+enum LevelType: String, Codable {
+    case alphabet
+    case vowels
+    case wordBuild
+    case quiz
+}
+
+struct LevelDefinition: Identifiable {
+    let id: Int
+    let type: LevelType
+    let titleKey: String
+    let subtitle: String
+    let contentIds: [Int]
+    
+    var number: Int { id }
+}
+
+struct ArabicWord: Identifiable, Codable {
+    let id: Int
+    let arabic: String
+    let transliteration: String
+    let translationEn: String
+    let translationFr: String
+    let componentLetterIds: [Int]
+}
+
+enum ArabicVowelType: String, Codable {
+    case fatha
+    case kasra
+    case damma
+}
+
+struct ArabicVowel: Identifiable, Codable {
+    let id: Int
+    let type: ArabicVowelType
+    let name: String
+    let symbol: String
+    let transliteration: String
+    let soundName: String
+    let examples: [VowelExample]
+}
+
+struct VowelExample: Codable {
+    let letterId: Int
+    let combination: String
+    let transliteration: String
+    let audioName: String
+}
+
 
 struct CourseContent {
     static let letters: [ArabicLetter] = [
@@ -93,21 +146,76 @@ struct CourseContent {
         ArabicLetter(id: 28, name: "يَاء", transliteration: "Yā'", isolated: "ي", initial: "يـ", medial: "ـيـ", final: "ـي", order: 28)
     ]
     
-    static func getLevels(language: AppLanguage) -> [(number: Int, title: String, subtitle: String)] {
-        let isEnglish = language == .english
+    static let vowels: [ArabicVowel] = [
+        ArabicVowel(
+            id: 1, type: .fatha, name: "Fatha", symbol: "َ", transliteration: "a", soundName: "fatha_sound",
+            examples: [
+                VowelExample(letterId: 2, combination: "بَ", transliteration: "Ba", audioName: "ba_fatha"),
+                VowelExample(letterId: 3, combination: "تَ", transliteration: "Ta", audioName: "ta_fatha")
+            ]
+        ),
+        ArabicVowel(
+            id: 2, type: .kasra, name: "Kasra", symbol: "ِ", transliteration: "i", soundName: "kasra_sound",
+            examples: [
+                VowelExample(letterId: 2, combination: "بِ", transliteration: "Bi", audioName: "ba_kasra"),
+                VowelExample(letterId: 3, combination: "تِ", transliteration: "Ti", audioName: "ta_kasra")
+            ]
+        ),
+        ArabicVowel(
+            id: 3, type: .damma, name: "Damma", symbol: "ُ", transliteration: "u", soundName: "damma_sound",
+            examples: [
+                VowelExample(letterId: 2, combination: "بُ", transliteration: "Bu", audioName: "ba_damma"),
+                VowelExample(letterId: 3, combination: "تُ", transliteration: "Tu", audioName: "ta_damma")
+            ]
+        )
+    ]
+
+
+
+    
+    static func getLevels(language: AppLanguage) -> [LevelDefinition] {
+        let vowelTitle = language == .french ? "Les Voyelles Courtes" : "Short Vowels"
+        let practiceTitle = language == .french ? "Pratique : Voyelles" : "Practice: Vowels"
+        let wordTitle = language == .french ? "Premiers Mots" : "First Words"
+        
+        func alphabetTitle(range: String) -> String {
+            language == .french ? "L'Alphabet (\(range))" : "Alphabet (\(range))"
+        }
         
         return [
-            (1, isEnglish ? "Alphabet (1-7)" : "L'Alphabet (1-7)", "أ ب ت ث ج ح خ"),
-            (2, isEnglish ? "Alphabet (8-14)" : "L'Alphabet (8-14)", "د ذ ر ز س ش ص"),
-            (3, isEnglish ? "Alphabet (15-21)" : "L'Alphabet (15-21)", "ض ط ظ ع غ ف ق"),
-            (4, isEnglish ? "Alphabet (22-28)" : "L'Alphabet (22-28)", "ك ل م ن ه و ي")
+            LevelDefinition(id: 1, type: .alphabet, titleKey: alphabetTitle(range: "1-4"), subtitle: "أ ب ت ث", contentIds: [1, 2, 3, 4]),
+            LevelDefinition(id: 2, type: .vowels, titleKey: vowelTitle, subtitle: "Introduction & Quiz", contentIds: [1, 2, 3]),
+            
+            LevelDefinition(id: 3, type: .alphabet, titleKey: alphabetTitle(range: "5-9"), subtitle: "ج ح خ د ذ", contentIds: [5, 6, 7, 8, 9]),
+            LevelDefinition(id: 4, type: .vowels, titleKey: practiceTitle, subtitle: "ج - ذ + Harakat", contentIds: [1, 2, 3]),
+            
+            LevelDefinition(id: 5, type: .alphabet, titleKey: alphabetTitle(range: "10-14"), subtitle: "ر ز س ش ص", contentIds: [10, 11, 12, 13, 14]),
+            LevelDefinition(id: 6, type: .vowels, titleKey: practiceTitle, subtitle: "ر - ص + Harakat", contentIds: [1, 2, 3]),
+            
+            LevelDefinition(id: 7, type: .alphabet, titleKey: alphabetTitle(range: "15-19"), subtitle: "ض ط ظ ع غ", contentIds: [15, 16, 17, 18, 19]),
+            LevelDefinition(id: 8, type: .vowels, titleKey: practiceTitle, subtitle: "ض - غ + Harakat", contentIds: [1, 2, 3]),
+            
+            LevelDefinition(id: 9, type: .alphabet, titleKey: alphabetTitle(range: "20-28"), subtitle: "ف ق ك ل م ن ه و ي", contentIds: Array(20...28)),
+            LevelDefinition(id: 10, type: .vowels, titleKey: practiceTitle, subtitle: "ف - ي + Harakat", contentIds: [1, 2, 3]),
+            
+            LevelDefinition(id: 11, type: .wordBuild, titleKey: wordTitle, subtitle: "أَبْ - يَد", contentIds: [1, 2, 3, 4, 5])
         ]
     }
     
+    static let words: [ArabicWord] = [
+        ArabicWord(id: 1, arabic: "أَبْ", transliteration: "Ab", translationEn: "Father", translationFr: "Père", componentLetterIds: [1, 2]),
+        ArabicWord(id: 2, arabic: "بَاب", transliteration: "Bab", translationEn: "Door", translationFr: "Porte", componentLetterIds: [2, 1, 2]),
+        ArabicWord(id: 3, arabic: "أُمّ", transliteration: "Umm", translationEn: "Mother", translationFr: "Mère", componentLetterIds: [1, 24]),
+        ArabicWord(id: 4, arabic: "أَخ", transliteration: "Akh", translationEn: "Brother", translationFr: "Frère", componentLetterIds: [1, 7]),
+        ArabicWord(id: 5, arabic: "يَد", transliteration: "Yad", translationEn: "Hand", translationFr: "Main", componentLetterIds: [28, 8])
+    ]
+    
     static func getLevelTitle(for levelNumber: Int, language: AppLanguage) -> String {
-        guard let level = getLevels(language: language).first(where: { $0.number == levelNumber }) else {
-            return language == .english ? "Level \(levelNumber)" : "Niveau \(levelNumber)"
+        guard let level = getLevels(language: language).first(where: { $0.id == levelNumber }) else {
+            return language == AppLanguage.english ? "Level \(levelNumber)" : "Niveau \(levelNumber)"
         }
-        return level.title
+        return level.titleKey
     }
 }
+
+

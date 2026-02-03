@@ -65,17 +65,30 @@ class DataManager: ObservableObject {
         guard let context = modelContext else { return }
         
         let descriptor = FetchDescriptor<LevelProgress>(sortBy: [SortDescriptor(\.levelNumber)])
-        if let existing = try? context.fetch(descriptor), !existing.isEmpty {
+        if let existing = try? context.fetch(descriptor) {
             levels = existing
-        } else {
-            for levelData in CourseContent.getLevels(language: .french) {
-                let level = LevelProgress(
-                    levelNumber: levelData.number,
-                    title: levelData.title,
-                    subtitle: levelData.subtitle
-                )
-                context.insert(level)
-                levels.append(level)
+            
+            let allDefinedLevels = CourseContent.getLevels(language: .french)
+            for levelDef in allDefinedLevels {
+                if let existingLevel = levels.first(where: { $0.levelNumber == levelDef.id }) {
+                    if existingLevel.title != levelDef.titleKey || 
+                       existingLevel.subtitle != levelDef.subtitle ||
+                       existingLevel.type != levelDef.type.rawValue {
+                        
+                        existingLevel.title = levelDef.titleKey
+                        existingLevel.subtitle = levelDef.subtitle
+                        existingLevel.type = levelDef.type.rawValue
+                    }
+                } else {
+                    let newLevel = LevelProgress(
+                        levelNumber: levelDef.id,
+                        title: levelDef.titleKey,
+                        subtitle: levelDef.subtitle,
+                        type: levelDef.type.rawValue
+                    )
+                    context.insert(newLevel)
+                    levels.append(newLevel)
+                }
             }
             try? context.save()
         }
@@ -96,6 +109,24 @@ class DataManager: ObservableObject {
             userProgress?.addXP(50)
         }
         
+        try? context.save()
+    }
+    
+    func completeLevel(levelNumber: Int) {
+        guard let context = modelContext,
+              let level = levels.first(where: { $0.levelNumber == levelNumber }),
+              !level.isCompleted else { return }
+        
+        level.isCompleted = true
+        userProgress?.addXP(100)
+        try? context.save()
+    }
+    
+    func unlockAllLevels() {
+        guard let context = modelContext else { return }
+        for level in levels {
+            level.isCompleted = true
+        }
         try? context.save()
     }
     

@@ -67,5 +67,49 @@ class AudioManager: ObservableObject {
     }
     
     func playSound(named soundName: String) {
+        let ttsMap: [String: String] = [
+            "fatha_sound": "فَتْحَة",
+            "kasra_sound": "كَسْرَة",
+            "damma_sound": "ضَمَّة",
+            
+            "alif_fatha": "أَ", "alif_kasra": "إِ", "alif_damma": "أُ",
+            "ba_fatha": "بَ", "ba_kasra": "بِ", "ba_damma": "بُ",
+            "ta_fatha": "تَ", "ta_kasra": "تِ", "ta_damma": "تُ",
+            "tha_fatha": "ثَ", "tha_kasra": "ثِ", "tha_damma": "ثُ",
+            
+            "jim_fatha": "جَ", "jim_kasra": "جِ", "jim_damma": "جُ",
+            "ha_fatha": "حَ", "ha_kasra": "حِ", "ha_damma": "حُ",
+            "kha_fatha": "خَ", "kha_kasra": "خِ", "kha_damma": "خُ",
+            "dal_fatha": "دَ", "dal_kasra": "دِ", "dal_damma": "دُ",
+            "dhal_fatha": "ذَ", "dhal_kasra": "ذِ", "dhal_damma": "ذُ",
+            
+            "ra_fatha": "رَ", "ra_kasra": "رِ", "ra_damma": "رُ",
+            "zay_fatha": "زَ", "zay_kasra": "زِ", "zay_damma": "زُ",
+            "sin_fatha": "سَ", "sin_kasra": "سِ", "sin_damma": "سُ",
+            "shin_fatha": "شَ", "shin_kasra": "شِ", "shin_damma": "شُ",
+            "sad_fatha": "صَ", "sad_kasra": "صِ", "sad_damma": "صُ",
+            
+            "dad_fatha": "ضَ", "dad_kasra": "ضِ", "dad_damma": "ضُ",
+            "ta_emphatic_fatha": "طَ", "ta_emphatic_kasra": "طِ", "ta_emphatic_damma": "طُ",
+            "za_emphatic_fatha": "ظَ", "za_emphatic_kasra": "ظِ", "za_emphatic_damma": "ظُ",
+            "ayn_fatha": "عَ", "ayn_kasra": "عِ", "ayn_damma": "عُ",
+            "ghayn_fatha": "غَ", "ghayn_kasra": "غِ", "ghayn_damma": "غُ",
+            
+            "fa_fatha": "فَ", "fa_kasra": "فِ", "fa_damma": "فُ",
+            "qaf_fatha": "قَ", "qaf_kasra": "قِ", "qaf_damma": "قُ",
+            "kaf_fatha": "كَ", "kaf_kasra": "كِ", "kaf_damma": "كُ",
+            "lam_fatha": "لَ", "lam_kasra": "لِ", "lam_damma": "لُ",
+            "mim_fatha": "مَ", "mim_kasra": "مِ", "mim_damma": "مُ",
+            "nun_fatha": "نَ", "nun_kasra": "نِ", "nun_damma": "نُ",
+            "ha_round_fatha": "هَ", "ha_round_kasra": "هِ", "ha_round_damma": "هُ",
+            "waw_fatha": "وَ", "waw_kasra": "وِ", "waw_damma": "وُ",
+            "ya_fatha": "يَ", "ya_kasra": "يِ", "ya_damma": "يُ"
+        ]
+        
+        if let textToSpeak = ttsMap[soundName] {
+            playLetter(textToSpeak)
+        } else {
+            print("Audio/TTS missing for: \(soundName)")
+        }
     }
 }

@@ -102,8 +102,37 @@ struct ProfileView: View {
                                     openMail()
                                 }
                             }
-
+                            
                             MenuSection(title: "Développement") {
+                                Button(action: {
+                                    dataManager.unlockAllLevels()
+                                }) {
+                                    HStack(spacing: 16) {
+                                        ZStack {
+                                            Circle()
+                                                .fill(Color.gray.opacity(0.1))
+                                                .frame(width: 40, height: 40)
+                                            Image(systemName: "lock.open.fill")
+                                                .font(.system(size: 18))
+                                                .foregroundColor(.gray)
+                                        }
+                                        
+                                        VStack(alignment: .leading, spacing: 4) {
+                                            Text("Débloquer tous les niveaux")
+                                                .font(.system(size: 16, weight: .semibold))
+                                                .foregroundColor(.noorText)
+                                            Text("Pour tester l'accès aux niveaux")
+                                                .font(.system(size: 12))
+                                                .foregroundColor(.noorSecondary)
+                                        }
+                                        Spacer()
+                                    }
+                                    .padding(.vertical, 8)
+                                    .padding(.horizontal, 16)
+                                }
+                                
+                                Divider().padding(.leading, 56)
+                                
                                 VStack(spacing: 0) {
                                     DevActionRow(
                                         title: "Réinitialiser le nom",

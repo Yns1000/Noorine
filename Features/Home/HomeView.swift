@@ -96,8 +96,19 @@ struct HomeView: View {
             .fullScreenCover(isPresented: $showDailyChallenge) { DailyChallengeView() }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(.hidden, for: .navigationBar)
-            .navigationDestination(item: $selectedLevel) { level in
-                LevelDetailView(levelNumber: level.levelNumber, title: level.title)
+            .fullScreenCover(item: $selectedLevel) { level in
+                NavigationView {
+                    if level.levelType == .vowels {
+                        VowelLessonView(levelNumber: level.levelNumber)
+                    } else if level.levelType == .wordBuild {
+                        WordAssemblyView(levelNumber: level.levelNumber, onCompletion: {
+                            dataManager.completeLevel(levelNumber: level.levelNumber)
+                            selectedLevel = nil
+                        })
+                    } else {
+                        LevelDetailView(levelNumber: level.levelNumber, title: level.title)
+                    }
+                }
             }
             .onAppear {
                 animationId = UUID()

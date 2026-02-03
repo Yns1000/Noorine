@@ -8,13 +8,19 @@ final class LevelProgress {
     var subtitle: String
     var isCompleted: Bool
     var completedLetterIds: [Int]
+    var type: String = "alphabet"
     
-    init(levelNumber: Int, title: String, subtitle: String, isCompleted: Bool = false, completedLetterIds: [Int] = []) {
+    init(levelNumber: Int, title: String, subtitle: String, type: String = "alphabet", isCompleted: Bool = false, completedLetterIds: [Int] = []) {
         self.levelNumber = levelNumber
         self.title = title
         self.subtitle = subtitle
+        self.type = type
         self.isCompleted = isCompleted
         self.completedLetterIds = completedLetterIds
+    }
+    
+    var levelType: LevelType {
+        LevelType(rawValue: type) ?? .alphabet
     }
     
     var state: LevelState {
