@@ -4,6 +4,7 @@ struct FlashcardLibraryView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
     let cards = FlashcardManager.shared.getAllCards()
+    var onCardSelected: ((Flashcard) -> Void)? = nil
     
     let columns = [
         GridItem(.adaptive(minimum: 150, maximum: 170), spacing: 16)
@@ -18,6 +19,13 @@ struct FlashcardLibraryView: View {
                     LazyVGrid(columns: columns, spacing: 16) {
                         ForEach(cards) { card in
                             LibraryCardView(card: card)
+                                .onTapGesture {
+                                    HapticManager.shared.impact(.light)
+                                    if let callback = onCardSelected {
+                                        callback(card)
+                                    }
+                                    dismiss()
+                                }
                         }
                     }
                     .padding(16)

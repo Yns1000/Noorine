@@ -200,7 +200,9 @@ struct FlashcardsView: View {
             loadCards()
         }
         .sheet(isPresented: $showLibrary) {
-            FlashcardLibraryView()
+            FlashcardLibraryView { selectedCard in
+                moveCardToTop(selectedCard)
+            }
         }
     }
     
@@ -220,6 +222,13 @@ struct FlashcardsView: View {
                 cards.remove(at: index)
                 cards.insert(card, at: 0)
             }
+        }
+    }
+    
+    private func moveCardToTop(_ card: Flashcard) {
+        withAnimation(.spring(response: 0.5)) {
+            cards.removeAll(where: { $0.id == card.id })
+            cards.append(card)
         }
     }
     

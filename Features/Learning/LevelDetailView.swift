@@ -778,16 +778,13 @@ struct WordAssemblyView: View {
     @State private var scrambledLetters: [UniqueLetter] = []
     @State private var placedLetters: [ArabicLetter?] = []
     @State private var placedSourceIds: [UUID?] = []
-    @State private var isComplete = false
     @State private var showSuccess = false
+    @State private var showError = false
     
     @State private var selectedLetter: UniqueLetter? = nil
     
     var currentWord: ArabicWord? {
-        if words.indices.contains(currentWordIndex) {
-            return words[currentWordIndex]
-        }
-        return nil
+        words.indices.contains(currentWordIndex) ? words[currentWordIndex] : nil
     }
     
     var body: some View {
@@ -795,230 +792,249 @@ struct WordAssemblyView: View {
             Color.noorBackground.ignoresSafeArea()
             
             if let word = currentWord {
-                VStack(spacing: 30) {
-                    HStack {
-                        Button(action: { dismiss() }) {
-                            Image(systemName: "xmark")
-                                .font(.system(size: 20, weight: .bold))
-                                .foregroundColor(.noorSecondary)
-                                .padding(12)
-                                .background(Color.white)
-                                .clipShape(Circle())
-                        }
-                        Spacer()
-                        Text("Word \(currentWordIndex + 1)/\(words.count)")
-                            .font(.headline)
-                            .foregroundColor(.noorSecondary)
-                    }
-                    .padding()
-                    
-                    VStack(spacing: 8) {
-                        if showSuccess {
-                            Text(word.arabic)
-                                .font(.system(size: 80))
-                                .foregroundColor(.noorGold)
-                                .transition(.scale)
-                        } else {
-                            let translation = languageManager.currentLanguage == .english ? word.translationEn : word.translationFr
-                            Text(translation)
-                                .font(.system(size: 32, weight: .bold, design: .rounded))
-                                .foregroundColor(.noorText)
-                            
-                            Text(word.transliteration)
-                                .font(.title3)
-                                .foregroundColor(.noorSecondary)
-                        }
-                    }
-                    .frame(height: 120)
-                    .animation(.spring(), value: showSuccess)
-                    
-                    HStack(spacing: 12) {
-                        ForEach(0..<word.componentLetterIds.count, id: \.self) { index in
-                            DropSlotView(
-                                index: index,
-                                placedLetter: placedLetters[safe: index] ?? nil,
-                                isHighlighted: selectedLetter != nil && placedLetters[safe: index] == nil,
-                                onTap: {
-                                    if placedLetters[safe: index] != nil {
-                                        removeLetter(at: index)
-                                    } else if selectedLetter != nil {
-                                        placeLetter(at: index)
-                                    }
-                                }
-                            )
-                        }
-                    }
-                    .environment(\.layoutDirection, .rightToLeft)
-                    .padding()
-                    
-                    VStack {
-                        Text("Tap a letter, then tap a slot")
-                            .font(.caption)
-                            .foregroundColor(selectedLetter != nil ? .noorGold : .noorSecondary)
-                            .animation(.easeInOut, value: selectedLetter)
-                        
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 60))], spacing: 15) {
-                            ForEach(scrambledLetters) { uniqueItem in
-                                DraggableLetterChip(
-                                    uniqueItem: uniqueItem,
-                                    isUsed: isUniqueLetterUsed(uniqueItem),
-                                    isSelected: selectedLetter?.id == uniqueItem.id,
-                                    onTap: {
-                                        selectLetter(uniqueItem)
-                                    }
-                                )
-                            }
-                        }
-                        .animation(.spring(), value: scrambledLetters)
-                        .padding()
-                    }
-                    
+                VStack(spacing: 24) {
+                    headerView
+                    wordDisplayView(word: word)
+                    slotsView(word: word)
+                    instructionAndLettersView
                     Spacer()
-                    
-                    if showSuccess {
-                        Button(action: nextWord) {
-                            Text(currentWordIndex < words.count - 1 ? "Next Word" : "Finish")
-                                .font(.system(size: 20, weight: .bold))
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color.noorGold)
-                                .cornerRadius(16)
-                        }
-                        .padding()
-                        .transition(.move(edge: .bottom).combined(with: .opacity))
-                    }
+                    if showSuccess { nextButton }
                 }
             } else {
                 ProgressView()
             }
         }
-        .onAppear {
-            loadLevel()
-        }
+        .onAppear { loadLevel() }
     }
     
-    func loadLevel() {
-        if let level = CourseContent.getLevels(language: .english).first(where: { $0.id == levelNumber }) {
-            let targetIds = level.contentIds
-            self.words = CourseContent.words.filter { targetIds.contains($0.id) }
+    private var headerView: some View {
+        HStack {
+            Button { dismiss() } label: {
+                Image(systemName: "xmark")
+                    .font(.system(size: 20, weight: .bold))
+                    .foregroundColor(.noorSecondary)
+                    .padding(12)
+                    .background(Color.white)
+                    .clipShape(Circle())
+            }
+            Spacer()
+            Text("Word \(currentWordIndex + 1)/\(words.count)")
+                .font(.headline)
+                .foregroundColor(.noorSecondary)
+        }
+        .padding(.horizontal)
+    }
+    
+    private func wordDisplayView(word: ArabicWord) -> some View {
+        VStack(spacing: 12) {
+            if showSuccess {
+                VStack(spacing: 16) {
+                    DiacriticHelper.highlightedArabicText(text: word.arabic, fontSize: 60)
+                    
+                    Text(word.transliteration)
+                        .font(.title2.weight(.medium))
+                        .foregroundStyle(.secondary)
+                    
+                    wordBreakdownView(word: word)
+                }
+            } else {
+                let translation = languageManager.currentLanguage == .english ? word.translationEn : word.translationFr
+                Text(translation)
+                    .font(.system(size: 32, weight: .bold, design: .rounded))
+                    .foregroundStyle(.primary)
+                Text(word.transliteration)
+                    .font(.title3)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .frame(minHeight: 120)
+        .animation(.spring(), value: showSuccess)
+    }
+    
+    private func wordBreakdownView(word: ArabicWord) -> some View {
+        DiacriticBreakdownView(arabicText: word.arabic, showMascot: true, isCompact: false)
+    }
+    
+    private func slotsView(word: ArabicWord) -> some View {
+        HStack(spacing: 12) {
+            ForEach(Array(word.componentLetterIds.enumerated()), id: \.offset) { index, _ in
+                slotButton(at: index)
+            }
+        }
+        .environment(\.layoutDirection, .rightToLeft)
+        .padding(.horizontal)
+        .modifier(ShakeEffect(shakes: showError ? 2 : 0))
+        .animation(.default, value: showError)
+    }
+    
+    private func slotButton(at index: Int) -> some View {
+        let hasLetter = placedLetters.indices.contains(index) && placedLetters[index] != nil
+        let isHighlighted = selectedLetter != nil && !hasLetter
+        
+        return Button {
+            handleSlotTap(at: index)
+        } label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(isHighlighted ? Color.noorGold.opacity(0.2) : Color(.secondarySystemBackground))
+                    .frame(width: 70, height: 90)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(
+                                isHighlighted ? Color.noorGold : Color.noorSecondary.opacity(0.3),
+                                lineWidth: isHighlighted ? 3 : 2
+                            )
+                    )
+                    .shadow(color: isHighlighted ? Color.noorGold.opacity(0.3) : .clear, radius: 8)
+                
+                if hasLetter, let letter = placedLetters[index] {
+                    VStack(spacing: 2) {
+                        Text(letter.isolated)
+                            .font(.system(size: 36))
+                            .foregroundStyle(.primary)
+                        Text(letter.transliteration)
+                            .font(.system(size: 10, weight: .medium))
+                            .foregroundStyle(.secondary)
+                    }
+                }
+            }
+            .scaleEffect(isHighlighted ? 1.08 : 1.0)
+            .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isHighlighted)
+        }
+        .buttonStyle(.plain)
+    }
+    
+    private var instructionAndLettersView: some View {
+        VStack(spacing: 16) {
+            if selectedLetter != nil {
+                HStack(spacing: 6) {
+                    Image(systemName: "arrow.up")
+                        .font(.system(size: 14, weight: .semibold))
+                    Text("Place the letter in a slot")
+                        .font(.subheadline.weight(.medium))
+                }
+                .foregroundStyle(Color.noorGold)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(Color.noorGold.opacity(0.1))
+                .cornerRadius(20)
+            }
             
-            if !words.isEmpty {
-                loadWord(words[0])
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))], spacing: 12) {
+                ForEach(scrambledLetters) { item in
+                    letterButton(item: item)
+                }
             }
+            .padding(.horizontal)
         }
+        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: selectedLetter)
     }
     
-    func loadWord(_ word: ArabicWord) {
-        showSuccess = false
-        selectedLetter = nil
-        placedLetters = Array(repeating: nil, count: word.componentLetterIds.count)
-        placedSourceIds = Array(repeating: nil, count: word.componentLetterIds.count)
+    private func letterButton(item: UniqueLetter) -> some View {
+        let isUsed = placedSourceIds.contains(item.id)
+        let isSelected = selectedLetter?.id == item.id
         
-        var letters: [ArabicLetter] = []
-        for id in word.componentLetterIds {
-            if let l = ArabicLetter.letter(byId: id) {
-                letters.append(l)
+        return Button {
+            if !isUsed {
+                selectLetter(item)
             }
+        } label: {
+            VStack(spacing: 2) {
+                Text(item.letter.isolated)
+                    .font(.system(size: 28))
+                    .foregroundStyle(.primary)
+                Text(item.letter.transliteration)
+                    .font(.system(size: 9, weight: .medium))
+                    .foregroundStyle(.secondary)
+            }
+            .frame(width: 60, height: 70)
+            .background(isSelected ? Color.noorGold.opacity(0.2) : Color(.secondarySystemBackground))
+            .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(isSelected ? Color.noorGold : Color.clear, lineWidth: 3)
+            )
+            .shadow(color: isSelected ? Color.noorGold.opacity(0.4) : .black.opacity(0.1), radius: isSelected ? 6 : 2)
+            .scaleEffect(isSelected ? 1.15 : 1.0)
+            .opacity(isUsed ? 0.3 : 1.0)
         }
-        
-        let correctIds = Set(word.componentLetterIds)
-        let availableDistractors = ArabicLetter.alphabet.filter { !correctIds.contains($0.id) }
-        let distractors = Array(availableDistractors.shuffled().prefix(3))
-        letters.append(contentsOf: distractors)
-        
-        scrambledLetters = letters.map { UniqueLetter(letter: $0) }.shuffled()
+        .buttonStyle(.plain)
+        .disabled(isUsed)
+        .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isSelected)
     }
     
-    func selectLetter(_ unique: UniqueLetter) {
-        guard !isUniqueLetterUsed(unique) else { return }
-        
-        withAnimation(.easeOut(duration: 0.15)) {
-            if selectedLetter?.id == unique.id {
+    private var nextButton: some View {
+        Button { nextWord() } label: {
+            Text(currentWordIndex < words.count - 1 ? "Next Word" : "Finish")
+                .font(.system(size: 20, weight: .bold))
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.noorGold)
+                .cornerRadius(16)
+        }
+        .padding(.horizontal)
+        .transition(.move(edge: .bottom).combined(with: .opacity))
+    }
+    
+    private func selectLetter(_ item: UniqueLetter) {
+        withAnimation(.spring(response: 0.25, dampingFraction: 0.7)) {
+            if selectedLetter?.id == item.id {
                 selectedLetter = nil
             } else {
-                selectedLetter = unique
+                selectedLetter = item
                 AudioManager.shared.playSystemSound(1104)
             }
         }
     }
     
-    func placeLetter(at index: Int) {
-        guard let selected = selectedLetter,
-              let currentWord = currentWord else { return }
-        
-        let correctLetterIdForSlot = currentWord.componentLetterIds[index]
-        
-        if selected.letter.id == correctLetterIdForSlot {
-            AudioManager.shared.playSystemSound(1001)
-            withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
+    private func handleSlotTap(at index: Int) {
+        if placedLetters.indices.contains(index), placedLetters[index] != nil {
+            withAnimation(.spring(response: 0.25, dampingFraction: 0.7)) {
+                placedLetters[index] = nil
+                placedSourceIds[index] = nil
+            }
+            AudioManager.shared.playSystemSound(1306)
+        } else if let selected = selectedLetter {
+            withAnimation(.spring(response: 0.25, dampingFraction: 0.7)) {
                 placedLetters[index] = selected.letter
                 placedSourceIds[index] = selected.id
                 selectedLetter = nil
             }
+            AudioManager.shared.playSystemSound(1104)
             checkCompletion()
-        } else {
-            AudioManager.shared.playSystemSound(1002)
-            withAnimation(.easeOut(duration: 0.15)) {
-                selectedLetter = nil
-            }
         }
     }
     
-    func removeLetter(at index: Int) {
-        placedLetters[index] = nil
-        placedSourceIds[index] = nil
-        AudioManager.shared.playSystemSound(1306)
-    }
-    
-    func performDrop(providers: [NSItemProvider], at index: Int) -> Bool {
-        guard let item = providers.first(where: { $0.canLoadObject(ofClass: String.self) }) else { return false }
+    private func checkCompletion() {
+        guard let word = currentWord else { return }
+        guard placedLetters.allSatisfy({ $0 != nil }) else { return }
         
-        item.loadObject(ofClass: String.self) { (object, error) in
-            guard let stringData = object as? String else { return }
-            
-            let components = stringData.split(separator: ":")
-            guard components.count == 2,
-                  let letterId = Int(components[0]),
-                  let uuid = UUID(uuidString: String(components[1])) else { return }
-            
-            DispatchQueue.main.async {
-                self.handleDroppedLetter(id: letterId, sourceId: uuid, at: index)
+        var allCorrect = true
+        for (i, letter) in placedLetters.enumerated() {
+            if let l = letter, l.id != word.componentLetterIds[i] {
+                allCorrect = false
+                break
             }
         }
-        return true
-    }
-    
-    func handleDroppedLetter(id: Int, sourceId: UUID, at index: Int) {
-        guard let currentWord = currentWord else { return }
-        let correctLetterIdForSlot = currentWord.componentLetterIds[index]
         
-        if id == correctLetterIdForSlot {
+        if allCorrect {
             AudioManager.shared.playSystemSound(1001)
-            
-            if let letter = ArabicLetter.letter(byId: id) {
-                placedLetters[index] = letter
-                placedSourceIds[index] = sourceId
-                checkCompletion()
-            }
+            withAnimation { showSuccess = true }
         } else {
             AudioManager.shared.playSystemSound(1002)
-        }
-    }
-    
-    func isUniqueLetterUsed(_ unique: UniqueLetter) -> Bool {
-        return placedSourceIds.contains(unique.id)
-    }
-    
-    func checkCompletion() {
-        if placedLetters.allSatisfy({ $0 != nil }) {
-            withAnimation {
-                showSuccess = true
+            showError = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                withAnimation(.spring(response: 0.4, dampingFraction: 0.6)) {
+                    showError = false
+                    placedLetters = Array(repeating: nil, count: word.componentLetterIds.count)
+                    placedSourceIds = Array(repeating: nil, count: word.componentLetterIds.count)
+                }
             }
         }
     }
     
-    func nextWord() {
+    private func nextWord() {
         if currentWordIndex < words.count - 1 {
             currentWordIndex += 1
             loadWord(words[currentWordIndex])
@@ -1026,75 +1042,39 @@ struct WordAssemblyView: View {
             onCompletion()
         }
     }
-}
-
-struct DropSlotView: View {
-    let index: Int
-    let placedLetter: ArabicLetter?
-    let isHighlighted: Bool
-    let onTap: () -> Void
     
-    var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 16)
-                .fill(isHighlighted ? Color.noorGold.opacity(0.15) : Color.white)
-                .frame(width: 70, height: 90)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(
-                            isHighlighted ? Color.noorGold : Color.noorSecondary.opacity(0.2),
-                            style: isHighlighted ? StrokeStyle(lineWidth: 2) : StrokeStyle(lineWidth: 2, dash: [5])
-                        )
-                )
-                .scaleEffect(isHighlighted ? 1.05 : 1.0)
-                .animation(.easeInOut(duration: 0.2), value: isHighlighted)
-            
-            if let letter = placedLetter {
-                Text(letter.isolated)
-                    .font(.system(size: 40))
-                    .foregroundColor(.noorText)
-                    .transition(.scale.combined(with: .opacity))
-            }
+    private func loadLevel() {
+        if let level = CourseContent.getLevels(language: .english).first(where: { $0.id == levelNumber }) {
+            words = CourseContent.words.filter { level.contentIds.contains($0.id) }
+            if !words.isEmpty { loadWord(words[0]) }
         }
-        .contentShape(Rectangle())
-        .onTapGesture {
-            onTap()
-        }
+    }
+    
+    private func loadWord(_ word: ArabicWord) {
+        showSuccess = false
+        showError = false
+        selectedLetter = nil
+        placedLetters = Array(repeating: nil, count: word.componentLetterIds.count)
+        placedSourceIds = Array(repeating: nil, count: word.componentLetterIds.count)
+        
+        var letters: [ArabicLetter] = word.componentLetterIds.compactMap { ArabicLetter.letter(byId: $0) }
+        let distractors = ArabicLetter.alphabet
+            .filter { !word.componentLetterIds.contains($0.id) }
+            .shuffled()
+            .prefix(3)
+        letters.append(contentsOf: distractors)
+        scrambledLetters = letters.map { UniqueLetter(letter: $0) }.shuffled()
     }
 }
 
-struct DraggableLetterChip: View {
-    let uniqueItem: UniqueLetter
-    let isUsed: Bool
-    let isSelected: Bool
-    let onTap: () -> Void
-    
-    var body: some View {
-        Text(uniqueItem.letter.isolated)
-            .font(.system(size: 32))
-            .foregroundColor(.black)
-            .frame(width: 60, height: 60)
-            .background(Color.white)
-            .cornerRadius(12)
-            .shadow(color: isSelected ? Color.noorGold.opacity(0.5) : Color.black.opacity(0.1), radius: isSelected ? 8 : 2)
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(isSelected ? Color.noorGold : Color.clear, lineWidth: 3)
-            )
-            .scaleEffect(isSelected ? 1.1 : 1.0)
-            .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isSelected)
-            .opacity(isUsed ? 0.3 : 1.0)
-            .contentShape(Rectangle())
-            .onTapGesture {
-                onTap()
-            }
-            .allowsHitTesting(!isUsed)
+struct ShakeEffect: GeometryEffect {
+    var shakes: CGFloat
+    var animatableData: CGFloat {
+        get { shakes }
+        set { shakes = newValue }
     }
-}
-
-extension Collection {
-    subscript (safe index: Index) -> Element? {
-        return indices.contains(index) ? self[index] : nil
+    func effectValue(size: CGSize) -> ProjectionTransform {
+        ProjectionTransform(CGAffineTransform(translationX: sin(shakes * .pi * 4) * 10, y: 0))
     }
 }
 
@@ -1102,4 +1082,11 @@ struct UniqueLetter: Identifiable, Equatable {
     let id = UUID()
     let letter: ArabicLetter
 }
+
+extension Collection {
+    subscript(safe index: Index) -> Element? {
+        indices.contains(index) ? self[index] : nil
+    }
+}
+
 

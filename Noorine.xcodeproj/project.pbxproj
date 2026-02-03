@@ -45,6 +45,7 @@
 		F1BDF6792F2FB8DB008A9EBC /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6742F2FB8DB008A9EBC /* DataLoader.swift */; };
 		F1BDF67A2F2FB8DB008A9EBC /* FlashcardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6752F2FB8DB008A9EBC /* FlashcardManager.swift */; };
 		F1BDF67B2F2FB8DB008A9EBC /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6732F2FB8DB008A9EBC /* AudioManager.swift */; };
+		F1DIA0022F3D0002008A9EBC /* DiacriticHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DIA0012F3D0001008A9EBC /* DiacriticHelper.swift */; };
 		F1BDF67C2F2FB8DB008A9EBC /* SpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6782F2FB8DB008A9EBC /* SpeechManager.swift */; };
 		F1BDF67D2F2FB8DB008A9EBC /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6772F2FB8DB008A9EBC /* HapticManager.swift */; };
 		F1BDF67E2F2FB8DB008A9EBC /* flashcards.json in Resources */ = {isa = PBXBuildFile; fileRef = F1BDF6762F2FB8DB008A9EBC /* flashcards.json */; };
@@ -119,6 +120,7 @@
 		F1BDF66D2F2FB8C7008A9EBC /* FlashcardLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardLibraryView.swift; sourceTree = "<group>"; };
 		F1BDF66E2F2FB8C7008A9EBC /* FlashcardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardsView.swift; sourceTree = "<group>"; };
 		F1BDF6732F2FB8DB008A9EBC /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
+		F1DIA0012F3D0001008A9EBC /* DiacriticHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiacriticHelper.swift; sourceTree = "<group>"; };
 		F1BDF6742F2FB8DB008A9EBC /* DataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoader.swift; sourceTree = "<group>"; };
 		F1BDF6752F2FB8DB008A9EBC /* FlashcardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardManager.swift; sourceTree = "<group>"; };
 		F1BDF6762F2FB8DB008A9EBC /* flashcards.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = flashcards.json; sourceTree = "<group>"; };
@@ -346,6 +348,7 @@
 				F1BDF6852F2FCA9A008A9EBC /* PhoneticDictionary.swift */,
 				F1BDF6832F2FBB1F008A9EBC /* NotificationManager.swift */,
 				F1BDF6732F2FB8DB008A9EBC /* AudioManager.swift */,
+				F1DIA0012F3D0001008A9EBC /* DiacriticHelper.swift */,
 				F1BDF6742F2FB8DB008A9EBC /* DataLoader.swift */,
 				F1BDF6752F2FB8DB008A9EBC /* FlashcardManager.swift */,
 				F1BDF6762F2FB8DB008A9EBC /* flashcards.json */,
@@ -613,6 +616,7 @@
 				F1BDF6792F2FB8DB008A9EBC /* DataLoader.swift in Sources */,
 				F1BDF67A2F2FB8DB008A9EBC /* FlashcardManager.swift in Sources */,
 				F1BDF67B2F2FB8DB008A9EBC /* AudioManager.swift in Sources */,
+				F1DIA0022F3D0002008A9EBC /* DiacriticHelper.swift in Sources */,
 				F1BDF67C2F2FB8DB008A9EBC /* SpeechManager.swift in Sources */,
 				F1BDF67D2F2FB8DB008A9EBC /* HapticManager.swift in Sources */,
 				F1BDF66A2F2FB8A5008A9EBC /* PronunciationLibraryView.swift in Sources */,
