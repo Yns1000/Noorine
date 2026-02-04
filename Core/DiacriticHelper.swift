@@ -51,24 +51,27 @@ struct DiacriticHelper {
             0x064B, 0x064C, 0x064D, 0x0670
         ]
         
-        var result = Text("")
+        var attributed = AttributedString()
         
         for char in text {
             let charStr = String(char)
             let hasDiacritic = char.unicodeScalars.contains { diacriticScalars.contains($0.value) }
             
-            var charText = Text(charStr)
-                .font(.system(size: fontSize, weight: .bold, design: .rounded))
-                .foregroundColor(.noorGold)
+            var charAttr = AttributedString(charStr)
+            charAttr.font = .system(size: fontSize, weight: .bold, design: .rounded)
             
             if hasDiacritic {
-                charText = charText.underline(true, color: diacriticPurple)
+                charAttr.foregroundColor = diacriticPurple
+                charAttr.underlineStyle = .single
+                charAttr.underlineColor = UIColor(diacriticPurple)
+            } else {
+                charAttr.foregroundColor = .noorGold
             }
             
-            result = result + charText
+            attributed.append(charAttr)
         }
         
-        return result
+        return Text(attributed)
             .environment(\.layoutDirection, .rightToLeft)
     }
     
@@ -329,7 +332,7 @@ struct DiacriticBreakdownView: View {
     }
 }
 
--struct FlowLayout: Layout {
+struct FlowLayout: Layout {
     var spacing: CGFloat = 8
     
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {

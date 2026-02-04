@@ -240,10 +240,10 @@ struct ShapeAnalysis {
     
     var combinedScore: Double {
         let coverageWeight = 0.5
-        let boundingWeight = 0.3
-        let overflowWeight = 0.2
+        let boundingWeight = 0.35
+        let overflowWeight = 0.15
         
-        let overflowScore = max(0, 1.0 - overflowPenalty * 2)
+        let overflowScore = max(0, 1.0 - overflowPenalty * 1.5)
         
         return strokeCoverage * coverageWeight + 
                boundingBoxMatch * boundingWeight + 
@@ -292,17 +292,17 @@ class RecognitionEngine {
             if textScore >= 0.7 {
                 finalScore = max(textScore, shapeScore)
             } else if textScore > 0 && textScore < 0.5 {
-                finalScore = shapeScore * 0.3
+                finalScore = shapeScore * 0.5
             } else {
-                finalScore = shapeScore * 0.8
+                finalScore = shapeScore * 0.9
             }
             
-            if let shape = shapeAnalysis, shape.strokeCoverage < 0.3 {
+            if let shape = shapeAnalysis, shape.strokeCoverage < 0.2 {
                 finalScore = min(finalScore, shape.strokeCoverage)
             }
             
-            if let shape = shapeAnalysis, shape.overflowPenalty > 0.5 {
-                finalScore *= (1.0 - shape.overflowPenalty * 0.5)
+            if let shape = shapeAnalysis, shape.overflowPenalty > 0.6 {
+                finalScore *= (1.0 - shape.overflowPenalty * 0.3)
             }
             
             completion(RecognitionResult(

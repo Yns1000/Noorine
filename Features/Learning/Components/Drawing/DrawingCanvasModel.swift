@@ -33,6 +33,11 @@ class DrawingCanvasModel: ObservableObject {
         !strokes.isEmpty || !currentStroke.isEmpty
     }
     
+    func strokeColor(for strokeIndex: Int) -> Color {
+        guard isValidated else { return .noorGold }
+        return similarity >= 0.5 ? .green : .red
+    }
+    
     func renderDrawing(size: CGSize, strokeColor: UIColor = .white, lineWidth: CGFloat = 12) -> UIImage {
         let renderer = UIGraphicsImageRenderer(size: size)
         return renderer.image { context in

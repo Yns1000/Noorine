@@ -60,6 +60,36 @@ struct ArabicLetter: Identifiable, Codable, Equatable {
         
         return levelDef.contentIds.compactMap { letter(byId: $0) }
     }
+    
+    static let nonConnectingIds: Set<Int> = [1, 8, 9, 10, 11, 27]
+    
+    var connectsToLeft: Bool {
+        !ArabicLetter.nonConnectingIds.contains(id)
+    }
+    
+    static func determineLetterForm(
+        letter: ArabicLetter,
+        index: Int,
+        totalLetters: Int,
+        previousLetter: ArabicLetter?
+    ) -> String {
+        let isFirst = (index == 0)
+        let isLast = (index == totalLetters - 1)
+        
+        let connectedFromRight = !isFirst && (previousLetter?.connectsToLeft ?? false)
+        let connectsToNext = !isLast && letter.connectsToLeft
+        
+        switch (connectedFromRight, connectsToNext) {
+        case (false, false):
+            return letter.isolated
+        case (false, true):
+            return letter.initial
+        case (true, true):
+            return letter.medial
+        case (true, false):
+            return letter.final
+        }
+    }
 }
 import Foundation
 
@@ -115,7 +145,39 @@ struct VowelExample: Codable {
 
 
 struct CourseContent {
-    static let letters: [ArabicLetter] = [
+        
+    private static let loaded: DataLoader.CourseContentJSON? = DataLoader.loadCourseContent()
+    
+    static var letters: [ArabicLetter] {
+        loaded?.letters ?? fallbackLetters
+    }
+    
+    static var vowels: [ArabicVowel] {
+        loaded?.vowels ?? fallbackVowels
+    }
+    
+    static var words: [ArabicWord] {
+        loaded?.words ?? fallbackWords
+    }
+    
+    static func getLevels(language: AppLanguage) -> [LevelDefinition] {
+        let key = language == .french ? "fr" : "en"
+        if let jsonLevels = loaded?.levels[key] {
+            return jsonLevels.map { json in
+                LevelDefinition(
+                    id: json.id,
+                    type: LevelType(rawValue: json.type) ?? .alphabet,
+                    titleKey: json.titleKey,
+                    subtitle: json.subtitle,
+                    contentIds: json.contentIds
+                )
+            }
+        }
+        return fallbackLevels(language: language)
+    }
+    
+    
+    private static let fallbackLetters: [ArabicLetter] = [
         ArabicLetter(id: 1, name: "أَلِف", transliteration: "Alif", isolated: "ا", initial: "ا", medial: "ـا", final: "ـا", order: 1),
         ArabicLetter(id: 2, name: "بَاء", transliteration: "Bā'", isolated: "ب", initial: "بـ", medial: "ـبـ", final: "ـب", order: 2),
         ArabicLetter(id: 3, name: "تَاء", transliteration: "Tā'", isolated: "ت", initial: "تـ", medial: "ـتـ", final: "ـت", order: 3),
@@ -146,7 +208,7 @@ struct CourseContent {
         ArabicLetter(id: 28, name: "يَاء", transliteration: "Yā'", isolated: "ي", initial: "يـ", medial: "ـيـ", final: "ـي", order: 28)
     ]
     
-    static let vowels: [ArabicVowel] = [
+    private static let fallbackVowels: [ArabicVowel] = [
         ArabicVowel(
             id: 1, type: .fatha, name: "Fatha", symbol: "َ", transliteration: "a", soundName: "fatha_sound",
             examples: [
@@ -169,11 +231,16 @@ struct CourseContent {
             ]
         )
     ]
-
-
-
     
-    static func getLevels(language: AppLanguage) -> [LevelDefinition] {
+    private static let fallbackWords: [ArabicWord] = [
+        ArabicWord(id: 1, arabic: "أَبْ", transliteration: "Ab", translationEn: "Father", translationFr: "Père", componentLetterIds: [1, 2]),
+        ArabicWord(id: 2, arabic: "بَاب", transliteration: "Bab", translationEn: "Door", translationFr: "Porte", componentLetterIds: [2, 1, 2]),
+        ArabicWord(id: 3, arabic: "أُمّ", transliteration: "Umm", translationEn: "Mother", translationFr: "Mère", componentLetterIds: [1, 24]),
+        ArabicWord(id: 4, arabic: "أَخ", transliteration: "Akh", translationEn: "Brother", translationFr: "Frère", componentLetterIds: [1, 7]),
+        ArabicWord(id: 5, arabic: "يَد", transliteration: "Yad", translationEn: "Hand", translationFr: "Main", componentLetterIds: [28, 8])
+    ]
+    
+    private static func fallbackLevels(language: AppLanguage) -> [LevelDefinition] {
         let vowelTitle = language == .french ? "Les Voyelles Courtes" : "Short Vowels"
         let practiceTitle = language == .french ? "Pratique : Voyelles" : "Practice: Vowels"
         let wordTitle = language == .french ? "Premiers Mots" : "First Words"
@@ -185,30 +252,17 @@ struct CourseContent {
         return [
             LevelDefinition(id: 1, type: .alphabet, titleKey: alphabetTitle(range: "1-4"), subtitle: "أ ب ت ث", contentIds: [1, 2, 3, 4]),
             LevelDefinition(id: 2, type: .vowels, titleKey: vowelTitle, subtitle: "Introduction & Quiz", contentIds: [1, 2, 3]),
-            
             LevelDefinition(id: 3, type: .alphabet, titleKey: alphabetTitle(range: "5-9"), subtitle: "ج ح خ د ذ", contentIds: [5, 6, 7, 8, 9]),
             LevelDefinition(id: 4, type: .vowels, titleKey: practiceTitle, subtitle: "ج - ذ + Harakat", contentIds: [1, 2, 3]),
-            
             LevelDefinition(id: 5, type: .alphabet, titleKey: alphabetTitle(range: "10-14"), subtitle: "ر ز س ش ص", contentIds: [10, 11, 12, 13, 14]),
             LevelDefinition(id: 6, type: .vowels, titleKey: practiceTitle, subtitle: "ر - ص + Harakat", contentIds: [1, 2, 3]),
-            
             LevelDefinition(id: 7, type: .alphabet, titleKey: alphabetTitle(range: "15-19"), subtitle: "ض ط ظ ع غ", contentIds: [15, 16, 17, 18, 19]),
             LevelDefinition(id: 8, type: .vowels, titleKey: practiceTitle, subtitle: "ض - غ + Harakat", contentIds: [1, 2, 3]),
-            
             LevelDefinition(id: 9, type: .alphabet, titleKey: alphabetTitle(range: "20-28"), subtitle: "ف ق ك ل م ن ه و ي", contentIds: Array(20...28)),
             LevelDefinition(id: 10, type: .vowels, titleKey: practiceTitle, subtitle: "ف - ي + Harakat", contentIds: [1, 2, 3]),
-            
             LevelDefinition(id: 11, type: .wordBuild, titleKey: wordTitle, subtitle: "أَبْ - يَد", contentIds: [1, 2, 3, 4, 5])
         ]
     }
-    
-    static let words: [ArabicWord] = [
-        ArabicWord(id: 1, arabic: "أَبْ", transliteration: "Ab", translationEn: "Father", translationFr: "Père", componentLetterIds: [1, 2]),
-        ArabicWord(id: 2, arabic: "بَاب", transliteration: "Bab", translationEn: "Door", translationFr: "Porte", componentLetterIds: [2, 1, 2]),
-        ArabicWord(id: 3, arabic: "أُمّ", transliteration: "Umm", translationEn: "Mother", translationFr: "Mère", componentLetterIds: [1, 24]),
-        ArabicWord(id: 4, arabic: "أَخ", transliteration: "Akh", translationEn: "Brother", translationFr: "Frère", componentLetterIds: [1, 7]),
-        ArabicWord(id: 5, arabic: "يَد", transliteration: "Yad", translationEn: "Hand", translationFr: "Main", componentLetterIds: [28, 8])
-    ]
     
     static func getLevelTitle(for levelNumber: Int, language: AppLanguage) -> String {
         guard let level = getLevels(language: language).first(where: { $0.id == levelNumber }) else {

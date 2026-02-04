@@ -331,7 +331,7 @@ struct ModernCardView: View {
         
         let targetRange = text.range(of: targetWord, options: .diacriticInsensitive)
         
-        var result = Text("")
+        var attributed = AttributedString()
         var index = 0
         
         for char in text {
@@ -346,24 +346,22 @@ struct ModernCardView: View {
                 isInTarget = false
             }
             
-            var charText = Text(charStr)
-                .font(.system(size: 22, weight: .bold, design: .rounded))
-            
-            if isInTarget {
-                charText = charText.foregroundColor(.noorGold)
-            } else {
-                charText = charText.foregroundColor(.noorText)
-            }
+            var charAttr = AttributedString(charStr)
+            charAttr.font = .system(size: 22, weight: .bold, design: .rounded)
             
             if hasDiacritic {
-                charText = charText.underline(true, color: diacriticPurple)
+                charAttr.foregroundColor = diacriticPurple
+                charAttr.underlineStyle = .single
+                charAttr.underlineColor = UIColor(diacriticPurple)
+            } else {
+                charAttr.foregroundColor = isInTarget ? .noorGold : .noorText
             }
             
-            result = result + charText
+            attributed.append(charAttr)
             index += 1
         }
         
-        return result
+        return Text(attributed)
             .environment(\.layoutDirection, .rightToLeft)
     }
     
@@ -377,18 +375,11 @@ struct ModernCardView: View {
             0x064B, 0x064C, 0x064D, 0x0670
         ]
         
-        var result = Text("")
+        var attributed = AttributedString()
         var currentWord = ""
-        var isInTargetWord = false
         
         for char in text {
             currentWord.append(char)
-            
-            if text.range(of: targetWord, options: .diacriticInsensitive) != nil {
-                if currentWord.contains(targetWord.prefix(1)) {
-                    isInTargetWord = currentWord.lowercased().hasPrefix(targetWord.lowercased().prefix(currentWord.count))
-                }
-            }
             
             var charColor: Color = .noorText
             var hasDiacritic = false
@@ -408,12 +399,13 @@ struct ModernCardView: View {
                 charColor = .noorGold
             }
             
-            result = result + Text(String(char))
-                .font(.system(size: 22, weight: .bold, design: .rounded))
-                .foregroundColor(charColor)
+            var charAttr = AttributedString(String(char))
+            charAttr.font = .system(size: 22, weight: .bold, design: .rounded)
+            charAttr.foregroundColor = charColor
+            attributed.append(charAttr)
         }
         
-        return result
+        return Text(attributed)
             .environment(\.layoutDirection, .rightToLeft)
     }
 }

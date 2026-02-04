@@ -45,7 +45,6 @@
 		F1BDF6792F2FB8DB008A9EBC /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6742F2FB8DB008A9EBC /* DataLoader.swift */; };
 		F1BDF67A2F2FB8DB008A9EBC /* FlashcardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6752F2FB8DB008A9EBC /* FlashcardManager.swift */; };
 		F1BDF67B2F2FB8DB008A9EBC /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6732F2FB8DB008A9EBC /* AudioManager.swift */; };
-		F1DIA0022F3D0002008A9EBC /* DiacriticHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DIA0012F3D0001008A9EBC /* DiacriticHelper.swift */; };
 		F1BDF67C2F2FB8DB008A9EBC /* SpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6782F2FB8DB008A9EBC /* SpeechManager.swift */; };
 		F1BDF67D2F2FB8DB008A9EBC /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6772F2FB8DB008A9EBC /* HapticManager.swift */; };
 		F1BDF67E2F2FB8DB008A9EBC /* flashcards.json in Resources */ = {isa = PBXBuildFile; fileRef = F1BDF6762F2FB8DB008A9EBC /* flashcards.json */; };
@@ -54,6 +53,8 @@
 		F1BDF6862F2FCA9B008A9EBC /* PhoneticDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6852F2FCA9A008A9EBC /* PhoneticDictionary.swift */; };
 		F1BDF6882F2FCF72008A9EBC /* TipBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6872F2FCF70008A9EBC /* TipBanner.swift */; };
 		F1BDF68A2F2FD31B008A9EBC /* FactsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6892F2FD31A008A9EBC /* FactsData.swift */; };
+		F1C720702F32C36100EDA1E8 /* course_content.json in Resources */ = {isa = PBXBuildFile; fileRef = F1C7206F2F32C36100EDA1E8 /* course_content.json */; };
+		F1DIA0022F3D0002008A9EBC /* DiacriticHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DIA0012F3D0001008A9EBC /* DiacriticHelper.swift */; };
 		F1FCEB372F28D60900AE6497 /* NoorineApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEB362F28D60900AE6497 /* NoorineApp.swift */; };
 		F1FCEB392F28D60900AE6497 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEB382F28D60900AE6497 /* ContentView.swift */; };
 		F1FCEB3D2F28D60B00AE6497 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1FCEB3C2F28D60B00AE6497 /* Assets.xcassets */; };
@@ -120,7 +121,6 @@
 		F1BDF66D2F2FB8C7008A9EBC /* FlashcardLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardLibraryView.swift; sourceTree = "<group>"; };
 		F1BDF66E2F2FB8C7008A9EBC /* FlashcardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardsView.swift; sourceTree = "<group>"; };
 		F1BDF6732F2FB8DB008A9EBC /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
-		F1DIA0012F3D0001008A9EBC /* DiacriticHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiacriticHelper.swift; sourceTree = "<group>"; };
 		F1BDF6742F2FB8DB008A9EBC /* DataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoader.swift; sourceTree = "<group>"; };
 		F1BDF6752F2FB8DB008A9EBC /* FlashcardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardManager.swift; sourceTree = "<group>"; };
 		F1BDF6762F2FB8DB008A9EBC /* flashcards.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = flashcards.json; sourceTree = "<group>"; };
@@ -131,6 +131,8 @@
 		F1BDF6852F2FCA9A008A9EBC /* PhoneticDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneticDictionary.swift; sourceTree = "<group>"; };
 		F1BDF6872F2FCF70008A9EBC /* TipBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipBanner.swift; sourceTree = "<group>"; };
 		F1BDF6892F2FD31A008A9EBC /* FactsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsData.swift; sourceTree = "<group>"; };
+		F1C7206F2F32C36100EDA1E8 /* course_content.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = course_content.json; sourceTree = "<group>"; };
+		F1DIA0012F3D0001008A9EBC /* DiacriticHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiacriticHelper.swift; sourceTree = "<group>"; };
 		F1FCEB332F28D60900AE6497 /* Noorine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Noorine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1FCEB362F28D60900AE6497 /* NoorineApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoorineApp.swift; sourceTree = "<group>"; };
 		F1FCEB382F28D60900AE6497 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 				F1BDF6782F2FB8DB008A9EBC /* SpeechManager.swift */,
 				F11376792F291E5800D25275 /* LanguageManager.swift */,
 				AAAA00062F2A000000000004 /* DataManager.swift */,
+				F1C7206F2F32C36100EDA1E8 /* course_content.json */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -555,6 +558,7 @@
 			files = (
 				F113767C2F291F9B00D25275 /* Localizable.xcstrings in Resources */,
 				F1BDF67E2F2FB8DB008A9EBC /* flashcards.json in Resources */,
+				F1C720702F32C36100EDA1E8 /* course_content.json in Resources */,
 				F1FCEB3D2F28D60B00AE6497 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

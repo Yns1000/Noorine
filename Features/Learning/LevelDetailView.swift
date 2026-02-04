@@ -364,7 +364,7 @@ struct VowelQuizView: View {
         VStack(spacing: 30) {
             Spacer()
             
-            Text("Quel son entends-tu ?")
+            Text(LocalizedStringKey("Quel son entends-tu ?"))
                 .font(.system(size: 26, weight: .bold, design: .rounded))
                 .foregroundColor(.noorText)
                 .padding(.top)
@@ -375,7 +375,7 @@ struct VowelQuizView: View {
                 HStack(spacing: 16) {
                     Image(systemName: "speaker.wave.3.fill")
                         .font(.system(size: 32))
-                    Text("Réécouter")
+                    Text(LocalizedStringKey("Réécouter"))
                         .font(.headline)
                 }
                 .foregroundColor(.white)
@@ -566,7 +566,7 @@ struct VowelIntroView: View {
         VStack(spacing: 30) {
             Spacer()
             
-            Text("Découvre le son")
+            Text(LocalizedStringKey("Découvre le son"))
                 .font(.system(size: 20, weight: .medium, design: .rounded))
                 .foregroundColor(.noorSecondary)
             
@@ -588,7 +588,7 @@ struct VowelIntroView: View {
                     .font(.system(size: 32, weight: .bold, design: .serif))
                     .foregroundColor(.noorText)
                 
-                Text("Se prononce \"\(vowel.transliteration)\"")
+                Text(LocalizedStringKey("Se prononce \"\(vowel.transliteration)\""))
                     .font(.system(size: 18, weight: .medium))
                     .foregroundColor(.noorSecondary)
             }
@@ -598,7 +598,7 @@ struct VowelIntroView: View {
             }) {
                 HStack {
                     Image(systemName: "speaker.wave.2.fill")
-                    Text("Écouter")
+                    Text(LocalizedStringKey("Écouter"))
                 }
                 .font(.headline)
                 .foregroundColor(.noorGold)
@@ -625,7 +625,7 @@ struct VowelExampleView: View {
         VStack(spacing: 40) {
             Spacer()
             
-            Text("Mise en pratique")
+            Text(LocalizedStringKey("Mise en pratique"))
                 .font(.system(size: 20, weight: .medium, design: .rounded))
                 .foregroundColor(.noorSecondary)
             
@@ -640,7 +640,7 @@ struct VowelExampleView: View {
                             .font(.system(size: 40))
                             .foregroundColor(.gray)
                     }
-                    Text("Lettre")
+                    Text(LocalizedStringKey("Lettre"))
                         .font(.caption)
                         .foregroundColor(.noorSecondary)
                 }
@@ -712,6 +712,7 @@ struct VowelExampleView: View {
 struct VowelCompletionView: View {
     let levelNumber: Int
     let onContinue: () -> Void
+    @EnvironmentObject var languageManager: LanguageManager
     
     var body: some View {
         VStack(spacing: 30) {
@@ -725,7 +726,7 @@ struct VowelCompletionView: View {
                         .frame(width: 160, height: 160)
                 )
             
-            Text("Excellent travail !")
+            Text(LocalizedStringKey("Excellent travail !"))
                 .font(.system(size: 28, weight: .bold))
                 .foregroundColor(.noorText)
             
@@ -738,7 +739,7 @@ struct VowelCompletionView: View {
             Spacer()
             
             Button(action: onContinue) {
-                Text("Terminer la leçon")
+                Text(LocalizedStringKey("Terminer la leçon"))
                     .font(.system(size: 20, weight: .bold))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
@@ -751,14 +752,15 @@ struct VowelCompletionView: View {
     }
     
     func getMessage() -> String {
+        let isEnglish = languageManager.currentLanguage == .english
         switch levelNumber {
-        case 2: return "Tu as appris les 3 voyelles courtes (Harakat) !"
-        case 4: return "Bravo ! Tu maîtrises les voyelles avec les lettres Jim à Dhal."
-        case 6: return "Excellent ! Tu avances bien avec les lettres Ra à Sad."
-        case 8: return "Super ! Les lettres Dad à Ghayn n'ont plus de secrets."
-        case 10: return "Félicitations ! Tu as terminé toutes les leçons de voyelles."
-        case 11: return "Incroyable ! Tu as assemblé tes premiers mots en arabe."
-        default: return "Excellent travail ! Continue comme ça."
+        case 2: return isEnglish ? "You learned the 3 short vowels (Harakat)!" : "Tu as appris les 3 voyelles courtes (Harakat) !"
+        case 4: return isEnglish ? "Well done! You've mastered vowels with letters Jim to Dhal." : "Bravo ! Tu maîtrises les voyelles avec les lettres Jim à Dhal."
+        case 6: return isEnglish ? "Excellent! You're doing great with letters Ra to Sad." : "Excellent ! Tu avances bien avec les lettres Ra à Sad."
+        case 8: return isEnglish ? "Super! Letters Dad to Ghayn hold no more secrets." : "Super ! Les lettres Dad à Ghayn n'ont plus de secrets."
+        case 10: return isEnglish ? "Congratulations! You've completed all vowel lessons." : "Félicitations ! Tu as terminé toutes les leçons de voyelles."
+        case 11: return isEnglish ? "Amazing! You've assembled your first Arabic words." : "Incroyable ! Tu as assemblé tes premiers mots en arabe."
+        default: return isEnglish ? "Excellent work! Keep it up." : "Excellent travail ! Continue comme ça."
         }
     }
 }
@@ -818,7 +820,7 @@ struct WordAssemblyView: View {
                     .clipShape(Circle())
             }
             Spacer()
-            Text("Word \(currentWordIndex + 1)/\(words.count)")
+            Text(LocalizedStringKey("Mot \(currentWordIndex + 1)/\(words.count)"))
                 .font(.headline)
                 .foregroundColor(.noorSecondary)
         }
@@ -858,7 +860,7 @@ struct WordAssemblyView: View {
     private func slotsView(word: ArabicWord) -> some View {
         HStack(spacing: 12) {
             ForEach(Array(word.componentLetterIds.enumerated()), id: \.offset) { index, _ in
-                slotButton(at: index)
+                slotButton(at: index, word: word)
             }
         }
         .environment(\.layoutDirection, .rightToLeft)
@@ -867,31 +869,58 @@ struct WordAssemblyView: View {
         .animation(.default, value: showError)
     }
     
-    private func slotButton(at index: Int) -> some View {
+    private func isLetterCorrect(at index: Int) -> Bool {
+        guard let word = currentWord,
+              let letter = placedLetters[safe: index] as? ArabicLetter else { return false }
+        return word.componentLetterIds.indices.contains(index) && letter.id == word.componentLetterIds[index]
+    }
+    
+    private func contextualForm(for letter: ArabicLetter, at index: Int, in word: ArabicWord) -> String {
+        let total = word.componentLetterIds.count
+        let prevLetter: ArabicLetter? = index > 0 ? placedLetters[safe: index - 1] as? ArabicLetter : nil
+        return ArabicLetter.determineLetterForm(
+            letter: letter,
+            index: index,
+            totalLetters: total,
+            previousLetter: prevLetter
+        )
+    }
+    
+    private func slotButton(at index: Int, word: ArabicWord) -> some View {
         let hasLetter = placedLetters.indices.contains(index) && placedLetters[index] != nil
         let isHighlighted = selectedLetter != nil && !hasLetter
+        let correct = hasLetter && isLetterCorrect(at: index)
+        
+        let fillColor: Color = {
+            if correct { return Color.green.opacity(0.15) }
+            if isHighlighted { return Color.noorGold.opacity(0.2) }
+            return Color(.secondarySystemBackground)
+        }()
+        
+        let borderColor: Color = {
+            if correct { return .green }
+            if isHighlighted { return .noorGold }
+            return .noorSecondary.opacity(0.3)
+        }()
         
         return Button {
             handleSlotTap(at: index)
         } label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 16)
-                    .fill(isHighlighted ? Color.noorGold.opacity(0.2) : Color(.secondarySystemBackground))
+                    .fill(fillColor)
                     .frame(width: 70, height: 90)
                     .overlay(
                         RoundedRectangle(cornerRadius: 16)
-                            .stroke(
-                                isHighlighted ? Color.noorGold : Color.noorSecondary.opacity(0.3),
-                                lineWidth: isHighlighted ? 3 : 2
-                            )
+                            .stroke(borderColor, lineWidth: (isHighlighted || correct) ? 3 : 2)
                     )
-                    .shadow(color: isHighlighted ? Color.noorGold.opacity(0.3) : .clear, radius: 8)
+                    .shadow(color: correct ? Color.green.opacity(0.3) : (isHighlighted ? Color.noorGold.opacity(0.3) : .clear), radius: 8)
                 
                 if hasLetter, let letter = placedLetters[index] {
                     VStack(spacing: 2) {
-                        Text(letter.isolated)
+                        Text(contextualForm(for: letter, at: index, in: word))
                             .font(.system(size: 36))
-                            .foregroundStyle(.primary)
+                            .foregroundStyle(correct ? .green : .primary)
                         Text(letter.transliteration)
                             .font(.system(size: 10, weight: .medium))
                             .foregroundStyle(.secondary)
@@ -900,6 +929,7 @@ struct WordAssemblyView: View {
             }
             .scaleEffect(isHighlighted ? 1.08 : 1.0)
             .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isHighlighted)
+            .animation(.spring(response: 0.3), value: correct)
         }
         .buttonStyle(.plain)
     }
@@ -910,7 +940,7 @@ struct WordAssemblyView: View {
                 HStack(spacing: 6) {
                     Image(systemName: "arrow.up")
                         .font(.system(size: 14, weight: .semibold))
-                    Text("Place the letter in a slot")
+                    Text(LocalizedStringKey("Place la lettre dans un emplacement"))
                         .font(.subheadline.weight(.medium))
                 }
                 .foregroundStyle(Color.noorGold)
@@ -963,9 +993,17 @@ struct WordAssemblyView: View {
         .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isSelected)
     }
     
+    @State private var showLevelSummary = false
+    
     private var nextButton: some View {
-        Button { nextWord() } label: {
-            Text(currentWordIndex < words.count - 1 ? "Next Word" : "Finish")
+        Button {
+            if currentWordIndex < words.count - 1 {
+                nextWord()
+            } else {
+                withAnimation(.spring()) { showLevelSummary = true }
+            }
+        } label: {
+            Text(currentWordIndex < words.count - 1 ? LocalizedStringKey("Mot suivant") : LocalizedStringKey("Terminer"))
                 .font(.system(size: 20, weight: .bold))
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
@@ -975,6 +1013,12 @@ struct WordAssemblyView: View {
         }
         .padding(.horizontal)
         .transition(.move(edge: .bottom).combined(with: .opacity))
+        .sheet(isPresented: $showLevelSummary) {
+            LevelSummaryView(wordsLearned: words.count, onContinue: {
+                showLevelSummary = false
+                onCompletion()
+            })
+        }
     }
     
     private func selectLetter(_ item: UniqueLetter) {
@@ -1001,6 +1045,13 @@ struct WordAssemblyView: View {
                 placedSourceIds[index] = selected.id
                 selectedLetter = nil
             }
+            
+            if let word = currentWord,
+               word.componentLetterIds.indices.contains(index),
+               selected.letter.id == word.componentLetterIds[index] {
+                HapticManager.shared.impact(.light)
+            }
+            
             AudioManager.shared.playSystemSound(1104)
             checkCompletion()
         }
@@ -1020,9 +1071,11 @@ struct WordAssemblyView: View {
         
         if allCorrect {
             AudioManager.shared.playSystemSound(1001)
+            HapticManager.shared.trigger(.success)
             withAnimation { showSuccess = true }
         } else {
             AudioManager.shared.playSystemSound(1002)
+            HapticManager.shared.trigger(.error)
             showError = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                 withAnimation(.spring(response: 0.4, dampingFraction: 0.6)) {
@@ -1064,6 +1117,85 @@ struct WordAssemblyView: View {
             .prefix(3)
         letters.append(contentsOf: distractors)
         scrambledLetters = letters.map { UniqueLetter(letter: $0) }.shuffled()
+    }
+}
+
+struct LevelSummaryView: View {
+    let wordsLearned: Int
+    let onContinue: () -> Void
+    @Environment(\.dismiss) var dismiss
+    
+    var body: some View {
+        VStack(spacing: 30) {
+            Spacer()
+            
+            EmotionalMascot(mood: .happy, size: 100, showAura: true)
+            
+            Text(LocalizedStringKey("Niveau terminé !"))
+                .font(.system(size: 28, weight: .bold, design: .rounded))
+                .foregroundColor(.noorText)
+            
+            HStack(spacing: 16) {
+                SummaryStatCard(
+                    icon: "textformat.abc",
+                    value: "\(wordsLearned)",
+                    label: LocalizedStringKey("mots appris")
+                )
+                
+                SummaryStatCard(
+                    icon: "star.fill",
+                    value: "+100",
+                    label: LocalizedStringKey("XP gagnés")
+                )
+            }
+            .padding(.horizontal)
+            
+            Spacer()
+            
+            Button(action: {
+                dismiss()
+                onContinue()
+            }) {
+                Text(LocalizedStringKey("Continuer"))
+                    .font(.system(size: 20, weight: .bold))
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 16)
+                    .background(Color.noorGold)
+                    .cornerRadius(16)
+                    .shadow(color: .noorGold.opacity(0.3), radius: 10, y: 5)
+            }
+            .padding(.horizontal, 24)
+            .padding(.bottom, 30)
+        }
+        .background(Color.noorBackground.ignoresSafeArea())
+    }
+}
+
+struct SummaryStatCard: View {
+    let icon: String
+    let value: String
+    let label: LocalizedStringKey
+    
+    var body: some View {
+        VStack(spacing: 8) {
+            Image(systemName: icon)
+                .font(.system(size: 24))
+                .foregroundColor(.noorGold)
+            Text(value)
+                .font(.system(size: 28, weight: .bold, design: .rounded))
+                .foregroundColor(.noorText)
+            Text(label)
+                .font(.caption.weight(.medium))
+                .foregroundColor(.noorSecondary)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 20)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color(.secondarySystemGroupedBackground))
+                .shadow(color: .black.opacity(0.05), radius: 5, y: 2)
+        )
     }
 }
 
