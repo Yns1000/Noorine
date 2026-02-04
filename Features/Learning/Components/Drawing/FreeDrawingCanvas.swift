@@ -12,7 +12,7 @@ struct FreeDrawingCanvas: View {
                 .foregroundColor(.gray.opacity(0.2))
             
             Canvas { context, size in
-                for stroke in model.strokes {
+                for (strokeIndex, stroke) in model.strokes.enumerated() {
                     if !stroke.isEmpty {
                         var path = Path()
                         path.move(to: stroke[0])
@@ -23,7 +23,8 @@ struct FreeDrawingCanvas: View {
                                 path.addLine(to: stroke[i])
                             }
                         }
-                        context.stroke(path, with: .color(.noorGold), style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
+                        let strokeColor = model.strokeColor(for: strokeIndex)
+                        context.stroke(path, with: .color(strokeColor), style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
                     }
                 }
                 

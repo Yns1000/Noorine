@@ -1,0 +1,123 @@
+{
+  "letters": [
+    {"id": 1, "name": "أَلِف", "transliteration": "Alif", "isolated": "ا", "initial": "ا", "medial": "ـا", "final": "ـا", "order": 1},
+    {"id": 2, "name": "بَاء", "transliteration": "Bā'", "isolated": "ب", "initial": "بـ", "medial": "ـبـ", "final": "ـب", "order": 2},
+    {"id": 3, "name": "تَاء", "transliteration": "Tā'", "isolated": "ت", "initial": "تـ", "medial": "ـتـ", "final": "ـت", "order": 3},
+    {"id": 4, "name": "ثَاء", "transliteration": "Thā'", "isolated": "ث", "initial": "ثـ", "medial": "ـثـ", "final": "ـث", "order": 4},
+    {"id": 5, "name": "جِيم", "transliteration": "Jīm", "isolated": "ج", "initial": "جـ", "medial": "ـجـ", "final": "ـج", "order": 5},
+    {"id": 6, "name": "حَاء", "transliteration": "Ḥā'", "isolated": "ح", "initial": "حـ", "medial": "ـحـ", "final": "ـح", "order": 6},
+    {"id": 7, "name": "خَاء", "transliteration": "Khā'", "isolated": "خ", "initial": "خـ", "medial": "ـخـ", "final": "ـخ", "order": 7},
+    {"id": 8, "name": "دَال", "transliteration": "Dāl", "isolated": "د", "initial": "د", "medial": "ـد", "final": "ـد", "order": 8},
+    {"id": 9, "name": "ذَال", "transliteration": "Dhāl", "isolated": "ذ", "initial": "ذ", "medial": "ـذ", "final": "ـذ", "order": 9},
+    {"id": 10, "name": "رَاء", "transliteration": "Rā'", "isolated": "ر", "initial": "ر", "medial": "ـر", "final": "ـر", "order": 10},
+    {"id": 11, "name": "زَاي", "transliteration": "Zāy", "isolated": "ز", "initial": "ز", "medial": "ـز", "final": "ـز", "order": 11},
+    {"id": 12, "name": "سِين", "transliteration": "Sīn", "isolated": "س", "initial": "سـ", "medial": "ـسـ", "final": "ـس", "order": 12},
+    {"id": 13, "name": "شِين", "transliteration": "Shīn", "isolated": "ش", "initial": "شـ", "medial": "ـشـ", "final": "ـش", "order": 13},
+    {"id": 14, "name": "صَاد", "transliteration": "Ṣād", "isolated": "ص", "initial": "صـ", "medial": "ـصـ", "final": "ـص", "order": 14},
+    {"id": 15, "name": "ضَاد", "transliteration": "Ḍād", "isolated": "ض", "initial": "ضـ", "medial": "ـضـ", "final": "ـض", "order": 15},
+    {"id": 16, "name": "طَاء", "transliteration": "Ṭā'", "isolated": "ط", "initial": "طـ", "medial": "ـطـ", "final": "ـط", "order": 16},
+    {"id": 17, "name": "ظَاء", "transliteration": "Ẓā'", "isolated": "ظ", "initial": "ظـ", "medial": "ـظـ", "final": "ـظ", "order": 17},
+    {"id": 18, "name": "عَين", "transliteration": "'Ayn", "isolated": "ع", "initial": "عـ", "medial": "ـعـ", "final": "ـع", "order": 18},
+    {"id": 19, "name": "غَين", "transliteration": "Ghayn", "isolated": "غ", "initial": "غـ", "medial": "ـغـ", "final": "ـغ", "order": 19},
+    {"id": 20, "name": "فَاء", "transliteration": "Fā'", "isolated": "ف", "initial": "فـ", "medial": "ـفـ", "final": "ـف", "order": 20},
+    {"id": 21, "name": "قَاف", "transliteration": "Qāf", "isolated": "ق", "initial": "قـ", "medial": "ـقـ", "final": "ـق", "order": 21},
+    {"id": 22, "name": "كَاف", "transliteration": "Kāf", "isolated": "ك", "initial": "كـ", "medial": "ـكـ", "final": "ـك", "order": 22},
+    {"id": 23, "name": "لَام", "transliteration": "Lām", "isolated": "ل", "initial": "لـ", "medial": "ـلـ", "final": "ـل", "order": 23},
+    {"id": 24, "name": "مِيم", "transliteration": "Mīm", "isolated": "م", "initial": "مـ", "medial": "ـمـ", "final": "ـم", "order": 24},
+    {"id": 25, "name": "نُون", "transliteration": "Nūn", "isolated": "ن", "initial": "نـ", "medial": "ـنـ", "final": "ـن", "order": 25},
+    {"id": 26, "name": "هَاء", "transliteration": "Hā'", "isolated": "ه", "initial": "هـ", "medial": "ـهـ", "final": "ـه", "order": 26},
+    {"id": 27, "name": "وَاو", "transliteration": "Wāw", "isolated": "و", "initial": "و", "medial": "ـو", "final": "ـو", "order": 27},
+    {"id": 28, "name": "يَاء", "transliteration": "Yā'", "isolated": "ي", "initial": "يـ", "medial": "ـيـ", "final": "ـي", "order": 28}
+  ],
+  "vowels": [
+    {
+      "id": 1, "type": "fatha", "name": "Fatha", "symbol": "َ", "transliteration": "a", "soundName": "fatha_sound",
+      "examples": [
+        {"letterId": 2, "combination": "بَ", "transliteration": "Ba", "audioName": "ba_fatha"},
+        {"letterId": 3, "combination": "تَ", "transliteration": "Ta", "audioName": "ta_fatha"}
+      ]
+    },
+    {
+      "id": 2, "type": "kasra", "name": "Kasra", "symbol": "ِ", "transliteration": "i", "soundName": "kasra_sound",
+      "examples": [
+        {"letterId": 2, "combination": "بِ", "transliteration": "Bi", "audioName": "ba_kasra"},
+        {"letterId": 3, "combination": "تِ", "transliteration": "Ti", "audioName": "ta_kasra"}
+      ]
+    },
+    {
+      "id": 3, "type": "damma", "name": "Damma", "symbol": "ُ", "transliteration": "u", "soundName": "damma_sound",
+      "examples": [
+        {"letterId": 2, "combination": "بُ", "transliteration": "Bu", "audioName": "ba_damma"},
+        {"letterId": 3, "combination": "تُ", "transliteration": "Tu", "audioName": "ta_damma"}
+      ]
+    }
+  ],
+  "words": [
+    {"id": 1, "arabic": "أَبْ", "transliteration": "Ab", "translationEn": "Father", "translationFr": "Père", "componentLetterIds": [1, 2]},
+    {"id": 2, "arabic": "بَاب", "transliteration": "Bab", "translationEn": "Door", "translationFr": "Porte", "componentLetterIds": [2, 1, 2]},
+    {"id": 3, "arabic": "أُمّ", "transliteration": "Umm", "translationEn": "Mother", "translationFr": "Mère", "componentLetterIds": [1, 24]},
+    {"id": 4, "arabic": "أَخ", "transliteration": "Akh", "translationEn": "Brother", "translationFr": "Frère", "componentLetterIds": [1, 7]},
+    {"id": 5, "arabic": "يَد", "transliteration": "Yad", "translationEn": "Hand", "translationFr": "Main", "componentLetterIds": [28, 8]},
+    {"id": 6, "arabic": "شَمْس", "transliteration": "Shams", "translationEn": "Sun", "translationFr": "Soleil", "componentLetterIds": [13, 24, 12]},
+    {"id": 7, "arabic": "قَمَر", "transliteration": "Qamar", "translationEn": "Moon", "translationFr": "Lune", "componentLetterIds": [21, 24, 10]},
+    {"id": 8, "arabic": "نُور", "transliteration": "Nour", "translationEn": "Light", "translationFr": "Lumière", "componentLetterIds": [25, 27, 10]},
+    {"id": 9, "arabic": "كِتَاب", "transliteration": "Kitab", "translationEn": "Book", "translationFr": "Livre", "componentLetterIds": [22, 3, 1, 2]},
+    {"id": 10, "arabic": "قَلَم", "transliteration": "Qalam", "translationEn": "Pen", "translationFr": "Stylo", "componentLetterIds": [21, 23, 24]},
+    {"id": 11, "arabic": "بَيْت", "transliteration": "Bayt", "translationEn": "House", "translationFr": "Maison", "componentLetterIds": [2, 28, 3]},
+    {"id": 12, "arabic": "وَلَد", "transliteration": "Walad", "translationEn": "Boy", "translationFr": "Garçon", "componentLetterIds": [27, 23, 8]},
+    {"id": 13, "arabic": "بِنْت", "transliteration": "Bint", "translationEn": "Girl", "translationFr": "Fille", "componentLetterIds": [2, 25, 3]},
+    {"id": 14, "arabic": "أُخْت", "transliteration": "Ukht", "translationEn": "Sister", "translationFr": "Sœur", "componentLetterIds": [1, 7, 3]},
+    {"id": 15, "arabic": "جَدّ", "transliteration": "Jadd", "translationEn": "Grandfather", "translationFr": "Grand-père", "componentLetterIds": [5, 8]},
+    {"id": 16, "arabic": "أَحْمَر", "transliteration": "Ahmar", "translationEn": "Red", "translationFr": "Rouge", "componentLetterIds": [1, 6, 24, 10]},
+    {"id": 17, "arabic": "أَزْرَق", "transliteration": "Azraq", "translationEn": "Blue", "translationFr": "Bleu", "componentLetterIds": [1, 11, 10, 21]},
+    {"id": 18, "arabic": "أَخْضَر", "transliteration": "Akhdar", "translationEn": "Green", "translationFr": "Vert", "componentLetterIds": [1, 7, 15, 10]},
+    {"id": 19, "arabic": "أَبْيَض", "transliteration": "Abyad", "translationEn": "White", "translationFr": "Blanc", "componentLetterIds": [1, 2, 28, 15]},
+    {"id": 20, "arabic": "أَسْوَد", "transliteration": "Aswad", "translationEn": "Black", "translationFr": "Noir", "componentLetterIds": [1, 12, 27, 8]}
+  ],
+  "levels": {
+    "en": [
+      {"id": 1, "type": "alphabet", "titleKey": "Alphabet (1-4)", "subtitle": "أ ب ت ث", "contentIds": [1, 2, 3, 4]},
+      {"id": 2, "type": "vowels", "titleKey": "Short Vowels", "subtitle": "Introduction & Quiz", "contentIds": [1, 2, 3]},
+      {"id": 3, "type": "alphabet", "titleKey": "Alphabet (5-9)", "subtitle": "ج ح خ د ذ", "contentIds": [5, 6, 7, 8, 9]},
+      {"id": 4, "type": "vowels", "titleKey": "Practice: Vowels", "subtitle": "ج - ذ + Harakat", "contentIds": [1, 2, 3]},
+      {"id": 5, "type": "alphabet", "titleKey": "Alphabet (10-14)", "subtitle": "ر ز س ش ص", "contentIds": [10, 11, 12, 13, 14]},
+      {"id": 6, "type": "vowels", "titleKey": "Practice: Vowels", "subtitle": "ر - ص + Harakat", "contentIds": [1, 2, 3]},
+      {"id": 7, "type": "alphabet", "titleKey": "Alphabet (15-19)", "subtitle": "ض ط ظ ع غ", "contentIds": [15, 16, 17, 18, 19]},
+      {"id": 8, "type": "vowels", "titleKey": "Practice: Vowels", "subtitle": "ض - غ + Harakat", "contentIds": [1, 2, 3]},
+      {"id": 9, "type": "alphabet", "titleKey": "Alphabet (20-28)", "subtitle": "ف ق ك ل م ن ه و ي", "contentIds": [20, 21, 22, 23, 24, 25, 26, 27, 28]},
+      {"id": 10, "type": "vowels", "titleKey": "Practice: Vowels", "subtitle": "ف - ي + Harakat", "contentIds": [1, 2, 3]},
+      {"id": 11, "type": "wordBuild", "titleKey": "First Words", "subtitle": "أَبْ - يَد", "contentIds": [1, 2, 3, 4, 5]},
+      {"id": 12, "type": "wordBuild", "titleKey": "Sun & Moon Letters", "subtitle": "شَمْس - قَمَر", "contentIds": [6, 7, 8]},
+      {"id": 13, "type": "wordBuild", "titleKey": "Everyday Objects", "subtitle": "كِتَاب - قَلَم", "contentIds": [9, 10, 11]},
+      {"id": 14, "type": "wordBuild", "titleKey": "Family (Part 1)", "subtitle": "وَلَد - بِنْت", "contentIds": [12, 13, 14]},
+      {"id": 15, "type": "wordBuild", "titleKey": "Family (Part 2)", "subtitle": "جَدّ - أُخْت", "contentIds": [15, 3, 4]},
+      {"id": 16, "type": "wordBuild", "titleKey": "Colors (Part 1)", "subtitle": "أَحْمَر - أَزْرَق", "contentIds": [16, 17]},
+      {"id": 17, "type": "wordBuild", "titleKey": "Colors (Part 2)", "subtitle": "أَخْضَر - أَبْيَض", "contentIds": [18, 19]},
+      {"id": 18, "type": "wordBuild", "titleKey": "Colors (Part 3)", "subtitle": "أَسْوَد - نُور", "contentIds": [20, 8]},
+      {"id": 19, "type": "wordBuild", "titleKey": "Review: Family", "subtitle": "All Family Words", "contentIds": [3, 4, 12, 13, 14, 15]},
+      {"id": 20, "type": "wordBuild", "titleKey": "Review: Colors", "subtitle": "All Colors", "contentIds": [16, 17, 18, 19, 20]}
+    ],
+    "fr": [
+      {"id": 1, "type": "alphabet", "titleKey": "L'Alphabet (1-4)", "subtitle": "أ ب ت ث", "contentIds": [1, 2, 3, 4]},
+      {"id": 2, "type": "vowels", "titleKey": "Les Voyelles Courtes", "subtitle": "Introduction & Quiz", "contentIds": [1, 2, 3]},
+      {"id": 3, "type": "alphabet", "titleKey": "L'Alphabet (5-9)", "subtitle": "ج ح خ د ذ", "contentIds": [5, 6, 7, 8, 9]},
+      {"id": 4, "type": "vowels", "titleKey": "Pratique : Voyelles", "subtitle": "ج - ذ + Harakat", "contentIds": [1, 2, 3]},
+      {"id": 5, "type": "alphabet", "titleKey": "L'Alphabet (10-14)", "subtitle": "ر ز س ش ص", "contentIds": [10, 11, 12, 13, 14]},
+      {"id": 6, "type": "vowels", "titleKey": "Pratique : Voyelles", "subtitle": "ر - ص + Harakat", "contentIds": [1, 2, 3]},
+      {"id": 7, "type": "alphabet", "titleKey": "L'Alphabet (15-19)", "subtitle": "ض ط ظ ع غ", "contentIds": [15, 16, 17, 18, 19]},
+      {"id": 8, "type": "vowels", "titleKey": "Pratique : Voyelles", "subtitle": "ض - غ + Harakat", "contentIds": [1, 2, 3]},
+      {"id": 9, "type": "alphabet", "titleKey": "L'Alphabet (20-28)", "subtitle": "ف ق ك ل م ن ه و ي", "contentIds": [20, 21, 22, 23, 24, 25, 26, 27, 28]},
+      {"id": 10, "type": "vowels", "titleKey": "Pratique : Voyelles", "subtitle": "ف - ي + Harakat", "contentIds": [1, 2, 3]},
+      {"id": 11, "type": "wordBuild", "titleKey": "Premiers Mots", "subtitle": "أَبْ - يَد", "contentIds": [1, 2, 3, 4, 5]},
+      {"id": 12, "type": "wordBuild", "titleKey": "Lettres Solaires & Lunaires", "subtitle": "شَمْس - قَمَر", "contentIds": [6, 7, 8]},
+      {"id": 13, "type": "wordBuild", "titleKey": "Objets du Quotidien", "subtitle": "كِتَاب - قَلَم", "contentIds": [9, 10, 11]},
+      {"id": 14, "type": "wordBuild", "titleKey": "La Famille (Partie 1)", "subtitle": "وَلَد - بِنْت", "contentIds": [12, 13, 14]},
+      {"id": 15, "type": "wordBuild", "titleKey": "La Famille (Partie 2)", "subtitle": "جَدّ - أُخْت", "contentIds": [15, 3, 4]},
+      {"id": 16, "type": "wordBuild", "titleKey": "Les Couleurs (Partie 1)", "subtitle": "أَحْمَر - أَزْرَق", "contentIds": [16, 17]},
+      {"id": 17, "type": "wordBuild", "titleKey": "Les Couleurs (Partie 2)", "subtitle": "أَخْضَر - أَبْيَض", "contentIds": [18, 19]},
+      {"id": 18, "type": "wordBuild", "titleKey": "Les Couleurs (Partie 3)", "subtitle": "أَسْوَد - نُور", "contentIds": [20, 8]},
+      {"id": 19, "type": "wordBuild", "titleKey": "Révision : Famille", "subtitle": "Tous les mots de famille", "contentIds": [3, 4, 12, 13, 14, 15]},
+      {"id": 20, "type": "wordBuild", "titleKey": "Révision : Couleurs", "subtitle": "Toutes les couleurs", "contentIds": [16, 17, 18, 19, 20]}
+    ]
+  }
+}
