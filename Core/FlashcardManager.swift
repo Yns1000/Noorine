@@ -1,77 +1,57 @@
 import SwiftUI
 import Combine
 
-class FlashcardManager: ObservableObject {
+final class FlashcardManager: ObservableObject {
     static let shared = FlashcardManager()
     
-    @Published var knownCardIds: Set<String> = []
-    @Published var reviewCardIds: Set<String> = []
+    @Published private(set) var allCards: [Flashcard] = []
     
-    private var allCardsCache: [Flashcard] = []
+    private let srs = SRSEngine.shared
     
-    private let knownKey = "flashcards_known_ids"
-    private let reviewKey = "flashcards_review_ids"
-    
-    init() {
-        self.allCardsCache = DataLoader.loadFlashcards()
-        loadProgress()
+    private init() {
+        allCards = DataLoader.loadFlashcards()
     }
     
-    func loadProgress() {
-        if let savedKnown = UserDefaults.standard.array(forKey: knownKey) as? [String] {
-            knownCardIds = Set(savedKnown)
+    var dueCards: [Flashcard] {
+        let dueIds = Set(srs.getDueCards(from: allCards.map { $0.id }))
+        return allCards.filter { dueIds.contains($0.id) }
+    }
+    
+    var stats: SRSStats {
+        srs.getStats()
+    }
+    
+    func getPracticeCards(limit: Int = 20) -> [Flashcard] {
+        let due = dueCards
+        let newCards = allCards.filter { card in
+            srs.getIntervalDays(for: card.id) == 0
         }
-        if let savedReview = UserDefaults.standard.array(forKey: reviewKey) as? [String] {
-            reviewCardIds = Set(savedReview)
-        }
-    }
-    
-    func saveProgress() {
-        UserDefaults.standard.set(Array(knownCardIds), forKey: knownKey)
-        UserDefaults.standard.set(Array(reviewCardIds), forKey: reviewKey)
-    }
-    
-    func getPracticeCards() -> [Flashcard] {
-        let allCards = getAllCards()
         
-        let unknownCards = allCards.filter { !knownCardIds.contains($0.id) }
+        let reviewFirst = due.filter { !newCards.contains($0) }
+        let combined = Array((reviewFirst + newCards).prefix(limit))
         
-        let reviewCards = unknownCards.filter { reviewCardIds.contains($0.id) }
-        let newCards = unknownCards.filter { !reviewCardIds.contains($0.id) }
-        
-        return reviewCards.shuffled() + newCards.shuffled()
+        return combined.shuffled()
     }
     
-    func getAllCards() -> [Flashcard] {
-        if allCardsCache.isEmpty {
-            allCardsCache = DataLoader.loadFlashcards()
-        }
-        return allCardsCache
+    func recordResponse(_ response: SRSResponse, for card: Flashcard) {
+        srs.processResponse(response, for: card.id)
+        objectWillChange.send()
     }
     
-    func markAsKnown(_ card: Flashcard) {
-        knownCardIds.insert(card.id)
-        reviewCardIds.remove(card.id)
-        saveProgress()
+    func getNextReview(for card: Flashcard) -> Date? {
+        srs.getNextReviewDate(for: card.id)
     }
     
-    func markAsReview(_ card: Flashcard) {
-        reviewCardIds.insert(card.id)
-        knownCardIds.remove(card.id)
-        saveProgress()
+    func getInterval(for card: Flashcard) -> Int {
+        srs.getIntervalDays(for: card.id)
     }
     
-    func isKnown(_ card: Flashcard) -> Bool {
-        return knownCardIds.contains(card.id)
+    func isDue(_ card: Flashcard) -> Bool {
+        srs.isDue(card.id)
     }
     
-    func needsReview(_ card: Flashcard) -> Bool {
-        return reviewCardIds.contains(card.id)
-    }
-    
-    func resetProgress() {
-        knownCardIds.removeAll()
-        reviewCardIds.removeAll()
-        saveProgress()
+    func reset() {
+        srs.reset()
+        objectWillChange.send()
     }
 }
