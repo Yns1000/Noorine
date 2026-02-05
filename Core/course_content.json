@@ -72,7 +72,29 @@
     {"id": 17, "arabic": "أَزْرَق", "transliteration": "Azraq", "translationEn": "Blue", "translationFr": "Bleu", "componentLetterIds": [1, 11, 10, 21]},
     {"id": 18, "arabic": "أَخْضَر", "transliteration": "Akhdar", "translationEn": "Green", "translationFr": "Vert", "componentLetterIds": [1, 7, 15, 10]},
     {"id": 19, "arabic": "أَبْيَض", "transliteration": "Abyad", "translationEn": "White", "translationFr": "Blanc", "componentLetterIds": [1, 2, 28, 15]},
-    {"id": 20, "arabic": "أَسْوَد", "transliteration": "Aswad", "translationEn": "Black", "translationFr": "Noir", "componentLetterIds": [1, 12, 27, 8]}
+    {"id": 20, "arabic": "أَسْوَد", "transliteration": "Aswad", "translationEn": "Black", "translationFr": "Noir", "componentLetterIds": [1, 12, 27, 8]},
+    {"id": 21, "arabic": "أَنَا", "transliteration": "Ana", "translationEn": "I/Me", "translationFr": "Je/Moi", "componentLetterIds": [1, 25, 1]},
+    {"id": 22, "arabic": "أَنْتَ", "transliteration": "Anta", "translationEn": "You (m)", "translationFr": "Tu (m)", "componentLetterIds": [1, 25, 3]},
+    {"id": 23, "arabic": "هُوَ", "transliteration": "Huwa", "translationEn": "He", "translationFr": "Il", "componentLetterIds": [26, 27]},
+    {"id": 24, "arabic": "هِيَ", "transliteration": "Hiya", "translationEn": "She", "translationFr": "Elle", "componentLetterIds": [26, 28]},
+    {"id": 25, "arabic": "هٰذَا", "transliteration": "Hadha", "translationEn": "This (m)", "translationFr": "Ceci (m)", "componentLetterIds": [26, 9, 1]},
+    {"id": 26, "arabic": "طَالِب", "transliteration": "Talib", "translationEn": "Student (m)", "translationFr": "Étudiant", "componentLetterIds": [16, 1, 23, 2]},
+    {"id": 27, "arabic": "طَالِبَة", "transliteration": "Taliba", "translationEn": "Student (f)", "translationFr": "Étudiante", "componentLetterIds": [16, 1, 23, 2, 3]},
+    {"id": 28, "arabic": "مُعَلِّم", "transliteration": "Muallim", "translationEn": "Teacher (m)", "translationFr": "Professeur", "componentLetterIds": [24, 18, 23, 24]},
+    {"id": 29, "arabic": "صَدِيق", "transliteration": "Sadiq", "translationEn": "Friend (m)", "translationFr": "Ami", "componentLetterIds": [14, 8, 28, 21]},
+    {"id": 30, "arabic": "مَاء", "transliteration": "Maa", "translationEn": "Water", "translationFr": "Eau", "componentLetterIds": [24, 1, 26]}
+  ],
+  "phrases": [
+    {"id": 1, "arabic": "أَنَا طَالِب", "transliteration": "Ana talib", "translationEn": "I am a student", "translationFr": "Je suis étudiant", "wordIds": [21, 26], "category": "introduction", "audioName": "phrase_ana_talib"},
+    {"id": 2, "arabic": "هٰذَا كِتَاب", "transliteration": "Hadha kitab", "translationEn": "This is a book", "translationFr": "Ceci est un livre", "wordIds": [25, 9], "category": "statement", "audioName": "phrase_hadha_kitab"},
+    {"id": 3, "arabic": "السَّلَامُ عَلَيْكُم", "transliteration": "Assalamu alaykum", "translationEn": "Peace be upon you", "translationFr": "La paix soit sur vous", "wordIds": [], "category": "greeting", "audioName": "phrase_salam"},
+    {"id": 4, "arabic": "شُكْرًا", "transliteration": "Shukran", "translationEn": "Thank you", "translationFr": "Merci", "wordIds": [], "category": "response", "audioName": "phrase_shukran"},
+    {"id": 5, "arabic": "مَا اسْمُكَ؟", "transliteration": "Ma ismuka?", "translationEn": "What is your name?", "translationFr": "Comment t'appelles-tu?", "wordIds": [], "category": "question", "audioName": "phrase_ma_ismuka"},
+    {"id": 6, "arabic": "أَهْلًا وَسَهْلًا", "transliteration": "Ahlan wa sahlan", "translationEn": "Welcome", "translationFr": "Bienvenue", "wordIds": [], "category": "greeting", "audioName": "phrase_ahlan"},
+    {"id": 7, "arabic": "كَيْفَ حَالُكَ؟", "transliteration": "Kayfa haluka?", "translationEn": "How are you?", "translationFr": "Comment vas-tu?", "wordIds": [], "category": "question", "audioName": "phrase_kayfa_haluk"},
+    {"id": 8, "arabic": "بِخَيْر", "transliteration": "Bikhair", "translationEn": "Fine/Well", "translationFr": "Bien", "wordIds": [], "category": "response", "audioName": "phrase_bikhair"},
+    {"id": 9, "arabic": "مَعَ السَّلَامَة", "transliteration": "Maa salama", "translationEn": "Goodbye", "translationFr": "Au revoir", "wordIds": [], "category": "greeting", "audioName": "phrase_maa_salama"},
+    {"id": 10, "arabic": "هُوَ صَدِيقِي", "transliteration": "Huwa sadiqi", "translationEn": "He is my friend", "translationFr": "C'est mon ami", "wordIds": [23, 29], "category": "introduction", "audioName": "phrase_huwa_sadiqi"}
   ],
   "levels": {
     "en": [
@@ -87,15 +109,19 @@
       {"id": 9, "type": "alphabet", "titleKey": "Alphabet (20-28)", "subtitle": "ف ق ك ل م ن ه و ي", "contentIds": [20, 21, 22, 23, 24, 25, 26, 27, 28]},
       {"id": 10, "type": "vowels", "titleKey": "Practice: Vowels", "subtitle": "ف - ي + Harakat", "contentIds": [1, 2, 3]},
       {"id": 11, "type": "wordBuild", "titleKey": "First Words", "subtitle": "أَبْ - يَد", "contentIds": [1, 2, 3, 4, 5]},
-      {"id": 12, "type": "wordBuild", "titleKey": "Sun & Moon Letters", "subtitle": "شَمْس - قَمَر", "contentIds": [6, 7, 8]},
-      {"id": 13, "type": "wordBuild", "titleKey": "Everyday Objects", "subtitle": "كِتَاب - قَلَم", "contentIds": [9, 10, 11]},
-      {"id": 14, "type": "wordBuild", "titleKey": "Family (Part 1)", "subtitle": "وَلَد - بِنْت", "contentIds": [12, 13, 14]},
-      {"id": 15, "type": "wordBuild", "titleKey": "Family (Part 2)", "subtitle": "جَدّ - أُخْت", "contentIds": [15, 3, 4]},
-      {"id": 16, "type": "wordBuild", "titleKey": "Colors (Part 1)", "subtitle": "أَحْمَر - أَزْرَق", "contentIds": [16, 17]},
-      {"id": 17, "type": "wordBuild", "titleKey": "Colors (Part 2)", "subtitle": "أَخْضَر - أَبْيَض", "contentIds": [18, 19]},
-      {"id": 18, "type": "wordBuild", "titleKey": "Colors (Part 3)", "subtitle": "أَسْوَد - نُور", "contentIds": [20, 8]},
-      {"id": 19, "type": "wordBuild", "titleKey": "Review: Family", "subtitle": "All Family Words", "contentIds": [3, 4, 12, 13, 14, 15]},
-      {"id": 20, "type": "wordBuild", "titleKey": "Review: Colors", "subtitle": "All Colors", "contentIds": [16, 17, 18, 19, 20]}
+      {"id": 12, "type": "solarLunar", "titleKey": "Solar & Lunar Letters", "subtitle": "الشَّمْس - القَمَر", "contentIds": []},
+      {"id": 13, "type": "wordBuild", "titleKey": "Sun & Moon Words", "subtitle": "شَمْس - قَمَر", "contentIds": [6, 7, 8]},
+      {"id": 14, "type": "wordBuild", "titleKey": "Everyday Objects", "subtitle": "كِتَاب - قَلَم", "contentIds": [9, 10, 11]},
+      {"id": 15, "type": "wordBuild", "titleKey": "Family (Part 1)", "subtitle": "وَلَد - بِنْت", "contentIds": [12, 13, 14]},
+      {"id": 16, "type": "wordBuild", "titleKey": "Family (Part 2)", "subtitle": "جَدّ - أُخْت", "contentIds": [15, 3, 4]},
+      {"id": 17, "type": "phrases", "titleKey": "First Phrases", "subtitle": "السَّلَامُ عَلَيْكُم", "contentIds": [1, 2, 3, 4]},
+      {"id": 18, "type": "wordBuild", "titleKey": "Colors (Part 1)", "subtitle": "أَحْمَر - أَزْرَق", "contentIds": [16, 17]},
+      {"id": 19, "type": "wordBuild", "titleKey": "Colors (Part 2)", "subtitle": "أَخْضَر - أَبْيَض", "contentIds": [18, 19]},
+      {"id": 20, "type": "phrases", "titleKey": "Greetings", "subtitle": "أَهْلًا وَسَهْلًا", "contentIds": [3, 6, 7, 8, 9]},
+      {"id": 21, "type": "wordBuild", "titleKey": "Colors (Part 3)", "subtitle": "أَسْوَد - نُور", "contentIds": [20, 8]},
+      {"id": 22, "type": "phrases", "titleKey": "Introductions", "subtitle": "أَنَا طَالِب", "contentIds": [1, 2, 5, 10]},
+      {"id": 23, "type": "wordBuild", "titleKey": "Review: Family", "subtitle": "All Family Words", "contentIds": [3, 4, 12, 13, 14, 15]},
+      {"id": 24, "type": "wordBuild", "titleKey": "Review: Colors", "subtitle": "All Colors", "contentIds": [16, 17, 18, 19, 20]}
     ],
     "fr": [
       {"id": 1, "type": "alphabet", "titleKey": "L'Alphabet (1-4)", "subtitle": "أ ب ت ث", "contentIds": [1, 2, 3, 4]},
@@ -109,15 +135,19 @@
       {"id": 9, "type": "alphabet", "titleKey": "L'Alphabet (20-28)", "subtitle": "ف ق ك ل م ن ه و ي", "contentIds": [20, 21, 22, 23, 24, 25, 26, 27, 28]},
       {"id": 10, "type": "vowels", "titleKey": "Pratique : Voyelles", "subtitle": "ف - ي + Harakat", "contentIds": [1, 2, 3]},
       {"id": 11, "type": "wordBuild", "titleKey": "Premiers Mots", "subtitle": "أَبْ - يَد", "contentIds": [1, 2, 3, 4, 5]},
-      {"id": 12, "type": "wordBuild", "titleKey": "Lettres Solaires & Lunaires", "subtitle": "شَمْس - قَمَر", "contentIds": [6, 7, 8]},
-      {"id": 13, "type": "wordBuild", "titleKey": "Objets du Quotidien", "subtitle": "كِتَاب - قَلَم", "contentIds": [9, 10, 11]},
-      {"id": 14, "type": "wordBuild", "titleKey": "La Famille (Partie 1)", "subtitle": "وَلَد - بِنْت", "contentIds": [12, 13, 14]},
-      {"id": 15, "type": "wordBuild", "titleKey": "La Famille (Partie 2)", "subtitle": "جَدّ - أُخْت", "contentIds": [15, 3, 4]},
-      {"id": 16, "type": "wordBuild", "titleKey": "Les Couleurs (Partie 1)", "subtitle": "أَحْمَر - أَزْرَق", "contentIds": [16, 17]},
-      {"id": 17, "type": "wordBuild", "titleKey": "Les Couleurs (Partie 2)", "subtitle": "أَخْضَر - أَبْيَض", "contentIds": [18, 19]},
-      {"id": 18, "type": "wordBuild", "titleKey": "Les Couleurs (Partie 3)", "subtitle": "أَسْوَد - نُور", "contentIds": [20, 8]},
-      {"id": 19, "type": "wordBuild", "titleKey": "Révision : Famille", "subtitle": "Tous les mots de famille", "contentIds": [3, 4, 12, 13, 14, 15]},
-      {"id": 20, "type": "wordBuild", "titleKey": "Révision : Couleurs", "subtitle": "Toutes les couleurs", "contentIds": [16, 17, 18, 19, 20]}
+      {"id": 12, "type": "solarLunar", "titleKey": "Lettres Solaires & Lunaires", "subtitle": "الشَّمْس - القَمَر", "contentIds": []},
+      {"id": 13, "type": "wordBuild", "titleKey": "Mots Soleil & Lune", "subtitle": "شَمْس - قَمَر", "contentIds": [6, 7, 8]},
+      {"id": 14, "type": "wordBuild", "titleKey": "Objets du Quotidien", "subtitle": "كِتَاب - قَلَم", "contentIds": [9, 10, 11]},
+      {"id": 15, "type": "wordBuild", "titleKey": "La Famille (Partie 1)", "subtitle": "وَلَد - بِنْت", "contentIds": [12, 13, 14]},
+      {"id": 16, "type": "wordBuild", "titleKey": "La Famille (Partie 2)", "subtitle": "جَدّ - أُخْت", "contentIds": [15, 3, 4]},
+      {"id": 17, "type": "phrases", "titleKey": "Premières Phrases", "subtitle": "السَّلَامُ عَلَيْكُم", "contentIds": [1, 2, 3, 4]},
+      {"id": 18, "type": "wordBuild", "titleKey": "Les Couleurs (Partie 1)", "subtitle": "أَحْمَر - أَزْرَق", "contentIds": [16, 17]},
+      {"id": 19, "type": "wordBuild", "titleKey": "Les Couleurs (Partie 2)", "subtitle": "أَخْضَر - أَبْيَض", "contentIds": [18, 19]},
+      {"id": 20, "type": "phrases", "titleKey": "Les Salutations", "subtitle": "أَهْلًا وَسَهْلًا", "contentIds": [3, 6, 7, 8, 9]},
+      {"id": 21, "type": "wordBuild", "titleKey": "Les Couleurs (Partie 3)", "subtitle": "أَسْوَد - نُور", "contentIds": [20, 8]},
+      {"id": 22, "type": "phrases", "titleKey": "Se Présenter", "subtitle": "أَنَا طَالِب", "contentIds": [1, 2, 5, 10]},
+      {"id": 23, "type": "wordBuild", "titleKey": "Révision : Famille", "subtitle": "Tous les mots de famille", "contentIds": [3, 4, 12, 13, 14, 15]},
+      {"id": 24, "type": "wordBuild", "titleKey": "Révision : Couleurs", "subtitle": "Toutes les couleurs", "contentIds": [16, 17, 18, 19, 20]}
     ]
   }
 }

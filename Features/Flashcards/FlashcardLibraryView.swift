@@ -3,7 +3,7 @@ import SwiftUI
 struct FlashcardLibraryView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
-    let cards = FlashcardManager.shared.getAllCards()
+    let cards = FlashcardManager.shared.allCards
     var onCardSelected: ((Flashcard) -> Void)? = nil
     
     let columns = [
@@ -50,15 +50,15 @@ struct LibraryCardView: View {
     @EnvironmentObject var languageManager: LanguageManager
     @StateObject private var audioManager = AudioManager.shared
     
-    var isKnown: Bool {
-        FlashcardManager.shared.isKnown(card)
+    var isMature: Bool {
+        FlashcardManager.shared.getInterval(for: card) >= 21
     }
     
     var body: some View {
         VStack(spacing: 12) {
             HStack {
                 Spacer()
-                if isKnown {
+                if isMature {
                     HStack(spacing: 4) {
                         Image(systemName: "checkmark.circle.fill")
                         Text(LocalizedStringKey("Maîtrisés"))
@@ -102,12 +102,12 @@ struct LibraryCardView: View {
         .padding(16)
         .background(
             RoundedRectangle(cornerRadius: 16)
-                .fill(isKnown ? Color.green.opacity(0.05) : (colorScheme == .dark ? Color(UIColor.secondarySystemGroupedBackground) : .white))
+                .fill(isMature ? Color.green.opacity(0.05) : (colorScheme == .dark ? Color(UIColor.secondarySystemGroupedBackground) : .white))
                 .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
         )
         .overlay(
             RoundedRectangle(cornerRadius: 16)
-                .stroke(isKnown ? Color.green.opacity(0.3) : Color.clear, lineWidth: 2)
+                .stroke(isMature ? Color.green.opacity(0.3) : Color.clear, lineWidth: 2)
         )
     }
 }

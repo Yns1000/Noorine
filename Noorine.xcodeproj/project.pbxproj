@@ -54,6 +54,9 @@
 		F1BDF6882F2FCF72008A9EBC /* TipBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6872F2FCF70008A9EBC /* TipBanner.swift */; };
 		F1BDF68A2F2FD31B008A9EBC /* FactsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6892F2FD31A008A9EBC /* FactsData.swift */; };
 		F1C720702F32C36100EDA1E8 /* course_content.json in Resources */ = {isa = PBXBuildFile; fileRef = F1C7206F2F32C36100EDA1E8 /* course_content.json */; };
+		F1C720722F34138C00EDA1E8 /* SRSEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C720712F34138C00EDA1E8 /* SRSEngine.swift */; };
+		F1C720742F34143500EDA1E8 /* SolarLunarLessonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C720732F34143500EDA1E8 /* SolarLunarLessonView.swift */; };
+		F1C720762F34148F00EDA1E8 /* PhraseLessonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C720752F34148F00EDA1E8 /* PhraseLessonView.swift */; };
 		F1DIA0022F3D0002008A9EBC /* DiacriticHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DIA0012F3D0001008A9EBC /* DiacriticHelper.swift */; };
 		F1FCEB372F28D60900AE6497 /* NoorineApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEB362F28D60900AE6497 /* NoorineApp.swift */; };
 		F1FCEB392F28D60900AE6497 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEB382F28D60900AE6497 /* ContentView.swift */; };
@@ -132,6 +135,9 @@
 		F1BDF6872F2FCF70008A9EBC /* TipBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipBanner.swift; sourceTree = "<group>"; };
 		F1BDF6892F2FD31A008A9EBC /* FactsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsData.swift; sourceTree = "<group>"; };
 		F1C7206F2F32C36100EDA1E8 /* course_content.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = course_content.json; sourceTree = "<group>"; };
+		F1C720712F34138C00EDA1E8 /* SRSEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSEngine.swift; sourceTree = "<group>"; };
+		F1C720732F34143500EDA1E8 /* SolarLunarLessonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarLunarLessonView.swift; sourceTree = "<group>"; };
+		F1C720752F34148F00EDA1E8 /* PhraseLessonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseLessonView.swift; sourceTree = "<group>"; };
 		F1DIA0012F3D0001008A9EBC /* DiacriticHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiacriticHelper.swift; sourceTree = "<group>"; };
 		F1FCEB332F28D60900AE6497 /* Noorine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Noorine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1FCEB362F28D60900AE6497 /* NoorineApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoorineApp.swift; sourceTree = "<group>"; };
@@ -193,6 +199,8 @@
 				AAAA00102F2A000000000010 /* FreeDrawingView.swift */,
 				F190A13F2F2B0F5B00F0A090 /* Components */,
 				F190A14B2F2B0F6800F0A090 /* Models */,
+				F1C720732F34143500EDA1E8 /* SolarLunarLessonView.swift */,
+				F1C720752F34148F00EDA1E8 /* PhraseLessonView.swift */,
 			);
 			path = Learning;
 			sourceTree = "<group>";
@@ -359,6 +367,7 @@
 				F11376792F291E5800D25275 /* LanguageManager.swift */,
 				AAAA00062F2A000000000004 /* DataManager.swift */,
 				F1C7206F2F32C36100EDA1E8 /* course_content.json */,
+				F1C720712F34138C00EDA1E8 /* SRSEngine.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -514,7 +523,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2620;
-				LastUpgradeCheck = 2620;
+				LastUpgradeCheck = 2630;
 				TargetAttributes = {
 					F1FCEB322F28D60900AE6497 = {
 						CreatedOnToolsVersion = 26.2;
@@ -587,13 +596,16 @@
 				F1FCEB392F28D60900AE6497 /* ContentView.swift in Sources */,
 				F1FCEB762F2909FB00AE6497 /* ProfileView.swift in Sources */,
 				F1BDF6882F2FCF72008A9EBC /* TipBanner.swift in Sources */,
+				F1C720762F34148F00EDA1E8 /* PhraseLessonView.swift in Sources */,
 				F1FCEB722F2909E100AE6497 /* HomeView.swift in Sources */,
 				F1BDF6702F2FB8C7008A9EBC /* ModernCardView.swift in Sources */,
 				F1BDF6712F2FB8C7008A9EBC /* FlashcardLibraryView.swift in Sources */,
 				F1BDF6862F2FCA9B008A9EBC /* PhoneticDictionary.swift in Sources */,
 				F1BDF6722F2FB8C7008A9EBC /* FlashcardsView.swift in Sources */,
+				F1C720742F34143500EDA1E8 /* SolarLunarLessonView.swift in Sources */,
 				F1FCEB652F28D84600AE6497 /* Theme.swift in Sources */,
 				F1FCEB742F2909EF00AE6497 /* PracticeView.swift in Sources */,
+				F1C720722F34138C00EDA1E8 /* SRSEngine.swift in Sources */,
 				F1FCEB6A2F28D8E700AE6497 /* SplashScreenView.swift in Sources */,
 				F1FCEB372F28D60900AE6497 /* NoorineApp.swift in Sources */,
 				F1FCEB6C2F2906AD00AE6497 /* NoorineMascot.swift in Sources */,
@@ -675,6 +687,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -729,6 +742,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -740,6 +754,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -787,6 +802,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;

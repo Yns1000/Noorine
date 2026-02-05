@@ -98,14 +98,25 @@ struct HomeView: View {
             .toolbar(.hidden, for: .navigationBar)
             .fullScreenCover(item: $selectedLevel) { level in
                 NavigationView {
-                    if level.levelType == .vowels {
+                    switch level.levelType {
+                    case .vowels:
                         VowelLessonView(levelNumber: level.levelNumber)
-                    } else if level.levelType == .wordBuild {
+                    case .wordBuild:
                         WordAssemblyView(levelNumber: level.levelNumber, onCompletion: {
                             dataManager.completeLevel(levelNumber: level.levelNumber)
                             selectedLevel = nil
                         })
-                    } else {
+                    case .solarLunar:
+                        SolarLunarLessonView(onCompletion: {
+                            dataManager.completeLevel(levelNumber: level.levelNumber)
+                            selectedLevel = nil
+                        })
+                    case .phrases:
+                        PhraseLessonView(levelNumber: level.levelNumber, onCompletion: {
+                            dataManager.completeLevel(levelNumber: level.levelNumber)
+                            selectedLevel = nil
+                        })
+                    case .alphabet, .quiz:
                         LevelDetailView(levelNumber: level.levelNumber, title: level.title)
                     }
                 }

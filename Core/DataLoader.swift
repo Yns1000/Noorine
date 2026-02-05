@@ -22,6 +22,7 @@ class DataLoader {
         let letters: [ArabicLetter]
         let vowels: [ArabicVowel]
         let words: [ArabicWord]
+        let phrases: [ArabicPhrase]?
         let levels: [String: [LevelDefinitionJSON]]
     }
     

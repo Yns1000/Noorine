@@ -256,7 +256,7 @@ struct PhraseLessonView: View {
     }
     
     private var wordBank: some View {
-        FlowLayout(spacing: 12) {
+        PhraseFlowLayout(spacing: 12) {
             ForEach(availableWords) { word in
                 WordChip(word: word) {
                     addWord(word)
@@ -557,7 +557,7 @@ struct ActionButton: View {
     }
 }
 
-struct FlowLayout: Layout {
+struct PhraseFlowLayout: Layout {
     var spacing: CGFloat = 8
     
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {

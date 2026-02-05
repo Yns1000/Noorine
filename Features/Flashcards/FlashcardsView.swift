@@ -297,9 +297,9 @@ struct FlashcardsView: View {
             }
             
             HStack(spacing: 20) {
-                StatBadge(value: sessionStats.easyCount, label: isEnglish ? "Easy" : "Facile", color: .green)
-                StatBadge(value: sessionStats.goodCount, label: isEnglish ? "Good" : "Bien", color: .blue)
-                StatBadge(value: sessionStats.reviewCount, label: isEnglish ? "Review" : "Revoir", color: .orange)
+                FlashcardStatBadge(value: sessionStats.easyCount, label: isEnglish ? "Easy" : "Facile", color: .green)
+                FlashcardStatBadge(value: sessionStats.goodCount, label: isEnglish ? "Good" : "Bien", color: .blue)
+                FlashcardStatBadge(value: sessionStats.reviewCount, label: isEnglish ? "Review" : "Revoir", color: .orange)
             }
             
             Button(action: { dismiss() }) {
@@ -667,7 +667,7 @@ struct CircleButton: View {
     }
 }
 
-struct StatBadge: View {
+struct FlashcardStatBadge: View {
     let value: Int
     let label: String
     let color: Color

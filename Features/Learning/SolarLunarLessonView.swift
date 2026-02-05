@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct SolarLunarLessonView: View {
+    let onCompletion: () -> Void
+    
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var languageManager: LanguageManager
     @EnvironmentObject var dataManager: DataManager
@@ -324,7 +326,10 @@ struct SolarLunarLessonView: View {
             
             Spacer()
             
-            Button(action: { dismiss() }) {
+            Button(action: {
+                    onCompletion()
+                    dismiss()
+                }) {
                 Text(isEnglish ? "Finish" : "Terminer")
                     .font(.system(size: 17, weight: .semibold))
                     .foregroundColor(.white)

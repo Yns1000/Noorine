@@ -784,9 +784,15 @@ struct WordAssemblyView: View {
     @State private var showError = false
     
     @State private var selectedLetter: UniqueLetter? = nil
+    @State private var mascotMood: EmotionalMascot.Mood = .neutral
     
     var currentWord: ArabicWord? {
         words.indices.contains(currentWordIndex) ? words[currentWordIndex] : nil
+    }
+    
+    private var progress: Double {
+        guard !words.isEmpty else { return 0 }
+        return Double(currentWordIndex) / Double(words.count)
     }
     
     var body: some View {
@@ -794,63 +800,172 @@ struct WordAssemblyView: View {
             Color.noorBackground.ignoresSafeArea()
             
             if let word = currentWord {
-                VStack(spacing: 24) {
+                VStack(spacing: 0) {
                     headerView
-                    wordDisplayView(word: word)
-                    slotsView(word: word)
-                    instructionAndLettersView
-                    Spacer()
-                    if showSuccess { nextButton }
+                    
+                    ScrollView(showsIndicators: false) {
+                        VStack(spacing: 20) {
+                            mascotSection
+                            wordDisplayView(word: word)
+                            slotsView(word: word)
+                            instructionAndLettersView
+                        }
+                        .padding(.top, 16)
+                        .padding(.bottom, 120)
+                    }
+                }
+                
+                if showSuccess {
+                    VStack {
+                        Spacer()
+                        nextButton
+                    }
                 }
             } else {
                 ProgressView()
             }
         }
         .onAppear { loadLevel() }
+        .onChange(of: showSuccess) { _, success in
+            mascotMood = success ? .happy : .neutral
+        }
+        .onChange(of: showError) { _, error in
+            mascotMood = error ? .sad : .neutral
+        }
     }
     
     private var headerView: some View {
-        HStack {
-            Button { dismiss() } label: {
-                Image(systemName: "xmark")
-                    .font(.system(size: 20, weight: .bold))
-                    .foregroundColor(.noorSecondary)
-                    .padding(12)
-                    .background(Color.white)
-                    .clipShape(Circle())
+        VStack(spacing: 12) {
+            HStack {
+                Button { dismiss() } label: {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.noorSecondary)
+                        .frame(width: 36, height: 36)
+                        .background(Circle().fill(Color(.secondarySystemGroupedBackground)))
+                }
+                
+                Spacer()
+                
+                HStack(spacing: 8) {
+                    Image(systemName: "textformat.abc")
+                        .font(.system(size: 14))
+                        .foregroundColor(.noorGold)
+                    Text("\(currentWordIndex + 1)/\(words.count)")
+                        .font(.system(size: 14, weight: .bold, design: .rounded))
+                        .foregroundColor(.noorText)
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .background(Capsule().fill(Color(.secondarySystemGroupedBackground)))
             }
-            Spacer()
-            Text(LocalizedStringKey("Mot \(currentWordIndex + 1)/\(words.count)"))
-                .font(.headline)
-                .foregroundColor(.noorSecondary)
+            
+            GeometryReader { geo in
+                ZStack(alignment: .leading) {
+                    Capsule()
+                        .fill(Color(.systemGray5))
+                        .frame(height: 6)
+                    
+                    Capsule()
+                        .fill(
+                            LinearGradient(
+                                colors: [.noorGold, .orange],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                        .frame(width: geo.size.width * progress, height: 6)
+                        .animation(.spring(response: 0.4), value: progress)
+                }
+            }
+            .frame(height: 6)
         }
-        .padding(.horizontal)
+        .padding(.horizontal, 20)
+        .padding(.top, 12)
+        .padding(.bottom, 8)
+    }
+    
+    private var mascotSection: some View {
+        HStack(spacing: 16) {
+            EmotionalMascot(mood: mascotMood, size: 56, showAura: false)
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text(mascotMessage)
+                    .font(.system(size: 15, weight: .medium))
+                    .foregroundColor(.noorText)
+                    .lineLimit(2)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .padding(.vertical, 12)
+            .padding(.horizontal, 16)
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color(.secondarySystemGroupedBackground))
+            )
+            
+            Spacer()
+        }
+        .padding(.horizontal, 20)
+        .animation(.spring(response: 0.4), value: mascotMood)
+    }
+    
+    private var mascotMessage: LocalizedStringKey {
+        if showSuccess {
+            return languageManager.currentLanguage == .english ? "Perfect! You got it!" : "Parfait ! Tu as réussi !"
+        } else if showError {
+            return languageManager.currentLanguage == .english ? "Oops! Try again!" : "Oups ! Réessaie !"
+        } else if selectedLetter != nil {
+            return languageManager.currentLanguage == .english ? "Now tap a slot!" : "Tape sur un emplacement !"
+        } else {
+            return languageManager.currentLanguage == .english ? "Select a letter below" : "Sélectionne une lettre"
+        }
     }
     
     private func wordDisplayView(word: ArabicWord) -> some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 16) {
             if showSuccess {
-                VStack(spacing: 16) {
-                    DiacriticHelper.highlightedArabicText(text: word.arabic, fontSize: 60)
+                VStack(spacing: 20) {
+                    DiacriticHelper.highlightedArabicText(text: word.arabic, fontSize: 52)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 16)
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color.green.opacity(0.08))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color.green.opacity(0.3), lineWidth: 2)
+                                )
+                        )
                     
                     Text(word.transliteration)
-                        .font(.title2.weight(.medium))
-                        .foregroundStyle(.secondary)
+                        .font(.system(size: 18, weight: .semibold, design: .monospaced))
+                        .foregroundColor(.noorGold)
                     
                     wordBreakdownView(word: word)
                 }
             } else {
                 let translation = languageManager.currentLanguage == .english ? word.translationEn : word.translationFr
-                Text(translation)
-                    .font(.system(size: 32, weight: .bold, design: .rounded))
-                    .foregroundStyle(.primary)
-                Text(word.transliteration)
-                    .font(.title3)
-                    .foregroundStyle(.secondary)
+                
+                VStack(spacing: 8) {
+                    Text(translation)
+                        .font(.system(size: 28, weight: .bold, design: .rounded))
+                        .foregroundColor(.noorText)
+                    
+                    Text(word.transliteration)
+                        .font(.system(size: 16, weight: .medium, design: .monospaced))
+                        .foregroundColor(.noorSecondary)
+                }
+                .padding(.horizontal, 28)
+                .padding(.vertical, 20)
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color(.secondarySystemGroupedBackground))
+                        .shadow(color: .black.opacity(0.04), radius: 8, y: 4)
+                )
             }
         }
-        .frame(minHeight: 120)
-        .animation(.spring(), value: showSuccess)
+        .padding(.horizontal, 20)
+        .animation(.spring(response: 0.4), value: showSuccess)
     }
     
     private func wordBreakdownView(word: ArabicWord) -> some View {
@@ -996,22 +1111,47 @@ struct WordAssemblyView: View {
     @State private var showLevelSummary = false
     
     private var nextButton: some View {
-        Button {
-            if currentWordIndex < words.count - 1 {
-                nextWord()
-            } else {
-                withAnimation(.spring()) { showLevelSummary = true }
-            }
-        } label: {
-            Text(currentWordIndex < words.count - 1 ? LocalizedStringKey("Mot suivant") : LocalizedStringKey("Terminer"))
-                .font(.system(size: 20, weight: .bold))
+        VStack(spacing: 0) {
+            LinearGradient(
+                colors: [Color.noorBackground.opacity(0), Color.noorBackground],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .frame(height: 30)
+            
+            Button {
+                if currentWordIndex < words.count - 1 {
+                    nextWord()
+                } else {
+                    withAnimation(.spring()) { showLevelSummary = true }
+                }
+            } label: {
+                HStack(spacing: 10) {
+                    Text(currentWordIndex < words.count - 1 ? LocalizedStringKey("Mot suivant") : LocalizedStringKey("Terminer"))
+                        .font(.system(size: 17, weight: .semibold))
+                    
+                    Image(systemName: currentWordIndex < words.count - 1 ? "arrow.right" : "checkmark")
+                        .font(.system(size: 14, weight: .bold))
+                }
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
-                .padding()
-                .background(Color.noorGold)
-                .cornerRadius(16)
+                .frame(height: 54)
+                .background(
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(
+                            LinearGradient(
+                                colors: [.noorGold, .orange],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                        .shadow(color: .noorGold.opacity(0.4), radius: 12, y: 6)
+                )
+            }
+            .padding(.horizontal, 24)
+            .padding(.bottom, 30)
+            .background(Color.noorBackground)
         }
-        .padding(.horizontal)
         .transition(.move(edge: .bottom).combined(with: .opacity))
         .sheet(isPresented: $showLevelSummary) {
             LevelSummaryView(wordsLearned: words.count, onContinue: {

@@ -63,8 +63,41 @@ struct ArabicLetter: Identifiable, Codable, Equatable {
     
     static let nonConnectingIds: Set<Int> = [1, 8, 9, 10, 11, 27]
     
+    static let solarLetterIds: Set<Int> = [3, 4, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 23, 25]
+    
     var connectsToLeft: Bool {
         !ArabicLetter.nonConnectingIds.contains(id)
+    }
+    
+    var isSolar: Bool {
+        ArabicLetter.solarLetterIds.contains(id)
+    }
+    
+    var isLunar: Bool {
+        !isSolar
+    }
+    
+    var letterCategory: LetterCategory {
+        isSolar ? .solar : .lunar
+    }
+    
+    enum LetterCategory {
+        case solar
+        case lunar
+        
+        var nameKey: String {
+            switch self {
+            case .solar: return "Lettre Solaire"
+            case .lunar: return "Lettre Lunaire"
+            }
+        }
+        
+        var icon: String {
+            switch self {
+            case .solar: return "sun.max.fill"
+            case .lunar: return "moon.fill"
+            }
+        }
     }
     
     static func determineLetterForm(
@@ -99,6 +132,8 @@ enum LevelType: String, Codable {
     case vowels
     case wordBuild
     case quiz
+    case solarLunar
+    case phrases
 }
 
 struct LevelDefinition: Identifiable {
@@ -120,10 +155,34 @@ struct ArabicWord: Identifiable, Codable {
     let componentLetterIds: [Int]
 }
 
+struct ArabicPhrase: Identifiable, Codable {
+    let id: Int
+    let arabic: String
+    let transliteration: String
+    let translationEn: String
+    let translationFr: String
+    let wordIds: [Int]
+    let category: PhraseCategory
+    let audioName: String?
+    
+    enum PhraseCategory: String, Codable {
+        case greeting
+        case introduction
+        case question
+        case statement
+        case response
+    }
+}
+
 enum ArabicVowelType: String, Codable {
     case fatha
     case kasra
     case damma
+    case sukun
+    case shadda
+    case tanwinFatha
+    case tanwinKasra
+    case tanwinDamma
 }
 
 struct ArabicVowel: Identifiable, Codable {
@@ -158,6 +217,10 @@ struct CourseContent {
     
     static var words: [ArabicWord] {
         loaded?.words ?? fallbackWords
+    }
+    
+    static var phrases: [ArabicPhrase] {
+        loaded?.phrases ?? fallbackPhrases
     }
     
     static func getLevels(language: AppLanguage) -> [LevelDefinition] {
@@ -229,6 +292,20 @@ struct CourseContent {
                 VowelExample(letterId: 2, combination: "بُ", transliteration: "Bu", audioName: "ba_damma"),
                 VowelExample(letterId: 3, combination: "تُ", transliteration: "Tu", audioName: "ta_damma")
             ]
+        ),
+        ArabicVowel(
+            id: 4, type: .sukun, name: "Sukun", symbol: "ْ", transliteration: "-", soundName: "sukun_sound",
+            examples: [
+                VowelExample(letterId: 2, combination: "بْ", transliteration: "b", audioName: "ba_sukun"),
+                VowelExample(letterId: 23, combination: "لْ", transliteration: "l", audioName: "lam_sukun")
+            ]
+        ),
+        ArabicVowel(
+            id: 5, type: .shadda, name: "Shadda", symbol: "ّ", transliteration: "xx", soundName: "shadda_sound",
+            examples: [
+                VowelExample(letterId: 2, combination: "بَّ", transliteration: "bb", audioName: "ba_shadda"),
+                VowelExample(letterId: 24, combination: "مَّ", transliteration: "mm", audioName: "mim_shadda")
+            ]
         )
     ]
     
@@ -238,6 +315,14 @@ struct CourseContent {
         ArabicWord(id: 3, arabic: "أُمّ", transliteration: "Umm", translationEn: "Mother", translationFr: "Mère", componentLetterIds: [1, 24]),
         ArabicWord(id: 4, arabic: "أَخ", transliteration: "Akh", translationEn: "Brother", translationFr: "Frère", componentLetterIds: [1, 7]),
         ArabicWord(id: 5, arabic: "يَد", transliteration: "Yad", translationEn: "Hand", translationFr: "Main", componentLetterIds: [28, 8])
+    ]
+    
+    private static let fallbackPhrases: [ArabicPhrase] = [
+        ArabicPhrase(id: 1, arabic: "أَنَا طَالِب", transliteration: "Ana talib", translationEn: "I am a student", translationFr: "Je suis étudiant", wordIds: [], category: .introduction, audioName: nil),
+        ArabicPhrase(id: 2, arabic: "هٰذَا كِتَاب", transliteration: "Hadha kitab", translationEn: "This is a book", translationFr: "Ceci est un livre", wordIds: [], category: .statement, audioName: nil),
+        ArabicPhrase(id: 3, arabic: "السَّلَامُ عَلَيْكُم", transliteration: "Assalamu alaykum", translationEn: "Peace be upon you", translationFr: "La paix soit sur vous", wordIds: [], category: .greeting, audioName: nil),
+        ArabicPhrase(id: 4, arabic: "شُكْرًا", transliteration: "Shukran", translationEn: "Thank you", translationFr: "Merci", wordIds: [], category: .response, audioName: nil),
+        ArabicPhrase(id: 5, arabic: "مَا اسْمُكَ؟", transliteration: "Ma ismuka?", translationEn: "What is your name?", translationFr: "Comment t'appelles-tu?", wordIds: [], category: .question, audioName: nil)
     ]
     
     private static func fallbackLevels(language: AppLanguage) -> [LevelDefinition] {
