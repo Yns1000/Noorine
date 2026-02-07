@@ -10,13 +10,11 @@ struct SentenceBuilderView: View {
     @State private var showCelebration = false
     @State private var score = 0
 
-    // Word management
     @State private var correctWords: [String] = []
     @State private var availableWords: [String] = []
     @State private var placedWords: [String?] = []
     @State private var nextSlotIndex = 0
 
-    // Feedback
     @State private var isCorrect: Bool? = nil
     @State private var shakeOffset: CGFloat = 0
     @State private var currentFact: String = ArabicFunFacts.randomPhraseFact()
@@ -29,7 +27,6 @@ struct SentenceBuilderView: View {
 
     var body: some View {
         ZStack {
-            // Background gradient
             LinearGradient(
                 colors: [Color.noorBackground, Color.noorBackground.opacity(0.95)],
                 startPoint: .top,
@@ -38,7 +35,6 @@ struct SentenceBuilderView: View {
             .ignoresSafeArea()
 
             VStack(spacing: 0) {
-                // Custom header
                 headerSection
                 
                 if phrases.isEmpty {
@@ -72,7 +68,6 @@ struct SentenceBuilderView: View {
         }
     }
     
-    // MARK: - Header
     
     private var headerSection: some View {
         HStack(spacing: 16) {
@@ -84,7 +79,6 @@ struct SentenceBuilderView: View {
                     .background(Circle().fill(Color(.secondarySystemGroupedBackground)))
             }
             
-            // Progress bar
             GeometryReader { geo in
                 ZStack(alignment: .leading) {
                     Capsule()
@@ -105,14 +99,11 @@ struct SentenceBuilderView: View {
         .padding(.horizontal, 20)
         .padding(.vertical, 12)
     }
-    
-    // MARK: - Exercise Content
-    
+        
     private var exerciseContent: some View {
         let phrase = phrases[currentIndex]
         
         return VStack(spacing: 0) {
-            // TipBanner with fun fact (replaces mascot)
             TipBanner(factKey: currentFact, onTap: {
                 withAnimation(.spring(response: 0.3)) {
                     currentFact = ArabicFunFacts.randomPhraseFact()
@@ -123,7 +114,6 @@ struct SentenceBuilderView: View {
             
             Spacer().frame(height: 16)
             
-            // Translation card with audio
             HStack(spacing: 12) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(isEnglish ? phrase.translationEn : phrase.translationFr)
@@ -165,7 +155,6 @@ struct SentenceBuilderView: View {
             
             Spacer().frame(height: 28)
             
-            // Drop zone - Slots
             VStack(spacing: 10) {
                 Text(isEnglish ? "Your sentence:" : "Ta phrase :")
                     .font(.system(size: 12, weight: .semibold))
@@ -211,7 +200,6 @@ struct SentenceBuilderView: View {
             
             Spacer().frame(height: 28)
             
-            // Word bank
             VStack(spacing: 10) {
                 Text(isEnglish ? "Available words:" : "Mots disponibles :")
                     .font(.system(size: 12, weight: .semibold))
@@ -259,8 +247,6 @@ struct SentenceBuilderView: View {
         }
     }
 
-    // MARK: - Logic
-
     private func loadPhrases() {
         let pool = dataManager.practicePool(language: languageManager.currentLanguage)
         let multiWord = pool.phrases.filter {
@@ -282,7 +268,6 @@ struct SentenceBuilderView: View {
         nextSlotIndex = 0
         isCorrect = nil
 
-        // Auto-play audio
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             guard currentIndex < phrases.count else { return }
             AudioManager.shared.playText(phrases[currentIndex].arabic, style: .phraseSlow, useCache: true)
@@ -345,7 +330,6 @@ struct SentenceBuilderView: View {
             FeedbackManager.shared.error()
             dataManager.addMistake(itemId: String(phrases[currentIndex].id), type: "phrase")
 
-            // Shake animation
             withAnimation(.default) { shakeOffset = 12 }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) {
                 withAnimation(.default) { shakeOffset = -12 }
@@ -378,8 +362,6 @@ struct SentenceBuilderView: View {
     }
 }
 
-// MARK: - Slot View
-
 struct SBSlotView: View {
     let word: String?
     let index: Int
@@ -403,7 +385,6 @@ struct SBSlotView: View {
                                 .stroke(borderColor, lineWidth: 2.5)
                         )
                 } else {
-                    // Empty slot with number (RTL: index 0 = slot 1 on the right)
                     ZStack {
                         RoundedRectangle(cornerRadius: 14)
                             .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [8, 4]))
@@ -437,8 +418,6 @@ struct SBSlotView: View {
         return correct ? .green : .red
     }
 }
-
-// MARK: - Celebration
 
 struct SentenceBuilderCelebrationOverlay: View {
     let score: Int

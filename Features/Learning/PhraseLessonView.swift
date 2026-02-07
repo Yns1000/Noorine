@@ -11,11 +11,9 @@ struct PhraseLessonView: View {
     @State private var currentPhraseIndex = 0
     @State private var phase: LessonPhase = .presentation
     
-    // Phrase Building State
     @State private var userAnswer: [PhraseWord] = []
     @State private var availableWords: [PhraseWord] = []
     
-    // Word Building State - queue of all words to build
     @State private var wordsToConstruct: [ArabicWord] = []
     @State private var currentWordIndex = 0
     
@@ -74,9 +72,8 @@ struct PhraseLessonView: View {
                     case .wordBuilding:
                         if let word = currentWordToConstruct {
                             wordBuildingView(phrase, targetWord: word)
-                                .id("word-\(word.id)-\(currentWordIndex)") // Force view recreation
+                                .id("word-\(word.id)-\(currentWordIndex)")
                         } else {
-                            // All words constructed, move to phrase building
                             buildingView(phrase)
                                 .onAppear {
                                     withAnimation(.spring(response: 0.4)) {
@@ -199,12 +196,9 @@ struct PhraseLessonView: View {
         }
     }
     
-    
-    // MARK: - Word Building Phase
-    
+        
     private func wordBuildingView(_ phrase: PhraseData, targetWord: ArabicWord) -> some View {
         VStack(spacing: 0) {
-            // Progress indicator for words
             HStack(spacing: 8) {
                 ForEach(0..<wordsToConstruct.count, id: \.self) { index in
                     Circle()
@@ -221,13 +215,11 @@ struct PhraseLessonView: View {
                 .padding(.bottom, 8)
             
             WordAssemblyView(word: targetWord, onCompletion: {
-                // Move to next word
                 if currentWordIndex < wordsToConstruct.count - 1 {
                     withAnimation(.spring(response: 0.4)) {
                         currentWordIndex += 1
                     }
                 } else {
-                    // All words done, move to phrase building
                     withAnimation(.spring(response: 0.4)) {
                         phase = .building
                         setupBuildingPhase(phrase)
@@ -238,16 +230,13 @@ struct PhraseLessonView: View {
     }
     
     private func setupWordBuilding(_ phrase: PhraseData) {
-        // Get the original ArabicPhrase to access wordIds
         guard let originalPhrase = phrasesForLevel().first(where: { $0.id == phrase.id }) ?? 
               CourseContent.phrases.first(where: { $0.id == phrase.id }) else {
-            // Fallback: skip to phrase building
             phase = .building
             setupBuildingPhase(phrase)
             return
         }
         
-        // Build words from wordIds (in order, no duplicates)
         var orderedWords: [ArabicWord] = []
         var seenIds: Set<Int> = []
         
@@ -260,7 +249,6 @@ struct PhraseLessonView: View {
         }
         
         guard !orderedWords.isEmpty else {
-            // No buildable words, skip to phrase building
             phase = .building
             setupBuildingPhase(phrase)
             return
@@ -346,13 +334,13 @@ struct PhraseLessonView: View {
             }
 
             Text(isEnglish ? phrase.translationEn : phrase.translationFr)
-                .font(.system(size: 20, weight: .semibold)) // Slightly smaller
+                .font(.system(size: 20, weight: .semibold))
                 .foregroundColor(.noorText)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
 
             Text(phrase.transliteration)
-                .font(.system(size: 14, weight: .medium, design: .monospaced)) // Phonetics added
+                .font(.system(size: 14, weight: .medium, design: .monospaced))
                 .foregroundColor(.noorGold)
                 .padding(.bottom, 8)
 
@@ -401,7 +389,7 @@ struct PhraseLessonView: View {
                 }
             }
         }
-        .padding(.horizontal, 16) // Reduced padding
+        .padding(.horizontal, 16)
     }
     
     private var completionView: some View {
@@ -674,15 +662,17 @@ struct WordSlot: View {
     var body: some View {
         Button(action: onTap) {
             Text(word.arabic)
-                .font(.system(size: 16)) // Smaller font
+                .font(.system(size: 22, weight: .medium))
+                .minimumScaleFactor(0.8)
+                .lineLimit(1)
                 .foregroundColor(isCorrect ? .green : .noorText)
-                .padding(.horizontal, 8) // Smaller padding
-                .padding(.vertical, 4)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
                 .background(
-                    RoundedRectangle(cornerRadius: 8)
+                    RoundedRectangle(cornerRadius: 12)
                         .fill(isCorrect ? Color.green.opacity(0.1) : Color(.secondarySystemGroupedBackground))
                         .overlay(
-                            RoundedRectangle(cornerRadius: 8)
+                            RoundedRectangle(cornerRadius: 12)
                                 .stroke(isCorrect ? Color.green : Color.clear, lineWidth: 1.5)
                         )
                 )
@@ -779,12 +769,14 @@ struct WordChip: View {
     var body: some View {
         Button(action: onTap) {
             Text(word.arabic)
-                .font(.system(size: 16))
+                .font(.system(size: 22, weight: .medium))
+                .minimumScaleFactor(0.8)
+                .lineLimit(1)
                 .foregroundColor(.noorText)
-                .padding(.horizontal, 8) // Reduced horizontal padding
-                .padding(.vertical, 4)   // Reduced vertical padding further
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
                 .background(
-                    RoundedRectangle(cornerRadius: 8)
+                    RoundedRectangle(cornerRadius: 12)
                         .fill(Color(.secondarySystemGroupedBackground))
                         .shadow(color: .black.opacity(0.06), radius: 3, y: 1)
                 )

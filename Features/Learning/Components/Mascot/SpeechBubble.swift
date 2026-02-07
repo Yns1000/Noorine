@@ -18,6 +18,7 @@ struct SpeechBubble: View {
                     .font(.system(size: 12, weight: .medium))
                     .foregroundColor(.white.opacity(0.8))
                     .fixedSize(horizontal: false, vertical: true)
+                    .lineLimit(nil)
                     .lineSpacing(2)
             }
         }

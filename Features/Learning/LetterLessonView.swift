@@ -10,7 +10,11 @@ struct LetterLessonView: View {
     @State private var showCelebration = false
     @State private var completedForms: Set<LetterFormType> = []
     
-    private var availableForms: [LetterFormType] {
+Ameliore la card des annecdotes pour qu'elle puisse prendre plus de hauteur si le texte est trop long pcq sinon ça met des ... et faut pas que sa mascotte saute quand elle apparait 
+
+Pour sukkun shadda et tanwin bah le tts foire des fois on entend mal donc jsp mais trouve un concept innovant pour mieux faire ces niveaux et dans les quizz des fois on voit pas entierement les lettres 
+
+y'a un soucis sur certains mot qui finissent par ha comme ciel samaa regarde la capture d'ecran  et augmente la taille des mots dans la creation de la phrase fin le build the phrase    private var availableForms: [LetterFormType] {
         LetterFormType.availableForms(for: letter.id)
     }
     
@@ -40,7 +44,6 @@ struct LetterLessonView: View {
                         LetterFormsStep(letter: letter)
                             .transition(.opacity)
                     } else {
-                        // Dynamic steps for drawing forms
                         let formIndex = currentStep - 2
                         if formIndex < availableForms.count {
                             let formType = availableForms[formIndex]
@@ -50,7 +53,7 @@ struct LetterLessonView: View {
                                 onComplete: { completeForm(formType) }
                             )
                             .transition(.opacity)
-                            .id("drawing-\(formType.rawValue)") // Force recreation for different forms
+                            .id("drawing-\(formType.rawValue)")
                         } else {
                             EmptyView()
                         }
@@ -131,7 +134,6 @@ struct LetterLessonView: View {
     
     private func completeLetter() {
         guard completedForms.count == availableForms.count else {
-            // Find first incomplete form and jump to it
             if let firstIncompleteIndex = availableForms.firstIndex(where: { !completedForms.contains($0) }) {
                 currentStep = 2 + firstIncompleteIndex
             }

@@ -256,11 +256,9 @@ struct VowelLessonView: View {
         let validLetterIds = targetLetterIds.filter { $0 >= 1 && $0 <= 29 }
         let uniqueTargetIds = Array(Set(validLetterIds)).shuffled().prefix(6)
 
-        // Build quiz choices: always include base vowels (fatha, kasra, damma) plus the level's special vowels
-        let baseVowelIds = [1, 2, 3] // fatha, kasra, damma
+        let baseVowelIds = [1, 2, 3]
         let baseVowels = baseVowelIds.compactMap { id in CourseContent.vowels.first(where: { $0.id == id }) }
         
-        // Combine base vowels with loaded vowels (removing duplicates)
         var quizVowelChoices: [ArabicVowel] = baseVowels
         for vowel in loadedVowels {
             if !quizVowelChoices.contains(where: { $0.id == vowel.id }) {
@@ -272,7 +270,6 @@ struct VowelLessonView: View {
 
         for baseId in uniqueTargetIds {
             if let baseLetter = ArabicLetter.letter(byId: baseId) {
-                // Target vowel should be from the level's vowels (for special vowels like sukun/shadda/tanwin)
                 if let randomVowel = loadedVowels.randomElement() {
                     quizSteps.append(.quiz(target: randomVowel, allVowels: quizVowelChoices, baseLetter: baseLetter))
                 }
@@ -447,9 +444,11 @@ struct VowelQuizView: View {
                     }) {
                         VStack(spacing: 10) {
                             Text(baseLetter.initial + vowel.symbol)
-                                .font(.system(size: 56))
+                                .font(.system(size: 64))
+                                .minimumScaleFactor(0.4)
+                                .lineLimit(1)
                                 .foregroundColor(foregroundColor(for: vowel))
-                                .frame(height: 80)
+                                .frame(height: 90)
                             
                             Text(vowel.name)
                                 .font(.caption)
@@ -833,6 +832,7 @@ struct VowelCompletionView: View {
 struct SpecialVowelIntroView: View {
     let vowel: ArabicVowel
     @EnvironmentObject var languageManager: LanguageManager
+    @State private var isPulsing = false
 
     private var descriptionText: String? {
         languageManager.currentLanguage == .english ? vowel.descriptionEn : vowel.descriptionFr
@@ -850,9 +850,7 @@ struct SpecialVowelIntroView: View {
                 .background(Color.noorGold.opacity(0.1))
                 .cornerRadius(20)
 
-            // Visual Equation
             HStack(spacing: 16) {
-                // Base Letter (Example: Ba)
                 VStack {
                     Text("ب")
                         .font(.system(size: 60))
@@ -865,11 +863,13 @@ struct SpecialVowelIntroView: View {
                 Image(systemName: "plus")
                     .foregroundColor(.noorSecondary.opacity(0.5))
                 
-                // Vowel Symbol
                 VStack {
                     Text("◌" + vowel.symbol)
                         .font(.system(size: 60))
                         .foregroundColor(.noorGold)
+                        .scaleEffect(isPulsing ? 1.2 : 1.0)
+                        .animation(.easeInOut(duration: 1.0).repeatForever(autoreverses: true), value: isPulsing)
+                        .onAppear { isPulsing = true }
                     Text(vowel.name)
                         .font(.caption)
                         .foregroundColor(.noorGold)
@@ -878,7 +878,6 @@ struct SpecialVowelIntroView: View {
                 Image(systemName: "arrow.right")
                     .foregroundColor(.noorSecondary.opacity(0.5))
                 
-                // Result (Example: Ba + Vowel)
                 VStack {
                      Text("ب" + vowel.symbol)
                         .font(.system(size: 60))
@@ -918,7 +917,7 @@ struct SpecialVowelIntroView: View {
                 .foregroundColor(.noorGold)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
-                .background(Color.noorGold.opacity(0.1)) // Secondary style
+                .background(Color.noorGold.opacity(0.1))
                 .cornerRadius(16)
                 .overlay(
                     RoundedRectangle(cornerRadius: 16)
@@ -933,16 +932,15 @@ struct SpecialVowelIntroView: View {
     }
     
     private func playExampleAudio() {
-        // Try to find an example with 'Ba' (id 2) first as it's the standard example
         if let example = vowel.examples.first(where: { $0.letterId == 2 }) {
              AudioManager.shared.playSound(named: example.audioName)
         } else if let first = vowel.examples.first {
              AudioManager.shared.playSound(named: first.audioName)
         } else {
-            // Fallback: construct key "ba_vowelname"
             let key = "ba_\(vowel.transliteration)"
             AudioManager.shared.playSound(named: key)
         }
+        HapticManager.shared.impact(.medium)
     }
 }
 
@@ -1181,7 +1179,6 @@ struct WordAssemblyView: View {
     }
     
     private func playWordAudio(_ word: ArabicWord) {
-        // Construct clean audio key: word_kitab
         let cleanTrans = word.transliteration
             .replacingOccurrences(of: "ā", with: "a")
             .replacingOccurrences(of: "ī", with: "i")

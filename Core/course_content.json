@@ -28,7 +28,8 @@
     {"id": 26, "name": "هَاء", "transliteration": "Hā'", "isolated": "ه", "initial": "هـ", "medial": "ـهـ", "final": "ـه", "order": 26},
     {"id": 27, "name": "وَاو", "transliteration": "Wāw", "isolated": "و", "initial": "و", "medial": "ـو", "final": "ـو", "order": 27},
     {"id": 28, "name": "يَاء", "transliteration": "Yā'", "isolated": "ي", "initial": "يـ", "medial": "ـيـ", "final": "ـي", "order": 28},
-    {"id": 29, "name": "تَاء مَرْبُوطَة", "transliteration": "Tā' Marbūṭa", "isolated": "ة", "initial": "ة", "medial": "ـة", "final": "ـة", "order": 29}
+    {"id": 29, "name": "تَاء مَرْبُوطَة", "transliteration": "Tā' Marbūṭa", "isolated": "ة", "initial": "ة", "medial": "ـة", "final": "ـة", "order": 29},
+    {"id": 30, "name": "هَمْزَة", "transliteration": "Hamza", "isolated": "ء", "initial": "ء", "medial": "ء", "final": "ء", "order": 30}
   ],
   "vowels": [
     {
@@ -152,7 +153,7 @@
     {"id": 53, "arabic": "شَجَرَة", "transliteration": "Shajara", "translationEn": "Tree", "translationFr": "Arbre", "componentLetterIds": [13, 5, 10, 29]},
     {"id": 54, "arabic": "زَهْرَة", "transliteration": "Zahra", "translationEn": "Flower", "translationFr": "Fleur", "componentLetterIds": [11, 26, 10, 29]},
     {"id": 55, "arabic": "بَحْر", "transliteration": "Bahr", "translationEn": "Sea", "translationFr": "Mer", "componentLetterIds": [2, 6, 10]},
-    {"id": 56, "arabic": "سَمَاء", "transliteration": "Samaa", "translationEn": "Sky", "translationFr": "Ciel", "componentLetterIds": [12, 24, 1, 26]},
+    {"id": 56, "arabic": "سَمَاء", "transliteration": "Samaa", "translationEn": "Sky", "translationFr": "Ciel", "componentLetterIds": [12, 24, 1, 30]},
     {"id": 57, "arabic": "أَرْض", "transliteration": "Ard", "translationEn": "Earth", "translationFr": "Terre", "componentLetterIds": [1, 10, 15]},
 
     {"id": 58, "arabic": "مَدْرَسَة", "transliteration": "Madrasa", "translationEn": "School", "translationFr": "École", "componentLetterIds": [24, 8, 10, 12, 29]},

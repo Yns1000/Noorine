@@ -61,7 +61,7 @@ struct ArabicLetter: Identifiable, Codable, Equatable, Hashable {
         return levelDef.contentIds.compactMap { letter(byId: $0) }
     }
     
-    static let nonConnectingIds: Set<Int> = [1, 8, 9, 10, 11, 27]
+    static let nonConnectingIds: Set<Int> = [1, 8, 9, 10, 11, 27, 30]
     
     static let solarLetterIds: Set<Int> = [3, 4, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 23, 25]
     
