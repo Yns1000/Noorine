@@ -10,8 +10,15 @@ struct PhraseLessonView: View {
     
     @State private var currentPhraseIndex = 0
     @State private var phase: LessonPhase = .presentation
+    
+    // Phrase Building State
     @State private var userAnswer: [PhraseWord] = []
     @State private var availableWords: [PhraseWord] = []
+    
+    // Word Building State - queue of all words to build
+    @State private var wordsToConstruct: [ArabicWord] = []
+    @State private var currentWordIndex = 0
+    
     @State private var showSuccess = false
     @State private var showError = false
     @State private var completedPhrases = 0
@@ -39,9 +46,14 @@ struct PhraseLessonView: View {
         languageManager.currentLanguage == .english
     }
     
+    private var currentWordToConstruct: ArabicWord? {
+        wordsToConstruct.indices.contains(currentWordIndex) ? wordsToConstruct[currentWordIndex] : nil
+    }
+    
     enum LessonPhase {
         case presentation
         case listening
+        case wordBuilding
         case building
         case complete
     }
@@ -59,6 +71,20 @@ struct PhraseLessonView: View {
                         presentationView(phrase)
                     case .listening:
                         listeningView(phrase)
+                    case .wordBuilding:
+                        if let word = currentWordToConstruct {
+                            wordBuildingView(phrase, targetWord: word)
+                                .id("word-\(word.id)-\(currentWordIndex)") // Force view recreation
+                        } else {
+                            // All words constructed, move to phrase building
+                            buildingView(phrase)
+                                .onAppear {
+                                    withAnimation(.spring(response: 0.4)) {
+                                        phase = .building
+                                        setupBuildingPhase(phrase)
+                                    }
+                                }
+                        }
                     case .building:
                         buildingView(phrase)
                     case .complete:
@@ -173,6 +199,77 @@ struct PhraseLessonView: View {
         }
     }
     
+    
+    // MARK: - Word Building Phase
+    
+    private func wordBuildingView(_ phrase: PhraseData, targetWord: ArabicWord) -> some View {
+        VStack(spacing: 0) {
+            // Progress indicator for words
+            HStack(spacing: 8) {
+                ForEach(0..<wordsToConstruct.count, id: \.self) { index in
+                    Circle()
+                        .fill(index < currentWordIndex ? Color.green : (index == currentWordIndex ? Color.noorGold : Color.gray.opacity(0.3)))
+                        .frame(width: 10, height: 10)
+                }
+            }
+            .padding(.top, 8)
+            .padding(.bottom, 4)
+            
+            Text(isEnglish ? "Build word \(currentWordIndex + 1) of \(wordsToConstruct.count)" : "Construis le mot \(currentWordIndex + 1) sur \(wordsToConstruct.count)")
+                .font(.system(size: 14, weight: .medium))
+                .foregroundColor(.noorSecondary)
+                .padding(.bottom, 8)
+            
+            WordAssemblyView(word: targetWord, onCompletion: {
+                // Move to next word
+                if currentWordIndex < wordsToConstruct.count - 1 {
+                    withAnimation(.spring(response: 0.4)) {
+                        currentWordIndex += 1
+                    }
+                } else {
+                    // All words done, move to phrase building
+                    withAnimation(.spring(response: 0.4)) {
+                        phase = .building
+                        setupBuildingPhase(phrase)
+                    }
+                }
+            })
+        }
+    }
+    
+    private func setupWordBuilding(_ phrase: PhraseData) {
+        // Get the original ArabicPhrase to access wordIds
+        guard let originalPhrase = phrasesForLevel().first(where: { $0.id == phrase.id }) ?? 
+              CourseContent.phrases.first(where: { $0.id == phrase.id }) else {
+            // Fallback: skip to phrase building
+            phase = .building
+            setupBuildingPhase(phrase)
+            return
+        }
+        
+        // Build words from wordIds (in order, no duplicates)
+        var orderedWords: [ArabicWord] = []
+        var seenIds: Set<Int> = []
+        
+        for wordId in originalPhrase.wordIds {
+            guard !seenIds.contains(wordId) else { continue }
+            if let matchedWord = CourseContent.words.first(where: { $0.id == wordId }) {
+                orderedWords.append(matchedWord)
+                seenIds.insert(wordId)
+            }
+        }
+        
+        guard !orderedWords.isEmpty else {
+            // No buildable words, skip to phrase building
+            phase = .building
+            setupBuildingPhase(phrase)
+            return
+        }
+        
+        wordsToConstruct = orderedWords
+        currentWordIndex = 0
+    }
+    
     private func listeningView(_ phrase: PhraseData) -> some View {
         VStack(spacing: 32) {
             Spacer()
@@ -212,8 +309,11 @@ struct PhraseLessonView: View {
             
             ActionButton(title: isEnglish ? "I understand" : "J'ai compris") {
                 withAnimation(.spring(response: 0.4)) {
-                    phase = .building
-                    setupBuildingPhase(phrase)
+                    phase = .wordBuilding
+                    setupWordBuilding(phrase)
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    AudioManager.shared.playSound(named: phrase.audioName)
                 }
             }
         }
@@ -227,15 +327,35 @@ struct PhraseLessonView: View {
     private func buildingView(_ phrase: PhraseData) -> some View {
         VStack(spacing: 24) {
             Spacer()
-            
-            Text(isEnglish ? "Build the phrase" : "Construis la phrase")
-                .font(.system(size: 18, weight: .medium))
-                .foregroundColor(.noorSecondary)
-            
+
+            HStack(spacing: 10) {
+                Text(isEnglish ? "Build the phrase" : "Construis la phrase")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundColor(.noorSecondary)
+
+                Button(action: {
+                    AudioManager.shared.playSound(named: phrase.audioName)
+                    HapticManager.shared.impact(.light)
+                }) {
+                    Image(systemName: "speaker.wave.2.fill")
+                        .font(.system(size: 14))
+                        .foregroundColor(.noorGold)
+                        .frame(width: 32, height: 32)
+                        .background(Circle().fill(Color.noorGold.opacity(0.12)))
+                }
+            }
+
             Text(isEnglish ? phrase.translationEn : phrase.translationFr)
-                .font(.system(size: 22, weight: .semibold))
+                .font(.system(size: 20, weight: .semibold)) // Slightly smaller
                 .foregroundColor(.noorText)
-            
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
+
+            Text(phrase.transliteration)
+                .font(.system(size: 14, weight: .medium, design: .monospaced)) // Phonetics added
+                .foregroundColor(.noorGold)
+                .padding(.bottom, 8)
+
             answerSlots(phrase)
             
             Spacer().frame(height: 20)
@@ -281,7 +401,7 @@ struct PhraseLessonView: View {
                 }
             }
         }
-        .padding(.horizontal, 24)
+        .padding(.horizontal, 16) // Reduced padding
     }
     
     private var completionView: some View {
@@ -349,11 +469,14 @@ struct PhraseLessonView: View {
         let correctWords = phrase.words.enumerated().map { index, word in
             PhraseWord(id: index, arabic: word.arabic, isDistractor: false)
         }
-        
-        let distractors = PhraseData.distractorWords.prefix(2).enumerated().map { index, word in
+
+        let phraseArabicSet = Set(phrase.words.map { $0.arabic })
+        let validDistractors = PhraseData.distractorWords.filter { !phraseArabicSet.contains($0) }
+
+        let distractors = validDistractors.shuffled().prefix(2).enumerated().map { index, word in
             PhraseWord(id: 100 + index, arabic: word, isDistractor: true)
         }
-        
+
         availableWords = (correctWords + distractors).shuffled()
         userAnswer = []
     }
@@ -465,22 +588,18 @@ struct PhraseData {
     }
     
     private static func makeWordParts(from phrase: ArabicPhrase) -> [WordPart] {
-        if !phrase.wordIds.isEmpty {
-            let wordsById = CourseContent.words.reduce(into: [Int: ArabicWord]()) { dict, word in
-                dict[word.id] = word
+        let tokens = phrase.arabic.split(separator: " ").map { String($0) }
+
+        let wordsById = CourseContent.words.reduce(into: [Int: ArabicWord]()) { $0[$1.id] = $1 }
+        let knownWords = phrase.wordIds.compactMap { wordsById[$0] }
+
+        return tokens.map { token in
+            let clean = token.replacingOccurrences(of: "؟", with: "")
+            if let match = knownWords.first(where: { $0.arabic == token || $0.arabic == clean }) {
+                return WordPart(arabic: token, transliteration: match.transliteration)
             }
-            let parts = phrase.wordIds.compactMap { id -> WordPart? in
-                guard let word = wordsById[id] else { return nil }
-                return WordPart(arabic: word.arabic, transliteration: word.transliteration)
-            }
-            if !parts.isEmpty {
-                return parts
-            }
+            return WordPart(arabic: token, transliteration: "")
         }
-        
-        return phrase.arabic
-            .split(separator: " ")
-            .map { WordPart(arabic: String($0), transliteration: "") }
     }
     
     static let samplePhrases: [PhraseData] = [
@@ -555,15 +674,41 @@ struct WordSlot: View {
     var body: some View {
         Button(action: onTap) {
             Text(word.arabic)
-                .font(.system(size: 24))
+                .font(.system(size: 16)) // Smaller font
                 .foregroundColor(isCorrect ? .green : .noorText)
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
+                .padding(.horizontal, 8) // Smaller padding
+                .padding(.vertical, 4)
                 .background(
-                    RoundedRectangle(cornerRadius: 14)
+                    RoundedRectangle(cornerRadius: 8)
                         .fill(isCorrect ? Color.green.opacity(0.1) : Color(.secondarySystemGroupedBackground))
                         .overlay(
-                            RoundedRectangle(cornerRadius: 14)
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(isCorrect ? Color.green : Color.clear, lineWidth: 1.5)
+                        )
+                )
+                
+        }
+        .buttonStyle(.plain)
+        .disabled(isCorrect)
+    }
+}
+
+struct LetterSlot: View {
+    let letter: ArabicLetter
+    let isCorrect: Bool
+    let onTap: () -> Void
+    
+    var body: some View {
+        Button(action: onTap) {
+            Text(letter.isolated)
+                .font(.system(size: 28))
+                .foregroundColor(isCorrect ? .green : .noorText)
+                .frame(width: 50, height: 50)
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(isCorrect ? Color.green.opacity(0.1) : Color(.secondarySystemGroupedBackground))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
                                 .stroke(isCorrect ? Color.green : Color.clear, lineWidth: 2)
                         )
                 )
@@ -573,18 +718,55 @@ struct WordSlot: View {
     }
 }
 
+struct EmptyLetterSlot: View {
+    let isHighlighted: Bool
+    
+    var body: some View {
+        RoundedRectangle(cornerRadius: 12)
+            .strokeBorder(
+                isHighlighted ? Color.noorGold : Color(.systemGray4),
+                style: StrokeStyle(lineWidth: 2, dash: [6])
+            )
+            .frame(width: 50, height: 50)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(isHighlighted ? Color.noorGold.opacity(0.05) : Color.clear)
+            )
+    }
+}
+
+struct LetterChip: View {
+    let letter: ArabicLetter
+    let onTap: () -> Void
+    
+    var body: some View {
+        Button(action: onTap) {
+            Text(letter.isolated)
+                .font(.system(size: 28))
+                .foregroundColor(.noorText)
+                .frame(width: 50, height: 50)
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color(.secondarySystemGroupedBackground))
+                        .shadow(color: .black.opacity(0.06), radius: 4, y: 2)
+                )
+        }
+        .buttonStyle(.plain)
+    }
+}
+
 struct EmptySlot: View {
     let isHighlighted: Bool
     
     var body: some View {
-        RoundedRectangle(cornerRadius: 14)
+        RoundedRectangle(cornerRadius: 10)
             .strokeBorder(
                 isHighlighted ? Color.noorGold : Color(.systemGray4),
-                style: StrokeStyle(lineWidth: 2, dash: [8])
+                style: StrokeStyle(lineWidth: 1.5, dash: [4])
             )
-            .frame(width: 80, height: 52)
+            .frame(width: 60, height: 32)
             .background(
-                RoundedRectangle(cornerRadius: 14)
+                RoundedRectangle(cornerRadius: 10)
                     .fill(isHighlighted ? Color.noorGold.opacity(0.05) : Color.clear)
             )
     }
@@ -597,14 +779,14 @@ struct WordChip: View {
     var body: some View {
         Button(action: onTap) {
             Text(word.arabic)
-                .font(.system(size: 22))
+                .font(.system(size: 16))
                 .foregroundColor(.noorText)
-                .padding(.horizontal, 18)
-                .padding(.vertical, 12)
+                .padding(.horizontal, 8) // Reduced horizontal padding
+                .padding(.vertical, 4)   // Reduced vertical padding further
                 .background(
-                    RoundedRectangle(cornerRadius: 14)
+                    RoundedRectangle(cornerRadius: 8)
                         .fill(Color(.secondarySystemGroupedBackground))
-                        .shadow(color: .black.opacity(0.06), radius: 4, y: 2)
+                        .shadow(color: .black.opacity(0.06), radius: 3, y: 1)
                 )
         }
         .buttonStyle(.plain)
@@ -690,3 +872,5 @@ struct ShakeModifier: GeometryEffect {
         ProjectionTransform(CGAffineTransform(translationX: sin(shakes * .pi * 4) * 10, y: 0))
     }
 }
+
+

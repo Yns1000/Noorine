@@ -10,7 +10,13 @@ struct LetterLessonView: View {
     @State private var showCelebration = false
     @State private var completedForms: Set<LetterFormType> = []
     
-    private let totalSteps = 6
+    private var availableForms: [LetterFormType] {
+        LetterFormType.availableForms(for: letter.id)
+    }
+    
+    private var totalSteps: Int {
+        2 + availableForms.count
+    }
     
     var body: some View {
         ZStack {
@@ -27,43 +33,27 @@ struct LetterLessonView: View {
                 )
                 
                 ZStack {
-                    switch currentStep {
-                    case 0:
+                    if currentStep == 0 {
                         LetterPresentationStep(letter: letter)
                             .transition(.opacity)
-                    case 1:
+                    } else if currentStep == 1 {
                         LetterFormsStep(letter: letter)
                             .transition(.opacity)
-                    case 2:
-                        FreeDrawingStep(
-                            letter: letter,
-                            formType: .isolated,
-                            onComplete: { completeForm(.isolated) }
-                        )
-                        .transition(.opacity)
-                    case 3:
-                        FreeDrawingStep(
-                            letter: letter,
-                            formType: .initial,
-                            onComplete: { completeForm(.initial) }
-                        )
-                        .transition(.opacity)
-                    case 4:
-                        FreeDrawingStep(
-                            letter: letter,
-                            formType: .medial,
-                            onComplete: { completeForm(.medial) }
-                        )
-                        .transition(.opacity)
-                    case 5:
-                        FreeDrawingStep(
-                            letter: letter,
-                            formType: .final,
-                            onComplete: { completeForm(.final) }
-                        )
-                        .transition(.opacity)
-                    default:
-                        EmptyView()
+                    } else {
+                        // Dynamic steps for drawing forms
+                        let formIndex = currentStep - 2
+                        if formIndex < availableForms.count {
+                            let formType = availableForms[formIndex]
+                            FreeDrawingStep(
+                                letter: letter,
+                                formType: formType,
+                                onComplete: { completeForm(formType) }
+                            )
+                            .transition(.opacity)
+                            .id("drawing-\(formType.rawValue)") // Force recreation for different forms
+                        } else {
+                            EmptyView()
+                        }
                     }
                 }
                 .animation(.easeInOut(duration: 0.3), value: currentStep)
@@ -119,8 +109,7 @@ struct LetterLessonView: View {
 
     private func logLetterMistakeOnQuit() {
         guard !showCelebration else { return }
-        let incompleteFormTypes: [LetterFormType] = [.isolated, .initial, .medial, .final]
-            .filter { !completedForms.contains($0) }
+        let incompleteFormTypes = availableForms.filter { !completedForms.contains($0) }
         for formType in incompleteFormTypes {
             dataManager.addMistake(itemId: String(letter.id), type: "letter", formType: formType.rawValue)
         }
@@ -131,22 +120,21 @@ struct LetterLessonView: View {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             withAnimation {
-                switch form {
-                case .isolated: currentStep = 3
-                case .initial: currentStep = 4
-                case .medial: currentStep = 5
-                case .final: completeLetter()
+                if currentStep < totalSteps - 1 {
+                    currentStep += 1
+                } else {
+                    completeLetter()
                 }
             }
         }
     }
     
     private func completeLetter() {
-        guard completedForms.count == 4 else {
-            if !completedForms.contains(.isolated) { currentStep = 2 }
-            else if !completedForms.contains(.initial) { currentStep = 3 }
-            else if !completedForms.contains(.medial) { currentStep = 4 }
-            else if !completedForms.contains(.final) { currentStep = 5 }
+        guard completedForms.count == availableForms.count else {
+            // Find first incomplete form and jump to it
+            if let firstIncompleteIndex = availableForms.firstIndex(where: { !completedForms.contains($0) }) {
+                currentStep = 2 + firstIncompleteIndex
+            }
             return
         }
         

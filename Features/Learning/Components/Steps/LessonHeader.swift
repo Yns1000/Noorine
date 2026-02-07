@@ -33,7 +33,7 @@ struct LessonHeader: View {
                                     endPoint: .trailing
                                 )
                             )
-                            .frame(width: geometry.size.width * CGFloat(currentStep + 1) / CGFloat(totalSteps), height: 8)
+                            .frame(width: geometry.size.width * CGFloat(currentStep + 1) / CGFloat(max(1, totalSteps)), height: 8)
                             .animation(.spring(response: 0.3), value: currentStep)
                     }
                 }

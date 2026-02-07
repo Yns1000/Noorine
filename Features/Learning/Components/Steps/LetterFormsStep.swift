@@ -16,10 +16,13 @@ struct LetterFormsStep: View {
                 .foregroundColor(.noorSecondary)
             
             VStack(spacing: 16) {
-                FormRow(formType: .isolated, form: letter.isolated, stepNumber: 1)
-                FormRow(formType: .initial, form: letter.initial, stepNumber: 2)
-                FormRow(formType: .medial, form: letter.medial, stepNumber: 3)
-                FormRow(formType: .final, form: letter.final, stepNumber: 4)
+                ForEach(Array(LetterFormType.availableForms(for: letter.id).enumerated()), id: \.element) { index, formType in
+                    FormRow(
+                        formType: formType,
+                        form: formType.getForm(from: letter),
+                        stepNumber: index + 1
+                    )
+                }
             }
             .padding(.horizontal, 20)
             

@@ -16,7 +16,7 @@ struct TipBanner: View {
                         .fill(Color.noorGold.opacity(0.1))
                         .frame(width: 40, height: 40)
                     
-                    EmotionalMascot(mood: .happy, size: 32, showAura: true)
+                    EmotionalMascot(mood: .happy, size: 32, showAura: false)
                         .frame(width: 32, height: 32)
                 }
                 .frame(width: 40, height: 40)

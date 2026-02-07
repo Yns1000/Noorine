@@ -1,13 +1,9 @@
 import SwiftUI
 
-extension Color {
-    // MARK: - Core Brand Colors
-    
+extension Color {    
     static let noorGold = Color(red: 1.0, green: 0.84, blue: 0.40)
     static let noorGoldDark = Color(red: 0.92, green: 0.72, blue: 0.25)
     static let noorDark = Color(red: 0.08, green: 0.12, blue: 0.18)
-    
-    // MARK: - Adaptive Colors
     
     static var noorBackground: Color {
         Color(UIColor { traitCollection in
@@ -32,15 +28,13 @@ extension Color {
                 : UIColor(red: 0.55, green: 0.58, blue: 0.62, alpha: 1)
         })
     }
-    
-    // MARK: - Status Colors
-    
+        
     static let noorSuccess = Color(red: 0.35, green: 0.78, blue: 0.55)
     static let noorWarning = Color(red: 1.0, green: 0.65, blue: 0.35)
     static let noorError = Color(red: 0.95, green: 0.40, blue: 0.45)
 }
 
-// MARK: - Gradient Helpers
+
 extension LinearGradient {
     static var noorGoldGradient: LinearGradient {
         LinearGradient(

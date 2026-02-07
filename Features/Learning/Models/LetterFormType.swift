@@ -51,4 +51,12 @@ enum LetterFormType: String, CaseIterable {
         case .final: return letter.final
         }
     }
+    
+    static func availableForms(for letterId: Int) -> [LetterFormType] {
+        // Ta Marbuta (ID 29) only has isolated and final forms
+        if letterId == 29 {
+            return [.isolated, .final]
+        }
+        return LetterFormType.allCases
+    }
 }

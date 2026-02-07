@@ -40,7 +40,16 @@ class AudioManager: ObservableObject {
         DispatchQueue.global(qos: .userInitiated).async {
             let utterance = AVSpeechUtterance(string: " ")
             utterance.volume = 0.001
+            utterance.voice = self.selectArabicVoice()
             self.synthesizer.speak(utterance)
+        }
+        
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.5) {
+            let commonSounds = ["بَ", "تَ", "سَ", "مَ", "نَ"]
+            for sound in commonSounds {
+                self.playText(sound, style: .letter, useCache: true)
+                self.stopAllAudio()
+            }
         }
     }
     
@@ -94,10 +103,25 @@ class AudioManager: ObservableObject {
             return
         }
         
+        let letterToArabic: [String: String] = [
+            "alif": "ا", "ba": "ب", "ta": "ت", "tha": "ث",
+            "jim": "ج", "ha": "ح", "kha": "خ", "dal": "د", "dhal": "ذ",
+            "ra": "ر", "zay": "ز", "sin": "س", "shin": "ش", "sad": "ص",
+            "dad": "ض", "ta_emphatic": "ط", "za_emphatic": "ظ", "ayn": "ع", "ghayn": "غ",
+            "fa": "ف", "qaf": "ق", "kaf": "ك", "lam": "ل", "mim": "م",
+            "nun": "ن", "ha_round": "ه", "waw": "و", "ya": "ي"
+        ]
+        
         let ttsMap: [String: String] = [
             "fatha_sound": "فَتْحَة",
             "kasra_sound": "كَسْرَة",
             "damma_sound": "ضَمَّة",
+            "sukun_sound": "سُكُون",
+            "shadda_sound": "شَدَّة",
+            "tanwin_fatha_sound": "تَنْوِين فَتْح",
+            "tanwin_kasra_sound": "تَنْوِين كَسْر",
+            "tanwin_damma_sound": "تَنْوِين ضَمّ",
+            "tanwinFatha_sound": "تَنْوِين فَتْح",
             
             "alif_fatha": "أَ", "alif_kasra": "إِ", "alif_damma": "أُ",
             "ba_fatha": "بَ", "ba_kasra": "بِ", "ba_damma": "بُ",
@@ -130,7 +154,50 @@ class AudioManager: ObservableObject {
             "nun_fatha": "نَ", "nun_kasra": "نِ", "nun_damma": "نُ",
             "ha_round_fatha": "هَ", "ha_round_kasra": "هِ", "ha_round_damma": "هُ",
             "waw_fatha": "وَ", "waw_kasra": "وِ", "waw_damma": "وُ",
-            "ya_fatha": "يَ", "ya_kasra": "يِ", "ya_damma": "يُ"
+            "ya_fatha": "يَ", "ya_kasra": "يِ", "ya_damma": "يُ",
+            
+            "ba_sukun": "بْ", "ta_sukun": "تْ", "tha_sukun": "ثْ",
+            "jim_sukun": "جْ", "ha_sukun": "حْ", "kha_sukun": "خْ",
+            "dal_sukun": "دْ", "dhal_sukun": "ذْ",
+            "ra_sukun": "رْ", "zay_sukun": "زْ",
+            "sin_sukun": "سْ", "shin_sukun": "شْ", "sad_sukun": "صْ",
+            "dad_sukun": "ضْ", "ta_emphatic_sukun": "طْ", "za_emphatic_sukun": "ظْ",
+            "ayn_sukun": "عْ", "ghayn_sukun": "غْ",
+            "fa_sukun": "فْ", "qaf_sukun": "قْ", "kaf_sukun": "كْ",
+            "lam_sukun": "لْ", "mim_sukun": "مْ", "nun_sukun": "نْ",
+            "ha_round_sukun": "هْ", "waw_sukun": "وْ", "ya_sukun": "يْ",
+            
+            "ba_shadda": "بَّ", "ta_shadda": "تَّ", "tha_shadda": "ثَّ",
+            "jim_shadda": "جَّ", "ha_shadda": "حَّ", "kha_shadda": "خَّ",
+            "dal_shadda": "دَّ", "dhal_shadda": "ذَّ",
+            "ra_shadda": "رَّ", "zay_shadda": "زَّ",
+            "sin_shadda": "سَّ", "shin_shadda": "شَّ", "sad_shadda": "صَّ",
+            "dad_shadda": "ضَّ", "ta_emphatic_shadda": "طَّ", "za_emphatic_shadda": "ظَّ",
+            "ayn_shadda": "عَّ", "ghayn_shadda": "غَّ",
+            "fa_shadda": "فَّ", "qaf_shadda": "قَّ", "kaf_shadda": "كَّ",
+            "lam_shadda": "لَّ", "mim_shadda": "مَّ", "nun_shadda": "نَّ",
+            "ha_round_shadda": "هَّ", "waw_shadda": "وَّ", "ya_shadda": "يَّ",
+            
+            "ba_tanwin_fatha": "بًا", "ta_tanwin_fatha": "تًا", "tha_tanwin_fatha": "ثًا",
+            "jim_tanwin_fatha": "جًا", "ha_tanwin_fatha": "حًا", "kha_tanwin_fatha": "خًا",
+            "dal_tanwin_fatha": "دًا", "dhal_tanwin_fatha": "ذًا",
+            "ra_tanwin_fatha": "رًا", "zay_tanwin_fatha": "زًا",
+            "sin_tanwin_fatha": "سًا", "shin_tanwin_fatha": "شًا", "sad_tanwin_fatha": "صًا",
+            "dad_tanwin_fatha": "ضًا", "ta_emphatic_tanwin_fatha": "طًا", "za_emphatic_tanwin_fatha": "ظًا",
+            "ayn_tanwin_fatha": "عًا", "ghayn_tanwin_fatha": "غًا",
+            "fa_tanwin_fatha": "فًا", "qaf_tanwin_fatha": "قًا", "kaf_tanwin_fatha": "كًا",
+            "lam_tanwin_fatha": "لًا", "mim_tanwin_fatha": "مًا", "nun_tanwin_fatha": "نًا",
+            "ha_round_tanwin_fatha": "هًا", "waw_tanwin_fatha": "وًا", "ya_tanwin_fatha": "يًا",
+            "ba_tanwinFatha": "بًا", "ta_tanwinFatha": "تًا", "tha_tanwinFatha": "ثًا",
+            "jim_tanwinFatha": "جًا", "ha_tanwinFatha": "حًا", "kha_tanwinFatha": "خًا",
+            "dal_tanwinFatha": "دًا", "dhal_tanwinFatha": "ذًا",
+            "ra_tanwinFatha": "رًا", "zay_tanwinFatha": "زًا",
+            "sin_tanwinFatha": "سًا", "shin_tanwinFatha": "شًا", "sad_tanwinFatha": "صًا",
+            "dad_tanwinFatha": "ضًا", "ta_emphatic_tanwinFatha": "طًا", "za_emphatic_tanwinFatha": "ظًا",
+            "ayn_tanwinFatha": "عًا", "ghayn_tanwinFatha": "غًا",
+            "fa_tanwinFatha": "فًا", "qaf_tanwinFatha": "قًا", "kaf_tanwinFatha": "كًا",
+            "lam_tanwinFatha": "لًا", "mim_tanwinFatha": "مًا", "nun_tanwinFatha": "نًا",
+            "ha_round_tanwinFatha": "هًا", "waw_tanwinFatha": "وًا", "ya_tanwinFatha": "يًا"
         ]
         
         if let textToSpeak = ttsMap[soundName] {
@@ -138,13 +205,49 @@ class AudioManager: ObservableObject {
             return
         }
         
+        if soundName.hasPrefix("word_") {
+            let wordName = String(soundName.dropFirst(5))
+            if let word = CourseContent.words.first(where: { 
+                $0.transliteration.lowercased() == wordName.lowercased() 
+            }) {
+                playText(word.arabic, style: .word, useCache: true)
+                return
+            }
+        }
+        
         if let phrase = CourseContent.phrases.first(where: { $0.audioName == soundName }) {
             playText(phrase.arabic, style: .phraseNormal, useCache: true)
             return
         }
         
+        if let word = CourseContent.words.first(where: { 
+            $0.transliteration.lowercased() == soundName.lowercased() 
+        }) {
+            playText(word.arabic, style: .word, useCache: true)
+            return
+        }
+        
         if containsArabicCharacters(soundName) {
             playText(soundName, style: .phraseNormal, useCache: true)
+            return
+        }
+        
+        let parts = soundName.split(separator: "_", maxSplits: 1).map(String.init)
+        if parts.count == 2, let consonant = letterToArabic[parts[0]] {
+            let vowelType = parts[1]
+            let arabicText: String
+            switch vowelType {
+            case "fatha": arabicText = consonant + "َ"
+            case "kasra": arabicText = consonant + "ِ"
+            case "damma": arabicText = consonant + "ُ"
+            case "sukun": arabicText = consonant + "ْ"
+            case "shadda": arabicText = consonant + "َّ"
+            case "tanwinFatha", "tanwin_fatha": arabicText = consonant + "ًا"
+            case "tanwinKasra", "tanwin_kasra": arabicText = consonant + "ٍ"
+            case "tanwinDamma", "tanwin_damma": arabicText = consonant + "ٌ"
+            default: arabicText = consonant
+            }
+            playText(arabicText, style: .letter, useCache: true)
             return
         }
         

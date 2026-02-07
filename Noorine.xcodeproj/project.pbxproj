@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		72527150CD016A2A1FC162BA /* SentenceBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C34CAEF02488FBAD2499ECA /* SentenceBuilderView.swift */; };
+		7AF7AC62BA15F062BB6F5619 /* MatchingPairsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092483147B22D6A13D637F22 /* MatchingPairsView.swift */; };
 		AAAA00012F2A000000000001 /* ArabicLetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00002F2A000000000001 /* ArabicLetter.swift */; };
 		AAAA00032F2A000000000002 /* LevelProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00022F2A000000000002 /* LevelProgress.swift */; };
 		AAAA00052F2A000000000003 /* UserProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00042F2A000000000003 /* UserProgress.swift */; };
@@ -16,6 +18,8 @@
 		AAAA00112F2A000000000011 /* FreeDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00102F2A000000000010 /* FreeDrawingView.swift */; };
 		AAAA01012F2B000000000101 /* DailyChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA01002F2B000000000100 /* DailyChallengeView.swift */; };
 		AAAA01032F2B000000000101 /* DailyChallengeInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA01022F2B000000000100 /* DailyChallengeInviteView.swift */; };
+		D42BE3B561DC8ED228FDDB06 /* FlashcardLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF66D2F2FB8C7008A9EBC /* FlashcardLibraryView.swift */; };
+		EF4FDDA7B53521597D3AB3DA /* DictationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1DA6863B69E96F484901DC /* DictationView.swift */; };
 		F113767A2F291E5800D25275 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11376792F291E5800D25275 /* LanguageManager.swift */; };
 		F113767C2F291F9B00D25275 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F113767B2F291F9B00D25275 /* Localizable.xcstrings */; };
 		F190A1402F2B0F5B00F0A090 /* CelebrationOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A13A2F2B0F5B00F0A090 /* CelebrationOverlay.swift */; };
@@ -36,22 +40,16 @@
 		F1BDF6652F2FB8A5008A9EBC /* SpeakingPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6632F2FB8A5008A9EBC /* SpeakingPracticeView.swift */; };
 		F1BDF6662F2FB8A5008A9EBC /* ListeningComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF65B2F2FB8A5008A9EBC /* ListeningComponents.swift */; };
 		F1BDF6672F2FB8A5008A9EBC /* ListeningModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF65E2F2FB8A5008A9EBC /* ListeningModuleView.swift */; };
-		F1E7000A2F50000100ABC10A /* ListeningPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E700092F50000100ABC109 /* ListeningPracticeView.swift */; };
 		F1BDF6682F2FB8A5008A9EBC /* MistakesReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6602F2FB8A5008A9EBC /* MistakesReviewView.swift */; };
 		F1BDF6692F2FB8A5008A9EBC /* AlphabetAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF65D2F2FB8A5008A9EBC /* AlphabetAudioView.swift */; };
 		F1BDF66A2F2FB8A5008A9EBC /* PronunciationLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6622F2FB8A5008A9EBC /* PronunciationLibraryView.swift */; };
 		F1BDF6702F2FB8C7008A9EBC /* ModernCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF66B2F2FB8C7008A9EBC /* ModernCardView.swift */; };
-		F1BDF6712F2FB8C7008A9EBC /* FlashcardLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF66D2F2FB8C7008A9EBC /* FlashcardLibraryView.swift */; };
 		F1BDF6722F2FB8C7008A9EBC /* FlashcardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF66E2F2FB8C7008A9EBC /* FlashcardsView.swift */; };
 		F1BDF6792F2FB8DB008A9EBC /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6742F2FB8DB008A9EBC /* DataLoader.swift */; };
 		F1BDF67A2F2FB8DB008A9EBC /* FlashcardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6752F2FB8DB008A9EBC /* FlashcardManager.swift */; };
 		F1BDF67B2F2FB8DB008A9EBC /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6732F2FB8DB008A9EBC /* AudioManager.swift */; };
 		F1BDF67C2F2FB8DB008A9EBC /* SpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6782F2FB8DB008A9EBC /* SpeechManager.swift */; };
 		F1BDF67D2F2FB8DB008A9EBC /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6772F2FB8DB008A9EBC /* HapticManager.swift */; };
-		F1E700052F50000100ABC105 /* FeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E700012F50000100ABC101 /* FeedbackManager.swift */; };
-		F1E700062F50000100ABC106 /* PracticeContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E700022F50000100ABC102 /* PracticeContent.swift */; };
-		F1E700072F50000100ABC107 /* PracticeChoiceExercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E700032F50000100ABC103 /* PracticeChoiceExercises.swift */; };
-		F1E700082F50000100ABC108 /* ResourcesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E700042F50000100ABC104 /* ResourcesView.swift */; };
 		F1BDF67E2F2FB8DB008A9EBC /* flashcards.json in Resources */ = {isa = PBXBuildFile; fileRef = F1BDF6762F2FB8DB008A9EBC /* flashcards.json */; };
 		F1BDF6822F2FBAA8008A9EBC /* Flashcard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6812F2FBAA8008A9EBC /* Flashcard.swift */; };
 		F1BDF6842F2FBB2F008A9EBC /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6832F2FBB1F008A9EBC /* NotificationManager.swift */; };
@@ -63,6 +61,11 @@
 		F1C720742F34143500EDA1E8 /* SolarLunarLessonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C720732F34143500EDA1E8 /* SolarLunarLessonView.swift */; };
 		F1C720762F34148F00EDA1E8 /* PhraseLessonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C720752F34148F00EDA1E8 /* PhraseLessonView.swift */; };
 		F1DIA0022F3D0002008A9EBC /* DiacriticHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DIA0012F3D0001008A9EBC /* DiacriticHelper.swift */; };
+		F1E700052F50000100ABC105 /* FeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E700012F50000100ABC101 /* FeedbackManager.swift */; };
+		F1E700062F50000100ABC106 /* PracticeContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E700022F50000100ABC102 /* PracticeContent.swift */; };
+		F1E700072F50000100ABC107 /* PracticeChoiceExercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E700032F50000100ABC103 /* PracticeChoiceExercises.swift */; };
+		F1E700082F50000100ABC108 /* ResourcesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E700042F50000100ABC104 /* ResourcesView.swift */; };
+		F1E7000A2F50000100ABC10A /* ListeningPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E700092F50000100ABC109 /* ListeningPracticeView.swift */; };
 		F1FCEB372F28D60900AE6497 /* NoorineApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEB362F28D60900AE6497 /* NoorineApp.swift */; };
 		F1FCEB392F28D60900AE6497 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEB382F28D60900AE6497 /* ContentView.swift */; };
 		F1FCEB3D2F28D60B00AE6497 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1FCEB3C2F28D60B00AE6497 /* Assets.xcassets */; };
@@ -92,6 +95,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		092483147B22D6A13D637F22 /* MatchingPairsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MatchingPairsView.swift; sourceTree = "<group>"; };
+		1D1DA6863B69E96F484901DC /* DictationView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DictationView.swift; sourceTree = "<group>"; };
+		3C34CAEF02488FBAD2499ECA /* SentenceBuilderView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SentenceBuilderView.swift; sourceTree = "<group>"; };
 		AAAA00002F2A000000000001 /* ArabicLetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArabicLetter.swift; sourceTree = "<group>"; };
 		AAAA00022F2A000000000002 /* LevelProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelProgress.swift; sourceTree = "<group>"; };
 		AAAA00042F2A000000000003 /* UserProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProgress.swift; sourceTree = "<group>"; };
@@ -122,7 +128,6 @@
 		F1BDF65B2F2FB8A5008A9EBC /* ListeningComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningComponents.swift; sourceTree = "<group>"; };
 		F1BDF65D2F2FB8A5008A9EBC /* AlphabetAudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphabetAudioView.swift; sourceTree = "<group>"; };
 		F1BDF65E2F2FB8A5008A9EBC /* ListeningModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningModuleView.swift; sourceTree = "<group>"; };
-		F1E700092F50000100ABC109 /* ListeningPracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningPracticeView.swift; sourceTree = "<group>"; };
 		F1BDF6602F2FB8A5008A9EBC /* MistakesReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MistakesReviewView.swift; sourceTree = "<group>"; };
 		F1BDF6622F2FB8A5008A9EBC /* PronunciationLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PronunciationLibraryView.swift; sourceTree = "<group>"; };
 		F1BDF6632F2FB8A5008A9EBC /* SpeakingPracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakingPracticeView.swift; sourceTree = "<group>"; };
@@ -135,10 +140,6 @@
 		F1BDF6762F2FB8DB008A9EBC /* flashcards.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = flashcards.json; sourceTree = "<group>"; };
 		F1BDF6772F2FB8DB008A9EBC /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		F1BDF6782F2FB8DB008A9EBC /* SpeechManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechManager.swift; sourceTree = "<group>"; };
-		F1E700012F50000100ABC101 /* FeedbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackManager.swift; sourceTree = "<group>"; };
-		F1E700022F50000100ABC102 /* PracticeContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeContent.swift; sourceTree = "<group>"; };
-		F1E700032F50000100ABC103 /* PracticeChoiceExercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeChoiceExercises.swift; sourceTree = "<group>"; };
-		F1E700042F50000100ABC104 /* ResourcesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesView.swift; sourceTree = "<group>"; };
 		F1BDF6812F2FBAA8008A9EBC /* Flashcard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flashcard.swift; sourceTree = "<group>"; };
 		F1BDF6832F2FBB1F008A9EBC /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		F1BDF6852F2FCA9A008A9EBC /* PhoneticDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneticDictionary.swift; sourceTree = "<group>"; };
@@ -149,6 +150,11 @@
 		F1C720732F34143500EDA1E8 /* SolarLunarLessonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarLunarLessonView.swift; sourceTree = "<group>"; };
 		F1C720752F34148F00EDA1E8 /* PhraseLessonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseLessonView.swift; sourceTree = "<group>"; };
 		F1DIA0012F3D0001008A9EBC /* DiacriticHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiacriticHelper.swift; sourceTree = "<group>"; };
+		F1E700012F50000100ABC101 /* FeedbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackManager.swift; sourceTree = "<group>"; };
+		F1E700022F50000100ABC102 /* PracticeContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeContent.swift; sourceTree = "<group>"; };
+		F1E700032F50000100ABC103 /* PracticeChoiceExercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeChoiceExercises.swift; sourceTree = "<group>"; };
+		F1E700042F50000100ABC104 /* ResourcesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesView.swift; sourceTree = "<group>"; };
+		F1E700092F50000100ABC109 /* ListeningPracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningPracticeView.swift; sourceTree = "<group>"; };
 		F1FCEB332F28D60900AE6497 /* Noorine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Noorine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1FCEB362F28D60900AE6497 /* NoorineApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoorineApp.swift; sourceTree = "<group>"; };
 		F1FCEB382F28D60900AE6497 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -166,11 +172,15 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		F1FCEB452F28D60B00AE6497 /* NoorineTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
 			path = NoorineTests;
 			sourceTree = "<group>";
 		};
 		F1FCEB4F2F28D60B00AE6497 /* NoorineUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
 			path = NoorineUITests;
 			sourceTree = "<group>";
 		};
@@ -449,6 +459,9 @@
 				F1E700042F50000100ABC104 /* ResourcesView.swift */,
 				AAAA01002F2B000000000100 /* DailyChallengeView.swift */,
 				AAAA01022F2B000000000100 /* DailyChallengeInviteView.swift */,
+				092483147B22D6A13D637F22 /* MatchingPairsView.swift */,
+				1D1DA6863B69E96F484901DC /* DictationView.swift */,
+				3C34CAEF02488FBAD2499ECA /* SentenceBuilderView.swift */,
 			);
 			path = Practice;
 			sourceTree = "<group>";
@@ -478,8 +491,6 @@
 			dependencies = (
 			);
 			name = Noorine;
-			packageProductDependencies = (
-			);
 			productName = Noorine;
 			productReference = F1FCEB332F28D60900AE6497 /* Noorine.app */;
 			productType = "com.apple.product-type.application";
@@ -501,8 +512,6 @@
 				F1FCEB452F28D60B00AE6497 /* NoorineTests */,
 			);
 			name = NoorineTests;
-			packageProductDependencies = (
-			);
 			productName = NoorineTests;
 			productReference = F1FCEB422F28D60B00AE6497 /* NoorineTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -524,8 +533,6 @@
 				F1FCEB4F2F28D60B00AE6497 /* NoorineUITests */,
 			);
 			name = NoorineUITests;
-			packageProductDependencies = (
-			);
 			productName = NoorineUITests;
 			productReference = F1FCEB4C2F28D60B00AE6497 /* NoorineUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -614,7 +621,6 @@
 				F1C720762F34148F00EDA1E8 /* PhraseLessonView.swift in Sources */,
 				F1FCEB722F2909E100AE6497 /* HomeView.swift in Sources */,
 				F1BDF6702F2FB8C7008A9EBC /* ModernCardView.swift in Sources */,
-				F1BDF6712F2FB8C7008A9EBC /* FlashcardLibraryView.swift in Sources */,
 				F1BDF6862F2FCA9B008A9EBC /* PhoneticDictionary.swift in Sources */,
 				F1BDF6722F2FB8C7008A9EBC /* FlashcardsView.swift in Sources */,
 				F1C720742F34143500EDA1E8 /* SolarLunarLessonView.swift in Sources */,
@@ -669,6 +675,10 @@
 				F1BDF6842F2FBB2F008A9EBC /* NotificationManager.swift in Sources */,
 				AAAA01012F2B000000000101 /* DailyChallengeView.swift in Sources */,
 				AAAA01032F2B000000000101 /* DailyChallengeInviteView.swift in Sources */,
+				7AF7AC62BA15F062BB6F5619 /* MatchingPairsView.swift in Sources */,
+				EF4FDDA7B53521597D3AB3DA /* DictationView.swift in Sources */,
+				72527150CD016A2A1FC162BA /* SentenceBuilderView.swift in Sources */,
+				D42BE3B561DC8ED228FDDB06 /* FlashcardLibraryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

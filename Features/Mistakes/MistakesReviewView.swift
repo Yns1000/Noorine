@@ -454,7 +454,7 @@ struct MistakesReviewView: View {
     private func makeWordOptions(target: ArabicWord) -> [ArabicWord] {
         let pool = dataManager.practicePool(language: languageManager.currentLanguage).words
         let source = pool.count >= 4 ? pool : CourseContent.words
-        var options = source.filter { $0.id != target.id }.shuffled().prefix(3)
+        let options = source.filter { $0.id != target.id }.shuffled().prefix(3)
         var final = Array(options) + [target]
         final.shuffle()
         return final
@@ -463,7 +463,7 @@ struct MistakesReviewView: View {
     private func makePhraseOptions(target: ArabicPhrase) -> [ArabicPhrase] {
         let pool = dataManager.practicePool(language: languageManager.currentLanguage).phrases
         let source = pool.count >= 4 ? pool : CourseContent.phrases
-        var options = source.filter { $0.id != target.id }.shuffled().prefix(3)
+        let options = source.filter { $0.id != target.id }.shuffled().prefix(3)
         var final = Array(options) + [target]
         final.shuffle()
         return final
@@ -472,7 +472,7 @@ struct MistakesReviewView: View {
     private func makeVowelOptions(target: ArabicVowel) -> [ArabicVowel] {
         let pool = dataManager.practicePool(language: languageManager.currentLanguage).vowels
         let source = pool.count >= 3 ? pool : CourseContent.vowels
-        var options = source.filter { $0.id != target.id }.shuffled().prefix(2)
+        let options = source.filter { $0.id != target.id }.shuffled().prefix(2)
         var final = Array(options) + [target]
         final.shuffle()
         return final

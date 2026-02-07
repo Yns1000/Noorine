@@ -1,6 +1,6 @@
 import Foundation
 
-struct ArabicLetter: Identifiable, Codable, Equatable {
+struct ArabicLetter: Identifiable, Codable, Equatable, Hashable {
     let id: Int
     let name: String
     let transliteration: String
@@ -147,7 +147,7 @@ struct LevelDefinition: Identifiable {
     var number: Int { id }
 }
 
-struct ArabicWord: Identifiable, Codable {
+struct ArabicWord: Identifiable, Codable, Hashable {
     let id: Int
     let arabic: String
     let transliteration: String
@@ -194,6 +194,27 @@ struct ArabicVowel: Identifiable, Codable {
     let transliteration: String
     let soundName: String
     let examples: [VowelExample]
+    let descriptionEn: String?
+    let descriptionFr: String?
+
+    init(id: Int, type: ArabicVowelType, name: String, symbol: String, transliteration: String, soundName: String, examples: [VowelExample], descriptionEn: String? = nil, descriptionFr: String? = nil) {
+        self.id = id; self.type = type; self.name = name; self.symbol = symbol
+        self.transliteration = transliteration; self.soundName = soundName
+        self.examples = examples; self.descriptionEn = descriptionEn; self.descriptionFr = descriptionFr
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        type = try container.decode(ArabicVowelType.self, forKey: .type)
+        name = try container.decode(String.self, forKey: .name)
+        symbol = try container.decode(String.self, forKey: .symbol)
+        transliteration = try container.decode(String.self, forKey: .transliteration)
+        soundName = try container.decode(String.self, forKey: .soundName)
+        examples = try container.decode([VowelExample].self, forKey: .examples)
+        descriptionEn = try container.decodeIfPresent(String.self, forKey: .descriptionEn)
+        descriptionFr = try container.decodeIfPresent(String.self, forKey: .descriptionFr)
+    }
 }
 
 struct VowelExample: Codable {
