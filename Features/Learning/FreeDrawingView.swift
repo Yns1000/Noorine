@@ -226,8 +226,7 @@ struct FreeDrawingStep: View {
         mascotDetail = "Excuse-moi si mon analyse n'était pas juste"
         accentColor = .green
         
-        HapticManager.shared.trigger(.success)
-        AudioManager.shared.playSystemSound(1054)
+        FeedbackManager.shared.success()
     }
     
     private func validateDrawing() {
@@ -270,8 +269,7 @@ struct FreeDrawingStep: View {
                 accentColor = .green
                 showManualValidation = false
                 
-                HapticManager.shared.trigger(.success)
-                AudioManager.shared.playSystemSound(1054)
+                FeedbackManager.shared.success()
             } else if result.score >= requiredScore * 0.6 {
                 mascotMood = .neutral
                 mascotMessage = "Tu y es presque"
@@ -288,8 +286,7 @@ struct FreeDrawingStep: View {
                     }
                 }
                 
-                HapticManager.shared.trigger(.warning)
-                AudioManager.shared.playSystemSound(1051)
+                FeedbackManager.shared.warning()
             } else {
                 mascotMood = .sad
                 mascotMessage = "On réessaie ensemble"
@@ -299,8 +296,7 @@ struct FreeDrawingStep: View {
                 
                 currentFunFact = ArabicFunFacts.randomFact()
                 
-                HapticManager.shared.trigger(.error)
-                AudioManager.shared.playSystemSound(1053)
+                FeedbackManager.shared.error()
                 
                 DataManager.shared.addMistake(
                     itemId: String(letter.id),

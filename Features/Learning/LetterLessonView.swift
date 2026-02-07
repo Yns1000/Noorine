@@ -20,7 +20,10 @@ struct LetterLessonView: View {
                 LessonHeader(
                     currentStep: currentStep,
                     totalSteps: totalSteps,
-                    onClose: { presentationMode.wrappedValue.dismiss() }
+                    onClose: {
+                        logLetterMistakeOnQuit()
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 )
                 
                 ZStack {
@@ -109,8 +112,20 @@ struct LetterLessonView: View {
             }
         }
         .navigationBarHidden(true)
+        .onDisappear {
+            logLetterMistakeOnQuit()
+        }
     }
-    
+
+    private func logLetterMistakeOnQuit() {
+        guard !showCelebration else { return }
+        let incompleteFormTypes: [LetterFormType] = [.isolated, .initial, .medial, .final]
+            .filter { !completedForms.contains($0) }
+        for formType in incompleteFormTypes {
+            dataManager.addMistake(itemId: String(letter.id), type: "letter", formType: formType.rawValue)
+        }
+    }
+
     private func completeForm(_ form: LetterFormType) {
         completedForms.insert(form)
         
@@ -139,10 +154,9 @@ struct LetterLessonView: View {
         withAnimation {
             showCelebration = true
         }
-        UINotificationFeedbackGenerator().notificationOccurred(.success)
+        FeedbackManager.shared.success()
     }
 }
 import SwiftUI
 
 import Foundation
-

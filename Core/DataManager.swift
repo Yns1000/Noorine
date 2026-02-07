@@ -11,6 +11,7 @@ class DataManager: ObservableObject {
     @Published var userProgress: UserProgress?
     @Published var levels: [LevelProgress] = []
     @Published var isAppReady: Bool = false
+    @Published var progressTick: Int = 0
     
     @Published var mistakes: [MistakeItem] = []
     
@@ -21,6 +22,12 @@ class DataManager: ObservableObject {
         loadOrCreateUserProgress()
         loadOrCreateLevels()
         loadMistakes()
+        CourseContent.validateAndLog()
+    }
+    
+    func refreshCourseContent() {
+        CourseContent.reload()
+        loadOrCreateLevels()
     }
         
     private func loadOrCreateUserProgress() {
@@ -110,6 +117,7 @@ class DataManager: ObservableObject {
         }
         
         try? context.save()
+        progressTick += 1
     }
     
     func completeLevel(levelNumber: Int) {
@@ -120,6 +128,7 @@ class DataManager: ObservableObject {
         level.isCompleted = true
         userProgress?.addXP(100)
         try? context.save()
+        progressTick += 1
     }
     
     func unlockAllLevels() {
@@ -128,6 +137,7 @@ class DataManager: ObservableObject {
             level.isCompleted = true
         }
         try? context.save()
+        progressTick += 1
     }
     
     func addDailyChallengeXP(amount: Int) {
@@ -231,6 +241,7 @@ class DataManager: ObservableObject {
         }
         
         try? modelContext?.save()
+        progressTick += 1
     }
     
     
@@ -277,5 +288,14 @@ class DataManager: ObservableObject {
     
     func getMistakeCount() -> Int {
         return mistakes.count
+    }
+
+    func removeMistake(_ item: MistakeItem) {
+        guard let context = modelContext else { return }
+        context.delete(item)
+        if let index = mistakes.firstIndex(where: { $0.id == item.id }) {
+            mistakes.remove(at: index)
+        }
+        try? context.save()
     }
 }

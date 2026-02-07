@@ -1,6 +1,9 @@
 import SwiftUI
 
 struct DailyChallengeCard: View {
+    @State private var showChallenge = false
+    private let totalSteps = 6
+    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 24)
@@ -29,8 +32,8 @@ struct DailyChallengeCard: View {
                         .foregroundColor(.white)
                         .fixedSize(horizontal: false, vertical: true)
                     
-                    NavigationLink(destination: Text("Challenge View Placeholder")) { 
-                        Text(LocalizedStringKey("LANCER (+60 XP)"))
+                    Button(action: { showChallenge = true }) {
+                        Text(LocalizedStringKey("LANCER (+\(totalSteps * 10) XP)"))
                             .font(.system(size: 14, weight: .bold))
                             .foregroundColor(.orange)
                             .padding(.horizontal, 20)
@@ -51,5 +54,8 @@ struct DailyChallengeCard: View {
             }
         }
         .frame(height: 160)
+        .fullScreenCover(isPresented: $showChallenge) {
+            DailyChallengeView()
+        }
     }
 }

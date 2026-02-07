@@ -44,11 +44,15 @@ struct SolarLunarLessonView: View {
             }
         }
         .onAppear { prepareQuiz() }
+        .onDisappear { logRemainingQuizMistakes() }
     }
     
     private var headerView: some View {
         HStack {
-            Button(action: { dismiss() }) {
+            Button(action: {
+                logRemainingQuizMistakes()
+                dismiss()
+            }) {
                 Image(systemName: "xmark")
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(.noorSecondary)
@@ -379,15 +383,24 @@ struct SolarLunarLessonView: View {
         quizLetters = Array((solar + lunar)).shuffled()
     }
     
+    private func logRemainingQuizMistakes() {
+        guard currentStep == 4, currentQuizIndex < quizLetters.count else { return }
+        for i in currentQuizIndex..<quizLetters.count {
+            let letter = quizLetters[i]
+            dataManager.addMistake(itemId: String(letter.id), type: "solarLunar")
+        }
+    }
+
     private func selectAnswer(_ answer: ArabicLetter.LetterCategory, for letter: ArabicLetter) {
         selectedAnswer = answer
         showFeedback = true
         
         if answer == letter.letterCategory {
             correctCount += 1
-            HapticManager.shared.trigger(.success)
+            FeedbackManager.shared.success()
         } else {
-            HapticManager.shared.trigger(.error)
+            FeedbackManager.shared.error()
+            dataManager.addMistake(itemId: String(letter.id), type: "solarLunar")
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {

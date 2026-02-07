@@ -26,6 +26,28 @@ struct ArabicFunFacts {
             "fact_listening_6"
         ]
     }
+
+    static var wordFacts: [String] {
+        [
+            "fact_word_1",
+            "fact_word_2",
+            "fact_word_3",
+            "fact_word_4",
+            "fact_word_5",
+            "fact_word_6"
+        ]
+    }
+
+    static var phraseFacts: [String] {
+        [
+            "fact_phrase_1",
+            "fact_phrase_2",
+            "fact_phrase_3",
+            "fact_phrase_4",
+            "fact_phrase_5",
+            "fact_phrase_6"
+        ]
+    }
     
     static var encouragements: [String] {
         [
@@ -43,7 +65,15 @@ struct ArabicFunFacts {
     static func randomFact() -> String {
         facts.randomElement() ?? facts[0]
     }
-    
+
+    static func randomWordFact() -> String {
+        wordFacts.randomElement() ?? wordFacts[0]
+    }
+
+    static func randomPhraseFact() -> String {
+        phraseFacts.randomElement() ?? phraseFacts[0]
+    }
+
     static func randomEncouragement() -> String {
         encouragements.randomElement() ?? encouragements[0]
     }

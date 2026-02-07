@@ -190,6 +190,7 @@ struct VowelLessonView: View {
     let levelNumber: Int
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var dataManager: DataManager
+    @EnvironmentObject var languageManager: LanguageManager
     
     @State private var currentStepIndex = 0
 
@@ -235,7 +236,7 @@ struct VowelLessonView: View {
         }
         
         var targetLetterIds: [Int] = []
-        if let previousLevel = CourseContent.getLevels(language: .english).first(where: { $0.id == levelNumber - 1 }) {
+        if let previousLevel = CourseContent.getLevels(language: languageManager.currentLanguage).first(where: { $0.id == levelNumber - 1 }) {
             targetLetterIds = previousLevel.contentIds
         }
         
@@ -262,10 +263,13 @@ struct VowelLessonView: View {
     var body: some View {
         ZStack {
             Color.noorBackground.ignoresSafeArea()
-            
+
             VStack(spacing: 0) {
                 HStack {
-                    Button(action: { dismiss() }) {
+                    Button(action: {
+                        logRemainingVowelQuizMistakes()
+                        dismiss()
+                    }) {
                         Image(systemName: "xmark")
                             .font(.system(size: 20, weight: .bold))
                             .foregroundColor(.noorSecondary)
@@ -273,9 +277,9 @@ struct VowelLessonView: View {
                             .background(Color.white)
                             .clipShape(Circle())
                     }
-                    
+
                     Spacer()
-                    
+
                     if !steps.isEmpty, currentStepIndex < steps.count - 1 {
                         ProgressView(value: Double(currentStepIndex), total: Double(steps.count - 1))
                             .progressViewStyle(LinearProgressViewStyle(tint: .noorGold))
@@ -283,7 +287,7 @@ struct VowelLessonView: View {
                     }
                 }
                 .padding()
-                
+
                 GeometryReader { geometry in
                     if !steps.isEmpty, currentStepIndex < steps.count {
                         VStack {
@@ -313,7 +317,7 @@ struct VowelLessonView: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 }
-                
+
                 if !steps.isEmpty, currentStepIndex < steps.count - 1, !isQuizStep(steps[currentStepIndex]) {
                     Button(action: {
                         withAnimation(.spring()) {
@@ -336,6 +340,18 @@ struct VowelLessonView: View {
         .onAppear {
             loadSteps()
         }
+        .onDisappear {
+            logRemainingVowelQuizMistakes()
+        }
+    }
+
+    private func logRemainingVowelQuizMistakes() {
+        for i in currentStepIndex..<steps.count {
+            if case .quiz(let target, _, let baseLetter) = steps[i] {
+                let mistakeId = "\(baseLetter.id):\(target.id)"
+                dataManager.addMistake(itemId: mistakeId, type: "vowel")
+            }
+        }
     }
     
     func isQuizStep(_ step: VowelStep) -> Bool {
@@ -344,7 +360,7 @@ struct VowelLessonView: View {
     }
     
     func getVowels() -> [ArabicVowel] {
-        guard let levelDef = CourseContent.getLevels(language: .english).first(where: { $0.id == levelNumber }),
+        guard let levelDef = CourseContent.getLevels(language: languageManager.currentLanguage).first(where: { $0.id == levelNumber }),
               levelDef.type == .vowels else { return [] }
         return levelDef.contentIds.compactMap { id in CourseContent.vowels.first(where: { $0.id == id }) }
     }
@@ -359,6 +375,7 @@ struct VowelQuizView: View {
     @State private var selectedVowelId: Int?
     @State private var isWrong = false
     @State private var showSuccess = false
+    @EnvironmentObject var dataManager: DataManager
     
     var body: some View {
         VStack(spacing: 30) {
@@ -518,14 +535,16 @@ struct VowelQuizView: View {
         selectedVowelId = vowel.id
         
         if vowel.id == targetVowel.id {
-            AudioManager.shared.playSystemSound(1001)
+            FeedbackManager.shared.success()
             showSuccess = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 onCorrect()
             }
         } else {
-            AudioManager.shared.playSystemSound(1002)
+            FeedbackManager.shared.error()
             isWrong = true
+            let mistakeId = "\(baseLetter.id):\(targetVowel.id)"
+            dataManager.addMistake(itemId: mistakeId, type: "vowel")
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                 isWrong = false
                 selectedVowelId = nil
@@ -771,9 +790,23 @@ import SwiftUI
 struct WordAssemblyView: View {
     let levelNumber: Int
     let onCompletion: () -> Void
+    let singleWord: ArabicWord?
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var languageManager: LanguageManager
-    
+    @EnvironmentObject var dataManager: DataManager
+
+    init(levelNumber: Int, onCompletion: @escaping () -> Void) {
+        self.levelNumber = levelNumber
+        self.onCompletion = onCompletion
+        self.singleWord = nil
+    }
+
+    init(word: ArabicWord, onCompletion: @escaping () -> Void) {
+        self.levelNumber = -1
+        self.onCompletion = onCompletion
+        self.singleWord = word
+    }
+
     @State private var words: [ArabicWord] = []
     @State private var currentWordIndex = 0
     
@@ -801,8 +834,10 @@ struct WordAssemblyView: View {
             
             if let word = currentWord {
                 VStack(spacing: 0) {
-                    headerView
-                    
+                    if singleWord == nil {
+                        headerView
+                    }
+
                     ScrollView(showsIndicators: false) {
                         VStack(spacing: 20) {
                             mascotSection
@@ -826,6 +861,7 @@ struct WordAssemblyView: View {
             }
         }
         .onAppear { loadLevel() }
+        .onDisappear { logCurrentWordMistakeOnQuit() }
         .onChange(of: showSuccess) { _, success in
             mascotMood = success ? .happy : .neutral
         }
@@ -837,7 +873,10 @@ struct WordAssemblyView: View {
     private var headerView: some View {
         VStack(spacing: 12) {
             HStack {
-                Button { dismiss() } label: {
+                Button {
+                    logCurrentWordMistakeOnQuit()
+                    dismiss()
+                } label: {
                     Image(systemName: "xmark")
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.noorSecondary)
@@ -1122,6 +1161,8 @@ struct WordAssemblyView: View {
             Button {
                 if currentWordIndex < words.count - 1 {
                     nextWord()
+                } else if singleWord != nil {
+                    onCompletion()
                 } else {
                     withAnimation(.spring()) { showLevelSummary = true }
                 }
@@ -1167,7 +1208,7 @@ struct WordAssemblyView: View {
                 selectedLetter = nil
             } else {
                 selectedLetter = item
-                AudioManager.shared.playSystemSound(1104)
+                FeedbackManager.shared.tapLight()
             }
         }
     }
@@ -1178,7 +1219,7 @@ struct WordAssemblyView: View {
                 placedLetters[index] = nil
                 placedSourceIds[index] = nil
             }
-            AudioManager.shared.playSystemSound(1306)
+            FeedbackManager.shared.tapMedium()
         } else if let selected = selectedLetter {
             withAnimation(.spring(response: 0.25, dampingFraction: 0.7)) {
                 placedLetters[index] = selected.letter
@@ -1192,7 +1233,7 @@ struct WordAssemblyView: View {
                 HapticManager.shared.impact(.light)
             }
             
-            AudioManager.shared.playSystemSound(1104)
+            FeedbackManager.shared.tapLight()
             checkCompletion()
         }
     }
@@ -1210,12 +1251,10 @@ struct WordAssemblyView: View {
         }
         
         if allCorrect {
-            AudioManager.shared.playSystemSound(1001)
-            HapticManager.shared.trigger(.success)
+            FeedbackManager.shared.success()
             withAnimation { showSuccess = true }
         } else {
-            AudioManager.shared.playSystemSound(1002)
-            HapticManager.shared.trigger(.error)
+            FeedbackManager.shared.error()
             showError = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                 withAnimation(.spring(response: 0.4, dampingFraction: 0.6)) {
@@ -1237,7 +1276,10 @@ struct WordAssemblyView: View {
     }
     
     private func loadLevel() {
-        if let level = CourseContent.getLevels(language: .english).first(where: { $0.id == levelNumber }) {
+        if let single = singleWord {
+            words = [single]
+            loadWord(single)
+        } else if let level = CourseContent.getLevels(language: .english).first(where: { $0.id == levelNumber }) {
             words = CourseContent.words.filter { level.contentIds.contains($0.id) }
             if !words.isEmpty { loadWord(words[0]) }
         }
@@ -1249,7 +1291,7 @@ struct WordAssemblyView: View {
         selectedLetter = nil
         placedLetters = Array(repeating: nil, count: word.componentLetterIds.count)
         placedSourceIds = Array(repeating: nil, count: word.componentLetterIds.count)
-        
+
         var letters: [ArabicLetter] = word.componentLetterIds.compactMap { ArabicLetter.letter(byId: $0) }
         let distractors = ArabicLetter.alphabet
             .filter { !word.componentLetterIds.contains($0.id) }
@@ -1257,6 +1299,11 @@ struct WordAssemblyView: View {
             .prefix(3)
         letters.append(contentsOf: distractors)
         scrambledLetters = letters.map { UniqueLetter(letter: $0) }.shuffled()
+    }
+
+    private func logCurrentWordMistakeOnQuit() {
+        guard let word = currentWord, !showSuccess else { return }
+        dataManager.addMistake(itemId: String(word.id), type: "word")
     }
 }
 
@@ -1360,5 +1407,3 @@ extension Collection {
         indices.contains(index) ? self[index] : nil
     }
 }
-
-

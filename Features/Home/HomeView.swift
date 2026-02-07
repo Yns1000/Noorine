@@ -18,6 +18,9 @@ struct HomeView: View {
     @State private var showDailyChallenge = false
     
     @State private var animationId = UUID()
+    @State private var lastAutoScrollTarget: Int? = nil
+    @State private var hasPerformedInitialScroll = false
+    @State private var scrollPosition: Int?
     
     var body: some View {
         NavigationStack {
@@ -27,28 +30,30 @@ struct HomeView: View {
                 
 
                 GeometryReader { geometry in
+                    let sortedLevels = dataManager.levels.sorted { $0.levelNumber < $1.levelNumber }
+
                     ScrollView(showsIndicators: false) {
                         ZStack(alignment: .top) {
-                            GeometryReader { proxy in
+                            GeometryReader { geoProxy in
                                 OrganizedWordLayer()
                                     .frame(width: geometry.size.width, height: geometry.size.height)
-                                    .offset(y: -proxy.frame(in: .named("homeScroll")).minY)
+                                    .offset(y: -geoProxy.frame(in: .named("homeScroll")).minY)
                                     .id(animationId)
                             }
                             .zIndex(0)
-                            
-                            PathLayer(levels: dataManager.levels)
+
+                            PathLayer(levels: sortedLevels)
                                 .frame(width: geometry.size.width)
-                                .frame(height: CGFloat(dataManager.levels.count) * LayoutConfig.verticalSpacing + 50)
+                                .frame(height: CGFloat(sortedLevels.count) * LayoutConfig.verticalSpacing + 50)
                                 .allowsHitTesting(false)
                                 .zIndex(1)
-                            
+
                             VStack(spacing: 0) {
-                                ForEach(Array(dataManager.levels.enumerated()), id: \.element.levelNumber) { index, level in
+                                ForEach(Array(sortedLevels.enumerated()), id: \.element.levelNumber) { index, level in
                                     LevelNode(
                                         levelNumber: level.levelNumber,
                                         title: CourseContent.getLevelTitle(for: level.levelNumber, language: languageManager.currentLanguage),
-                                        subtitle: level.subtitle,
+                                        subtitle: CourseContent.getLevelSubtitle(for: level.levelNumber, language: languageManager.currentLanguage),
                                         state: dataManager.levelState(for: level.levelNumber),
                                         index: index,
                                         onTap: {
@@ -59,6 +64,7 @@ struct HomeView: View {
                                         }
                                     )
                                     .frame(height: LayoutConfig.verticalSpacing)
+                                    .id(level.levelNumber)
                                 }
                             }
                             .zIndex(2)
@@ -66,7 +72,29 @@ struct HomeView: View {
                         .padding(.bottom, 120)
                         .padding(.top, 20)
                     }
+                    .scrollPosition(id: $scrollPosition, anchor: .center)
                     .coordinateSpace(name: "homeScroll")
+                    .onAppear {
+                        if dataManager.isAppReady && !dataManager.levels.isEmpty {
+                            performInitialScroll()
+                        }
+                    }
+                    .onChange(of: dataManager.isAppReady) { _, ready in
+                        if ready && !dataManager.levels.isEmpty {
+                            performInitialScroll()
+                        }
+                    }
+                    .onChange(of: dataManager.levels.count) { _, count in
+                        if count > 0 && dataManager.isAppReady {
+                            performInitialScroll()
+                        }
+                    }
+                    .onChange(of: dataManager.levels.map { $0.isCompleted }) { _, _ in
+                        scrollToCurrentLevel()
+                    }
+                    .onChange(of: dataManager.progressTick) { _, _ in
+                        scrollToCurrentLevel()
+                    }
                 }
                 .zIndex(2)
             }
@@ -116,6 +144,20 @@ struct HomeView: View {
                             dataManager.completeLevel(levelNumber: level.levelNumber)
                             selectedLevel = nil
                         })
+                    case .speaking:
+                        let letterIds = CourseContent.getLevels(language: languageManager.currentLanguage)
+                            .first(where: { $0.id == level.levelNumber })?
+                            .contentIds ?? []
+                        let letters = ArabicLetter.alphabet.filter { letterIds.contains($0.id) }
+                        SpeakingPracticeView(
+                            sessionTitle: languageManager.currentLanguage == .english ? "Pronunciation" : "Prononciation",
+                            sessionLetters: letters.isEmpty ? ArabicLetter.alphabet : letters,
+                            goalCount: 5,
+                            onCompletion: {
+                                dataManager.completeLevel(levelNumber: level.levelNumber)
+                                selectedLevel = nil
+                            }
+                        )
                     case .alphabet, .quiz:
                         LevelDetailView(levelNumber: level.levelNumber, title: level.title)
                     }
@@ -123,17 +165,64 @@ struct HomeView: View {
             }
             .onAppear {
                 animationId = UUID()
-                if dataManager.isAppReady && dataManager.canShowDailyChallenge() {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { showDailyChallengeInvite = true }
+                if dataManager.isAppReady {
+                    performInitialScroll()
+                    if dataManager.canShowDailyChallenge() {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { showDailyChallengeInvite = true }
+                    }
                 }
             }
             .onChange(of: dataManager.isAppReady) { _, ready in
-                if ready && dataManager.canShowDailyChallenge() {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { showDailyChallengeInvite = true }
+                if ready {
+                    performInitialScroll()
+                    if dataManager.canShowDailyChallenge() {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { showDailyChallengeInvite = true }
+                    }
                 }
             }
         }
     }
+    
+    private func performInitialScroll() {
+        guard !dataManager.levels.isEmpty, !hasPerformedInitialScroll else {
+            print("[SCROLL] Skip: levels=\(dataManager.levels.count), hasScrolled=\(hasPerformedInitialScroll)")
+            return
+        }
+        hasPerformedInitialScroll = true
+
+        let target = lastUnlockedLevel()
+        lastAutoScrollTarget = target
+        print("[SCROLL] Setting scrollPosition to level \(target), levels count: \(dataManager.levels.count)")
+
+        scrollPosition = target
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            print("[SCROLL] Retry scrollPosition to level \(target) at +0.5s")
+            scrollPosition = target
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            print("[SCROLL] Retry scrollPosition to level \(target) at +1.5s")
+            scrollPosition = target
+        }
+    }
+
+    private func scrollToCurrentLevel() {
+        guard dataManager.isAppReady, !dataManager.levels.isEmpty else { return }
+        let target = lastUnlockedLevel()
+        if lastAutoScrollTarget == target { return }
+        lastAutoScrollTarget = target
+
+        withAnimation(.easeInOut(duration: 0.4)) {
+            scrollPosition = target
+        }
+    }
+
+    private func lastUnlockedLevel() -> Int {
+        let sorted = dataManager.levels.sorted { $0.levelNumber < $1.levelNumber }
+        let last = sorted.last { dataManager.levelState(for: $0.levelNumber) != .locked }
+        return last?.levelNumber ?? dataManager.currentLevelNumber
+    }
+
 }
 
 struct AmbientBackground: View {
@@ -354,6 +443,7 @@ struct PathLayer: View {
     var body: some View {
         Canvas { context, size in
             let centerX = size.width / 2
+            guard levels.count > 1 else { return }
             for index in 0..<(levels.count - 1) {
                 let isPathUnlocked = levels[index].isCompleted
                 let startY = (LayoutConfig.verticalSpacing / 2) + (CGFloat(index) * LayoutConfig.verticalSpacing)

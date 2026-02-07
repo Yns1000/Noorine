@@ -103,8 +103,7 @@ struct SplashScreenView: View {
             animateTopLeft = true
             animateBottomRight = true
             
-            HapticManager.shared.impact(.medium)
-            AudioManager.shared.playSystemSound(1104)
+            FeedbackManager.shared.tapMedium()
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 withAnimation(.spring(response: 1.5, dampingFraction: 0.8)) {

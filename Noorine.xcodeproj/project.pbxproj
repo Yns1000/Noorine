@@ -36,6 +36,7 @@
 		F1BDF6652F2FB8A5008A9EBC /* SpeakingPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6632F2FB8A5008A9EBC /* SpeakingPracticeView.swift */; };
 		F1BDF6662F2FB8A5008A9EBC /* ListeningComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF65B2F2FB8A5008A9EBC /* ListeningComponents.swift */; };
 		F1BDF6672F2FB8A5008A9EBC /* ListeningModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF65E2F2FB8A5008A9EBC /* ListeningModuleView.swift */; };
+		F1E7000A2F50000100ABC10A /* ListeningPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E700092F50000100ABC109 /* ListeningPracticeView.swift */; };
 		F1BDF6682F2FB8A5008A9EBC /* MistakesReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6602F2FB8A5008A9EBC /* MistakesReviewView.swift */; };
 		F1BDF6692F2FB8A5008A9EBC /* AlphabetAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF65D2F2FB8A5008A9EBC /* AlphabetAudioView.swift */; };
 		F1BDF66A2F2FB8A5008A9EBC /* PronunciationLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6622F2FB8A5008A9EBC /* PronunciationLibraryView.swift */; };
@@ -47,6 +48,10 @@
 		F1BDF67B2F2FB8DB008A9EBC /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6732F2FB8DB008A9EBC /* AudioManager.swift */; };
 		F1BDF67C2F2FB8DB008A9EBC /* SpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6782F2FB8DB008A9EBC /* SpeechManager.swift */; };
 		F1BDF67D2F2FB8DB008A9EBC /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6772F2FB8DB008A9EBC /* HapticManager.swift */; };
+		F1E700052F50000100ABC105 /* FeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E700012F50000100ABC101 /* FeedbackManager.swift */; };
+		F1E700062F50000100ABC106 /* PracticeContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E700022F50000100ABC102 /* PracticeContent.swift */; };
+		F1E700072F50000100ABC107 /* PracticeChoiceExercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E700032F50000100ABC103 /* PracticeChoiceExercises.swift */; };
+		F1E700082F50000100ABC108 /* ResourcesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E700042F50000100ABC104 /* ResourcesView.swift */; };
 		F1BDF67E2F2FB8DB008A9EBC /* flashcards.json in Resources */ = {isa = PBXBuildFile; fileRef = F1BDF6762F2FB8DB008A9EBC /* flashcards.json */; };
 		F1BDF6822F2FBAA8008A9EBC /* Flashcard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6812F2FBAA8008A9EBC /* Flashcard.swift */; };
 		F1BDF6842F2FBB2F008A9EBC /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6832F2FBB1F008A9EBC /* NotificationManager.swift */; };
@@ -117,6 +122,7 @@
 		F1BDF65B2F2FB8A5008A9EBC /* ListeningComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningComponents.swift; sourceTree = "<group>"; };
 		F1BDF65D2F2FB8A5008A9EBC /* AlphabetAudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphabetAudioView.swift; sourceTree = "<group>"; };
 		F1BDF65E2F2FB8A5008A9EBC /* ListeningModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningModuleView.swift; sourceTree = "<group>"; };
+		F1E700092F50000100ABC109 /* ListeningPracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningPracticeView.swift; sourceTree = "<group>"; };
 		F1BDF6602F2FB8A5008A9EBC /* MistakesReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MistakesReviewView.swift; sourceTree = "<group>"; };
 		F1BDF6622F2FB8A5008A9EBC /* PronunciationLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PronunciationLibraryView.swift; sourceTree = "<group>"; };
 		F1BDF6632F2FB8A5008A9EBC /* SpeakingPracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakingPracticeView.swift; sourceTree = "<group>"; };
@@ -129,6 +135,10 @@
 		F1BDF6762F2FB8DB008A9EBC /* flashcards.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = flashcards.json; sourceTree = "<group>"; };
 		F1BDF6772F2FB8DB008A9EBC /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		F1BDF6782F2FB8DB008A9EBC /* SpeechManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechManager.swift; sourceTree = "<group>"; };
+		F1E700012F50000100ABC101 /* FeedbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackManager.swift; sourceTree = "<group>"; };
+		F1E700022F50000100ABC102 /* PracticeContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeContent.swift; sourceTree = "<group>"; };
+		F1E700032F50000100ABC103 /* PracticeChoiceExercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeChoiceExercises.swift; sourceTree = "<group>"; };
+		F1E700042F50000100ABC104 /* ResourcesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesView.swift; sourceTree = "<group>"; };
 		F1BDF6812F2FBAA8008A9EBC /* Flashcard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flashcard.swift; sourceTree = "<group>"; };
 		F1BDF6832F2FBB1F008A9EBC /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		F1BDF6852F2FCA9A008A9EBC /* PhoneticDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneticDictionary.swift; sourceTree = "<group>"; };
@@ -261,6 +271,7 @@
 				F1BDF6532F2FB868008A9EBC /* PracticeHeader.swift */,
 				F1BDF6542F2FB868008A9EBC /* PracticeToolsGrid.swift */,
 				F1BDF6552F2FB868008A9EBC /* WordsReviewList.swift */,
+				F1E700032F50000100ABC103 /* PracticeChoiceExercises.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -279,6 +290,7 @@
 				F1BDF65C2F2FB8A5008A9EBC /* Components */,
 				F1BDF65D2F2FB8A5008A9EBC /* AlphabetAudioView.swift */,
 				F1BDF65E2F2FB8A5008A9EBC /* ListeningModuleView.swift */,
+				F1E700092F50000100ABC109 /* ListeningPracticeView.swift */,
 			);
 			path = Listening;
 			sourceTree = "<group>";
@@ -363,6 +375,8 @@
 				F1BDF6752F2FB8DB008A9EBC /* FlashcardManager.swift */,
 				F1BDF6762F2FB8DB008A9EBC /* flashcards.json */,
 				F1BDF6772F2FB8DB008A9EBC /* HapticManager.swift */,
+				F1E700012F50000100ABC101 /* FeedbackManager.swift */,
+				F1E700022F50000100ABC102 /* PracticeContent.swift */,
 				F1BDF6782F2FB8DB008A9EBC /* SpeechManager.swift */,
 				F11376792F291E5800D25275 /* LanguageManager.swift */,
 				AAAA00062F2A000000000004 /* DataManager.swift */,
@@ -432,6 +446,7 @@
 			children = (
 				F1BDF6562F2FB868008A9EBC /* Components */,
 				F1FCEB732F2909EF00AE6497 /* PracticeView.swift */,
+				F1E700042F50000100ABC104 /* ResourcesView.swift */,
 				AAAA01002F2B000000000100 /* DailyChallengeView.swift */,
 				AAAA01022F2B000000000100 /* DailyChallengeInviteView.swift */,
 			);
@@ -615,6 +630,8 @@
 				F1BDF6592F2FB868008A9EBC /* PracticeToolsGrid.swift in Sources */,
 				F1BDF68A2F2FD31B008A9EBC /* FactsData.swift in Sources */,
 				F1BDF65A2F2FB868008A9EBC /* WordsReviewList.swift in Sources */,
+				F1E700072F50000100ABC107 /* PracticeChoiceExercises.swift in Sources */,
+				F1E700082F50000100ABC108 /* ResourcesView.swift in Sources */,
 				AAAA00012F2A000000000001 /* ArabicLetter.swift in Sources */,
 				AAAA00032F2A000000000002 /* LevelProgress.swift in Sources */,
 				F1BDF6822F2FBAA8008A9EBC /* Flashcard.swift in Sources */,
@@ -627,6 +644,7 @@
 				F1BDF6652F2FB8A5008A9EBC /* SpeakingPracticeView.swift in Sources */,
 				F1BDF6662F2FB8A5008A9EBC /* ListeningComponents.swift in Sources */,
 				F1BDF6672F2FB8A5008A9EBC /* ListeningModuleView.swift in Sources */,
+				F1E7000A2F50000100ABC10A /* ListeningPracticeView.swift in Sources */,
 				F1BDF6682F2FB8A5008A9EBC /* MistakesReviewView.swift in Sources */,
 				F1BDF6692F2FB8A5008A9EBC /* AlphabetAudioView.swift in Sources */,
 				F1BDF6792F2FB8DB008A9EBC /* DataLoader.swift in Sources */,
@@ -635,6 +653,8 @@
 				F1DIA0022F3D0002008A9EBC /* DiacriticHelper.swift in Sources */,
 				F1BDF67C2F2FB8DB008A9EBC /* SpeechManager.swift in Sources */,
 				F1BDF67D2F2FB8DB008A9EBC /* HapticManager.swift in Sources */,
+				F1E700052F50000100ABC105 /* FeedbackManager.swift in Sources */,
+				F1E700062F50000100ABC106 /* PracticeContent.swift in Sources */,
 				F1BDF66A2F2FB8A5008A9EBC /* PronunciationLibraryView.swift in Sources */,
 				F190A1452F2B0F5B00F0A090 /* LessonHeader.swift in Sources */,
 				F190A1462F2B0F5B00F0A090 /* LetterFormsStep.swift in Sources */,

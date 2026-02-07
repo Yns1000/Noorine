@@ -1,14 +1,25 @@
 import SwiftUI
+import Speech
 
 struct MistakesReviewView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var dataManager: DataManager
     @EnvironmentObject var languageManager: LanguageManager
+
+    private let initialFocus: (String, String)?
+    @State private var pendingFocus: (String, String)?
     
     @State private var currentMistake: MistakeItem?
     @State private var currentLetter: ArabicLetter?
     @State private var currentForm: LetterFormType = .isolated
+    @State private var currentWord: ArabicWord?
+    @State private var currentPhrase: ArabicPhrase?
+    @State private var currentBaseLetter: ArabicLetter?
+    @State private var currentVowel: ArabicVowel?
+    @State private var wordOptions: [ArabicWord] = []
+    @State private var phraseOptions: [ArabicPhrase] = []
+    @State private var vowelOptions: [ArabicVowel] = []
     
     @State private var showFeedback = false
     @State private var feedbackMessage = ""
@@ -19,6 +30,15 @@ struct MistakesReviewView: View {
     @State private var isProcessingSuccess = false
     
     @State private var stepId = UUID()
+
+    init(focusItemId: String? = nil, focusItemType: String? = nil) {
+        if let id = focusItemId, let type = focusItemType {
+            self.initialFocus = (id, type)
+        } else {
+            self.initialFocus = nil
+        }
+        _pendingFocus = State(initialValue: initialFocus)
+    }
     
     private func resetPartialProgress() {
         for index in dataManager.mistakes.indices {
@@ -37,23 +57,14 @@ struct MistakesReviewView: View {
                 
                 if dataManager.mistakes.isEmpty {
                     emptyStateView
-                } else if let letter = currentLetter, let mistake = currentMistake {
-                    
+                } else if let mistake = currentMistake {
                     progressIndicatorView(mistake: mistake)
                         .padding(.bottom, 8)
                     
-                    FreeDrawingStep(
-                        letter: letter,
-                        formType: currentForm,
-                        onComplete: {
-                            handleSuccess(for: mistake)
-                        },
-                        isChallengeMode: false
-                    )
-                    .id(stepId)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .allowsHitTesting(!isProcessingSuccess)
-                    
+                    contentView(for: mistake)
+                        .id(stepId)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .allowsHitTesting(!isProcessingSuccess)
                 } else {
                     Spacer()
                     ProgressView().tint(.noorGold)
@@ -248,12 +259,62 @@ struct MistakesReviewView: View {
         
         guard !dataManager.mistakes.isEmpty else { currentMistake = nil; return }
         
-        if let randomMistake = dataManager.mistakes.randomElement() {
+        let selectedMistake = selectNextMistake()
+        
+        if let randomMistake = selectedMistake {
             currentMistake = randomMistake
+            currentLetter = nil
+            currentWord = nil
+            currentPhrase = nil
+            currentBaseLetter = nil
+            currentVowel = nil
+            wordOptions = []
+            phraseOptions = []
+            vowelOptions = []
             
-            if randomMistake.itemType == "letter", let id = Int(randomMistake.itemId) {
-                currentLetter = ArabicLetter.letter(byId: id)
-                currentForm = LetterFormType(rawValue: randomMistake.formType ?? "") ?? (LetterFormType.allCases.randomElement() ?? .isolated)
+            switch randomMistake.itemType {
+            case "letter":
+                if let id = Int(randomMistake.itemId) {
+                    currentLetter = ArabicLetter.letter(byId: id)
+                    currentForm = LetterFormType(rawValue: randomMistake.formType ?? "") ?? .isolated
+                }
+            case "speaking":
+                if let id = Int(randomMistake.itemId) {
+                    currentLetter = ArabicLetter.letter(byId: id)
+                }
+            case "word":
+                if let id = Int(randomMistake.itemId),
+                   let word = CourseContent.words.first(where: { $0.id == id }) {
+                    currentWord = word
+                    wordOptions = makeWordOptions(target: word)
+                }
+            case "phrase":
+                if let id = Int(randomMistake.itemId),
+                   let phrase = CourseContent.phrases.first(where: { $0.id == id }) {
+                    currentPhrase = phrase
+                    phraseOptions = makePhraseOptions(target: phrase)
+                }
+            case "solarLunar":
+                if let id = Int(randomMistake.itemId),
+                   let letter = ArabicLetter.letter(byId: id) {
+                    currentLetter = letter
+                }
+            case "vowel":
+                if let (baseId, vowelId) = parseVowelMistake(randomMistake.itemId),
+                   let base = ArabicLetter.letter(byId: baseId),
+                   let vowel = CourseContent.vowels.first(where: { $0.id == vowelId }) {
+                    currentBaseLetter = base
+                    currentVowel = vowel
+                    vowelOptions = makeVowelOptions(target: vowel)
+                }
+            default:
+                break
+            }
+            
+            if !isMistakeReady(randomMistake) {
+                dataManager.removeMistake(randomMistake)
+                loadNextMistake()
+                return
             }
             stepId = UUID()
         }
@@ -264,7 +325,7 @@ struct MistakesReviewView: View {
         isProcessingSuccess = true
         
         let isFullyCorrected = dataManager.recordMistakeSuccess(item: mistake)
-        HapticManager.shared.trigger(.success)
+        FeedbackManager.shared.success()
         
         withAnimation(.spring()) {
             showFeedback = true
@@ -303,4 +364,403 @@ struct MistakesReviewView: View {
         default: return key
         }
     }
+
+    @ViewBuilder
+    private func contentView(for mistake: MistakeItem) -> some View {
+        switch mistake.itemType {
+        case "letter":
+            if let letter = currentLetter {
+                FreeDrawingStep(
+                    letter: letter,
+                    formType: currentForm,
+                    onComplete: {
+                        handleSuccess(for: mistake)
+                    },
+                    isChallengeMode: false
+                )
+            } else {
+                ProgressView().tint(.noorGold)
+            }
+        case "word":
+            if let word = currentWord {
+                WordAssemblyView(
+                    word: word,
+                    onCompletion: {
+                        handleSuccess(for: mistake)
+                    }
+                )
+            } else {
+                ProgressView().tint(.noorGold)
+            }
+        case "phrase":
+            if let phrase = currentPhrase {
+                PhraseChoiceExercise(
+                    prompt: languageManager.currentLanguage == .english ? phrase.translationEn : phrase.translationFr,
+                    options: phraseOptions,
+                    correctId: phrase.id,
+                    onAnswer: { correct in
+                        if correct {
+                            handleSuccess(for: mistake)
+                        }
+                    }
+                )
+            } else {
+                ProgressView().tint(.noorGold)
+            }
+        case "vowel":
+            if let base = currentBaseLetter, let vowel = currentVowel {
+                VowelChoiceExercise(
+                    baseLetter: base,
+                    targetVowel: vowel,
+                    options: vowelOptions,
+                    onAnswer: { correct in
+                        if correct {
+                            handleSuccess(for: mistake)
+                        }
+                    }
+                )
+            } else {
+                ProgressView().tint(.noorGold)
+            }
+        case "solarLunar":
+            if let letter = currentLetter {
+                SolarLunarMistakeExercise(
+                    letter: letter,
+                    onAnswer: { correct in
+                        if correct {
+                            handleSuccess(for: mistake)
+                        }
+                    }
+                )
+            } else {
+                ProgressView().tint(.noorGold)
+            }
+        case "speaking":
+            if let letter = currentLetter {
+                SpeakingMistakeExercise(
+                    letter: letter,
+                    onSuccess: {
+                        handleSuccess(for: mistake)
+                    }
+                )
+            } else {
+                ProgressView().tint(.noorGold)
+            }
+        default:
+            ProgressView().tint(.noorGold)
+        }
+    }
+    
+    private func makeWordOptions(target: ArabicWord) -> [ArabicWord] {
+        let pool = dataManager.practicePool(language: languageManager.currentLanguage).words
+        let source = pool.count >= 4 ? pool : CourseContent.words
+        var options = source.filter { $0.id != target.id }.shuffled().prefix(3)
+        var final = Array(options) + [target]
+        final.shuffle()
+        return final
+    }
+    
+    private func makePhraseOptions(target: ArabicPhrase) -> [ArabicPhrase] {
+        let pool = dataManager.practicePool(language: languageManager.currentLanguage).phrases
+        let source = pool.count >= 4 ? pool : CourseContent.phrases
+        var options = source.filter { $0.id != target.id }.shuffled().prefix(3)
+        var final = Array(options) + [target]
+        final.shuffle()
+        return final
+    }
+    
+    private func makeVowelOptions(target: ArabicVowel) -> [ArabicVowel] {
+        let pool = dataManager.practicePool(language: languageManager.currentLanguage).vowels
+        let source = pool.count >= 3 ? pool : CourseContent.vowels
+        var options = source.filter { $0.id != target.id }.shuffled().prefix(2)
+        var final = Array(options) + [target]
+        final.shuffle()
+        return final
+    }
+    
+    private func parseVowelMistake(_ itemId: String) -> (Int, Int)? {
+        let parts = itemId.split(separator: ":")
+        guard parts.count == 2, let baseId = Int(parts[0]), let vowelId = Int(parts[1]) else {
+            return nil
+        }
+        return (baseId, vowelId)
+    }
+
+    private func isMistakeReady(_ mistake: MistakeItem) -> Bool {
+        switch mistake.itemType {
+        case "letter":
+            return currentLetter != nil
+        case "word":
+            return currentWord != nil && !wordOptions.isEmpty
+        case "phrase":
+            return currentPhrase != nil && !phraseOptions.isEmpty
+        case "vowel":
+            return currentBaseLetter != nil && currentVowel != nil && !vowelOptions.isEmpty
+        case "solarLunar":
+            return currentLetter != nil
+        case "speaking":
+            return currentLetter != nil
+        default:
+            return false
+        }
+    }
+
+    private func selectNextMistake() -> MistakeItem? {
+        if let focus = pendingFocus,
+           let targeted = dataManager.mistakes.first(where: { $0.itemId == focus.0 && $0.itemType == focus.1 }) {
+            pendingFocus = nil
+            return targeted
+        }
+        
+        let ordered = dataManager.mistakes.sorted { lhs, rhs in
+            if lhs.correctionCount != rhs.correctionCount {
+                return lhs.correctionCount < rhs.correctionCount
+            }
+            return lhs.lastMistakeDate > rhs.lastMistakeDate
+        }
+        return ordered.first
+    }
 }
+
+private struct SolarLunarMistakeExercise: View {
+    let letter: ArabicLetter
+    let onAnswer: (Bool) -> Void
+    @EnvironmentObject var languageManager: LanguageManager
+    @State private var selected: ArabicLetter.LetterCategory? = nil
+    @State private var locked = false
+    
+    var body: some View {
+        let isEnglish = languageManager.currentLanguage == .english
+        VStack(spacing: 20) {
+            Text(isEnglish ? "Solar or lunar?" : "Solaire ou lunaire ?")
+                .font(.system(size: 20, weight: .bold))
+                .foregroundColor(.noorText)
+            
+            Text(letter.isolated)
+                .font(.system(size: 100, weight: .bold))
+                .foregroundColor(.noorText)
+            
+            Text(letter.transliteration)
+                .font(.system(size: 18, weight: .medium))
+                .foregroundColor(.noorSecondary)
+            
+            HStack(spacing: 16) {
+                SolarLunarChoiceButton(
+                    title: LocalizedStringKey(isEnglish ? "Solar" : "Solaire"),
+                    icon: "sun.max.fill",
+                    color: .orange,
+                    isSelected: selected == .solar,
+                    isCorrect: selected == .solar ? letter.isSolar : nil
+                ) {
+                    handleSelect(.solar)
+                }
+                
+                SolarLunarChoiceButton(
+                    title: LocalizedStringKey(isEnglish ? "Lunar" : "Lunaire"),
+                    icon: "moon.fill",
+                    color: .blue,
+                    isSelected: selected == .lunar,
+                    isCorrect: selected == .lunar ? letter.isLunar : nil
+                ) {
+                    handleSelect(.lunar)
+                }
+            }
+            .padding(.horizontal, 24)
+        }
+    }
+    
+    private func handleSelect(_ answer: ArabicLetter.LetterCategory) {
+        guard !locked else { return }
+        selected = answer
+        let isCorrect = answer == letter.letterCategory
+        if isCorrect {
+            FeedbackManager.shared.success()
+            locked = true
+            onAnswer(true)
+        } else {
+            FeedbackManager.shared.error()
+            onAnswer(false)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                selected = nil
+            }
+        }
+    }
+}
+
+private struct SolarLunarChoiceButton: View {
+    let title: LocalizedStringKey
+    let icon: String
+    let color: Color
+    let isSelected: Bool
+    let isCorrect: Bool?
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 8) {
+                Image(systemName: icon)
+                Text(title)
+                    .font(.system(size: 14, weight: .bold))
+            }
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 14)
+            .background(backgroundColor)
+            .cornerRadius(16)
+        }
+        .buttonStyle(PlainButtonStyle())
+    }
+
+    private var backgroundColor: Color {
+        if let isCorrect = isCorrect, isSelected {
+            return isCorrect ? .green : .red
+        }
+        return color.opacity(isSelected ? 0.85 : 0.6)
+    }
+}
+
+private struct SpeakingMistakeExercise: View {
+    let letter: ArabicLetter
+    let onSuccess: () -> Void
+
+    @EnvironmentObject var languageManager: LanguageManager
+    @StateObject private var speechManager = SpeechManager()
+    @State private var isListening = false
+    @State private var feedbackMessage = ""
+    @State private var showSuccess = false
+
+    private var isEnglish: Bool { languageManager.currentLanguage == .english }
+
+    var body: some View {
+        VStack(spacing: 24) {
+            Text(isEnglish ? "Pronounce this letter" : "Prononce cette lettre")
+                .font(.system(size: 20, weight: .bold))
+                .foregroundColor(.noorText)
+
+            Text(letter.isolated)
+                .font(.system(size: 100, weight: .bold))
+                .foregroundColor(.noorText)
+
+            Text(letter.transliteration)
+                .font(.system(size: 18, weight: .semibold))
+                .foregroundColor(.noorGold)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 8)
+                .background(Capsule().fill(Color.noorGold.opacity(0.12)))
+
+            Button(action: {
+                AudioManager.shared.playLetter(letter.isolated)
+                HapticManager.shared.impact(.light)
+            }) {
+                HStack(spacing: 8) {
+                    Image(systemName: "speaker.wave.2.fill")
+                    Text(isEnglish ? "Listen" : "Écouter")
+                }
+                .font(.system(size: 15, weight: .semibold))
+                .foregroundColor(.purple)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
+                .background(Capsule().fill(Color.purple.opacity(0.1)))
+            }
+
+            if !feedbackMessage.isEmpty {
+                Text(feedbackMessage)
+                    .font(.system(size: 15, weight: .semibold))
+                    .foregroundColor(showSuccess ? .green : .red)
+                    .transition(.opacity)
+            }
+
+            ZStack {
+                Circle()
+                    .fill(
+                        LinearGradient(
+                            colors: isListening ? [.noorGold, .orange] : [.white, .white],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                    .frame(width: 80, height: 80)
+                    .shadow(color: isListening ? .orange.opacity(0.4) : .black.opacity(0.1), radius: 12, y: 6)
+                    .overlay(
+                        Image(systemName: "mic.fill")
+                            .font(.system(size: 28, weight: .bold))
+                            .foregroundColor(isListening ? .white : .noorGold)
+                    )
+                    .scaleEffect(isListening ? 0.92 : 1.0)
+                    .animation(.spring(response: 0.3), value: isListening)
+            }
+            .frame(width: 100, height: 100)
+            .gesture(
+                DragGesture(minimumDistance: 0)
+                    .onChanged { _ in
+                        if !isListening { startListening() }
+                    }
+                    .onEnded { _ in
+                        stopListening()
+                    }
+            )
+
+            Text(isEnglish ? "Hold to speak" : "Maintiens pour parler")
+                .font(.subheadline)
+                .foregroundColor(.noorSecondary.opacity(0.8))
+        }
+        .onAppear {
+            speechManager.requestAuthorization()
+        }
+        .onChange(of: speechManager.recognizedText) { _, newText in
+            if isListening && !showSuccess {
+                let cleaned = newText.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+                if PhoneticDictionary.shared.isMatch(heard: cleaned, target: letter) {
+                    handleSuccess()
+                }
+            }
+        }
+    }
+
+    private func startListening() {
+        guard speechManager.authorizationStatus == .authorized else {
+            feedbackMessage = isEnglish ? "Microphone permission required" : "Autorisation micro requise"
+            return
+        }
+        speechManager.recognizedText = ""
+        showSuccess = false
+        feedbackMessage = isEnglish ? "Listening..." : "J'écoute..."
+        isListening = true
+        HapticManager.shared.impact(.medium)
+        do { try speechManager.startRecording() }
+        catch { isListening = false }
+    }
+
+    private func stopListening() {
+        speechManager.stopRecording()
+        HapticManager.shared.impact(.light)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            isListening = false
+            if !showSuccess {
+                let recognized = speechManager.recognizedText.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+                if PhoneticDictionary.shared.isMatch(heard: recognized, target: letter) {
+                    handleSuccess()
+                } else {
+                    feedbackMessage = recognized.isEmpty
+                        ? (isEnglish ? "I didn't hear anything..." : "Je n'ai rien entendu...")
+                        : (isEnglish ? "Not quite..." : "Pas tout à fait...")
+                    FeedbackManager.shared.error()
+                }
+            }
+        }
+    }
+
+    private func handleSuccess() {
+        guard !showSuccess else { return }
+        showSuccess = true
+        isListening = false
+        speechManager.stopRecording()
+        feedbackMessage = isEnglish ? "Well done!" : "Bravo !"
+        FeedbackManager.shared.success()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            onSuccess()
+        }
+    }
+}
+

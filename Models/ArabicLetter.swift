@@ -134,6 +134,7 @@ enum LevelType: String, Codable {
     case quiz
     case solarLunar
     case phrases
+    case speaking
 }
 
 struct LevelDefinition: Identifiable {
@@ -205,7 +206,11 @@ struct VowelExample: Codable {
 
 struct CourseContent {
         
-    private static let loaded: DataLoader.CourseContentJSON? = DataLoader.loadCourseContent()
+    private static var loaded: DataLoader.CourseContentJSON? = DataLoader.loadCourseContent()
+    
+    static func reload() {
+        loaded = DataLoader.loadCourseContent()
+    }
     
     static var letters: [ArabicLetter] {
         loaded?.letters ?? fallbackLetters
@@ -237,6 +242,205 @@ struct CourseContent {
             }
         }
         return fallbackLevels(language: language)
+    }
+
+    struct ValidationIssue: Identifiable {
+        enum Severity: String {
+            case error
+            case warning
+        }
+
+        let id = UUID()
+        let severity: Severity
+        let message: String
+    }
+
+    static func validateAndLog() {
+        let issues = validate()
+        guard !issues.isEmpty else { return }
+
+        print("CourseContent validation: \(issues.count) issue(s)")
+        for issue in issues {
+            print("[\(issue.severity.rawValue.uppercased())] \(issue.message)")
+        }
+    }
+
+    static func validate() -> [ValidationIssue] {
+        guard let json = loaded else {
+            return [
+                ValidationIssue(
+                    severity: .error,
+                    message: "course_content.json could not be loaded. Using fallback content."
+                )
+            ]
+        }
+
+        var issues: [ValidationIssue] = []
+
+        func duplicateIds(in ids: [Int]) -> [Int] {
+            var seen = Set<Int>()
+            var duplicates = Set<Int>()
+            for id in ids {
+                if seen.contains(id) {
+                    duplicates.insert(id)
+                } else {
+                    seen.insert(id)
+                }
+            }
+            return Array(duplicates).sorted()
+        }
+
+        func checkIds(_ ids: [Int], in allowed: Set<Int>, context: String) {
+            let missing = ids.filter { !allowed.contains($0) }
+            guard !missing.isEmpty else { return }
+            let list = missing.map(String.init).joined(separator: ", ")
+            issues.append(ValidationIssue(severity: .error, message: "\(context) references missing ids: \(list)"))
+        }
+
+        let letterIds = Set(json.letters.map { $0.id })
+        let vowelIds = Set(json.vowels.map { $0.id })
+        let wordIds = Set(json.words.map { $0.id })
+        let phraseList = json.phrases ?? []
+        let phraseIds = Set(phraseList.map { $0.id })
+
+        let letterDuplicates = duplicateIds(in: json.letters.map { $0.id })
+        if !letterDuplicates.isEmpty {
+            issues.append(ValidationIssue(severity: .error, message: "Duplicate letter ids: \(letterDuplicates)"))
+        }
+
+        let vowelDuplicates = duplicateIds(in: json.vowels.map { $0.id })
+        if !vowelDuplicates.isEmpty {
+            issues.append(ValidationIssue(severity: .error, message: "Duplicate vowel ids: \(vowelDuplicates)"))
+        }
+
+        let wordDuplicates = duplicateIds(in: json.words.map { $0.id })
+        if !wordDuplicates.isEmpty {
+            issues.append(ValidationIssue(severity: .error, message: "Duplicate word ids: \(wordDuplicates)"))
+        }
+
+        let phraseDuplicates = duplicateIds(in: phraseList.map { $0.id })
+        if !phraseDuplicates.isEmpty {
+            issues.append(ValidationIssue(severity: .error, message: "Duplicate phrase ids: \(phraseDuplicates)"))
+        }
+
+        for word in json.words {
+            checkIds(word.componentLetterIds, in: letterIds, context: "Word \(word.id)")
+        }
+
+        for vowel in json.vowels {
+            if vowel.examples.isEmpty {
+                issues.append(ValidationIssue(severity: .warning, message: "Vowel \(vowel.id) has no examples."))
+            }
+            for example in vowel.examples {
+                if !letterIds.contains(example.letterId) {
+                    issues.append(
+                        ValidationIssue(
+                            severity: .error,
+                            message: "Vowel \(vowel.id) example references missing letter id \(example.letterId)."
+                        )
+                    )
+                }
+            }
+        }
+
+        if phraseList.isEmpty {
+            issues.append(ValidationIssue(severity: .warning, message: "No phrases defined. Phrase levels will be empty."))
+        }
+
+        for phrase in phraseList {
+            if phrase.arabic.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                issues.append(ValidationIssue(severity: .error, message: "Phrase \(phrase.id) has empty Arabic text."))
+            }
+            if !phrase.wordIds.isEmpty {
+                checkIds(phrase.wordIds, in: wordIds, context: "Phrase \(phrase.id) wordIds")
+            }
+        }
+
+        if json.levels["fr"] == nil {
+            issues.append(ValidationIssue(severity: .warning, message: "levels.fr is missing."))
+        }
+        if json.levels["en"] == nil {
+            issues.append(ValidationIssue(severity: .warning, message: "levels.en is missing."))
+        }
+
+        if let fr = json.levels["fr"], let en = json.levels["en"] {
+            let frIds = fr.map { $0.id }
+            let enIds = en.map { $0.id }
+            if frIds != enIds {
+                issues.append(
+                    ValidationIssue(
+                        severity: .warning,
+                        message: "levels.fr and levels.en ids differ. Keep them in sync for consistent progression."
+                    )
+                )
+            }
+        }
+
+        for (lang, levels) in json.levels {
+            let levelIds = levels.map { $0.id }
+            let levelDuplicates = duplicateIds(in: levelIds)
+            if !levelDuplicates.isEmpty {
+                issues.append(
+                    ValidationIssue(
+                        severity: .error,
+                        message: "Duplicate level ids in levels[\(lang)]: \(levelDuplicates)"
+                    )
+                )
+            }
+
+            for level in levels {
+                guard let levelType = LevelType(rawValue: level.type) else {
+                    issues.append(
+                        ValidationIssue(
+                            severity: .error,
+                            message: "Level \(level.id) in levels[\(lang)] has unknown type '\(level.type)'."
+                        )
+                    )
+                    continue
+                }
+
+                let contentDuplicates = duplicateIds(in: level.contentIds)
+                if !contentDuplicates.isEmpty {
+                    issues.append(
+                        ValidationIssue(
+                            severity: .warning,
+                            message: "Level \(level.id) in levels[\(lang)] has duplicate contentIds: \(contentDuplicates)"
+                        )
+                    )
+                }
+
+                if level.contentIds.isEmpty && levelType != .solarLunar {
+                    issues.append(
+                        ValidationIssue(
+                            severity: .warning,
+                            message: "Level \(level.id) in levels[\(lang)] has empty contentIds."
+                        )
+                    )
+                }
+
+                switch levelType {
+                case .alphabet, .quiz, .speaking:
+                    checkIds(level.contentIds, in: letterIds, context: "Level \(level.id) alphabet")
+                case .vowels:
+                    checkIds(level.contentIds, in: vowelIds, context: "Level \(level.id) vowels")
+                case .wordBuild:
+                    checkIds(level.contentIds, in: wordIds, context: "Level \(level.id) wordBuild")
+                case .phrases:
+                    checkIds(level.contentIds, in: phraseIds, context: "Level \(level.id) phrases")
+                case .solarLunar:
+                    if !level.contentIds.isEmpty {
+                        issues.append(
+                            ValidationIssue(
+                                severity: .warning,
+                                message: "Level \(level.id) in levels[\(lang)] is solarLunar but contentIds is not empty."
+                            )
+                        )
+                    }
+                }
+            }
+        }
+
+        return issues
     }
     
     
@@ -355,6 +559,11 @@ struct CourseContent {
         }
         return level.titleKey
     }
+
+    static func getLevelSubtitle(for levelNumber: Int, language: AppLanguage) -> String {
+        guard let level = getLevels(language: language).first(where: { $0.id == levelNumber }) else {
+            return ""
+        }
+        return level.subtitle
+    }
 }
-
-

@@ -4,6 +4,7 @@ struct FlashcardsView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var languageManager: LanguageManager
+    @EnvironmentObject var dataManager: DataManager
     @StateObject private var audioManager = AudioManager.shared
     @ObservedObject private var manager = FlashcardManager.shared
     
@@ -230,13 +231,13 @@ struct FlashcardsView: View {
         switch response {
         case .again, .hard:
             sessionStats.reviewCount += 1
-            HapticManager.shared.impact(.medium)
+            FeedbackManager.shared.tapMedium()
         case .good:
             sessionStats.goodCount += 1
-            HapticManager.shared.impact(.light)
+            FeedbackManager.shared.tapLight()
         case .easy:
             sessionStats.easyCount += 1
-            HapticManager.shared.trigger(.success)
+            FeedbackManager.shared.success()
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
@@ -318,7 +319,9 @@ struct FlashcardsView: View {
     }
     
     private func loadCards() {
-        cards = manager.getPracticeCards(limit: 20)
+        let pool = dataManager.practicePool(language: languageManager.currentLanguage)
+        let allowedArabic = Set(pool.words.map { $0.arabic })
+        cards = manager.getPracticeCards(limit: 20, allowedArabic: allowedArabic)
         currentIndex = 0
         isFlipped = false
         showCompletion = false

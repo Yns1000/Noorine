@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct AlphabetHeroCard: View {
+    @EnvironmentObject var languageManager: LanguageManager
+    
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             RoundedRectangle(cornerRadius: 28)
@@ -15,24 +17,26 @@ struct AlphabetHeroCard: View {
             
             HStack {
                 VStack(alignment: .leading, spacing: 12) {
-                    Text(LocalizedStringKey("Alphabet Arabe"))
+                    Text(languageManager.currentLanguage == .english ? "Arabic Alphabet" : "Alphabet Arabe")
                         .font(.system(size: 26, weight: .bold, design: .serif))
                         .foregroundColor(.white)
                     
-                    Text(LocalizedStringKey("Apprends la prononciation correcte de chaque lettre."))
+                    Text(languageManager.currentLanguage == .english
+                         ? "Learn the correct pronunciation for every letter."
+                         : "Apprends la prononciation correcte de chaque lettre.")
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(.white.opacity(0.9))
                         .multilineTextAlignment(.leading)
                     
                     HStack {
-                        Text(LocalizedStringKey("28 lettres"))
+                        Text(languageManager.currentLanguage == .english ? "28 letters" : "28 lettres")
                             .font(.system(size: 12, weight: .bold))
                             .padding(.horizontal, 12)
                             .padding(.vertical, 6)
                             .background(Color.white.opacity(0.2))
                             .cornerRadius(12)
                         
-                        Text(LocalizedStringKey("Audio HD"))
+                        Text(languageManager.currentLanguage == .english ? "HD audio" : "Audio HD")
                             .font(.system(size: 12, weight: .bold))
                             .padding(.horizontal, 12)
                             .padding(.vertical, 6)
@@ -88,6 +92,67 @@ struct FutureModuleCard: View {
     }
 }
 
+struct ListeningModuleCard: View {
+    @Environment(\.colorScheme) var colorScheme
+    
+    let icon: String
+    let title: String
+    let subtitle: String
+    let colors: [Color]
+    
+    var body: some View {
+        ZStack(alignment: .bottomTrailing) {
+            RoundedRectangle(cornerRadius: 24)
+                .fill(
+                    LinearGradient(
+                        colors: colors,
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 24)
+                        .fill(colorScheme == .dark ? Color.black.opacity(0.2) : Color.clear)
+                )
+                .shadow(color: colors.last?.opacity(0.25) ?? .black.opacity(0.1), radius: 12, y: 6)
+            
+            HStack {
+                VStack(alignment: .leading, spacing: 8) {
+                    ZStack {
+                        Circle()
+                            .fill(Color.white.opacity(0.2))
+                            .frame(width: 40, height: 40)
+
+                        Image(systemName: icon)
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.white)
+                    }
+
+                    Text(title)
+                        .font(.system(size: 15, weight: .bold, design: .serif))
+                        .foregroundColor(.white)
+                        .lineLimit(2)
+                        .minimumScaleFactor(0.8)
+
+                    Text(subtitle)
+                        .font(.system(size: 11, weight: .medium))
+                        .foregroundColor(.white.opacity(0.9))
+                        .lineLimit(1)
+                }
+                Spacer(minLength: 0)
+            }
+            .padding(16)
+            
+            Image(systemName: "waveform.path.ecg")
+                .font(.system(size: 44))
+                .foregroundColor(.white.opacity(0.12))
+                .offset(x: 8, y: 12)
+        }
+        .frame(minHeight: 140)
+        .clipShape(RoundedRectangle(cornerRadius: 24))
+    }
+}
+
 struct LetterAudioCard: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var isPlaying = false
@@ -139,4 +204,3 @@ struct LetterAudioCard: View {
         .buttonStyle(PlainButtonStyle())
     }
 }
-

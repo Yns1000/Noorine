@@ -2,9 +2,11 @@ import SwiftUI
 
 struct PracticeToolsGrid: View {
     @EnvironmentObject var dataManager: DataManager
+    @EnvironmentObject var languageManager: LanguageManager
     @State private var showSpeakingPractice = false
     @State private var showFlashcards = false
     @State private var showMistakes = false
+    @State private var showResources = false
     
     let columns = [
         GridItem(.flexible()),
@@ -12,8 +14,11 @@ struct PracticeToolsGrid: View {
     ]
     
     var body: some View {
+        let pool = dataManager.practicePool(language: languageManager.currentLanguage)
+        let flashcardCount = pool.words.count
+        
         LazyVGrid(columns: columns, spacing: 15) {
-            ToolCard(icon: "rectangle.on.rectangle.angled", color: .blue, title: "Flashcards", subtitle: "40 mots", action: {
+            ToolCard(icon: "rectangle.on.rectangle.angled", color: .blue, title: "Flashcards", subtitle: "\(flashcardCount) mots", action: {
                 showFlashcards = true
             })
             
@@ -35,15 +40,27 @@ struct PracticeToolsGrid: View {
             ToolCard(icon: "mic.fill", color: .green, title: "Parler", subtitle: "Prononciation", action: {
                 showSpeakingPractice = true
             })
+            
+            ToolCard(icon: "book.fill", color: .orange, title: "Ressources", subtitle: "Alphabet & harakat", action: {
+                showResources = true
+            })
         }
         .fullScreenCover(isPresented: $showSpeakingPractice) {
-            SpeakingPracticeView()
+            SpeakingPracticeView(
+                sessionTitle: languageManager.currentLanguage == .english ? "Pronunciation" : "Prononciation",
+                sessionLetters: pool.letters,
+                goalCount: 8,
+                onCompletion: { showSpeakingPractice = false }
+            )
         }
         .fullScreenCover(isPresented: $showFlashcards) {
             FlashcardsView()
         }
         .fullScreenCover(isPresented: $showMistakes) {
             MistakesReviewView()
+        }
+        .fullScreenCover(isPresented: $showResources) {
+            ResourcesView()
         }
     }
 }

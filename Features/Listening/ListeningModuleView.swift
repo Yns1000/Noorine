@@ -3,6 +3,7 @@ import SwiftUI
 struct ListeningModuleView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var languageManager: LanguageManager
     
     var body: some View {
         ZStack {
@@ -23,7 +24,7 @@ struct ListeningModuleView: View {
                             )
                         }
                         
-                        Text(LocalizedStringKey("Écoute"))
+                        Text(languageManager.currentLanguage == .english ? "Listening" : "Écoute")
                             .font(.system(size: 24, weight: .bold, design: .serif))
                             .foregroundColor(.noorText)
                             .padding(.leading, 8)
@@ -37,13 +38,30 @@ struct ListeningModuleView: View {
                     }
                     
                     VStack(alignment: .leading, spacing: 16) {
-                        Text(LocalizedStringKey("Catégories à venir"))
+                        Text(languageManager.currentLanguage == .english ? "Focused practice" : "Pratique ciblée")
                             .font(.headline)
                             .foregroundColor(.noorSecondary)
                         
-                        HStack(spacing: 15) {
-                            FutureModuleCard(icon: "message.fill", title: "Mots courants", color: .blue)
-                            FutureModuleCard(icon: "quote.bubble.fill", title: "Phrases", color: .green)
+                        HStack(spacing: 12) {
+                            NavigationLink(destination: ListeningPracticeView(mode: .word)) {
+                                ListeningModuleCard(
+                                    icon: "message.fill",
+                                    title: languageManager.currentLanguage == .english ? "Common words" : "Mots courants",
+                                    subtitle: languageManager.currentLanguage == .english ? "Audio quiz" : "Quiz audio",
+                                    colors: [Color.blue.opacity(0.9), Color.blue.opacity(0.6)]
+                                )
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            
+                            NavigationLink(destination: ListeningPracticeView(mode: .phrase)) {
+                                ListeningModuleCard(
+                                    icon: "quote.bubble.fill",
+                                    title: languageManager.currentLanguage == .english ? "Phrases" : "Phrases",
+                                    subtitle: languageManager.currentLanguage == .english ? "Guided listening" : "Écoute guidée",
+                                    colors: [Color.green.opacity(0.9), Color.green.opacity(0.6)]
+                                )
+                            }
+                            .buttonStyle(PlainButtonStyle())
                         }
                     }
                     .padding(.top, 20)

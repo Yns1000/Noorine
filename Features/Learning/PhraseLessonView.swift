@@ -6,6 +6,7 @@ struct PhraseLessonView: View {
     
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var languageManager: LanguageManager
+    @EnvironmentObject var dataManager: DataManager
     
     @State private var currentPhraseIndex = 0
     @State private var phase: LessonPhase = .presentation
@@ -14,8 +15,21 @@ struct PhraseLessonView: View {
     @State private var showSuccess = false
     @State private var showError = false
     @State private var completedPhrases = 0
+    @State private var loggedMistakeIds: Set<Int> = []
     
-    private let phrases: [PhraseData] = PhraseData.samplePhrases
+    private var phrases: [PhraseData] {
+        let levelPhrases = phrasesForLevel()
+        if !levelPhrases.isEmpty {
+            return levelPhrases.map { PhraseData.from($0) }
+        }
+        
+        let all = CourseContent.phrases
+        if !all.isEmpty {
+            return all.map { PhraseData.from($0) }
+        }
+        
+        return PhraseData.samplePhrases
+    }
     
     private var currentPhrase: PhraseData? {
         phrases.indices.contains(currentPhraseIndex) ? phrases[currentPhraseIndex] : nil
@@ -54,20 +68,24 @@ struct PhraseLessonView: View {
             }
         }
         .onAppear { setupPhrase() }
+        .onDisappear { logCurrentPhraseMistakeOnQuit() }
     }
     
     private var headerView: some View {
         HStack {
-            Button(action: { dismiss() }) {
+            Button(action: {
+                logCurrentPhraseMistakeOnQuit()
+                dismiss()
+            }) {
                 Image(systemName: "xmark")
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(.noorSecondary)
                     .frame(width: 40, height: 40)
                     .background(Circle().fill(Color(.secondarySystemGroupedBackground)))
             }
-            
+
             Spacer()
-            
+
             VStack(spacing: 4) {
                 Text("\(currentPhraseIndex + 1)/\(phrases.count)")
                     .font(.system(size: 14, weight: .semibold))
@@ -299,6 +317,26 @@ struct PhraseLessonView: View {
         }
     }
     
+    private func phrasesForLevel() -> [ArabicPhrase] {
+        let levels = CourseContent.getLevels(language: languageManager.currentLanguage)
+        guard let level = levels.first(where: { $0.id == levelNumber && $0.type == .phrases }) else {
+            return []
+        }
+        
+        let ids = Set(level.contentIds)
+        guard !ids.isEmpty else { return [] }
+        
+        return CourseContent.phrases.filter { ids.contains($0.id) }
+    }
+    
+    private func logCurrentPhraseMistakeOnQuit() {
+        guard phase != .complete, let phrase = currentPhrase else { return }
+        if !loggedMistakeIds.contains(phrase.id) {
+            loggedMistakeIds.insert(phrase.id)
+            dataManager.addMistake(itemId: String(phrase.id), type: "phrase")
+        }
+    }
+
     private func setupPhrase() {
         guard let phrase = currentPhrase else { return }
         userAnswer = []
@@ -358,11 +396,16 @@ struct PhraseLessonView: View {
             withAnimation(.spring(response: 0.4)) {
                 showSuccess = true
             }
-            HapticManager.shared.trigger(.success)
+            FeedbackManager.shared.success()
             completedPhrases += 1
         } else {
             showError = true
-            HapticManager.shared.trigger(.error)
+            FeedbackManager.shared.error()
+            
+            if !loggedMistakeIds.contains(phrase.id) {
+                loggedMistakeIds.insert(phrase.id)
+                dataManager.addMistake(itemId: String(phrase.id), type: "phrase")
+            }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 withAnimation(.spring(response: 0.4)) {
@@ -393,6 +436,7 @@ struct PhraseWord: Identifiable, Equatable {
 }
 
 struct PhraseData {
+    let id: Int
     let arabic: String
     let transliteration: String
     let translationEn: String
@@ -407,8 +451,41 @@ struct PhraseData {
     
     static let distractorWords = ["هُوَ", "هِيَ", "مِن", "إلى", "عَلى"]
     
+    static func from(_ phrase: ArabicPhrase) -> PhraseData {
+        let wordParts = makeWordParts(from: phrase)
+        return PhraseData(
+            id: phrase.id,
+            arabic: phrase.arabic,
+            transliteration: phrase.transliteration,
+            translationEn: phrase.translationEn,
+            translationFr: phrase.translationFr,
+            words: wordParts,
+            audioName: phrase.audioName ?? phrase.arabic
+        )
+    }
+    
+    private static func makeWordParts(from phrase: ArabicPhrase) -> [WordPart] {
+        if !phrase.wordIds.isEmpty {
+            let wordsById = CourseContent.words.reduce(into: [Int: ArabicWord]()) { dict, word in
+                dict[word.id] = word
+            }
+            let parts = phrase.wordIds.compactMap { id -> WordPart? in
+                guard let word = wordsById[id] else { return nil }
+                return WordPart(arabic: word.arabic, transliteration: word.transliteration)
+            }
+            if !parts.isEmpty {
+                return parts
+            }
+        }
+        
+        return phrase.arabic
+            .split(separator: " ")
+            .map { WordPart(arabic: String($0), transliteration: "") }
+    }
+    
     static let samplePhrases: [PhraseData] = [
         PhraseData(
+            id: 1,
             arabic: "أَنَا طَالِب",
             transliteration: "ana talib",
             translationEn: "I am a student",
@@ -420,6 +497,7 @@ struct PhraseData {
             audioName: "phrase_ana_talib"
         ),
         PhraseData(
+            id: 2,
             arabic: "هٰذَا كِتَاب",
             transliteration: "hatha kitab",
             translationEn: "This is a book",
@@ -431,6 +509,7 @@ struct PhraseData {
             audioName: "phrase_hatha_kitab"
         ),
         PhraseData(
+            id: 3,
             arabic: "السَّلَامُ عَلَيْكُم",
             transliteration: "as-salamu alaykum",
             translationEn: "Peace be upon you",
@@ -442,6 +521,7 @@ struct PhraseData {
             audioName: "phrase_salam"
         ),
         PhraseData(
+            id: 4,
             arabic: "مَا اسْمُكَ",
             transliteration: "ma ismuka",
             translationEn: "What is your name?",
@@ -453,6 +533,7 @@ struct PhraseData {
             audioName: "phrase_ma_ismuka"
         ),
         PhraseData(
+            id: 5,
             arabic: "اسْمِي أَحْمَد",
             transliteration: "ismi Ahmad",
             translationEn: "My name is Ahmad",

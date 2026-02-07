@@ -3,7 +3,13 @@ import SwiftUI
 struct FlashcardLibraryView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
-    let cards = FlashcardManager.shared.allCards
+    @EnvironmentObject var dataManager: DataManager
+    @EnvironmentObject var languageManager: LanguageManager
+    private var cards: [Flashcard] {
+        let pool = dataManager.practicePool(language: languageManager.currentLanguage)
+        let allowedArabic = Set(pool.words.map { $0.arabic })
+        return FlashcardManager.shared.filteredCards(allowedArabic: allowedArabic)
+    }
     var onCardSelected: ((Flashcard) -> Void)? = nil
     
     let columns = [
@@ -20,7 +26,7 @@ struct FlashcardLibraryView: View {
                         ForEach(cards) { card in
                             LibraryCardView(card: card)
                                 .onTapGesture {
-                                    HapticManager.shared.impact(.light)
+                                    FeedbackManager.shared.tapLight()
                                     if let callback = onCardSelected {
                                         callback(card)
                                     }

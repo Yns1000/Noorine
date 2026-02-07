@@ -3,11 +3,16 @@ import AVFoundation
 import AudioToolbox
 import SwiftUI
 import Combine
+import CryptoKit
 
 class AudioManager: ObservableObject {
     static let shared = AudioManager()
     
     private let synthesizer = AVSpeechSynthesizer()
+    private let cacheSynthesizer = AVSpeechSynthesizer()
+    private var audioPlayer: AVAudioPlayer?
+    private let cacheQueue = DispatchQueue(label: "AudioManager.TTSCache")
+    private var cacheInFlight: Set<String> = []
     private var isWarmedUp = false
     
     private init() {
@@ -39,27 +44,44 @@ class AudioManager: ObservableObject {
         }
     }
     
+    enum SpeechStyle {
+        case letter
+        case word
+        case phraseSlow
+        case phraseNormal
+    }
+    
+    private struct SpeechProfile {
+        let rate: Float
+        let pitch: Float
+        let volume: Float
+        let preDelay: TimeInterval
+        let postDelay: TimeInterval
+    }
+    
     func playLetter(_ text: String) {
-        if synthesizer.isSpeaking {
-            synthesizer.stopSpeaking(at: .immediate)
+        playText(text, style: .letter, useCache: true)
+    }
+    
+    func playText(_ text: String, style: SpeechStyle = .word, useCache: Bool = true) {
+        stopAllAudio()
+        
+        let voice = selectArabicVoice()
+        let profile = speechProfile(for: style)
+        let cacheKey = makeCacheKey(text: text, profile: profile, voice: voice)
+        
+        if useCache, let cachedURL = cacheFileURL(for: cacheKey),
+           FileManager.default.fileExists(atPath: cachedURL.path) {
+            playAudioFile(cachedURL)
+            return
         }
         
-        let utterance = AVSpeechUtterance(string: text)
-        
-        let voices = AVSpeechSynthesisVoice.speechVoices().filter { $0.language == "ar-SA" }
-        if let maged = voices.first(where: { $0.name.contains("Maged") }) {
-            utterance.voice = maged
-        } else if let enhanced = voices.first(where: { $0.quality == .enhanced || $0.quality == .premium }) {
-            utterance.voice = enhanced
-        } else {
-            utterance.voice = AVSpeechSynthesisVoice(language: "ar-SA")
-        }
-        
-        utterance.rate = 0.45
-        utterance.volume = 1.0
-        utterance.pitchMultiplier = 0.95
-        
+        let utterance = makeUtterance(text: text, profile: profile, voice: voice)
         synthesizer.speak(utterance)
+        
+        if useCache {
+            cacheUtterance(text: text, profile: profile, voice: voice, cacheKey: cacheKey)
+        }
     }
     
     func playSystemSound(_ soundID: SystemSoundID) {
@@ -67,6 +89,11 @@ class AudioManager: ObservableObject {
     }
     
     func playSound(named soundName: String) {
+        if let audioURL = bundledAudioURL(for: soundName) {
+            playAudioFile(audioURL)
+            return
+        }
+        
         let ttsMap: [String: String] = [
             "fatha_sound": "فَتْحَة",
             "kasra_sound": "كَسْرَة",
@@ -107,9 +134,162 @@ class AudioManager: ObservableObject {
         ]
         
         if let textToSpeak = ttsMap[soundName] {
-            playLetter(textToSpeak)
-        } else {
-            print("Audio/TTS missing for: \(soundName)")
+            playText(textToSpeak, style: .letter, useCache: true)
+            return
+        }
+        
+        if let phrase = CourseContent.phrases.first(where: { $0.audioName == soundName }) {
+            playText(phrase.arabic, style: .phraseNormal, useCache: true)
+            return
+        }
+        
+        if containsArabicCharacters(soundName) {
+            playText(soundName, style: .phraseNormal, useCache: true)
+            return
+        }
+        
+        print("Audio/TTS missing for: \(soundName)")
+    }
+    
+    private func speechProfile(for style: SpeechStyle) -> SpeechProfile {
+        switch style {
+        case .letter:
+            return SpeechProfile(rate: 0.45, pitch: 0.95, volume: 1.0, preDelay: 0.0, postDelay: 0.05)
+        case .word:
+            return SpeechProfile(rate: 0.48, pitch: 1.0, volume: 1.0, preDelay: 0.0, postDelay: 0.05)
+        case .phraseSlow:
+            return SpeechProfile(rate: 0.42, pitch: 1.0, volume: 1.0, preDelay: 0.0, postDelay: 0.08)
+        case .phraseNormal:
+            return SpeechProfile(rate: 0.53, pitch: 1.0, volume: 1.0, preDelay: 0.0, postDelay: 0.06)
+        }
+    }
+    
+    private func makeUtterance(text: String, profile: SpeechProfile, voice: AVSpeechSynthesisVoice?) -> AVSpeechUtterance {
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.voice = voice
+        utterance.rate = profile.rate
+        utterance.volume = profile.volume
+        utterance.pitchMultiplier = profile.pitch
+        utterance.preUtteranceDelay = profile.preDelay
+        utterance.postUtteranceDelay = profile.postDelay
+        return utterance
+    }
+    
+    private func selectArabicVoice() -> AVSpeechSynthesisVoice? {
+        let voices = AVSpeechSynthesisVoice.speechVoices().filter { $0.language.hasPrefix("ar") }
+        
+        if let maged = voices.first(where: { $0.name.contains("Maged") }) {
+            return maged
+        }
+        if let premium = voices.first(where: { $0.quality == .premium }) {
+            return premium
+        }
+        if let enhanced = voices.first(where: { $0.quality == .enhanced }) {
+            return enhanced
+        }
+        if let preferred = voices.first(where: { $0.language == "ar-SA" }) {
+            return preferred
+        }
+        
+        return AVSpeechSynthesisVoice(language: "ar-SA")
+    }
+    
+    private func stopAllAudio() {
+        if synthesizer.isSpeaking {
+            synthesizer.stopSpeaking(at: .immediate)
+        }
+        if audioPlayer?.isPlaying == true {
+            audioPlayer?.stop()
+        }
+    }
+    
+    private func bundledAudioURL(for soundName: String) -> URL? {
+        let extensions = ["m4a", "mp3", "wav", "caf"]
+        for ext in extensions {
+            if let url = Bundle.main.url(forResource: soundName, withExtension: ext) {
+                return url
+            }
+        }
+        return nil
+    }
+    
+    private func playAudioFile(_ url: URL) {
+        stopAllAudio()
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioPlayer?.prepareToPlay()
+            audioPlayer?.play()
+        } catch {
+            print("Audio playback error: \(error)")
+        }
+    }
+    
+    private func cacheDirectoryURL() -> URL? {
+        guard let base = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            return nil
+        }
+        let dir = base.appendingPathComponent("noorine-tts", isDirectory: true)
+        if !FileManager.default.fileExists(atPath: dir.path) {
+            try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        }
+        return dir
+    }
+    
+    private func cacheFileURL(for key: String) -> URL? {
+        guard let dir = cacheDirectoryURL() else { return nil }
+        return dir.appendingPathComponent("\(key).caf")
+    }
+    
+    private func makeCacheKey(text: String, profile: SpeechProfile, voice: AVSpeechSynthesisVoice?) -> String {
+        let voiceId = voice?.identifier ?? "default"
+        let raw = "\(voiceId)|\(profile.rate)|\(profile.pitch)|\(profile.volume)|\(text)"
+        let hash = SHA256.hash(data: Data(raw.utf8))
+        return hash.map { String(format: "%02x", $0) }.joined()
+    }
+    
+    private func cacheUtterance(text: String, profile: SpeechProfile, voice: AVSpeechSynthesisVoice?, cacheKey: String) {
+        guard let url = cacheFileURL(for: cacheKey) else { return }
+        
+        cacheQueue.async {
+            if self.cacheInFlight.contains(cacheKey) {
+                return
+            }
+            self.cacheInFlight.insert(cacheKey)
+            
+            let utterance = self.makeUtterance(text: text, profile: profile, voice: voice)
+            var audioFile: AVAudioFile?
+            
+            self.cacheSynthesizer.write(utterance) { buffer in
+                guard let pcmBuffer = buffer as? AVAudioPCMBuffer else { return }
+                
+                if pcmBuffer.frameLength == 0 {
+                    self.cacheQueue.async {
+                        self.cacheInFlight.remove(cacheKey)
+                    }
+                    return
+                }
+                
+                if audioFile == nil {
+                    audioFile = try? AVAudioFile(forWriting: url, settings: pcmBuffer.format.settings)
+                }
+                
+                do {
+                    try audioFile?.write(from: pcmBuffer)
+                } catch {
+                    // Ignore cache write errors.
+                }
+            }
+        }
+    }
+    
+    private func containsArabicCharacters(_ text: String) -> Bool {
+        return text.unicodeScalars.contains { scalar in
+            switch scalar.value {
+            case 0x0600...0x06FF, 0x0750...0x077F, 0x08A0...0x08FF, 0xFB50...0xFDFF, 0xFE70...0xFEFF:
+                return true
+            default:
+                return false
+            }
         }
     }
 }
