@@ -437,44 +437,47 @@ struct VowelQuizView: View {
             
             Spacer()
             
-            HStack(spacing: 16) {
+            let columns = allVowels.count > 3 ? 2 : allVowels.count
+            let gridColumns = Array(repeating: GridItem(.flexible(), spacing: 12), count: columns)
+            
+            LazyVGrid(columns: gridColumns, spacing: 12) {
                 ForEach(allVowels) { vowel in
                     Button(action: {
                         handleSelection(vowel)
                     }) {
-                        VStack(spacing: 10) {
+                        VStack(spacing: 8) {
                             Text(baseLetter.initial + vowel.symbol)
-                                .font(.system(size: 64))
-                                .minimumScaleFactor(0.4)
+                                .font(.system(size: allVowels.count > 3 ? 48 : 64))
+                                .minimumScaleFactor(0.5)
                                 .lineLimit(1)
                                 .foregroundColor(foregroundColor(for: vowel))
-                                .frame(height: 90)
+                                .frame(height: allVowels.count > 3 ? 60 : 90)
                             
                             Text(vowel.name)
-                                .font(.caption)
-                                .fontWeight(.semibold)
+                                .font(.system(size: 11, weight: .semibold))
                                 .foregroundColor(.noorSecondary.opacity(0.8))
+                                .lineLimit(1)
                             
                             Text(getPhonetic(letter: baseLetter, vowel: vowel))
-                                .font(.system(size: 20, weight: .bold, design: .rounded))
+                                .font(.system(size: allVowels.count > 3 ? 16 : 20, weight: .bold, design: .rounded))
                                 .foregroundColor(.noorGold)
                         }
                         .frame(maxWidth: .infinity)
-                        .frame(height: 180)
+                        .frame(height: allVowels.count > 3 ? 130 : 180)
                         .background(
-                            RoundedRectangle(cornerRadius: 24)
+                            RoundedRectangle(cornerRadius: 20)
                                 .fill(backgroundColor(for: vowel))
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: 24)
+                                    RoundedRectangle(cornerRadius: 20)
                                         .stroke(borderColor(for: vowel), lineWidth: 3)
                                 )
-                                .shadow(color: .black.opacity(0.05), radius: 10, y: 4)
+                                .shadow(color: .black.opacity(0.05), radius: 8, y: 3)
                         )
                     }
                     .disabled(showSuccess)
                 }
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, 20)
             
             Spacer()
             Spacer()
@@ -832,115 +835,263 @@ struct VowelCompletionView: View {
 struct SpecialVowelIntroView: View {
     let vowel: ArabicVowel
     @EnvironmentObject var languageManager: LanguageManager
+    @State private var selectedComparison: Int = 0
     @State private var isPulsing = false
 
     private var descriptionText: String? {
         languageManager.currentLanguage == .english ? vowel.descriptionEn : vowel.descriptionFr
     }
+    
+    private var isEnglish: Bool {
+        languageManager.currentLanguage == .english
+    }
+    
+    private var comparisonPairs: [(withVowel: String, withoutVowel: String, phonetic: String, phoneticBase: String)] {
+        switch vowel.type {
+        case .sukun:
+            return [
+                ("بْ", "بَ", "b", "ba"),
+                ("مْ", "مَ", "m", "ma"),
+                ("نْ", "نَ", "n", "na")
+            ]
+        case .shadda:
+            return [
+                ("بَّ", "بَ", "bba", "ba"),
+                ("مَّ", "مَ", "mma", "ma"),
+                ("سَّ", "سَ", "ssa", "sa")
+            ]
+        case .tanwinFatha, .tanwinKasra, .tanwinDamma:
+            return [
+                ("بًا", "بَ", "ban", "ba"),
+                ("كًا", "كَ", "kan", "ka"),
+                ("دًا", "دَ", "dan", "da")
+            ]
+        default:
+            return [("بَ", "ب", "ba", "b")]
+        }
+    }
 
     var body: some View {
-        VStack(spacing: 32) {
-            Spacer()
-            
-            Text(LocalizedStringKey("Nouveau Concept"))
-                .font(.system(size: 18, weight: .bold, design: .rounded))
-                .foregroundColor(.noorGold)
-                .padding(.horizontal, 16)
-                .padding(.vertical, 8)
-                .background(Color.noorGold.opacity(0.1))
-                .cornerRadius(20)
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 24) {
+                Text(LocalizedStringKey("Nouveau Concept"))
+                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                    .foregroundColor(.noorGold)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(Color.noorGold.opacity(0.1))
+                    .cornerRadius(20)
+                    .padding(.top, 20)
+                
+                VStack(spacing: 12) {
+                    HStack(spacing: 12) {
+                        Text("◌" + vowel.symbol)
+                            .font(.system(size: 48))
+                            .foregroundColor(.noorGold)
+                            .scaleEffect(isPulsing ? 1.1 : 1.0)
+                            .animation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true), value: isPulsing)
+                            .onAppear { isPulsing = true }
+                        
+                        Text(vowel.name)
+                            .font(.system(size: 32, weight: .bold, design: .serif))
+                            .foregroundColor(.noorText)
+                    }
 
-            HStack(spacing: 16) {
-                VStack {
-                    Text("ب")
-                        .font(.system(size: 60))
-                        .foregroundColor(.noorText)
-                    Text(LocalizedStringKey("Lettre"))
-                        .font(.caption)
+                    if let desc = descriptionText {
+                        Text(desc)
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.noorSecondary)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 24)
+                    }
+                }
+                
+                VStack(spacing: 16) {
+                    Text(isEnglish ? "Compare the sounds:" : "Compare les sons :")
+                        .font(.system(size: 14, weight: .semibold))
                         .foregroundColor(.noorSecondary)
+                        .textCase(.uppercase)
+                    
+                    ForEach(Array(comparisonPairs.enumerated()), id: \.offset) { index, pair in
+                        ComparisonCard(
+                            withEffect: pair.withVowel,
+                            withoutEffect: pair.withoutVowel,
+                            phoneticWith: pair.phonetic,
+                            phoneticWithout: pair.phoneticBase,
+                            vowelName: vowel.name,
+                            isEnglish: isEnglish
+                        )
+                    }
                 }
+                .padding(.horizontal, 20)
                 
-                Image(systemName: "plus")
-                    .foregroundColor(.noorSecondary.opacity(0.5))
-                
-                VStack {
-                    Text("◌" + vowel.symbol)
-                        .font(.system(size: 60))
-                        .foregroundColor(.noorGold)
-                        .scaleEffect(isPulsing ? 1.2 : 1.0)
-                        .animation(.easeInOut(duration: 1.0).repeatForever(autoreverses: true), value: isPulsing)
-                        .onAppear { isPulsing = true }
-                    Text(vowel.name)
-                        .font(.caption)
-                        .foregroundColor(.noorGold)
-                }
-                
-                Image(systemName: "arrow.right")
-                    .foregroundColor(.noorSecondary.opacity(0.5))
-                
-                VStack {
-                     Text("ب" + vowel.symbol)
-                        .font(.system(size: 60))
-                        .foregroundColor(.noorText)
-                    Text(LocalizedStringKey("Résultat"))
-                        .font(.caption)
+                VStack(spacing: 16) {
+                    Text(isEnglish ? "How it works:" : "Comment ça marche :")
+                        .font(.system(size: 14, weight: .semibold))
                         .foregroundColor(.noorSecondary)
+                        .textCase(.uppercase)
+                    
+                    HStack(spacing: 12) {
+                        VStack(spacing: 8) {
+                            Text("ب")
+                                .font(.system(size: 44))
+                                .foregroundColor(.noorText)
+                            Text(isEnglish ? "Letter" : "Lettre")
+                                .font(.system(size: 11, weight: .medium))
+                                .foregroundColor(.noorSecondary)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16)
+                        .background(Color(.secondarySystemGroupedBackground))
+                        .cornerRadius(16)
+                        
+                        Image(systemName: "plus")
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundColor(.noorGold)
+                        
+                        VStack(spacing: 8) {
+                            Text("◌" + vowel.symbol)
+                                .font(.system(size: 44))
+                                .foregroundColor(.noorGold)
+                            Text(vowel.name)
+                                .font(.system(size: 11, weight: .medium))
+                                .foregroundColor(.noorGold)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16)
+                        .background(Color.noorGold.opacity(0.1))
+                        .cornerRadius(16)
+                        
+                        Image(systemName: "equal")
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundColor(.noorGold)
+                        
+                        VStack(spacing: 8) {
+                            Text("ب" + vowel.symbol)
+                                .font(.system(size: 44))
+                                .foregroundColor(.noorText)
+                            Text(isEnglish ? "Result" : "Résultat")
+                                .font(.system(size: 11, weight: .medium))
+                                .foregroundColor(.noorSecondary)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16)
+                        .background(Color(.secondarySystemGroupedBackground))
+                        .cornerRadius(16)
+                    }
                 }
+                .padding(.horizontal, 20)
+                
+                Spacer().frame(height: 80)
             }
-            .padding(24)
-            .background(Color(.secondarySystemGroupedBackground))
-            .cornerRadius(24)
-            .shadow(color: .black.opacity(0.05), radius: 10)
+        }
+    }
+}
 
-            VStack(spacing: 16) {
-                Text(vowel.name)
-                    .font(.system(size: 32, weight: .bold, design: .serif))
-                    .foregroundColor(.noorText)
-
-                if let desc = descriptionText {
-                    Text(desc)
-                        .font(.system(size: 18, weight: .medium))
-                        .foregroundColor(.noorSecondary)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 24)
-                }
-            }
-            
+struct ComparisonCard: View {
+    let withEffect: String
+    let withoutEffect: String
+    let phoneticWith: String
+    let phoneticWithout: String
+    let vowelName: String
+    let isEnglish: Bool
+    
+    @State private var playingWith = false
+    @State private var playingWithout = false
+    
+    var body: some View {
+        HStack(spacing: 0) {
             Button(action: {
-                 playExampleAudio()
+                playWithoutEffect()
             }) {
-                HStack(spacing: 12) {
-                    Image(systemName: "speaker.wave.3.fill")
-                    Text(LocalizedStringKey("Écouter la différence"))
+                VStack(spacing: 8) {
+                    Text(withoutEffect)
+                        .font(.system(size: 42))
+                        .foregroundColor(.noorText)
+                    
+                    Text(phoneticWithout)
+                        .font(.system(size: 16, weight: .bold, design: .rounded))
+                        .foregroundColor(.noorSecondary)
+                    
+                    HStack(spacing: 4) {
+                        Image(systemName: "speaker.wave.2.fill")
+                            .font(.system(size: 12))
+                        Text(isEnglish ? "Normal" : "Normal")
+                            .font(.system(size: 11, weight: .medium))
+                    }
+                    .foregroundColor(.noorSecondary.opacity(0.7))
                 }
-                .font(.headline)
-                .foregroundColor(.noorGold)
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 16)
-                .background(Color.noorGold.opacity(0.1))
-                .cornerRadius(16)
-                .overlay(
+                .padding(.vertical, 20)
+                .background(
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color.noorGold, lineWidth: 2)
+                        .fill(playingWithout ? Color.blue.opacity(0.1) : Color(.secondarySystemGroupedBackground))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(playingWithout ? Color.blue : Color.clear, lineWidth: 2)
+                        )
                 )
             }
-            .padding(.horizontal, 40)
-            .padding(.top, 10)
-
-            Spacer()
+            .buttonStyle(.plain)
+            
+            VStack {
+                Text("VS")
+                    .font(.system(size: 10, weight: .bold))
+                    .foregroundColor(.noorSecondary.opacity(0.5))
+            }
+            .frame(width: 30)
+            
+            Button(action: {
+                playWithEffect()
+            }) {
+                VStack(spacing: 8) {
+                    Text(withEffect)
+                        .font(.system(size: 42))
+                        .foregroundColor(.noorGold)
+                    
+                    Text(phoneticWith)
+                        .font(.system(size: 16, weight: .bold, design: .rounded))
+                        .foregroundColor(.noorGold)
+                    
+                    HStack(spacing: 4) {
+                        Image(systemName: "speaker.wave.3.fill")
+                            .font(.system(size: 12))
+                        Text(vowelName)
+                            .font(.system(size: 11, weight: .medium))
+                    }
+                    .foregroundColor(.noorGold.opacity(0.8))
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 20)
+                .background(
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(playingWith ? Color.noorGold.opacity(0.2) : Color.noorGold.opacity(0.08))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(playingWith ? Color.noorGold : Color.noorGold.opacity(0.3), lineWidth: 2)
+                        )
+                )
+            }
+            .buttonStyle(.plain)
         }
     }
     
-    private func playExampleAudio() {
-        if let example = vowel.examples.first(where: { $0.letterId == 2 }) {
-             AudioManager.shared.playSound(named: example.audioName)
-        } else if let first = vowel.examples.first {
-             AudioManager.shared.playSound(named: first.audioName)
-        } else {
-            let key = "ba_\(vowel.transliteration)"
-            AudioManager.shared.playSound(named: key)
+    private func playWithoutEffect() {
+        playingWithout = true
+        HapticManager.shared.impact(.light)
+        AudioManager.shared.playText(withoutEffect, style: .letter, useCache: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            playingWithout = false
         }
+    }
+    
+    private func playWithEffect() {
+        playingWith = true
         HapticManager.shared.impact(.medium)
+        AudioManager.shared.playText(withEffect, style: .letter, useCache: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            playingWith = false
+        }
     }
 }
 

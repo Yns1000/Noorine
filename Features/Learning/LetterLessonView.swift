@@ -10,11 +10,7 @@ struct LetterLessonView: View {
     @State private var showCelebration = false
     @State private var completedForms: Set<LetterFormType> = []
     
-Ameliore la card des annecdotes pour qu'elle puisse prendre plus de hauteur si le texte est trop long pcq sinon ça met des ... et faut pas que sa mascotte saute quand elle apparait 
-
-Pour sukkun shadda et tanwin bah le tts foire des fois on entend mal donc jsp mais trouve un concept innovant pour mieux faire ces niveaux et dans les quizz des fois on voit pas entierement les lettres 
-
-y'a un soucis sur certains mot qui finissent par ha comme ciel samaa regarde la capture d'ecran  et augmente la taille des mots dans la creation de la phrase fin le build the phrase    private var availableForms: [LetterFormType] {
+    private var availableForms: [LetterFormType] {
         LetterFormType.availableForms(for: letter.id)
     }
     

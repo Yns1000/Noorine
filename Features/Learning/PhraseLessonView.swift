@@ -662,19 +662,20 @@ struct WordSlot: View {
     var body: some View {
         Button(action: onTap) {
             Text(word.arabic)
-                .font(.system(size: 22, weight: .medium))
-                .minimumScaleFactor(0.8)
+                .font(.system(size: 28, weight: .medium))
+                .minimumScaleFactor(0.7)
                 .lineLimit(1)
                 .foregroundColor(isCorrect ? .green : .noorText)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
                 .background(
-                    RoundedRectangle(cornerRadius: 12)
+                    RoundedRectangle(cornerRadius: 14)
                         .fill(isCorrect ? Color.green.opacity(0.1) : Color(.secondarySystemGroupedBackground))
                         .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(isCorrect ? Color.green : Color.clear, lineWidth: 1.5)
+                            RoundedRectangle(cornerRadius: 14)
+                                .stroke(isCorrect ? Color.green : Color.clear, lineWidth: 2)
                         )
+                        .shadow(color: .black.opacity(0.05), radius: 4, y: 2)
                 )
                 
         }
@@ -749,15 +750,15 @@ struct EmptySlot: View {
     let isHighlighted: Bool
     
     var body: some View {
-        RoundedRectangle(cornerRadius: 10)
+        RoundedRectangle(cornerRadius: 14)
             .strokeBorder(
                 isHighlighted ? Color.noorGold : Color(.systemGray4),
-                style: StrokeStyle(lineWidth: 1.5, dash: [4])
+                style: StrokeStyle(lineWidth: 2, dash: [6])
             )
-            .frame(width: 60, height: 32)
+            .frame(width: 70, height: 48)
             .background(
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(isHighlighted ? Color.noorGold.opacity(0.05) : Color.clear)
+                RoundedRectangle(cornerRadius: 14)
+                    .fill(isHighlighted ? Color.noorGold.opacity(0.08) : Color.clear)
             )
     }
 }
@@ -769,16 +770,16 @@ struct WordChip: View {
     var body: some View {
         Button(action: onTap) {
             Text(word.arabic)
-                .font(.system(size: 22, weight: .medium))
-                .minimumScaleFactor(0.8)
+                .font(.system(size: 28, weight: .medium))
+                .minimumScaleFactor(0.7)
                 .lineLimit(1)
                 .foregroundColor(.noorText)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
                 .background(
-                    RoundedRectangle(cornerRadius: 12)
+                    RoundedRectangle(cornerRadius: 14)
                         .fill(Color(.secondarySystemGroupedBackground))
-                        .shadow(color: .black.opacity(0.06), radius: 3, y: 1)
+                        .shadow(color: .black.opacity(0.08), radius: 5, y: 2)
                 )
         }
         .buttonStyle(.plain)
