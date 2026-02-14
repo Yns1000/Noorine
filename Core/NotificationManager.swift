@@ -10,6 +10,7 @@ class NotificationManager {
     func requestPermissions() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
             if granted {
+                print("Notifications : Permission accordée")
                 self.scheduleAllNotifications()
             } else if let error = error {
                 print("Erreur permissions notifications: \(error.localizedDescription)")
@@ -17,93 +18,112 @@ class NotificationManager {
         }
     }
     
+    
     func scheduleAllNotifications() {
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         
         guard DataManager.shared.userProgress?.notificationsEnabled == true else { return }
         
-        scheduleDailyReminder()
-        scheduleStreakWarning()
-        scheduleInactivityEncouragement()
+        let userName = DataManager.shared.userProgress?.name ?? ""
+        let nameToUse = userName.isEmpty ? (LanguageManager.shared.currentLanguage == .english ? "friend" : "l'ami") : userName
+        
+        for dayOffset in 1...20 {
+            scheduleDailyMix(dayOffset: dayOffset, userName: nameToUse)
+        }
+        
+        scheduleInactivityEncouragement(userName: nameToUse)
+        
+        print("Scheduled 20 days of personalized notifications for \(nameToUse)")
     }
     
-    private func scheduleDailyReminder() {
-        let content = UNMutableNotificationContent()
-        content.title = LanguageManager().localizedString("notification_daily_title")
-        content.body = LanguageManager().localizedString("notification_daily_body")
-        content.sound = .default
+    private func scheduleDailyMix(dayOffset: Int, userName: String) {
+        let morningContent = NotificationLibrary.morning.randomElement()!
+        scheduleNotification(
+            identifier: "morning_\(dayOffset)",
+            content: morningContent,
+            dayOffset: dayOffset,
+            hour: 9,
+            minute: Int.random(in: 0...30),
+            userName: userName
+        )
+        
+        if dayOffset % 2 == 0 {
+            let eveningContent = NotificationLibrary.evening.randomElement()!
+            scheduleNotification(
+                identifier: "evening_\(dayOffset)",
+                content: eveningContent,
+                dayOffset: dayOffset,
+                hour: 18,
+                minute: Int.random(in: 30...59),
+                userName: userName
+            )
+        }
+        
+        let streakContent = NotificationLibrary.streakWarning.randomElement()!
+        scheduleNotification(
+            identifier: "streak_\(dayOffset)",
+            content: streakContent,
+            dayOffset: dayOffset,
+            hour: 21,
+            minute: 30,
+            userName: userName
+        )
+    }
+    
+    private func scheduleInactivityEncouragement(userName: String) {
+        let content3 = NotificationLibrary.inactivity3Days.randomElement()!
+        scheduleNotification(identifier: "inactivity_3d", content: content3, dayOffset: 3, hour: 11, minute: 0, userName: userName)
+        
+        let content7 = NotificationLibrary.inactivity7Days.randomElement()!
+        scheduleNotification(identifier: "inactivity_7d", content: content7, dayOffset: 7, hour: 16, minute: 0, userName: userName)
+    }
+    
+    private func scheduleNotification(identifier: String, content: NotificationContent, dayOffset: Int, hour: Int, minute: Int, userName: String) {
+        let notifContent = UNMutableNotificationContent()
+        notifContent.title = personalized(content.title, name: userName)
+        notifContent.body = personalized(content.body, name: userName)
+        notifContent.sound = .default
         
         var dateComponents = DateComponents()
-        dateComponents.hour = 18
-        dateComponents.minute = 0
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-        let request = UNNotificationRequest(identifier: "daily_reminder", content: content, trigger: trigger)
-        UNUserNotificationCenter.current().add(request)
+        if let targetDate = Calendar.current.date(byAdding: .day, value: dayOffset, to: Date()) {
+            let components = Calendar.current.dateComponents([.year, .month, .day], from: targetDate)
+            dateComponents.year = components.year
+            dateComponents.month = components.month
+            dateComponents.day = components.day
+            dateComponents.hour = hour
+            dateComponents.minute = minute
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+            let request = UNNotificationRequest(identifier: identifier, content: notifContent, trigger: trigger)
+            
+            UNUserNotificationCenter.current().add(request)
+        }
     }
     
-    private func scheduleStreakWarning() {
-        let content = UNMutableNotificationContent()
-        content.title = LanguageManager().localizedString("notification_streak_title")
-        content.body = LanguageManager().localizedString("notification_streak_body")
-        content.sound = .default
-        
-        var dateComponents = DateComponents()
-        dateComponents.hour = 20
-        dateComponents.minute = 0
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-        let request = UNNotificationRequest(identifier: "streak_warning", content: content, trigger: trigger)
-        UNUserNotificationCenter.current().add(request)
+    private func personalized(_ text: String, name: String) -> String {
+        return text.replacingOccurrences(of: "[name]", with: name)
     }
-    
-    private func scheduleInactivityEncouragement() {
-        let content3 = UNMutableNotificationContent()
-        content3.title = LanguageManager().localizedString("notification_inactivity3_title")
-        content3.body = LanguageManager().localizedString("notification_inactivity3_body")
-        let trigger3 = UNTimeIntervalNotificationTrigger(timeInterval: 3 * 24 * 3600, repeats: false)
-        let request3 = UNNotificationRequest(identifier: "inactivity_3d", content: content3, trigger: trigger3)
-        UNUserNotificationCenter.current().add(request3)
         
-        let content7 = UNMutableNotificationContent()
-        content7.title = LanguageManager().localizedString("notification_inactivity7_title")
-        content7.body = LanguageManager().localizedString("notification_inactivity7_body")
-        let trigger7 = UNTimeIntervalNotificationTrigger(timeInterval: 7 * 24 * 3600, repeats: false)
-        let request7 = UNNotificationRequest(identifier: "inactivity_7d", content: content7, trigger: trigger7)
-        
-        UNUserNotificationCenter.current().add(request7)
-    }
-    
-    
     func triggerTestNotification(_ type: TestNotificationType) {
-        let content = UNMutableNotificationContent()
-        content.sound = .default
+        let userName = DataManager.shared.userProgress?.name ?? "TestUser"
+        let content: NotificationContent
         
         switch type {
-        case .dailyReminder:
-            content.title = LanguageManager().localizedString("notification_daily_title")
-            content.body = LanguageManager().localizedString("notification_daily_body")
-        case .streakWarning:
-            content.title = LanguageManager().localizedString("notification_streak_title")
-            content.body = LanguageManager().localizedString("notification_streak_body")
-        case .inactivity3Days:
-            content.title = LanguageManager().localizedString("notification_inactivity3_title")
-            content.body = LanguageManager().localizedString("notification_inactivity3_body")
-        case .inactivity7Days:
-            content.title = LanguageManager().localizedString("notification_inactivity7_title")
-            content.body = LanguageManager().localizedString("notification_inactivity7_body")
+        case .dailyReminder: content = NotificationLibrary.morning.randomElement()!
+        case .streakWarning: content = NotificationLibrary.streakWarning.randomElement()!
+        case .inactivity3Days: content = NotificationLibrary.inactivity3Days.randomElement()!
+        case .inactivity7Days: content = NotificationLibrary.inactivity7Days.randomElement()!
         }
         
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 2, repeats: false)
-        let request = UNNotificationRequest(identifier: "test_\(type.rawValue)", content: content, trigger: trigger)
+        let notifContent = UNMutableNotificationContent()
+        notifContent.title = personalized(content.title, name: userName)
+        notifContent.body = personalized(content.body, name: userName)
+        notifContent.sound = .default
         
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                print("Test notification error: \(error.localizedDescription)")
-            } else {
-                print("Test notification scheduled: \(type.rawValue)")
-            }
-        }
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        let request = UNNotificationRequest(identifier: "test_\(type.rawValue)", content: notifContent, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request)
     }
     
     enum TestNotificationType: String, CaseIterable {
@@ -114,29 +134,121 @@ class NotificationManager {
         
         var displayName: String {
             switch self {
-            case .dailyReminder: return LanguageManager().localizedString("Test Rappel Quotidien")
-            case .streakWarning: return LanguageManager().localizedString("Test Alerte Flamme")
-            case .inactivity3Days: return LanguageManager().localizedString("Test Inactivité 3j")
-            case .inactivity7Days: return LanguageManager().localizedString("Test Inactivité 7j")
+            case .dailyReminder: return LanguageManager.shared.currentLanguage == .english ? "Test Morning" : "Test Matin"
+            case .streakWarning: return LanguageManager.shared.currentLanguage == .english ? "Test Streak" : "Test Flamme"
+            case .inactivity3Days: return LanguageManager.shared.currentLanguage == .english ? "Test Inactivity 3d" : "Test Inactivité 3j"
+            case .inactivity7Days: return LanguageManager.shared.currentLanguage == .english ? "Test Inactivity 7d" : "Test Inactivité 7j"
             }
         }
         
         var icon: String {
             switch self {
-            case .dailyReminder: return "bell.fill"
+            case .dailyReminder: return "sun.max.fill"
             case .streakWarning: return "flame.fill"
-            case .inactivity3Days: return "clock.badge.questionmark"
+            case .inactivity3Days: return "clock.badge.exclamationmark"
             case .inactivity7Days: return "calendar.badge.exclamationmark"
             }
         }
         
         var color: Color {
             switch self {
-            case .dailyReminder: return .blue
-            case .streakWarning: return .orange
+            case .dailyReminder: return .orange
+            case .streakWarning: return .red
             case .inactivity3Days: return .purple
-            case .inactivity7Days: return .red
+            case .inactivity7Days: return .gray
             }
+        }
+    }
+}
+
+
+struct NotificationContent {
+    let title: String
+    let body: String
+}
+
+struct NotificationLibrary {
+    static var isEnglish: Bool { LanguageManager.shared.currentLanguage == .english }
+    
+    static var morning: [NotificationContent] {
+        if isEnglish {
+            return [
+                NotificationContent(title: "Sabah el kher [name]! ☀️", body: "Start your day with just 5 min of Arabic. You got this!"),
+                NotificationContent(title: "Ready, [name]? ☕️", body: "Your daily lesson is waiting. Let's make progress inside Noorine."),
+                NotificationContent(title: "Good morning [name]!", body: "A little Arabic with your coffee? Perfect combination ☕️"),
+                NotificationContent(title: "Marhaba [name]! 👋", body: "Consistency is key. One small lesson today = big results later.")
+            ]
+        } else {
+            return [
+                NotificationContent(title: "Sabah el kher [name] ! ☀️", body: "Commence ta journée avec 5 min d'arabe. Tu peux le faire !"),
+                NotificationContent(title: "Prêt(e), [name] ? ☕️", body: "Ta leçon du jour t'attend. On progresse ensemble sur Noorine."),
+                NotificationContent(title: "Bonjour [name] !", body: "Un peu d'arabe avec ton café ? Le combo parfait ☕️"),
+                NotificationContent(title: "Marhaba [name] ! 👋", body: "La régularité est la clé. Une petite leçon aujourd'hui = de grands résultats.")
+            ]
+        }
+    }
+    
+    static var evening: [NotificationContent] {
+        if isEnglish {
+            return [
+                NotificationContent(title: "Masa el kher [name] 🌙", body: "Wrap up your day with a quick win. Your brain will thank you!"),
+                NotificationContent(title: "5 minutes for you, [name]", body: "Unwind and learn something new before bed."),
+                NotificationContent(title: "Evening check-in [name] ✨", body: "Did you practice today? There's still time to keep the momentum!"),
+                NotificationContent(title: "Noorine is waiting... 🦉", body: "A quick session before sleep helps memory retention, [name]!")
+            ]
+        } else {
+            return [
+                NotificationContent(title: "Masa el kher [name] 🌙", body: "Finis ta journée sur une victoire. Ton cerveau te remerciera !"),
+                NotificationContent(title: "5 minutes pour toi, [name]", body: "Détends-toi et apprends quelque chose de nouveau avant de dormir."),
+                NotificationContent(title: "Petit coucou [name] ✨", body: "As-tu pratiqué aujourd'hui ? Il est encore temps !"),
+                NotificationContent(title: "Noorine t'attend... 🦉", body: "Une petite session avant de dormir aide à la mémorisation, [name] !")
+            ]
+        }
+    }
+    
+    static var streakWarning: [NotificationContent] {
+        if isEnglish {
+            return [
+                NotificationContent(title: "🔥 Streak Danger [name]!", body: "You're about to lose your streak! Save it now with a quick lesson."),
+                NotificationContent(title: "Don't break the chain! ⛓️", body: "Hey [name], protect your hard work. Do one lesson now."),
+                NotificationContent(title: "Emergency Alert 🚨", body: "[name], your streak needs you! 3 minutes is all it takes."),
+                NotificationContent(title: "Last call [name]! ⏰", body: "Midnight is coming. Don't let your streak turn to ash!")
+            ]
+        } else {
+            return [
+                NotificationContent(title: "🔥 Flamme en danger [name] !", body: "Tu vas perdre ta série ! Sauve-la maintenant avec une leçon rapide."),
+                NotificationContent(title: "Ne brise pas la chaîne ! ⛓️", body: "Hey [name], protège tes efforts. Fais une leçon maintenant."),
+                NotificationContent(title: "Alerte Urgence 🚨", body: "[name], ta flamme a besoin de toi ! 3 minutes suffisent."),
+                NotificationContent(title: "Dernier appel [name] ! ⏰", body: "Minuit approche. Ne laisse pas ta série partir en fumée !")
+            ]
+        }
+    }
+    
+    static var inactivity3Days: [NotificationContent] {
+        if isEnglish {
+            return [
+                NotificationContent(title: "We miss you [name] 🥺", body: "It's been 3 days! Come back and learn one new word."),
+                NotificationContent(title: "Where are you [name]? 🕵️", body: "Your Arabic journey is paused. Press play today!")
+            ]
+        } else {
+            return [
+                NotificationContent(title: "Tu nous manques [name] 🥺", body: "Ça fait 3 jours ! Reviens apprendre juste un mot."),
+                NotificationContent(title: "Où es-tu [name] ? 🕵️", body: "Ton voyage en arabe est en pause. Appuie sur play aujourd'hui !")
+            ]
+        }
+    }
+    
+    static var inactivity7Days: [NotificationContent] {
+        if isEnglish {
+            return [
+                NotificationContent(title: "Don't give up [name]! 💪", body: "It's been a week. The best time to restart is right now."),
+                NotificationContent(title: "A fresh start? 🌱", body: "Hey [name], let's get back on track together. We believe in you.")
+            ]
+        } else {
+            return [
+                NotificationContent(title: "N'abandonne pas [name] ! 💪", body: "Une semaine déjà. Le meilleur moment pour reprendre, c'est maintenant."),
+                NotificationContent(title: "Un nouveau départ ? 🌱", body: "Hey [name], remettons-nous en selle ensemble. On croit en toi.")
+            ]
         }
     }
 }

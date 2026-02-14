@@ -22,6 +22,7 @@ struct NoorineApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var languageManager = LanguageManager()
     private let dataManager = DataManager.shared
+    @Environment(\.scenePhase) private var scenePhase
     @State private var showMainApp = false
     
     var sharedModelContainer: ModelContainer = {
@@ -78,5 +79,10 @@ struct NoorineApp: App {
             }
         }
         .modelContainer(sharedModelContainer)
+        .onChange(of: scenePhase) { _, newPhase in
+            if newPhase == .active {
+                NotificationManager.shared.scheduleAllNotifications()
+            }
+        }
     }
 }
