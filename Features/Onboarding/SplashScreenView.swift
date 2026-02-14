@@ -136,6 +136,10 @@ struct OnboardingView: View {
     @Binding var isActive: Bool
     @State private var name: String = ""
     @State private var showMascot = false
+    @State private var showEasterEggConfirm = false
+    @State private var showEasterEggMessage = false
+    @State private var easterEggOpacity = 0.0
+    @State private var easterEggScale = 0.8
     @EnvironmentObject var dataManager: DataManager
     @EnvironmentObject var languageManager: LanguageManager
     
@@ -176,27 +180,73 @@ struct OnboardingView: View {
                         .padding(.horizontal, 40)
                         .submitLabel(.done)
                     
-                    Button(action: completeOnboarding) {
-                        HStack {
-                            Text(languageManager.currentLanguage == .english ? "Start the adventure" : "Commencer l'aventure")
-                            Image(systemName: "arrow.right")
+                    if showEasterEggConfirm {
+                        VStack(spacing: 16) {
+                            Text("Dhilly ? 👀")
+                                .font(.system(size: 22, weight: .bold, design: .rounded))
+                                .foregroundColor(.noorGold)
+                            
+                            HStack(spacing: 20) {
+                                Button(action: {
+                                    showEasterEggConfirm = false
+                                }) {
+                                    Text("Non")
+                                        .font(.system(size: 16, weight: .semibold))
+                                        .foregroundColor(.noorSecondary)
+                                        .padding(.horizontal, 30)
+                                        .padding(.vertical, 12)
+                                        .background(Color(.secondarySystemGroupedBackground))
+                                        .cornerRadius(20)
+                                }
+                                
+                                Button(action: {
+                                    FeedbackManager.shared.tapMedium()
+                                    withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
+                                        showEasterEggConfirm = false
+                                        showEasterEggMessage = true
+                                        easterEggOpacity = 1.0
+                                        easterEggScale = 1.0
+                                    }
+                                }) {
+                                    Text("Oui c'est moi !")
+                                        .font(.system(size: 16, weight: .bold))
+                                        .foregroundColor(.noorDark)
+                                        .padding(.horizontal, 30)
+                                        .padding(.vertical, 12)
+                                        .background(Color.noorGold)
+                                        .cornerRadius(20)
+                                        .shadow(color: .noorGold.opacity(0.3), radius: 8, y: 4)
+                                }
+                            }
                         }
-                        .font(.system(size: 18, weight: .bold))
-                        .foregroundColor(.noorDark)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(name.isEmpty ? Color.gray.opacity(0.3) : Color.noorGold)
-                        .cornerRadius(30)
-                        .shadow(color: name.isEmpty ? .clear : .noorGold.opacity(0.3), radius: 8, y: 4)
+                        .transition(.scale.combined(with: .opacity))
+                    } else if !showEasterEggMessage {
+                        Button(action: completeOnboarding) {
+                            HStack {
+                                Text(languageManager.currentLanguage == .english ? "Start the adventure" : "Commencer l'aventure")
+                                Image(systemName: "arrow.right")
+                            }
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(.noorDark)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 16)
+                            .background(name.isEmpty ? Color.gray.opacity(0.3) : Color.noorGold)
+                            .cornerRadius(30)
+                            .shadow(color: name.isEmpty ? .clear : .noorGold.opacity(0.3), radius: 8, y: 4)
+                        }
+                        .disabled(name.isEmpty)
+                        .padding(.horizontal, 40)
                     }
-                    .disabled(name.isEmpty)
-                    .padding(.horizontal, 40)
                 }
                 .opacity(showMascot ? 1 : 0)
                 .animation(.easeOut(duration: 0.5).delay(0.5), value: showMascot)
                 
                 Spacer()
                 Spacer()
+            }
+            
+            if showEasterEggMessage {
+                easterEggOverlay
             }
         }
         .onAppear {
@@ -206,8 +256,106 @@ struct OnboardingView: View {
         }
     }
     
+    private var easterEggOverlay: some View {
+        ZStack {
+            Color.black.ignoresSafeArea()
+            
+            ScrollView {
+                VStack(spacing: 24) {
+                    Spacer().frame(height: 40)
+                    
+                    VStack(spacing: 8) {
+                        NoorineFace(size: 100)
+                        
+                        Text("(oui c'est toi la mascotte)")
+                            .font(.system(size: 13, weight: .medium, design: .rounded))
+                            .foregroundColor(.noorGold.opacity(0.6))
+                    }
+                    
+                    Text("بِسْمِ ٱللّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ")
+                        .font(.system(size: 20, weight: .bold, design: .serif))
+                        .foregroundColor(.noorGold)
+                        .multilineTextAlignment(.center)
+                    
+                    VStack(spacing: 16) {
+                        Text("Laurine !")
+                            .font(.system(size: 32, weight: .black, design: .serif))
+                            .foregroundStyle(
+                                LinearGradient(colors: [.noorGold, .orange], startPoint: .leading, endPoint: .trailing)
+                            )
+                        
+                        Text("Cette application a été conçue pour toi de base lol parce que tu le mérites.")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.white.opacity(0.9))
+                            .multilineTextAlignment(.center)
+                        
+                        Text("Tu es une fille belle (oui j'insiste meme par appli), intelligente, gentille, et sûrement appréciée d'Allah سُبْحَانَهُ وَتَعَالَىٰ.")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.white.opacity(0.9))
+                            .multilineTextAlignment(.center)
+                        
+                        Divider()
+                            .background(Color.noorGold.opacity(0.3))
+                            .padding(.horizontal, 40)
+                        
+                        Text("Je te souhaite tout le meilleur du monde. Pardonne-moi pour mes manquements.")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.white.opacity(0.85))
+                            .multilineTextAlignment(.center)
+                        
+                        Text("J'espère que tu apprendras plein de choses en arabe avec cette appli. C'est un petit cadeau pour ce RAMADAN.")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.white.opacity(0.85))
+                            .multilineTextAlignment(.center)
+                        
+                        VStack(spacing: 4) {
+                            Rectangle()
+                                .fill(Color.noorGold.opacity(0.4))
+                                .frame(width: 40, height: 1)
+                            Text("Sny")
+                                .font(.system(size: 14, weight: .bold, design: .serif))
+                                .foregroundColor(.noorGold.opacity(0.7))
+                        }
+                        .padding(.top, 4)
+                    }
+                    .padding(.horizontal, 30)
+                    
+                    Button(action: {
+                        dataManager.updateUserName(name)
+                        withAnimation {
+                            isActive = false
+                        }
+                    }) {
+                        Text("Bismillah, on commence")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(.noorDark)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 16)
+                            .background(Color.noorGold)
+                            .cornerRadius(30)
+                            .shadow(color: .noorGold.opacity(0.4), radius: 12, y: 6)
+                    }
+                    .padding(.horizontal, 40)
+                    .padding(.top, 10)
+                    
+                    Spacer().frame(height: 60)
+                }
+            }
+        }
+        .opacity(easterEggOpacity)
+        .scaleEffect(easterEggScale)
+        .transition(.opacity)
+    }
+    
     private func completeOnboarding() {
         guard !name.isEmpty else { return }
+        
+        if name.lowercased().trimmingCharacters(in: .whitespaces) == "laurine" {
+            withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
+                showEasterEggConfirm = true
+            }
+            return
+        }
         
         dataManager.updateUserName(name)
         
