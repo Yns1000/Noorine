@@ -193,10 +193,7 @@ struct MascotExportView: View {
             ArabicBackground(style: style)
             
             if style == .tinted {
-                NoorineFace(size: 850)
-                    .grayscale(1.0)
-                    .brightness(0.3)
-                    .contrast(2.0)
+                TintedMascotFace(size: 850)
             } else if style == .dark {
                 NoorineFace(size: 800)
                     .shadow(color: .noorGold.opacity(0.8), radius: 100)
@@ -212,6 +209,50 @@ struct MascotExportView: View {
         case .light: return Color(red: 0.98, green: 0.97, blue: 0.94)
         case .dark: return Color(red: 0.02, green: 0.02, blue: 0.05)
         case .tinted: return .black
+        }
+    }
+}
+
+struct TintedMascotFace: View {
+    let size: CGFloat
+    
+    var body: some View {
+        ZStack {
+            Circle()
+                .fill(
+                    RadialGradient(
+                        gradient: Gradient(colors: [.white, Color(white: 0.85)]),
+                        center: .center,
+                        startRadius: 0,
+                        endRadius: size * 0.5
+                    )
+                )
+                .frame(width: size, height: size)
+            
+            Circle()
+                .stroke(Color(white: 0.95), lineWidth: size * 0.015)
+                .frame(width: size - 4, height: size - 4)
+            
+            HStack(spacing: size * 0.2) {
+                Ellipse()
+                    .fill(Color.black)
+                    .frame(width: size * 0.075, height: size * 0.1)
+                Ellipse()
+                    .fill(Color.black)
+                    .frame(width: size * 0.075, height: size * 0.1)
+            }
+            .offset(y: -size * 0.12)
+            
+            Circle()
+                .trim(from: 0.1, to: 0.4)
+                .stroke(Color.black, style: StrokeStyle(lineWidth: size * 0.025, lineCap: .round))
+                .frame(width: size * 0.42, height: size * 0.42)
+                .offset(y: size * 0.025)
+            
+            Circle()
+                .fill(Color(white: 0.25))
+                .frame(width: size * 0.07, height: size * 0.07)
+                .offset(x: -size * 0.24, y: size * 0.04)
         }
     }
 }

@@ -153,7 +153,7 @@ final class UserProgress {
     
     func letterMastered() {
         totalLettersMastered += 1
-        addXP(10)
+        addXP(GameConstants.XP.letterMastered)
     }
 }
 
@@ -182,6 +182,6 @@ final class MistakeItem {
     }
     
     var isMastered: Bool {
-        masteredDate != nil && correctionCount >= 2
+        masteredDate != nil && correctionCount >= GameConstants.Mistakes.correctionsToMaster
     }
 }

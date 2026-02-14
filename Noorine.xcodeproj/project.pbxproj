@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		72527150CD016A2A1FC162BA /* SentenceBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C34CAEF02488FBAD2499ECA /* SentenceBuilderView.swift */; };
+		BB000001F660000000000001 /* SRSCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000002F660000000000002 /* SRSCard.swift */; };
+		BB000003F660000000000003 /* GameConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000004F660000000000004 /* GameConstants.swift */; };
 		7AF7AC62BA15F062BB6F5619 /* MatchingPairsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092483147B22D6A13D637F22 /* MatchingPairsView.swift */; };
 		AAAA00012F2A000000000001 /* ArabicLetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00002F2A000000000001 /* ArabicLetter.swift */; };
 		AAAA00032F2A000000000002 /* LevelProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00022F2A000000000002 /* LevelProgress.swift */; };
@@ -97,6 +99,8 @@
 
 /* Begin PBXFileReference section */
 		092483147B22D6A13D637F22 /* MatchingPairsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MatchingPairsView.swift; sourceTree = "<group>"; };
+		BB000002F660000000000002 /* SRSCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSCard.swift; sourceTree = "<group>"; };
+		BB000004F660000000000004 /* GameConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConstants.swift; sourceTree = "<group>"; };
 		1D1DA6863B69E96F484901DC /* DictationView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DictationView.swift; sourceTree = "<group>"; };
 		3C34CAEF02488FBAD2499ECA /* SentenceBuilderView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SentenceBuilderView.swift; sourceTree = "<group>"; };
 		AAAA00002F2A000000000001 /* ArabicLetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArabicLetter.swift; sourceTree = "<group>"; };
@@ -391,6 +395,7 @@
 				AAAA00062F2A000000000004 /* DataManager.swift */,
 				F1C7206F2F32C36100EDA1E8 /* course_content.json */,
 				F1C720712F34138C00EDA1E8 /* SRSEngine.swift */,
+				BB000004F660000000000004 /* GameConstants.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -430,6 +435,7 @@
 				AAAA00002F2A000000000001 /* ArabicLetter.swift */,
 				AAAA00022F2A000000000002 /* LevelProgress.swift */,
 				AAAA00042F2A000000000003 /* UserProgress.swift */,
+				BB000002F660000000000002 /* SRSCard.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -679,6 +685,8 @@
 				EF4FDDA7B53521597D3AB3DA /* DictationView.swift in Sources */,
 				72527150CD016A2A1FC162BA /* SentenceBuilderView.swift in Sources */,
 				D42BE3B561DC8ED228FDDB06 /* FlashcardLibraryView.swift in Sources */,
+				BB000001F660000000000001 /* SRSCard.swift in Sources */,
+				BB000003F660000000000003 /* GameConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

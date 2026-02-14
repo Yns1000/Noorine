@@ -428,6 +428,7 @@ struct VowelQuizView: View {
     @State private var isWrong = false
     @State private var showSuccess = false
     @EnvironmentObject var dataManager: DataManager
+    @EnvironmentObject var languageManager: LanguageManager
     
     var body: some View {
         VStack(spacing: 30) {
@@ -715,6 +716,7 @@ struct VowelIntroView: View {
 struct VowelExampleView: View {
     let vowel: ArabicVowel
     let example: VowelExample
+    @EnvironmentObject var languageManager: LanguageManager
     
     var body: some View {
         VStack(spacing: 40) {

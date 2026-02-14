@@ -21,21 +21,29 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 struct NoorineApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var languageManager = LanguageManager()
-    @StateObject private var dataManager = DataManager.shared
+    private let dataManager = DataManager.shared
     @State private var showMainApp = false
     
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             UserProgress.self,
             LevelProgress.self,
-            MistakeItem.self
+            MistakeItem.self,
+            SRSCard.self
         ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
         
         do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+            return try ModelContainer(for: schema, configurations: [config])
         } catch {
-            fatalError("Could not create ModelContainer: \(error)")
+            let storeURL = config.url
+            try? FileManager.default.removeItem(at: storeURL)
+            do {
+                return try ModelContainer(for: schema, configurations: [config])
+            } catch {
+                let fallback = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+                return try! ModelContainer(for: schema, configurations: [fallback])
+            }
         }
     }()
 
@@ -64,7 +72,9 @@ struct NoorineApp: App {
             .environment(\.locale, .init(identifier: languageManager.currentLanguage.rawValue))
             .id(languageManager.currentLanguage.rawValue)
             .onAppear {
-                dataManager.configure(with: sharedModelContainer.mainContext)
+                let context = sharedModelContainer.mainContext
+                dataManager.configure(with: context)
+                SRSEngine.shared.configure(with: context)
             }
         }
         .modelContainer(sharedModelContainer)

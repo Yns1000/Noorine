@@ -86,21 +86,27 @@ struct DailyChallengeView: View {
         }
         if !pool.phrases.isEmpty {
             availableTypes.append(.phrase)
-            availableTypes.append(.sentenceBuilder)
+            let multiWord = pool.phrases.filter { $0.arabic.components(separatedBy: " ").count >= 2 }
+            if !multiWord.isEmpty { availableTypes.append(.sentenceBuilder) }
         }
 
         if availableTypes.isEmpty {
             availableTypes = [.letter]
         }
 
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let seed = formatter.string(from: Date()).hashValue
+        var rng = SeededRandomGenerator(seed: UInt64(bitPattern: Int64(seed)))
+
         var selected: [PracticeExercise] = []
         var usedTypes: Set<String> = []
 
         for _ in 0..<totalSteps {
-            var type = availableTypes.randomElement() ?? .letter
+            var type = availableTypes.randomElement(using: &rng) ?? .letter
             if usedTypes.count < availableTypes.count {
                 let unused = availableTypes.filter { !usedTypes.contains(String(describing: $0)) }
-                if let preferred = unused.randomElement() {
+                if let preferred = unused.randomElement(using: &rng) {
                     type = preferred
                 }
             }
@@ -108,41 +114,41 @@ struct DailyChallengeView: View {
 
             switch type {
             case .letter:
-                let letter = pool.letters.randomElement() ?? ArabicLetter.alphabet[0]
-                let form = LetterFormType.allCases.randomElement() ?? .isolated
+                let letter = pool.letters.randomElement(using: &rng) ?? ArabicLetter.alphabet[0]
+                let form = LetterFormType.allCases.randomElement(using: &rng) ?? .isolated
                 selected.append(PracticeExercise(letter: letter, formType: form))
             case .vowel:
-                let base = (pool.letters.randomElement() ?? ArabicLetter.alphabet[0])
-                let vowel = (pool.vowels.randomElement() ?? CourseContent.vowels[0])
+                let base = pool.letters.randomElement(using: &rng) ?? ArabicLetter.alphabet[0]
+                let vowel = pool.vowels.randomElement(using: &rng) ?? CourseContent.vowels[0]
                 let options = makeVowelOptions(target: vowel, pool: pool.vowels)
                 selected.append(PracticeExercise(baseLetter: base, vowel: vowel, vowelOptions: options))
             case .word:
-                let word = pool.words.randomElement() ?? CourseContent.words[0]
+                let word = pool.words.randomElement(using: &rng) ?? CourseContent.words[0]
                 let options = makeWordOptions(target: word, pool: pool.words)
                 selected.append(PracticeExercise(word: word, wordOptions: options))
             case .phrase:
-                let phrase = pool.phrases.randomElement() ?? CourseContent.phrases[0]
+                let phrase = pool.phrases.randomElement(using: &rng) ?? CourseContent.phrases[0]
                 let options = makePhraseOptions(target: phrase, pool: pool.phrases)
                 selected.append(PracticeExercise(phrase: phrase, phraseOptions: options))
             case .wordAssembly:
                 let buildableWords = pool.words.filter { !$0.componentLetterIds.isEmpty }
-                if let word = buildableWords.randomElement() {
+                if let word = buildableWords.randomElement(using: &rng) {
                     selected.append(PracticeExercise(wordAssembly: word))
                 } else {
-                    let word = pool.words.randomElement() ?? CourseContent.words[0]
+                    let word = pool.words.randomElement(using: &rng) ?? CourseContent.words[0]
                     let options = makeWordOptions(target: word, pool: pool.words)
                     selected.append(PracticeExercise(word: word, wordOptions: options))
                 }
             case .listening:
-                let word = pool.words.randomElement() ?? CourseContent.words[0]
+                let word = pool.words.randomElement(using: &rng) ?? CourseContent.words[0]
                 let options = makeWordOptions(target: word, pool: pool.words)
                 selected.append(PracticeExercise(listeningWord: word, wordOptions: options))
             case .sentenceBuilder:
                 let multiWordPhrases = pool.phrases.filter { $0.arabic.components(separatedBy: " ").count >= 2 }
-                if let phrase = multiWordPhrases.randomElement() {
+                if let phrase = multiWordPhrases.randomElement(using: &rng) {
                     selected.append(PracticeExercise(sentenceBuilder: phrase))
                 } else {
-                    let phrase = pool.phrases.randomElement() ?? CourseContent.phrases[0]
+                    let phrase = pool.phrases.randomElement(using: &rng) ?? CourseContent.phrases[0]
                     let options = makePhraseOptions(target: phrase, pool: pool.phrases)
                     selected.append(PracticeExercise(phrase: phrase, phraseOptions: options))
                 }
@@ -439,31 +445,58 @@ struct DailyChallengeListeningExercise: View {
 
     @State private var selectedId: Int? = nil
     @State private var locked = false
+    @State private var isPlaying = false
     @EnvironmentObject var languageManager: LanguageManager
 
+    private var isEnglish: Bool {
+        languageManager.currentLanguage == .english
+    }
+
     var body: some View {
-        VStack(spacing: 20) {
-            Text(languageManager.currentLanguage == .english ? "What do you hear?" : "Qu'entends-tu ?")
-                .font(.system(size: 20, weight: .bold))
+        VStack(spacing: 24) {
+            Text(isEnglish ? "What do you hear?" : "Qu'entends-tu ?")
+                .font(.system(size: 22, weight: .bold))
                 .foregroundColor(.noorText)
 
-            Button(action: playWord) {
-                HStack(spacing: 10) {
-                    Image(systemName: "speaker.wave.2.fill")
-                    Text(languageManager.currentLanguage == .english ? "Listen" : "Écouter")
+            ZStack {
+                ForEach(0..<3, id: \.self) { i in
+                    Circle()
+                        .stroke(Color.noorGold.opacity(isPlaying ? 0.3 - Double(i) * 0.1 : 0.1), lineWidth: 2)
+                        .frame(width: 100 + CGFloat(i) * 40, height: 100 + CGFloat(i) * 40)
+                        .scaleEffect(isPlaying ? 1.1 : 1.0)
+                        .animation(
+                            .easeInOut(duration: 1.2)
+                                .repeatCount(3, autoreverses: true)
+                                .delay(Double(i) * 0.2),
+                            value: isPlaying
+                        )
                 }
-                .font(.system(size: 16, weight: .semibold))
-                .foregroundColor(.white)
-                .padding(.horizontal, 24)
-                .padding(.vertical, 14)
-                .background(Color.noorGold)
-                .cornerRadius(25)
-                .shadow(color: .noorGold.opacity(0.3), radius: 8, y: 4)
+
+                Button(action: playWord) {
+                    ZStack {
+                        Circle()
+                            .fill(
+                                LinearGradient(colors: [.noorGold, .orange],
+                                             startPoint: .topLeading, endPoint: .bottomTrailing)
+                            )
+                            .frame(width: 90, height: 90)
+                            .shadow(color: .noorGold.opacity(0.4), radius: 12, y: 6)
+
+                        Image(systemName: "speaker.wave.2.fill")
+                            .font(.system(size: 30, weight: .semibold))
+                            .foregroundColor(.white)
+                    }
+                }
             }
+            .frame(height: 180)
+
+            Text(isEnglish ? "Tap the speaker, then choose" : "Appuie sur le haut-parleur, puis choisis")
+                .font(.system(size: 13, weight: .medium))
+                .foregroundColor(.noorSecondary)
 
             VStack(spacing: 12) {
                 ForEach(options) { option in
-                    let translation = languageManager.currentLanguage == .english ? option.translationEn : option.translationFr
+                    let translation = isEnglish ? option.translationEn : option.translationFr
                     ChoiceOptionCard(
                         title: translation,
                         subtitle: option.transliteration,
@@ -485,7 +518,11 @@ struct DailyChallengeListeningExercise: View {
     }
 
     private func playWord() {
+        isPlaying = true
         AudioManager.shared.playText(word.arabic, style: .word, useCache: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            isPlaying = false
+        }
     }
 
     private func handleSelection(optionId: Int) {
@@ -498,8 +535,9 @@ struct DailyChallengeListeningExercise: View {
             onAnswer(true)
         } else {
             FeedbackManager.shared.error()
-            locked = true
-            onAnswer(false)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                selectedId = nil
+            }
         }
     }
 }
@@ -508,128 +546,239 @@ struct DailyChallengeSentenceExercise: View {
     let phrase: ArabicPhrase
     let onAnswer: (Bool) -> Void
 
-    @State private var shuffledWords: [DCSentenceWord] = []
-    @State private var placedWords: [DCSentenceWord] = []
+    @State private var correctWords: [String] = []
+    @State private var availableWords: [String] = []
+    @State private var placedWords: [String?] = []
+    @State private var nextSlotIndex = 0
     @State private var isCorrect: Bool? = nil
     @State private var locked = false
+    @State private var shakeOffset: CGFloat = 0
+    @State private var attempts = 0
     @EnvironmentObject var languageManager: LanguageManager
+
+    private var isEnglish: Bool {
+        languageManager.currentLanguage == .english
+    }
 
     var body: some View {
         VStack(spacing: 20) {
-            Text(languageManager.currentLanguage == .english
-                 ? "Build the sentence"
-                 : "Construis la phrase")
+            Text(isEnglish ? "Build the sentence" : "Construis la phrase")
                 .font(.system(size: 20, weight: .bold))
                 .foregroundColor(.noorText)
 
-            Text(languageManager.currentLanguage == .english
-                 ? phrase.translationEn : phrase.translationFr)
-                .font(.system(size: 16, weight: .semibold))
-                .foregroundColor(.noorSecondary)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 20)
-
-            FlowLayout(spacing: 8) {
-                if placedWords.isEmpty {
-                    Text(languageManager.currentLanguage == .english
-                         ? "Tap words to build" : "Appuie sur les mots")
-                        .font(.system(size: 14))
-                        .foregroundColor(.noorSecondary.opacity(0.5))
-                        .padding(.vertical, 12)
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(isEnglish ? phrase.translationEn : phrase.translationFr)
+                        .font(.system(size: 18, weight: .bold, design: .rounded))
+                        .foregroundColor(.noorText)
+                        .lineLimit(2)
+                        .minimumScaleFactor(0.8)
+                    
+                    Text(phrase.transliteration)
+                        .font(.system(size: 13, weight: .medium, design: .monospaced))
+                        .foregroundColor(.noorGold)
                 }
-                ForEach(placedWords) { word in
-                    Text(word.text)
-                        .font(.system(size: 18, weight: .bold, design: .serif))
-                        .foregroundColor(chipColor)
-                        .padding(.horizontal, 14)
-                        .padding(.vertical, 8)
-                        .background(chipBg)
-                        .cornerRadius(10)
-                        .onTapGesture {
-                            guard !locked else { return }
-                            withAnimation { placedWords.removeAll { $0.id == word.id } }
-                        }
+                
+                Spacer()
+                
+                Button(action: {
+                    AudioManager.shared.playText(phrase.arabic, style: .phraseSlow, useCache: true)
+                    HapticManager.shared.impact(.light)
+                }) {
+                    ZStack {
+                        Circle()
+                            .fill(LinearGradient(colors: [.noorGold, .orange], startPoint: .topLeading, endPoint: .bottomTrailing))
+                            .frame(width: 44, height: 44)
+                            .shadow(color: .noorGold.opacity(0.3), radius: 6, y: 3)
+                        
+                        Image(systemName: "speaker.wave.2.fill")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.white)
+                    }
                 }
             }
-            .frame(maxWidth: .infinity, minHeight: 50)
-            .padding(12)
-            .background(Color.white.opacity(0.6))
-            .cornerRadius(16)
-            .overlay(
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(borderColor, lineWidth: 2)
+            .padding(14)
+            .background(
+                RoundedRectangle(cornerRadius: 18)
+                    .fill(Color(.secondarySystemGroupedBackground))
+                    .shadow(color: .black.opacity(0.05), radius: 8, y: 3)
             )
             .padding(.horizontal, 20)
 
-            FlowLayout(spacing: 10) {
-                ForEach(shuffledWords.filter { w in !placedWords.contains(where: { $0.id == w.id }) }) { word in
-                    Text(word.text)
-                        .font(.system(size: 18, weight: .bold, design: .serif))
-                        .foregroundColor(.noorText)
-                        .padding(.horizontal, 14)
-                        .padding(.vertical, 8)
-                        .background(Color.white)
-                        .cornerRadius(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.black.opacity(0.06), lineWidth: 1.5)
-                        )
-                        .shadow(color: .black.opacity(0.04), radius: 3, y: 2)
-                        .onTapGesture {
-                            guard !locked else { return }
-                            withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-                                placedWords.append(word)
-                            }
-                            FeedbackManager.shared.tapLight()
-                            if placedWords.count == shuffledWords.count {
-                                checkAnswer()
-                            }
+            VStack(spacing: 8) {
+                Text(isEnglish ? "Your sentence:" : "Ta phrase :")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundColor(.noorSecondary)
+                    .textCase(.uppercase)
+                    .tracking(1)
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 10) {
+                        ForEach(Array(placedWords.enumerated()), id: \.offset) { index, word in
+                            SBSlotView(
+                                word: word,
+                                index: index,
+                                totalSlots: placedWords.count,
+                                isCorrect: isCorrect,
+                                onTap: { removeWord(at: index) }
+                            )
                         }
+                    }
+                    .environment(\.layoutDirection, .rightToLeft)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 8)
                 }
+                .frame(height: 60)
+                .offset(x: shakeOffset)
             }
+            .padding(.vertical, 14)
+            .frame(maxWidth: .infinity)
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color.noorGold.opacity(0.06))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .strokeBorder(
+                                isCorrect == true ? Color.green.opacity(0.5) :
+                                isCorrect == false ? Color.red.opacity(0.5) :
+                                Color.noorGold.opacity(0.2),
+                                lineWidth: 2
+                            )
+                    )
+            )
             .padding(.horizontal, 20)
+
+            VStack(spacing: 8) {
+                Text(isEnglish ? "Available words:" : "Mots disponibles :")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundColor(.noorSecondary)
+                    .textCase(.uppercase)
+                    .tracking(1)
+                
+                FlowLayout(spacing: 12) {
+                    ForEach(Array(availableWords.enumerated()), id: \.offset) { index, word in
+                        Button(action: {
+                            placeWord(word, fromIndex: index)
+                        }) {
+                            Text(word)
+                                .font(.system(size: 22, weight: .bold, design: .serif))
+                                .foregroundColor(.noorText)
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 14)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .fill(Color(.tertiarySystemGroupedBackground))
+                                        .shadow(color: .black.opacity(0.08), radius: 6, y: 3)
+                                )
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .stroke(Color.noorGold.opacity(0.3), lineWidth: 1.5)
+                                )
+                        }
+                        .disabled(isCorrect != nil)
+                        .scaleEffect(isCorrect != nil ? 0.95 : 1.0)
+                        .animation(.spring(response: 0.3), value: isCorrect)
+                    }
+                }
+                .environment(\.layoutDirection, .rightToLeft)
+                .padding(.horizontal, 20)
+            }
         }
-        .onAppear {
-            let arabicWords = phrase.arabic.components(separatedBy: " ")
-            shuffledWords = arabicWords.enumerated().map { index, text in
-                DCSentenceWord(index: index, text: text)
-            }.shuffled()
+        .onAppear { setupPhrase() }
+    }
+
+    private func setupPhrase() {
+        correctWords = phrase.arabic.components(separatedBy: " ")
+        placedWords = Array(repeating: nil, count: correctWords.count)
+        availableWords = correctWords.shuffled()
+        nextSlotIndex = 0
+        isCorrect = nil
+        locked = false
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            AudioManager.shared.playText(phrase.arabic, style: .phraseSlow, useCache: true)
         }
     }
 
-    private var borderColor: Color {
-        guard let correct = isCorrect else { return Color.black.opacity(0.08) }
-        return correct ? .green : .red
+    private func placeWord(_ word: String, fromIndex: Int) {
+        guard isCorrect == nil, !locked else { return }
+        guard nextSlotIndex < placedWords.count else { return }
+        guard let actualIndex = availableWords.firstIndex(of: word) else { return }
+
+        withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+            placedWords[nextSlotIndex] = word
+            availableWords.remove(at: actualIndex)
+            nextSlotIndex += 1
+        }
+        HapticManager.shared.impact(.light)
+
+        if nextSlotIndex >= correctWords.count {
+            checkAnswer()
+        }
     }
 
-    private var chipColor: Color {
-        guard let correct = isCorrect else { return .noorText }
-        return correct ? .green : .red
-    }
+    private func removeWord(at slotIndex: Int) {
+        guard isCorrect == nil, !locked else { return }
+        guard let word = placedWords[slotIndex] else { return }
 
-    private var chipBg: Color {
-        guard let correct = isCorrect else { return Color.noorGold.opacity(0.08) }
-        return correct ? Color.green.opacity(0.08) : Color.red.opacity(0.08)
+        withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+            placedWords[slotIndex] = nil
+            availableWords.append(word)
+
+            var compacted: [String?] = []
+            for w in placedWords where w != nil {
+                compacted.append(w)
+            }
+            while compacted.count < correctWords.count {
+                compacted.append(nil)
+            }
+            placedWords = compacted
+            nextSlotIndex = compacted.firstIndex(where: { $0 == nil }) ?? correctWords.count
+        }
+        HapticManager.shared.impact(.light)
     }
 
     private func checkAnswer() {
-        let correct = placedWords.enumerated().allSatisfy { index, word in
-            word.index == index
-        }
+        let placed = placedWords.compactMap { $0 }
+        let correct = placed == correctWords
 
-        withAnimation {
+        withAnimation(.spring(response: 0.4)) {
             isCorrect = correct
         }
         locked = true
 
         if correct {
             FeedbackManager.shared.success()
+            AudioManager.shared.playText(phrase.arabic, style: .phraseSlow, useCache: true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                onAnswer(true)
+            }
         } else {
             FeedbackManager.shared.error()
-        }
+            attempts += 1
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            onAnswer(correct)
+            withAnimation(.default) { shakeOffset = 12 }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) {
+                withAnimation(.default) { shakeOffset = -12 }
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.16) {
+                withAnimation(.default) { shakeOffset = 8 }
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.24) {
+                withAnimation(.default) { shakeOffset = 0 }
+            }
+
+            if attempts >= 2 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                    onAnswer(false)
+                }
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                    withAnimation(.spring(response: 0.4)) {
+                        setupPhrase()
+                    }
+                }
+            }
         }
     }
 }
@@ -664,5 +813,21 @@ struct DailyChallengeCelebrationOverlay: View {
             ),
             onDismiss: onDismiss
         )
+    }
+}
+
+struct SeededRandomGenerator: RandomNumberGenerator {
+    private var state: UInt64
+    
+    init(seed: UInt64) {
+        state = seed == 0 ? 1 : seed
+    }
+    
+    mutating func next() -> UInt64 {
+        state &+= 0x9E3779B97F4A7C15
+        var z = state
+        z = (z ^ (z >> 30)) &* 0xBF58476D1CE4E5B9
+        z = (z ^ (z >> 27)) &* 0x94D049BB133111EB
+        return z ^ (z >> 31)
     }
 }

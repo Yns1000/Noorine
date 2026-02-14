@@ -32,6 +32,17 @@ struct ProfileView: View {
                         
                         ActivityCard()
                         
+                        VStack(spacing: 6) {
+                            Text(LocalizedStringKey(isEnglish ? "Made by Sny with ❤️ for Lau" : "Développé par Sny avec ❤️ pour Lau"))
+                                .font(.system(size: 13, weight: .medium))
+                                .foregroundColor(.noorSecondary)
+                            Text(LocalizedStringKey(isEnglish ? "and all those who want to learn Arabic." : "et tous ceux qui veulent apprendre l'arabe."))
+                                .font(.system(size: 13, weight: .medium))
+                                .foregroundColor(.noorSecondary.opacity(0.8))
+                        }
+                        .multilineTextAlignment(.center)
+                        .padding(.vertical, 10)
+                        
                         VStack(spacing: 16) {
                             MenuSection(title: LocalizedStringKey(isEnglish ? "General" : "Général")) {
                                 MenuToggleRow(
@@ -180,17 +191,7 @@ struct ProfileView: View {
                                 }
                             }
 
-                            VStack(spacing: 6) {
-                                Text(LocalizedStringKey(isEnglish ? "Made by Sny with ❤️ for Lau" : "Développé par Sny avec ❤️ pour Lau"))
-                                    .font(.system(size: 13, weight: .medium))
-                                    .foregroundColor(.noorSecondary)
-                                Text(LocalizedStringKey(isEnglish ? "and all those who want to learn Arabic." : "et tous ceux qui veulent apprendre l'arabe."))
-                                    .font(.system(size: 13, weight: .medium))
-                                    .foregroundColor(.noorSecondary.opacity(0.8))
-                            }
-                            .multilineTextAlignment(.center)
-                            .padding(.top, 20)
-                            .padding(.bottom, 10)
+
                         }
                         
                         Spacer().frame(height: 120)
@@ -981,7 +982,7 @@ struct XPDetailView: View {
                     
                     HStack {
                         VStack(alignment: .leading, spacing: 5) {
-                            Text("Cette semaine")
+                            Text(languageManager.currentLanguage == .english ? "This week" : "Cette semaine")
                                 .font(.subheadline)
                                 .foregroundColor(.noorSecondary)
                             Text("+\(dataManager.userProgress?.currentWeekXP() ?? 0) XP")
@@ -1021,7 +1022,7 @@ struct XPDetailView: View {
                     }
                     
                     VStack(alignment: .leading, spacing: 20) {
-                        Text("Dernières activités")
+                        Text(languageManager.currentLanguage == .english ? "Recent activity" : "Dernières activités")
                             .font(.system(size: 20, weight: .bold, design: .rounded))
                             .padding(.horizontal)
                         
@@ -1053,7 +1054,7 @@ struct XPDetailView: View {
                                         VStack(alignment: .leading) {
                                             Text(relativeDate(date: date))
                                                 .fontWeight(.bold)
-                                            Text("Leçon complétée")
+                                            Text(languageManager.currentLanguage == .english ? "Lesson completed" : "Leçon complétée")
                                                 .font(.caption)
                                                 .foregroundColor(.noorSecondary)
                                         }
@@ -1098,8 +1099,8 @@ struct XPDetailView: View {
     }
     
     private func relativeDate(date: Date) -> String {
-        if Calendar.current.isDateInToday(date) { return "Aujourd'hui" }
-        if Calendar.current.isDateInYesterday(date) { return "Hier" }
+        if Calendar.current.isDateInToday(date) { return languageManager.currentLanguage == .english ? "Today" : "Aujourd'hui" }
+        if Calendar.current.isDateInYesterday(date) { return languageManager.currentLanguage == .english ? "Yesterday" : "Hier" }
         let df = DateFormatter()
         df.dateStyle = .medium
         df.locale = Locale(identifier: languageManager.currentLanguage.rawValue)

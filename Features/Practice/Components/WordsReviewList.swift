@@ -7,12 +7,6 @@ struct WordsReviewList: View {
     @State private var showMistakes = false
     @State private var focusedMistakeId: String? = nil
     @State private var focusedMistakeType: String? = nil
-    
-    private var dueCards: [Flashcard] {
-        let pool = dataManager.practicePool(language: languageManager.currentLanguage)
-        let allowedArabic = Set(pool.words.map { $0.arabic })
-        return FlashcardManager.shared.dueCards(allowedArabic: allowedArabic)
-    }
 
     private var mistakeWordCards: [Flashcard] {
         let mistakeIds = dataManager.mistakes
@@ -35,89 +29,69 @@ struct WordsReviewList: View {
         return ordered.first
     }
     
-    private var displayCards: [Flashcard] {
-        if !dataManager.mistakes.isEmpty {
-            return mistakeWordCards
-        }
-        return dueCards
-    }
-    
     var body: some View {
-        VStack(alignment: .leading, spacing: 15) {
-            HStack {
-                let header = dataManager.mistakes.isEmpty
-                    ? (languageManager.currentLanguage == .english ? "Review soon" : "À revoir bientôt")
-                    : (languageManager.currentLanguage == .english ? "Mistakes to fix" : "Erreurs à corriger")
-                Text(header)
-                    .font(.headline)
-                    .foregroundColor(.noorText)
+        if !dataManager.mistakes.isEmpty {
+            VStack(alignment: .leading, spacing: 15) {
+                HStack {
+                    Text(languageManager.currentLanguage == .english ? "Mistakes to fix" : "Erreurs à corriger")
+                        .font(.headline)
+                        .foregroundColor(.noorText)
+                    
+                    Spacer()
+                    
+                    Button(languageManager.currentLanguage == .english ? "Fix now" : "Corriger") {
+                        if let mistake = primaryMistake {
+                            focusedMistakeId = mistake.itemId
+                            focusedMistakeType = mistake.itemType
+                            showMistakes = true
+                        }
+                    }
+                        .font(.caption)
+                        .foregroundColor(.noorGold)
+                }
                 
-                Spacer()
-                
-                Button("Tout voir") {
+                VStack(spacing: 0) {
                     if let mistake = primaryMistake {
-                        focusedMistakeId = mistake.itemId
-                        focusedMistakeType = mistake.itemType
-                        showMistakes = true
+                        MistakePreviewRow(
+                            mistake: mistake,
+                            isEnglish: languageManager.currentLanguage == .english
+                        ) {
+                            focusedMistakeId = mistake.itemId
+                            focusedMistakeType = mistake.itemType
+                            showMistakes = true
+                        }
+                        
+                        if !mistakeWordCards.isEmpty {
+                            Divider().padding(.leading, 60)
+                        }
                     }
-                }
-                    .font(.caption)
-                    .foregroundColor(.noorGold)
-            }
-            
-            VStack(spacing: 0) {
-                if let mistake = primaryMistake, mistake.itemType != "word" {
-                    MistakePreviewRow(
-                        mistake: mistake,
-                        isEnglish: languageManager.currentLanguage == .english
-                    ) {
-                        focusedMistakeId = mistake.itemId
-                        focusedMistakeType = mistake.itemType
-                        showMistakes = true
-                    }
-                    Divider().padding(.leading, 60)
-                }
-                if displayCards.isEmpty {
-                    let emptyText = dataManager.mistakes.isEmpty
-                        ? (languageManager.currentLanguage == .english ? "Nothing to review right now." : "Rien à revoir pour l'instant.")
-                        : (languageManager.currentLanguage == .english ? "Fix the mistake above to continue." : "Corrige l'erreur ci-dessus pour continuer.")
-                    Text(emptyText)
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(.noorSecondary)
-                        .padding(16)
-                } else {
-                    ForEach(Array(displayCards.prefix(3)).indices, id: \.self) { index in
-                        let card = displayCards[index]
-                        let isMistake = mistakeWordCards.contains(where: { $0.arabic == card.arabic })
+                    
+                    ForEach(Array(mistakeWordCards.prefix(3)).indices, id: \.self) { index in
+                        let card = mistakeWordCards[index]
                         ReviewRow(
                             card: card,
                             isEnglish: languageManager.currentLanguage == .english,
-                            isMistake: isMistake,
+                            isMistake: true,
                             onTap: {
-                                handleTap(on: card, isMistake: isMistake)
+                                if let word = CourseContent.words.first(where: { $0.arabic == card.arabic }) {
+                                    focusedMistakeId = String(word.id)
+                                    focusedMistakeType = "word"
+                                    showMistakes = true
+                                }
                             }
                         )
-                        if index < min(2, displayCards.count - 1) {
+                        if index < min(2, mistakeWordCards.count - 1) {
                             Divider().padding(.leading, 60)
                         }
                     }
                 }
+                .background(colorScheme == .dark ? Color(UIColor.secondarySystemGroupedBackground) : Color.white)
+                .cornerRadius(20)
+                .shadow(color: Color.black.opacity(0.03), radius: 10, y: 5)
             }
-            .background(colorScheme == .dark ? Color(UIColor.secondarySystemGroupedBackground) : Color.white)
-            .cornerRadius(20)
-            .shadow(color: Color.black.opacity(0.03), radius: 10, y: 5)
-        }
-        .fullScreenCover(isPresented: $showMistakes) {
-            MistakesReviewView(focusItemId: focusedMistakeId, focusItemType: focusedMistakeType)
-        }
-    }
-
-    private func handleTap(on card: Flashcard, isMistake: Bool) {
-        guard isMistake else { return }
-        if let word = CourseContent.words.first(where: { $0.arabic == card.arabic }) {
-            focusedMistakeId = String(word.id)
-            focusedMistakeType = "word"
-            showMistakes = true
+            .fullScreenCover(isPresented: $showMistakes) {
+                MistakesReviewView(focusItemId: focusedMistakeId, focusItemType: focusedMistakeType)
+            }
         }
     }
 }

@@ -113,7 +113,7 @@ class DataManager: ObservableObject {
         let totalLetters = ArabicLetter.letters(forLevel: levelNumber).count
         if level.completedLetterIds.count >= totalLetters {
             level.isCompleted = true
-            userProgress?.addXP(50)
+            userProgress?.addXP(GameConstants.XP.allLettersCompleted)
         }
         
         try? context.save()
@@ -126,7 +126,7 @@ class DataManager: ObservableObject {
               !level.isCompleted else { return }
         
         level.isCompleted = true
-        userProgress?.addXP(100)
+        userProgress?.addXP(GameConstants.XP.levelCompleted)
         try? context.save()
         progressTick += 1
     }
@@ -149,6 +149,12 @@ class DataManager: ObservableObject {
     func dismissDailyChallenge() {
         userProgress?.lastDailyChallengeDismissedDate = Date()
         try? modelContext?.save()
+    }
+    
+    func isDailyChallengeCompletedToday() -> Bool {
+        guard let progress = userProgress,
+              let lastDate = progress.lastDailyChallengeDate else { return false }
+        return Calendar.current.isDateInToday(lastDate)
     }
     
     func getMasteredLetters() -> [ArabicLetter] {
@@ -278,7 +284,7 @@ class DataManager: ObservableObject {
         
         item.correctionCount += 1
         
-        if item.correctionCount >= 2 {
+        if item.correctionCount >= GameConstants.Mistakes.correctionsToMaster {
             item.masteredDate = Date()
             try? context.save()
             return true
@@ -310,7 +316,7 @@ class DataManager: ObservableObject {
         
         let itemsToRemove = mistakes.filter { item in
             guard let mastered = item.masteredDate else { return false }
-            return Date().timeIntervalSince(mastered) > TimeInterval(24 * 60 * 60)
+            return Date().timeIntervalSince(mastered) > TimeInterval(GameConstants.Mistakes.masteredCleanupHours * 60 * 60)
         }
         
         for item in itemsToRemove {

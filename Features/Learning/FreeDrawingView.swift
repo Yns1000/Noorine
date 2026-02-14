@@ -8,7 +8,7 @@ struct FreeDrawingStep: View {
     
     @StateObject private var model = DrawingCanvasModel()
     @State private var showSuccess = false
-    @State private var mascotMessage = ""
+    @State private var mascotMessage = "Le savais-tu ?"
     @State private var mascotDetail = ArabicFunFacts.randomFact()
     @State private var accentColor = Color.noorGold
     @State private var mascotMood: EmotionalMascot.Mood = .neutral
@@ -196,6 +196,7 @@ struct FreeDrawingStep: View {
             )
             .padding(.bottom, 30)
             .onAppear {
+                mascotMessage = isEnglish ? "Did you know?" : "Le savais-tu ?"
                 mascotDetail = ArabicFunFacts.randomFact()
             }
         }

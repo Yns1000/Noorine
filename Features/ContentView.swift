@@ -8,21 +8,6 @@ struct ContentView: View {
         languageManager.currentLanguage == .english
     }
     
-    init() {
-        let appearance = UITabBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor(Color.noorBackground)
-        
-        appearance.stackedLayoutAppearance.selected.iconColor = UIColor(Color.noorGold)
-        appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor(Color.noorGold)]
-        
-        appearance.stackedLayoutAppearance.normal.iconColor = UIColor(Color.noorSecondary)
-        appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor(Color.noorSecondary)]
-        
-        UITabBar.appearance().standardAppearance = appearance
-        UITabBar.appearance().scrollEdgeAppearance = appearance
-    }
-    
     var body: some View {
         TabView(selection: $selectedTab) {
             HomeView()
@@ -46,6 +31,8 @@ struct ContentView: View {
                 }
                 .tag(2)
         }
+        .toolbarBackground(Color.noorBackground, for: .tabBar)
+        .toolbarBackground(.visible, for: .tabBar)
         .tint(.noorGold)
     }
 }

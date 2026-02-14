@@ -123,31 +123,61 @@ struct VowelChoiceExercise: View {
     
     @State private var selectedId: Int? = nil
     @State private var locked = false
+    @State private var isPlaying = false
     @EnvironmentObject var languageManager: LanguageManager
     
+    private var isEnglish: Bool {
+        languageManager.currentLanguage == .english
+    }
+    
     var body: some View {
-        VStack(spacing: 20) {
-            Text(languageManager.currentLanguage == .english ? "What sound do you hear?" : "Quel son entends-tu ?")
-                .font(.system(size: 20, weight: .bold))
+        VStack(spacing: 28) {
+            Text(isEnglish ? "What sound do you hear?" : "Quel son entends-tu ?")
+                .font(.system(size: 22, weight: .bold))
                 .foregroundColor(.noorText)
             
-            Button(action: playTargetSound) {
-                HStack(spacing: 10) {
-                    Image(systemName: "speaker.wave.2.fill")
-                    Text(languageManager.currentLanguage == .english ? "Listen" : "Écouter")
-                }
-                .font(.system(size: 16, weight: .semibold))
-                .foregroundColor(.noorGold)
-                .padding(.horizontal, 20)
-                .padding(.vertical, 12)
-                .background(Capsule().fill(Color.noorGold.opacity(0.12)))
-            }
+            Text(baseLetter.isolated)
+                .font(.system(size: 70, weight: .bold))
+                .foregroundColor(.noorText.opacity(0.3))
+                .padding(.bottom, -8)
             
-            HStack(spacing: 12) {
+            ZStack {
+                ForEach(0..<3, id: \.self) { i in
+                    Circle()
+                        .stroke(Color.noorGold.opacity(isPlaying ? 0.3 - Double(i) * 0.1 : 0.08), lineWidth: 2)
+                        .frame(width: 80 + CGFloat(i) * 30, height: 80 + CGFloat(i) * 30)
+                        .scaleEffect(isPlaying ? 1.1 : 1.0)
+                        .animation(
+                            .easeInOut(duration: 1.0)
+                                .repeatCount(3, autoreverses: true)
+                                .delay(Double(i) * 0.15),
+                            value: isPlaying
+                        )
+                }
+                
+                Button(action: playTargetSound) {
+                    ZStack {
+                        Circle()
+                            .fill(
+                                LinearGradient(colors: [.noorGold, .orange],
+                                             startPoint: .topLeading, endPoint: .bottomTrailing)
+                            )
+                            .frame(width: 72, height: 72)
+                            .shadow(color: .noorGold.opacity(0.4), radius: 10, y: 5)
+                        
+                        Image(systemName: "speaker.wave.2.fill")
+                            .font(.system(size: 24, weight: .semibold))
+                            .foregroundColor(.white)
+                    }
+                }
+            }
+            .frame(height: 140)
+            
+            VStack(spacing: 12) {
                 ForEach(options) { vowel in
                     ChoiceOptionCard(
-                        title: baseLetter.initial + vowel.symbol,
-                        subtitle: vowel.name,
+                        title: baseLetter.isolated + vowel.symbol,
+                        subtitle: "",
                         isSelected: selectedId == vowel.id,
                         isCorrect: vowel.id == targetVowel.id
                     )
@@ -166,8 +196,12 @@ struct VowelChoiceExercise: View {
     }
     
     private func playTargetSound() {
-        let combo = baseLetter.initial + targetVowel.symbol
+        isPlaying = true
+        let combo = baseLetter.isolated + targetVowel.symbol
         AudioManager.shared.playText(combo, style: .letter, useCache: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            isPlaying = false
+        }
     }
     
     private func handleSelection(optionId: Int) {

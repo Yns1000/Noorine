@@ -45,15 +45,12 @@ extension DataManager {
             wordIds.formUnion(phraseWordIds)
         }
         
-        var letters = CourseContent.letters.filter { letterIds.contains($0.id) }
-        var vowels = CourseContent.vowels.filter { vowelIds.contains($0.id) }
-        var words = CourseContent.words.filter { wordIds.contains($0.id) }
-        var phrases = CourseContent.phrases.filter { phraseIds.contains($0.id) }
-        
-        if letters.isEmpty { letters = CourseContent.letters }
-        if vowels.isEmpty { vowels = CourseContent.vowels }
-        if words.isEmpty { words = CourseContent.words }
-        if phrases.isEmpty { phrases = CourseContent.phrases }
+        let letters = letterIds.isEmpty
+            ? Array(CourseContent.letters.prefix(3))
+            : CourseContent.letters.filter { letterIds.contains($0.id) }
+        let vowels = CourseContent.vowels.filter { vowelIds.contains($0.id) }
+        let words = CourseContent.words.filter { wordIds.contains($0.id) }
+        let phrases = CourseContent.phrases.filter { phraseIds.contains($0.id) }
         
         return PracticePool(
             letters: letters,
