@@ -17,15 +17,15 @@ class PhoneticDictionary {
         "ṭā": ["ta", "taa", "tah", "t", "top"],
         "thā": ["tha", "thah", "th", "fa", "sa"],
         
-        "jim": ["jim", "jeem", "gym", "j", "jean", "gin", "gem", "jam", "james", "jimmy"],
-        "jīm": ["jim", "jeem", "gym", "j", "jean"],
+        "jim": ["jim", "jeem", "gym", "j", "jean", "gin", "gem", "jam", "james", "jimmy", "dj", "dji", "djim"],
+        "jīm": ["jim", "jeem", "gym", "j", "jean", "dj", "dji"],
         
         "ha": ["ha", "hah", "haa", "h", "hot", "hat", "heart", "hu", "he", "her", "huh"],
         "ḥā": ["ha", "hah", "haa", "h"],
         "hā": ["ha", "hah", "h"],
         
-        "kha": ["kha", "khah", "kh", "k", "ca", "car", "ka", "caw", "cow"],
-        "khā": ["kha", "khah", "kh", "k", "car"],
+        "kha": ["kha", "khah", "kh", "k", "ca", "car", "ka", "caw", "cow", "ra", "rha"],
+        "khā": ["kha", "khah", "kh", "k", "car", "ra"],
         
         "dal": ["dal", "daal", "del", "d", "dad", "deal", "doll", "dial", "dahl"],
         "dāl": ["dal", "daal", "del", "d"],
@@ -44,8 +44,8 @@ class PhoneticDictionary {
         "sin": ["sin", "seen", "scene", "s", "cine", "sun", "son", "thin", "sign"],
         "sīn": ["sin", "seen", "scene", "s"],
         
-        "shin": ["shin", "sheen", "sh", "she", "chin", "shine", "sheep"],
-        "shīn": ["shin", "sheen", "sh", "she"],
+        "shin": ["shin", "sheen", "sh", "she", "chin", "shine", "sheep", "ch", "chou", "cha"],
+        "shīn": ["shin", "sheen", "sh", "she", "ch", "chou"],
         
         "sad": ["sad", "saad", "s", "sod", "saw", "sud", "so", "sad"],
         "ṣād": ["sad", "saad", "s", "sod"],
@@ -76,8 +76,8 @@ class PhoneticDictionary {
         "nun": ["nun", "noon", "n", "none", "no", "non", "moon"],
         "nūn": ["nun", "noon", "n"],
         
-        "waw": ["waw", "wow", "w", "war", "one", "whoa", "wall"],
-        "wāw": ["waw", "wow", "w"],
+        "waw": ["waw", "wow", "w", "war", "one", "whoa", "wall", "ou", "oua", "wa"],
+        "wāw": ["waw", "wow", "w", "ou", "oua"],
         
         "ya": ["ya", "yaa", "yeah", "y", "yes", "you", "year"],
         "yā": ["ya", "yaa", "yeah", "y"]
