@@ -164,12 +164,24 @@ final class MistakeItem {
     var formType: String?
     var correctionCount: Int
     var lastMistakeDate: Date
+    var masteredDate: Date?
     
-    init(itemId: String, itemType: String, formType: String? = nil, correctionCount: Int = 0, lastMistakeDate: Date = Date()) {
+    init(itemId: String, itemType: String, formType: String? = nil, correctionCount: Int = 0, lastMistakeDate: Date = Date(), masteredDate: Date? = nil) {
         self.itemId = itemId
         self.itemType = itemType
         self.formType = formType
         self.correctionCount = correctionCount
         self.lastMistakeDate = lastMistakeDate
+        self.masteredDate = masteredDate
+    }
+    
+    func isInGracePeriod(hours: Int = 24) -> Bool {
+        guard let mastered = masteredDate else { return false }
+        let gracePeriod = TimeInterval(hours * 60 * 60)
+        return Date().timeIntervalSince(mastered) < gracePeriod
+    }
+    
+    var isMastered: Bool {
+        masteredDate != nil && correctionCount >= 2
     }
 }

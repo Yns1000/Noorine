@@ -641,73 +641,28 @@ struct DCSentenceWord: Identifiable {
 }
 
 struct DailyChallengeCelebrationOverlay: View {
+    @EnvironmentObject var languageManager: LanguageManager
     let score: Int
     let onDismiss: () -> Void
 
-    @State private var scale: CGFloat = 0.5
-    @State private var opacity: Double = 0
+    private var isEnglish: Bool {
+        languageManager.currentLanguage == .english
+    }
 
     var body: some View {
-        ZStack {
-            Color.black.opacity(0.8)
-                .ignoresSafeArea()
-
-            VStack(spacing: 30) {
-                ZStack {
-                    Circle()
-                        .fill(score >= 3 ? Color.noorGold.opacity(0.2) : Color.gray.opacity(0.2))
-                        .frame(width: 120, height: 120)
-
-                    Image(systemName: score >= 3 ? "trophy.fill" : "hand.thumbsup.fill")
-                        .font(.system(size: 60))
-                        .foregroundColor(score >= 3 ? .noorGold : .noorSecondary)
-                }
-
-                VStack(spacing: 12) {
-                    Text(LocalizedStringKey(score == 6 ? "Parfait !" : (score >= 3 ? "Belle performance !" : "Bien essayé !")))
-                        .font(.system(size: 32, weight: .black, design: .serif))
-                        .foregroundColor(.white)
-
-                    Text(LocalizedStringKey("Tu as réussi \(score) exercices sur 6."))
-                        .font(.system(size: 18, weight: .medium))
-                        .foregroundColor(.white.opacity(0.8))
-                        .multilineTextAlignment(.center)
-                }
-
-                HStack(spacing: 12) {
-                    Image(systemName: "bolt.fill")
-                        .foregroundColor(.noorGold)
-                        .font(.system(size: 24, weight: .bold))
-
-                    Text("+\(score * 10) XP")
-                        .font(.system(size: 28, weight: .bold, design: .rounded))
-                        .foregroundColor(.noorGold)
-                }
-                .padding(.horizontal, 24)
-                .padding(.vertical, 12)
-                .background(Color.white.opacity(0.1))
-                .cornerRadius(20)
-
-                Button(action: onDismiss) {
-                    Text(LocalizedStringKey("Continuer"))
-                        .font(.system(size: 18, weight: .bold))
-                        .foregroundColor(.noorDark)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(Color.noorGold)
-                        .cornerRadius(30)
-                }
-                .padding(.horizontal, 40)
-                .padding(.top, 20)
-            }
-            .scaleEffect(scale)
-            .opacity(opacity)
-        }
-        .onAppear {
-            withAnimation(.spring(response: 0.5, dampingFraction: 0.6)) {
-                scale = 1.0
-                opacity = 1.0
-            }
-        }
+        UnifiedCelebrationView(
+            data: CelebrationData(
+                type: .dailyChallenge,
+                title: score == 6
+                    ? LocalizedStringKey(isEnglish ? "Perfect!" : "Parfait !")
+                    : (score >= 3 ? LocalizedStringKey(isEnglish ? "Great job!" : "Belle performance !") : LocalizedStringKey(isEnglish ? "Nice try!" : "Bien essayé !")),
+                subtitle: LocalizedStringKey(isEnglish ? "\(score) of 6 exercises" : "\(score) exercices sur 6"),
+                score: score,
+                total: 6,
+                xpEarned: score * 10,
+                showStars: true
+            ),
+            onDismiss: onDismiss
+        )
     }
 }

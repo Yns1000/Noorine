@@ -3,15 +3,25 @@ import UniformTypeIdentifiers
 
 struct LevelDetailView: View {
     @EnvironmentObject var dataManager: DataManager
+    @EnvironmentObject var languageManager: LanguageManager
     @Environment(\.dismiss) var dismiss
     
     let levelNumber: Int
     let title: String
     
     @State private var selectedLetter: ArabicLetter?
+    @State private var autoOpenedSingleLetter = false
+    
+    private var isEnglish: Bool {
+        languageManager.currentLanguage == .english
+    }
     
     var letters: [ArabicLetter] {
         ArabicLetter.letters(forLevel: levelNumber)
+    }
+    
+    private var isSingleLetterLevel: Bool {
+        letters.count == 1
     }
     
     var body: some View {
@@ -56,7 +66,7 @@ struct LevelDetailView: View {
                     HStack(spacing: 4) {
                             Image(systemName: "chevron.left")
                             .font(.system(size: 16, weight: .semibold))
-                            Text(LocalizedStringKey("Retour"))
+                            Text(LocalizedStringKey(isEnglish ? "Back" : "Retour"))
                     }
                     .foregroundColor(.noorGold)
                 }
@@ -79,6 +89,19 @@ struct LevelDetailView: View {
                 .id(letter.id)
             }
         }
+        .onAppear {
+            if isSingleLetterLevel && !autoOpenedSingleLetter {
+                autoOpenedSingleLetter = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    selectedLetter = letters.first
+                }
+            }
+        }
+        .onChange(of: selectedLetter) { oldValue, newValue in
+            if isSingleLetterLevel && oldValue != nil && newValue == nil {
+                dismiss()
+            }
+        }
     }
     
     var masteredCount: Int {
@@ -87,9 +110,14 @@ struct LevelDetailView: View {
 }
 
 struct LevelDetailHeader: View {
+    @EnvironmentObject var languageManager: LanguageManager
     let title: String
     let masteredCount: Int
     let totalCount: Int
+    
+    private var isEnglish: Bool {
+        languageManager.currentLanguage == .english
+    }
     
     var progress: Double {
         guard totalCount > 0 else { return 0 }
@@ -104,7 +132,7 @@ struct LevelDetailHeader: View {
             
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
-                    Text(LocalizedStringKey("\(masteredCount)/\(totalCount) lettres maîtrisées"))
+                    Text(LocalizedStringKey(isEnglish ? "\(masteredCount)/\(totalCount) letters mastered" : "\(masteredCount)/\(totalCount) lettres maîtrisées"))
                     .font(.system(size: 14, weight: .medium))
                     .foregroundColor(.noorSecondary)
                     
@@ -296,7 +324,7 @@ struct VowelLessonView: View {
                             .font(.system(size: 20, weight: .bold))
                             .foregroundColor(.noorSecondary)
                             .padding(12)
-                            .background(Color.white)
+                            .background(Color(.secondarySystemGroupedBackground))
                             .clipShape(Circle())
                     }
 
@@ -405,7 +433,7 @@ struct VowelQuizView: View {
         VStack(spacing: 30) {
             Spacer()
             
-            Text(LocalizedStringKey("Quel son entends-tu ?"))
+            Text(LocalizedStringKey(languageManager.currentLanguage == .english ? "Which sound do you hear?" : "Quel son entends-tu ?"))
                 .font(.system(size: 26, weight: .bold, design: .rounded))
                 .foregroundColor(.noorText)
                 .padding(.top)
@@ -416,7 +444,7 @@ struct VowelQuizView: View {
                 HStack(spacing: 16) {
                     Image(systemName: "speaker.wave.3.fill")
                         .font(.system(size: 32))
-                    Text(LocalizedStringKey("Réécouter"))
+                    Text(LocalizedStringKey(languageManager.currentLanguage == .english ? "Listen again" : "Réécouter"))
                         .font(.headline)
                 }
                 .foregroundColor(.white)
@@ -624,7 +652,7 @@ struct VowelIntroView: View {
         VStack(spacing: 24) {
             Spacer()
 
-            Text(LocalizedStringKey("Découvre le son"))
+            Text(LocalizedStringKey(languageManager.currentLanguage == .english ? "Discover the sound" : "Découvre le son"))
                 .font(.system(size: 20, weight: .medium, design: .rounded))
                 .foregroundColor(.noorSecondary)
 
@@ -654,7 +682,7 @@ struct VowelIntroView: View {
                         .padding(.horizontal, 24)
                         .fixedSize(horizontal: false, vertical: true)
                 } else {
-                    Text(LocalizedStringKey("Se prononce \"\(vowel.transliteration)\""))
+                    Text(LocalizedStringKey(languageManager.currentLanguage == .english ? "Pronounced \"\(vowel.transliteration)\"" : "Se prononce \"\(vowel.transliteration)\""))
                         .font(.system(size: 18, weight: .medium))
                         .foregroundColor(.noorSecondary)
                 }
@@ -665,7 +693,7 @@ struct VowelIntroView: View {
             }) {
                 HStack {
                     Image(systemName: "speaker.wave.2.fill")
-                    Text(LocalizedStringKey("Écouter"))
+                    Text(LocalizedStringKey(languageManager.currentLanguage == .english ? "Listen" : "Écouter"))
                 }
                 .font(.headline)
                 .foregroundColor(.noorGold)
@@ -692,7 +720,7 @@ struct VowelExampleView: View {
         VStack(spacing: 40) {
             Spacer()
             
-            Text(LocalizedStringKey("Mise en pratique"))
+            Text(LocalizedStringKey(languageManager.currentLanguage == .english ? "Practice" : "Mise en pratique"))
                 .font(.system(size: 20, weight: .medium, design: .rounded))
                 .foregroundColor(.noorSecondary)
             
@@ -707,7 +735,7 @@ struct VowelExampleView: View {
                             .font(.system(size: 40))
                             .foregroundColor(.gray)
                     }
-                    Text(LocalizedStringKey("Lettre"))
+                    Text(LocalizedStringKey(languageManager.currentLanguage == .english ? "Letter" : "Lettre"))
                         .font(.caption)
                         .foregroundColor(.noorSecondary)
                 }
@@ -793,7 +821,7 @@ struct VowelCompletionView: View {
                         .frame(width: 160, height: 160)
                 )
             
-            Text(LocalizedStringKey("Excellent travail !"))
+            Text(LocalizedStringKey(languageManager.currentLanguage == .english ? "Excellent work!" : "Excellent travail !"))
                 .font(.system(size: 28, weight: .bold))
                 .foregroundColor(.noorText)
             
@@ -806,7 +834,7 @@ struct VowelCompletionView: View {
             Spacer()
             
             Button(action: onContinue) {
-                Text(LocalizedStringKey("Terminer la leçon"))
+                Text(LocalizedStringKey(languageManager.currentLanguage == .english ? "Finish lesson" : "Terminer la leçon"))
                     .font(.system(size: 20, weight: .bold))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
@@ -874,7 +902,7 @@ struct SpecialVowelIntroView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 24) {
-                Text(LocalizedStringKey("Nouveau Concept"))
+                Text(LocalizedStringKey(isEnglish ? "New Concept" : "Nouveau Concept"))
                     .font(.system(size: 16, weight: .bold, design: .rounded))
                     .foregroundColor(.noorGold)
                     .padding(.horizontal, 16)
@@ -1128,7 +1156,6 @@ struct WordAssemblyView: View {
     @State private var showError = false
     
     @State private var selectedLetter: UniqueLetter? = nil
-    @State private var mascotMood: EmotionalMascot.Mood = .neutral
     
     var currentWord: ArabicWord? {
         words.indices.contains(currentWordIndex) ? words[currentWordIndex] : nil
@@ -1173,12 +1200,6 @@ struct WordAssemblyView: View {
         }
         .onAppear { loadLevel() }
         .onDisappear { logCurrentWordMistakeOnQuit() }
-        .onChange(of: showSuccess) { _, success in
-            mascotMood = success ? .happy : .neutral
-        }
-        .onChange(of: showError) { _, error in
-            mascotMood = error ? .sad : .neutral
-        }
     }
     
     private var headerView: some View {
@@ -1236,39 +1257,104 @@ struct WordAssemblyView: View {
     }
     
     private var mascotSection: some View {
-        HStack(spacing: 16) {
-            EmotionalMascot(mood: mascotMood, size: 56, showAura: false)
-            
-            VStack(alignment: .leading, spacing: 4) {
-                Text(mascotMessage)
-                    .font(.system(size: 15, weight: .medium))
-                    .foregroundColor(.noorText)
-                    .lineLimit(2)
-                    .fixedSize(horizontal: false, vertical: true)
+        VStack(spacing: 12) {
+            if showSuccess {
+                HStack(spacing: 10) {
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.system(size: 20))
+                        .foregroundColor(.green)
+                    Text(languageManager.currentLanguage == .english ? "Perfect!" : "Parfait !")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.green)
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 12)
+                .background(
+                    RoundedRectangle(cornerRadius: 14)
+                        .fill(Color.green.opacity(0.1))
+                )
+            } else if showError {
+                HStack(spacing: 10) {
+                    Image(systemName: "arrow.counterclockwise.circle.fill")
+                        .font(.system(size: 20))
+                        .foregroundColor(.orange)
+                    Text(languageManager.currentLanguage == .english ? "Try again" : "Réessaie")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.orange)
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 12)
+                .background(
+                    RoundedRectangle(cornerRadius: 14)
+                        .fill(Color.orange.opacity(0.1))
+                )
+            } else {
+                HStack(spacing: 12) {
+                    Image(systemName: selectedLetter != nil ? "square.grid.3x3.topleft.filled" : "character.cursor.ibeam")
+                        .font(.system(size: 18))
+                        .foregroundColor(.noorGold)
+                    
+                    Text(selectedLetter != nil
+                         ? (languageManager.currentLanguage == .english ? "Tap a slot to place the letter" : "Tape sur un emplacement")
+                         : (languageManager.currentLanguage == .english ? "Select a letter below" : "Sélectionne une lettre"))
+                        .font(.system(size: 15, weight: .medium))
+                        .foregroundColor(.noorText)
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 14)
+                .background(
+                    RoundedRectangle(cornerRadius: 14)
+                        .fill(Color(.secondarySystemGroupedBackground))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 14)
+                                .stroke(Color.noorGold.opacity(0.2), lineWidth: 1)
+                        )
+                )
             }
-            .padding(.vertical, 12)
-            .padding(.horizontal, 16)
-            .background(
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(Color(.secondarySystemGroupedBackground))
-            )
+            
+            if let word = currentWord, wordContainsTaMarbuta(word), !showSuccess {
+                taMarbutaHintView
+            }
+        }
+        .padding(.horizontal, 20)
+        .animation(.spring(response: 0.4), value: showSuccess)
+        .animation(.spring(response: 0.4), value: showError)
+        .animation(.spring(response: 0.4), value: selectedLetter?.id)
+    }
+    
+    private func wordContainsTaMarbuta(_ word: ArabicWord) -> Bool {
+        word.componentLetterIds.contains(29)
+    }
+    
+    private var taMarbutaHintView: some View {
+        HStack(spacing: 10) {
+            Text("ة")
+                .font(.system(size: 22, weight: .bold))
+                .foregroundColor(.noorGold)
+            
+            VStack(alignment: .leading, spacing: 2) {
+                Text(languageManager.currentLanguage == .english ? "Ta Marbuta" : "Ta Marbuta")
+                    .font(.system(size: 13, weight: .bold))
+                    .foregroundColor(.noorText)
+                Text(languageManager.currentLanguage == .english
+                     ? "Feminine ending, pronounced 'a' or 'at'"
+                     : "Terminaison féminine, se prononce 'a' ou 'at'")
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundColor(.noorSecondary)
+            }
             
             Spacer()
         }
-        .padding(.horizontal, 20)
-        .animation(.spring(response: 0.4), value: mascotMood)
-    }
-    
-    private var mascotMessage: LocalizedStringKey {
-        if showSuccess {
-            return languageManager.currentLanguage == .english ? "Perfect! You got it!" : "Parfait ! Tu as réussi !"
-        } else if showError {
-            return languageManager.currentLanguage == .english ? "Oops! Try again!" : "Oups ! Réessaie !"
-        } else if selectedLetter != nil {
-            return languageManager.currentLanguage == .english ? "Now tap a slot!" : "Tape sur un emplacement !"
-        } else {
-            return languageManager.currentLanguage == .english ? "Select a letter below" : "Sélectionne une lettre"
-        }
+        .padding(.horizontal, 14)
+        .padding(.vertical, 10)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.noorGold.opacity(0.08))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.noorGold.opacity(0.2), lineWidth: 1)
+                )
+        )
     }
     
     private func wordDisplayView(word: ArabicWord) -> some View {
@@ -1469,7 +1555,7 @@ struct WordAssemblyView: View {
             }
         } label: {
             VStack(spacing: 2) {
-                Text(item.letter.isolated)
+                Text(item.displayCharacter)
                     .font(.system(size: 28))
                     .foregroundStyle(.primary)
                 Text(item.letter.transliteration)
@@ -1513,7 +1599,7 @@ struct WordAssemblyView: View {
                 }
             } label: {
                 HStack(spacing: 10) {
-                    Text(currentWordIndex < words.count - 1 ? LocalizedStringKey("Mot suivant") : LocalizedStringKey("Terminer"))
+                    Text(currentWordIndex < words.count - 1 ? LocalizedStringKey(languageManager.currentLanguage == .english ? "Next word" : "Mot suivant") : LocalizedStringKey(languageManager.currentLanguage == .english ? "Finish" : "Terminer"))
                         .font(.system(size: 17, weight: .semibold))
                     
                     Image(systemName: currentWordIndex < words.count - 1 ? "arrow.right" : "checkmark")
@@ -1637,13 +1723,31 @@ struct WordAssemblyView: View {
         placedLetters = Array(repeating: nil, count: word.componentLetterIds.count)
         placedSourceIds = Array(repeating: nil, count: word.componentLetterIds.count)
 
-        var letters: [ArabicLetter] = word.componentLetterIds.compactMap { ArabicLetter.letter(byId: $0) }
-        let distractors = ArabicLetter.alphabet
+        let lettersWithDiacritics = DiacriticHelper.extractLettersWithDiacritics(
+            from: word.arabic,
+            letterIds: word.componentLetterIds
+        )
+        
+        var uniqueLetters: [UniqueLetter] = []
+        for (index, letterId) in word.componentLetterIds.enumerated() {
+            if let letter = ArabicLetter.letter(byId: letterId) {
+                let diacritics = index < lettersWithDiacritics.count ? lettersWithDiacritics[index].diacritics : ""
+                uniqueLetters.append(UniqueLetter(letter: letter, diacritics: diacritics))
+            }
+        }
+        
+        let commonDiacritics = ["َ", "ُ", "ِ", "ْ", ""]
+        let distractorLetters = ArabicLetter.alphabet
             .filter { !word.componentLetterIds.contains($0.id) }
             .shuffled()
             .prefix(3)
-        letters.append(contentsOf: distractors)
-        scrambledLetters = letters.map { UniqueLetter(letter: $0) }.shuffled()
+        
+        for letter in distractorLetters {
+            let randomDiacritic = commonDiacritics.randomElement() ?? ""
+            uniqueLetters.append(UniqueLetter(letter: letter, diacritics: randomDiacritic))
+        }
+        
+        scrambledLetters = uniqueLetters.shuffled()
     }
 
     private func logCurrentWordMistakeOnQuit() {
@@ -1656,51 +1760,28 @@ struct LevelSummaryView: View {
     let wordsLearned: Int
     let onContinue: () -> Void
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var languageManager: LanguageManager
+    
+    private var isEnglish: Bool {
+        languageManager.currentLanguage == .english
+    }
     
     var body: some View {
-        VStack(spacing: 30) {
-            Spacer()
-            
-            EmotionalMascot(mood: .happy, size: 100, showAura: true)
-            
-            Text(LocalizedStringKey("Niveau terminé !"))
-                .font(.system(size: 28, weight: .bold, design: .rounded))
-                .foregroundColor(.noorText)
-            
-            HStack(spacing: 16) {
-                SummaryStatCard(
-                    icon: "textformat.abc",
-                    value: "\(wordsLearned)",
-                    label: LocalizedStringKey("mots appris")
-                )
-                
-                SummaryStatCard(
-                    icon: "star.fill",
-                    value: "+100",
-                    label: LocalizedStringKey("XP gagnés")
-                )
-            }
-            .padding(.horizontal)
-            
-            Spacer()
-            
-            Button(action: {
+        UnifiedCelebrationView(
+            data: CelebrationData(
+                type: .levelComplete,
+                title: LocalizedStringKey(isEnglish ? "Level Complete!" : "Niveau terminé !"),
+                subtitle: LocalizedStringKey(isEnglish ? "\(wordsLearned) words learned" : "\(wordsLearned) mots appris"),
+                score: wordsLearned,
+                total: wordsLearned,
+                xpEarned: 100,
+                showStars: true
+            ),
+            onDismiss: {
                 dismiss()
                 onContinue()
-            }) {
-                Text(LocalizedStringKey("Continuer"))
-                    .font(.system(size: 20, weight: .bold))
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
-                    .background(Color.noorGold)
-                    .cornerRadius(16)
-                    .shadow(color: .noorGold.opacity(0.3), radius: 10, y: 5)
             }
-            .padding(.horizontal, 24)
-            .padding(.bottom, 30)
-        }
-        .background(Color.noorBackground.ignoresSafeArea())
+        )
     }
 }
 
@@ -1745,6 +1826,24 @@ struct ShakeEffect: GeometryEffect {
 struct UniqueLetter: Identifiable, Equatable, Hashable {
     let id = UUID()
     let letter: ArabicLetter
+    let diacritics: String
+    
+    init(letter: ArabicLetter, diacritics: String = "") {
+        self.letter = letter
+        self.diacritics = diacritics
+    }
+    
+    var displayCharacter: String {
+        letter.isolated + diacritics
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func == (lhs: UniqueLetter, rhs: UniqueLetter) -> Bool {
+        lhs.id == rhs.id
+    }
 }
 
 extension Collection {

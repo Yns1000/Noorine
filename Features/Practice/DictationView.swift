@@ -24,32 +24,8 @@ struct DictationView: View {
                 }
             } else if currentIndex < words.count {
                 VStack(spacing: 0) {
-                    LessonHeader(
-                        currentStep: currentIndex,
-                        totalSteps: min(totalWords, words.count),
-                        onClose: { dismiss() }
-                    )
-
-                    HStack(spacing: 10) {
-                        Button(action: { playCurrentWord() }) {
-                            Image(systemName: "speaker.wave.2.fill")
-                                .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(.white)
-                                .frame(width: 38, height: 38)
-                                .background(Color.noorGold)
-                                .clipShape(Circle())
-                        }
-
-                        Text(languageManager.currentLanguage == .english
-                             ? "Listen & build" : "Ecoute & construis")
-                            .font(.system(size: 13, weight: .medium, design: .rounded))
-                            .foregroundColor(.noorSecondary)
-
-                        Spacer()
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 6)
-
+                    dictationHeader
+                    
                     WordAssemblyView(
                         word: words[currentIndex],
                         onCompletion: {
@@ -113,59 +89,101 @@ struct DictationView: View {
         }
         FeedbackManager.shared.success()
     }
+    
+    private var dictationHeader: some View {
+        VStack(spacing: 0) {
+            HStack(alignment: .center) {
+                Button(action: { dismiss() }) {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.noorSecondary)
+                        .frame(width: 36, height: 36)
+                        .background(Circle().fill(Color(.secondarySystemGroupedBackground)))
+                }
+                
+                Spacer()
+                
+                HStack(spacing: 6) {
+                    ForEach(0..<min(totalWords, words.count), id: \.self) { index in
+                        Circle()
+                            .fill(index < currentIndex ? Color.green : (index == currentIndex ? Color.noorGold : Color.gray.opacity(0.3)))
+                            .frame(width: 8, height: 8)
+                    }
+                }
+                
+                Spacer()
+                
+                Color.clear
+                    .frame(width: 36, height: 36)
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 12)
+            .padding(.bottom, 8)
+            
+            HStack(spacing: 12) {
+                NoorineMascot()
+                    .frame(width: 50, height: 50)
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "ear.fill")
+                            .font(.system(size: 16))
+                            .foregroundColor(.noorGold)
+                        
+                        Text(languageManager.currentLanguage == .english
+                             ? "Listen & Build" : "Écoute & Construis")
+                            .font(.system(size: 16, weight: .bold, design: .rounded))
+                            .foregroundColor(.noorText)
+                    }
+                    
+                    Text(languageManager.currentLanguage == .english
+                         ? "Build the word you hear" : "Construis le mot que tu entends")
+                        .font(.system(size: 12))
+                        .foregroundColor(.noorSecondary)
+                }
+                
+                Spacer()
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color.noorGold.opacity(0.1))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(Color.noorGold.opacity(0.2), lineWidth: 1)
+                    )
+            )
+            .padding(.horizontal, 20)
+            .padding(.bottom, 8)
+        }
+    }
 }
 
 struct DictationCelebrationOverlay: View {
     let score: Int
     let total: Int
     let onDismiss: () -> Void
+    @EnvironmentObject var languageManager: LanguageManager
 
-    @State private var scale: CGFloat = 0.5
-    @State private var opacity: Double = 0
+    private var isEnglish: Bool {
+        languageManager.currentLanguage == .english
+    }
 
     var body: some View {
-        ZStack {
-            Color.black.opacity(0.8).ignoresSafeArea()
-
-            VStack(spacing: 24) {
-                ZStack {
-                    Circle()
-                        .fill(Color.noorGold.opacity(0.2))
-                        .frame(width: 100, height: 100)
-                    Image(systemName: "headphones")
-                        .font(.system(size: 44))
-                        .foregroundColor(.noorGold)
-                }
-
-                VStack(spacing: 8) {
-                    Text(LocalizedStringKey(score == total ? "Parfait !" : "Bien joué !"))
-                        .font(.system(size: 32, weight: .black, design: .serif))
-                        .foregroundColor(.white)
-
-                    Text(LocalizedStringKey("\(score) mots construits sur \(total)"))
-                        .font(.system(size: 18, weight: .medium))
-                        .foregroundColor(.white.opacity(0.8))
-                }
-
-                Button(action: onDismiss) {
-                    Text(LocalizedStringKey("Continuer"))
-                        .font(.system(size: 18, weight: .bold))
-                        .foregroundColor(.noorDark)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(Color.noorGold)
-                        .cornerRadius(30)
-                }
-                .padding(.horizontal, 40)
-            }
-            .scaleEffect(scale)
-            .opacity(opacity)
-        }
-        .onAppear {
-            withAnimation(.spring(response: 0.5, dampingFraction: 0.6)) {
-                scale = 1.0
-                opacity = 1.0
-            }
-        }
+        UnifiedCelebrationView(
+            data: CelebrationData(
+                type: .dictation,
+                title: score == total
+                    ? LocalizedStringKey(isEnglish ? "Perfect!" : "Parfait !")
+                    : LocalizedStringKey(isEnglish ? "Nice job!" : "Bien joué !"),
+                subtitle: LocalizedStringKey(isEnglish ? "\(score) of \(total) words" : "\(score) mots sur \(total)"),
+                score: score,
+                total: total,
+                xpEarned: score * 5,
+                showStars: true
+            ),
+            onDismiss: onDismiss
+        )
     }
 }

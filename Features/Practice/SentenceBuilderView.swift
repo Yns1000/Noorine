@@ -14,7 +14,6 @@ struct SentenceBuilderView: View {
     @State private var availableWords: [String] = []
     @State private var placedWords: [String?] = []
     @State private var nextSlotIndex = 0
-
     @State private var isCorrect: Bool? = nil
     @State private var shakeOffset: CGFloat = 0
     @State private var currentFact: String = ArabicFunFacts.randomPhraseFact()
@@ -424,92 +423,25 @@ struct SentenceBuilderCelebrationOverlay: View {
     let total: Int
     let onDismiss: () -> Void
     @EnvironmentObject var languageManager: LanguageManager
-
-    @State private var scale: CGFloat = 0.5
-    @State private var opacity: Double = 0
-    @State private var starsAnimated = false
     
     private var isEnglish: Bool {
         languageManager.currentLanguage == .english
     }
 
     var body: some View {
-        ZStack {
-            Color.black.opacity(0.85).ignoresSafeArea()
-
-            VStack(spacing: 28) {
-                ZStack {
-                    Circle()
-                        .fill(
-                            RadialGradient(
-                                colors: [Color.noorGold.opacity(0.3), Color.clear],
-                                center: .center,
-                                startRadius: 20,
-                                endRadius: 80
-                            )
-                        )
-                        .frame(width: 140, height: 140)
-                    
-                    Image(systemName: "text.word.spacing")
-                        .font(.system(size: 50, weight: .medium))
-                        .foregroundColor(.noorGold)
-                }
-
-                VStack(spacing: 10) {
-                    Text(score == total ? (isEnglish ? "Perfect!" : "Parfait !") : (isEnglish ? "Well done!" : "Bien joué !"))
-                        .font(.system(size: 34, weight: .black, design: .rounded))
-                        .foregroundColor(.white)
-
-                    Text(isEnglish ? "\(score) of \(total) sentences built" : "\(score) phrases construites sur \(total)")
-                        .font(.system(size: 17, weight: .medium))
-                        .foregroundColor(.white.opacity(0.7))
-                }
-
-                HStack(spacing: 12) {
-                    ForEach(0..<3, id: \.self) { i in
-                        Image(systemName: i < starCount ? "star.fill" : "star")
-                            .font(.system(size: 32))
-                            .foregroundColor(.noorGold)
-                            .scaleEffect(starsAnimated && i < starCount ? 1.2 : 1.0)
-                            .animation(
-                                .spring(response: 0.4, dampingFraction: 0.5)
-                                    .delay(Double(i) * 0.15),
-                                value: starsAnimated
-                            )
-                    }
-                }
-                .padding(.vertical, 8)
-
-                Button(action: onDismiss) {
-                    Text(isEnglish ? "Continue" : "Continuer")
-                        .font(.system(size: 18, weight: .bold))
-                        .foregroundColor(.noorDark)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 18)
-                        .background(
-                            LinearGradient(colors: [.noorGold, .orange], startPoint: .leading, endPoint: .trailing)
-                        )
-                        .cornerRadius(30)
-                }
-                .padding(.horizontal, 50)
-            }
-            .scaleEffect(scale)
-            .opacity(opacity)
-        }
-        .onAppear {
-            withAnimation(.spring(response: 0.5, dampingFraction: 0.6)) {
-                scale = 1.0
-                opacity = 1.0
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                starsAnimated = true
-            }
-        }
-    }
-
-    private var starCount: Int {
-        if score == total { return 3 }
-        if score >= total / 2 { return 2 }
-        return 1
+        UnifiedCelebrationView(
+            data: CelebrationData(
+                type: .sentenceBuilder,
+                title: score == total
+                    ? LocalizedStringKey(isEnglish ? "Perfect!" : "Parfait !")
+                    : LocalizedStringKey(isEnglish ? "Nice job!" : "Bien joué !"),
+                subtitle: LocalizedStringKey(isEnglish ? "\(score) of \(total) phrases" : "\(score) phrases sur \(total)"),
+                score: score,
+                total: total,
+                xpEarned: score * 5,
+                showStars: true
+            ),
+            onDismiss: onDismiss
+        )
     }
 }

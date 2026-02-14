@@ -20,45 +20,74 @@ struct PracticeToolsGrid: View {
         let pool = dataManager.practicePool(language: languageManager.currentLanguage)
         let flashcardCount = pool.words.count
 
+        let isEnglish = languageManager.currentLanguage == .english
+        
         LazyVGrid(columns: columns, spacing: 15) {
-            ToolCard(icon: "rectangle.on.rectangle.angled", color: .blue, title: "Flashcards", subtitle: "\(flashcardCount) mots", action: {
-                showFlashcards = true
-            })
+            ToolCard(
+                icon: "rectangle.on.rectangle.angled",
+                color: .blue,
+                title: "Flashcards",
+                subtitle: LocalizedStringKey(isEnglish ? "\(flashcardCount) words" : "\(flashcardCount) mots"),
+                action: { showFlashcards = true }
+            )
 
             NavigationLink(destination: ListeningModuleView()) {
-                ToolCard(icon: "waveform", color: .purple, title: "Écoute", subtitle: "Audio pur")
+                ToolCard(
+                    icon: "waveform",
+                    color: .purple,
+                    title: LocalizedStringKey(isEnglish ? "Listening" : "Écoute"),
+                    subtitle: LocalizedStringKey(isEnglish ? "Pure audio" : "Audio pur")
+                )
             }
             .buttonStyle(PlainButtonStyle())
 
             ToolCard(
                 icon: "heart.slash.fill",
                 color: .red,
-                title: "Erreurs",
-                subtitle: "\(dataManager.mistakes.count) à corriger",
-                action: {
-                    showMistakes = true
-                }
+                title: LocalizedStringKey(isEnglish ? "Mistakes" : "Erreurs"),
+                subtitle: LocalizedStringKey(isEnglish ? "\(dataManager.mistakes.count) to fix" : "\(dataManager.mistakes.count) à corriger"),
+                action: { showMistakes = true }
             )
 
-            ToolCard(icon: "mic.fill", color: .green, title: "Parler", subtitle: "Prononciation", action: {
-                showSpeakingPractice = true
-            })
+            ToolCard(
+                icon: "mic.fill",
+                color: .green,
+                title: LocalizedStringKey(isEnglish ? "Speaking" : "Parler"),
+                subtitle: LocalizedStringKey(isEnglish ? "Pronunciation" : "Prononciation"),
+                action: { showSpeakingPractice = true }
+            )
 
-            ToolCard(icon: "bolt.fill", color: .mint, title: "Quiz Chrono", subtitle: LocalizedStringKey("Rapidité & vocab"), action: {
-                showMatching = true
-            })
+            ToolCard(
+                icon: "bolt.fill",
+                color: .mint,
+                title: LocalizedStringKey(isEnglish ? "Speed Quiz" : "Quiz Chrono"),
+                subtitle: LocalizedStringKey(isEnglish ? "Speed & vocab" : "Rapidité & vocab"),
+                action: { showMatching = true }
+            )
 
-            ToolCard(icon: "ear.fill", color: .indigo, title: "Dictée", subtitle: LocalizedStringKey("Écoute & construis"), action: {
-                showDictation = true
-            })
+            ToolCard(
+                icon: "ear.fill",
+                color: .indigo,
+                title: LocalizedStringKey(isEnglish ? "Dictation" : "Dictée"),
+                subtitle: LocalizedStringKey(isEnglish ? "Listen & build" : "Écoute & construis"),
+                action: { showDictation = true }
+            )
 
-            ToolCard(icon: "text.word.spacing", color: .cyan, title: "Phrases", subtitle: LocalizedStringKey("Ordre des mots"), action: {
-                showSentenceBuilder = true
-            })
+            ToolCard(
+                icon: "text.word.spacing",
+                color: .cyan,
+                title: LocalizedStringKey(isEnglish ? "Sentences" : "Phrases"),
+                subtitle: LocalizedStringKey(isEnglish ? "Word order" : "Ordre des mots"),
+                action: { showSentenceBuilder = true }
+            )
 
-            ToolCard(icon: "book.fill", color: .orange, title: "Ressources", subtitle: "Alphabet & harakat", action: {
-                showResources = true
-            })
+            ToolCard(
+                icon: "book.fill",
+                color: .orange,
+                title: LocalizedStringKey(isEnglish ? "Resources" : "Ressources"),
+                subtitle: LocalizedStringKey(isEnglish ? "Alphabet & vowels" : "Alphabet & harakat"),
+                action: { showResources = true }
+            )
         }
         .fullScreenCover(isPresented: $showSpeakingPractice) {
             SpeakingPracticeView(

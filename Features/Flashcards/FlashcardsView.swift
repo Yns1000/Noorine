@@ -420,7 +420,7 @@ struct SRSCardView: View {
             
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 12) {
-                    EmotionalMascot(mood: .happy, size: 50, showAura: false)
+                    EmotionalMascot(mood: .happy, size: 60, showAura: false)
                         .padding(.top, 20)
                     
                     Text(isEnglish ? card.english : card.french)

@@ -299,76 +299,14 @@ struct SpeedQuizView: View {
 
 
 struct SpeedQuizCelebrationOverlay: View {
+    @EnvironmentObject var languageManager: LanguageManager
     let score: Int
     let maxCombo: Int
     let total: Int
     let onDismiss: () -> Void
 
-    @State private var scale: CGFloat = 0.5
-    @State private var opacity: Double = 0
-
-    var body: some View {
-        ZStack {
-            Color.black.opacity(0.8).ignoresSafeArea()
-
-            VStack(spacing: 24) {
-                ZStack {
-                    Circle()
-                        .fill(Color.noorGold.opacity(0.2))
-                        .frame(width: 100, height: 100)
-                    Image(systemName: "bolt.fill")
-                        .font(.system(size: 44))
-                        .foregroundColor(.noorGold)
-                }
-
-                VStack(spacing: 8) {
-                    Text("\(score)")
-                        .font(.system(size: 48, weight: .black, design: .rounded))
-                        .foregroundColor(.noorGold)
-
-                    Text(LocalizedStringKey("points"))
-                        .font(.system(size: 18, weight: .medium))
-                        .foregroundColor(.white.opacity(0.8))
-                }
-
-                if maxCombo >= 3 {
-                    HStack(spacing: 6) {
-                        Image(systemName: "flame.fill")
-                            .foregroundColor(.orange)
-                        Text("Max combo: x\(maxCombo)")
-                            .font(.system(size: 16, weight: .bold, design: .rounded))
-                            .foregroundColor(.orange)
-                    }
-                }
-
-                HStack(spacing: 8) {
-                    ForEach(0..<3) { i in
-                        Image(systemName: i < starCount ? "star.fill" : "star")
-                            .font(.system(size: 28))
-                            .foregroundColor(.noorGold)
-                    }
-                }
-
-                Button(action: onDismiss) {
-                    Text(LocalizedStringKey("Continuer"))
-                        .font(.system(size: 18, weight: .bold))
-                        .foregroundColor(.noorDark)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(Color.noorGold)
-                        .cornerRadius(30)
-                }
-                .padding(.horizontal, 40)
-            }
-            .scaleEffect(scale)
-            .opacity(opacity)
-        }
-        .onAppear {
-            withAnimation(.spring(response: 0.5, dampingFraction: 0.6)) {
-                scale = 1.0
-                opacity = 1.0
-            }
-        }
+    private var isEnglish: Bool {
+        languageManager.currentLanguage == .english
     }
 
     private var starCount: Int {
@@ -377,5 +315,21 @@ struct SpeedQuizCelebrationOverlay: View {
         if ratio > 0.7 { return 3 }
         if ratio > 0.4 { return 2 }
         return 1
+    }
+
+    var body: some View {
+        UnifiedCelebrationView(
+            data: CelebrationData(
+                type: .speedQuiz,
+                title: LocalizedStringKey("\(score) points"),
+                subtitle: LocalizedStringKey(isEnglish ? "Speed Quiz complete!" : "Speed Quiz terminé !"),
+                score: starCount,
+                total: 3,
+                xpEarned: score / 2,
+                showStars: true,
+                maxCombo: maxCombo
+            ),
+            onDismiss: onDismiss
+        )
     }
 }

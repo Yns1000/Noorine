@@ -209,15 +209,38 @@ struct PhraseLessonView: View {
             .padding(.top, 8)
             .padding(.bottom, 4)
             
-            Text(isEnglish ? "Build word \(currentWordIndex + 1) of \(wordsToConstruct.count)" : "Construis le mot \(currentWordIndex + 1) sur \(wordsToConstruct.count)")
-                .font(.system(size: 14, weight: .medium))
-                .foregroundColor(.noorSecondary)
-                .padding(.bottom, 8)
+            VStack(spacing: 12) {
+                Button(action: {
+                    AudioManager.shared.playText(targetWord.arabic, style: .word, useCache: true)
+                    HapticManager.shared.impact(.light)
+                }) {
+                    ZStack {
+                        Circle()
+                            .fill(LinearGradient(colors: [.noorGold, .orange], startPoint: .topLeading, endPoint: .bottomTrailing))
+                            .frame(width: 70, height: 70)
+                            .shadow(color: .noorGold.opacity(0.4), radius: 12, y: 6)
+                        
+                        Image(systemName: "speaker.wave.2.fill")
+                            .font(.system(size: 28, weight: .semibold))
+                            .foregroundColor(.white)
+                    }
+                }
+                
+                Text(isEnglish ? "Build word \(currentWordIndex + 1) of \(wordsToConstruct.count)" : "Construis le mot \(currentWordIndex + 1) sur \(wordsToConstruct.count)")
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(.noorSecondary)
+            }
+            .padding(.bottom, 12)
             
             WordAssemblyView(word: targetWord, onCompletion: {
                 if currentWordIndex < wordsToConstruct.count - 1 {
                     withAnimation(.spring(response: 0.4)) {
                         currentWordIndex += 1
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        if let nextWord = wordsToConstruct[safe: currentWordIndex] {
+                            AudioManager.shared.playText(nextWord.arabic, style: .word, useCache: true)
+                        }
                     }
                 } else {
                     withAnimation(.spring(response: 0.4)) {
@@ -226,6 +249,11 @@ struct PhraseLessonView: View {
                     }
                 }
             })
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                AudioManager.shared.playText(targetWord.arabic, style: .word, useCache: true)
+            }
         }
     }
     
@@ -300,9 +328,6 @@ struct PhraseLessonView: View {
                     phase = .wordBuilding
                     setupWordBuilding(phrase)
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    AudioManager.shared.playSound(named: phrase.audioName)
-                }
             }
         }
         .onAppear {
@@ -313,42 +338,118 @@ struct PhraseLessonView: View {
     }
     
     private func buildingView(_ phrase: PhraseData) -> some View {
-        VStack(spacing: 24) {
-            Spacer()
-
-            HStack(spacing: 10) {
-                Text(isEnglish ? "Build the phrase" : "Construis la phrase")
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundColor(.noorSecondary)
-
+        VStack(spacing: 0) {
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(isEnglish ? phrase.translationEn : phrase.translationFr)
+                        .font(.system(size: 18, weight: .bold, design: .rounded))
+                        .foregroundColor(.noorText)
+                        .lineLimit(2)
+                        .minimumScaleFactor(0.8)
+                    
+                    Text(phrase.transliteration)
+                        .font(.system(size: 13, weight: .medium, design: .monospaced))
+                        .foregroundColor(.noorGold)
+                }
+                
+                Spacer()
+                
                 Button(action: {
                     AudioManager.shared.playSound(named: phrase.audioName)
                     HapticManager.shared.impact(.light)
                 }) {
-                    Image(systemName: "speaker.wave.2.fill")
-                        .font(.system(size: 14))
-                        .foregroundColor(.noorGold)
-                        .frame(width: 32, height: 32)
-                        .background(Circle().fill(Color.noorGold.opacity(0.12)))
+                    ZStack {
+                        Circle()
+                            .fill(LinearGradient(colors: [.noorGold, .orange], startPoint: .topLeading, endPoint: .bottomTrailing))
+                            .frame(width: 50, height: 50)
+                            .shadow(color: .noorGold.opacity(0.3), radius: 8, y: 4)
+                        
+                        Image(systemName: "speaker.wave.2.fill")
+                            .font(.system(size: 20, weight: .semibold))
+                            .foregroundColor(.white)
+                    }
                 }
             }
-
-            Text(isEnglish ? phrase.translationEn : phrase.translationFr)
-                .font(.system(size: 20, weight: .semibold))
-                .foregroundColor(.noorText)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal)
-
-            Text(phrase.transliteration)
-                .font(.system(size: 14, weight: .medium, design: .monospaced))
-                .foregroundColor(.noorGold)
-                .padding(.bottom, 8)
-
-            answerSlots(phrase)
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color(.secondarySystemGroupedBackground))
+                    .shadow(color: .black.opacity(0.05), radius: 10, y: 4)
+            )
+            .padding(.horizontal, 20)
+            .padding(.top, 16)
             
-            Spacer().frame(height: 20)
+            Spacer().frame(height: 28)
             
-            wordBank
+            VStack(spacing: 10) {
+                Text(isEnglish ? "Your sentence:" : "Ta phrase :")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundColor(.noorSecondary)
+                    .textCase(.uppercase)
+                    .tracking(1)
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 10) {
+                        ForEach(0..<phrase.words.count, id: \.self) { index in
+                            if index < userAnswer.count {
+                                WordSlot(
+                                    word: userAnswer[index],
+                                    isCorrect: showSuccess,
+                                    onTap: { removeWord(at: index) }
+                                )
+                            } else {
+                                EmptySlot(
+                                    isHighlighted: index == userAnswer.count,
+                                    slotNumber: index + 1
+                                )
+                            }
+                        }
+                    }
+                    .environment(\.layoutDirection, .rightToLeft)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 8)
+                }
+                .frame(height: 60)
+            }
+            .padding(.vertical, 16)
+            .frame(maxWidth: .infinity)
+            .background(
+                RoundedRectangle(cornerRadius: 24)
+                    .fill(Color.noorGold.opacity(0.06))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 24)
+                            .strokeBorder(
+                                showSuccess ? Color.green.opacity(0.5) :
+                                showError ? Color.red.opacity(0.5) :
+                                Color.noorGold.opacity(0.2),
+                                lineWidth: 2
+                            )
+                    )
+            )
+            .padding(.horizontal, 20)
+            
+            Spacer().frame(height: 28)
+            
+            VStack(spacing: 10) {
+                Text(isEnglish ? "Available words:" : "Mots disponibles :")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundColor(.noorSecondary)
+                    .textCase(.uppercase)
+                    .tracking(1)
+                
+                PhraseFlowLayout(spacing: 12) {
+                    ForEach(availableWords) { word in
+                        WordChip(word: word) {
+                            addWord(word)
+                        }
+                        .disabled(showSuccess)
+                        .scaleEffect(showSuccess ? 0.95 : 1.0)
+                        .animation(.spring(response: 0.3), value: showSuccess)
+                    }
+                }
+                .environment(\.layoutDirection, .rightToLeft)
+                .padding(.horizontal, 20)
+            }
             
             Spacer()
             
@@ -361,35 +462,6 @@ struct PhraseLessonView: View {
         }
         .modifier(ShakeModifier(shakes: showError ? 2 : 0))
         .animation(.default, value: showError)
-    }
-    
-    private func answerSlots(_ phrase: PhraseData) -> some View {
-        HStack(spacing: 12) {
-            ForEach(0..<phrase.words.count, id: \.self) { index in
-                if index < userAnswer.count {
-                    WordSlot(
-                        word: userAnswer[index],
-                        isCorrect: showSuccess,
-                        onTap: { removeWord(at: index) }
-                    )
-                } else {
-                    EmptySlot(isHighlighted: index == userAnswer.count)
-                }
-            }
-        }
-        .environment(\.layoutDirection, .rightToLeft)
-        .padding(.horizontal, 16)
-    }
-    
-    private var wordBank: some View {
-        PhraseFlowLayout(spacing: 12) {
-            ForEach(availableWords) { word in
-                WordChip(word: word) {
-                    addWord(word)
-                }
-            }
-        }
-        .padding(.horizontal, 16)
     }
     
     private var completionView: some View {
@@ -662,25 +734,25 @@ struct WordSlot: View {
     var body: some View {
         Button(action: onTap) {
             Text(word.arabic)
-                .font(.system(size: 28, weight: .medium))
+                .font(.system(size: 20, weight: .bold, design: .serif))
                 .minimumScaleFactor(0.7)
                 .lineLimit(1)
                 .foregroundColor(isCorrect ? .green : .noorText)
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
+                .padding(.horizontal, 14)
+                .padding(.vertical, 10)
                 .background(
                     RoundedRectangle(cornerRadius: 14)
-                        .fill(isCorrect ? Color.green.opacity(0.1) : Color(.secondarySystemGroupedBackground))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 14)
-                                .stroke(isCorrect ? Color.green : Color.clear, lineWidth: 2)
-                        )
-                        .shadow(color: .black.opacity(0.05), radius: 4, y: 2)
+                        .fill(isCorrect ? Color.green.opacity(0.12) : Color(.tertiarySystemGroupedBackground))
                 )
-                
+                .overlay(
+                    RoundedRectangle(cornerRadius: 14)
+                        .stroke(isCorrect ? Color.green : Color.noorGold.opacity(0.5), lineWidth: 2.5)
+                )
         }
         .buttonStyle(.plain)
         .disabled(isCorrect)
+        .scaleEffect(1.0)
+        .animation(.spring(response: 0.3), value: isCorrect)
     }
 }
 
@@ -748,18 +820,27 @@ struct LetterChip: View {
 
 struct EmptySlot: View {
     let isHighlighted: Bool
+    var slotNumber: Int? = nil
     
     var body: some View {
-        RoundedRectangle(cornerRadius: 14)
-            .strokeBorder(
-                isHighlighted ? Color.noorGold : Color(.systemGray4),
-                style: StrokeStyle(lineWidth: 2, dash: [6])
-            )
-            .frame(width: 70, height: 48)
-            .background(
-                RoundedRectangle(cornerRadius: 14)
-                    .fill(isHighlighted ? Color.noorGold.opacity(0.08) : Color.clear)
-            )
+        ZStack {
+            RoundedRectangle(cornerRadius: 14)
+                .strokeBorder(
+                    isHighlighted ? Color.noorGold : Color(.systemGray4),
+                    style: StrokeStyle(lineWidth: 2, dash: [8, 4])
+                )
+                .frame(minWidth: 60, minHeight: 48)
+                .background(
+                    RoundedRectangle(cornerRadius: 14)
+                        .fill(isHighlighted ? Color.noorGold.opacity(0.08) : Color.clear)
+                )
+            
+            if let number = slotNumber {
+                Text("\(number)")
+                    .font(.system(size: 14, weight: .bold, design: .rounded))
+                    .foregroundColor(.noorGold.opacity(0.5))
+            }
+        }
     }
 }
 

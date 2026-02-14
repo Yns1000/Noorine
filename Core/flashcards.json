@@ -100,11 +100,11 @@
   },
   {
     "arabic": "كُرْسِيّ",
-    "transliteration": "Kursiyy",
+    "transliteration": "Kursī",
     "french": "Chaise",
     "english": "Chair",
-    "example": "Al-kursiyy rāḥah (La chaise est confortable)",
-    "exampleEnglish": "Al-kursiyy rāḥah (The chair is comfortable)",
+    "example": "Al-kursī murīḥ (La chaise est confortable)",
+    "exampleEnglish": "Al-kursī murīḥ (The chair is comfortable)",
     "exampleArabic": "الكُرْسِيُّ مُرِيحٌ"
   },
   {
@@ -148,8 +148,8 @@
     "transliteration": "Qiṭṭ",
     "french": "Chat",
     "english": "Cat",
-    "example": "Al-qiṭṭ yal'ab (Le chat joue)",
-    "exampleEnglish": "Al-qiṭṭ yal'ab (The cat is playing)",
+    "example": "Al-qiṭṭ yalʿab (Le chat joue)",
+    "exampleEnglish": "Al-qiṭṭ yalʿab (The cat is playing)",
     "exampleArabic": "القِطُّ يَلْعَبُ"
   },
   {

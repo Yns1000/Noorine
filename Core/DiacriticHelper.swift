@@ -216,6 +216,67 @@ struct DiacriticHelper {
     }
 }
 
+struct LetterWithDiacritics: Identifiable, Equatable {
+    let id = UUID()
+    let letterId: Int
+    let baseCharacter: String
+    let diacritics: String
+    let fullCharacter: String
+    
+    var displayText: String {
+        fullCharacter
+    }
+    
+    static func == (lhs: LetterWithDiacritics, rhs: LetterWithDiacritics) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
+extension DiacriticHelper {
+    static func extractLettersWithDiacritics(from arabicText: String, letterIds: [Int]) -> [LetterWithDiacritics] {
+        let diacriticScalars: Set<UInt32> = [
+            0x064E, 0x064F, 0x0650, 0x0651, 0x0652, 
+            0x064B, 0x064C, 0x064D,
+            0x0670, 0x0653
+        ]
+        
+        var results: [LetterWithDiacritics] = []
+        var letterIndex = 0
+        var currentBase = ""
+        var currentDiacritics = ""
+        
+        for scalar in arabicText.unicodeScalars {
+            if diacriticScalars.contains(scalar.value) {
+                currentDiacritics += String(scalar)
+            } else if scalar.value >= 0x0600 && scalar.value <= 0x06FF {
+                if !currentBase.isEmpty && letterIndex <= letterIds.count {
+                    let letterId = letterIndex < letterIds.count ? letterIds[letterIndex] : 0
+                    results.append(LetterWithDiacritics(
+                        letterId: letterId,
+                        baseCharacter: currentBase,
+                        diacritics: currentDiacritics,
+                        fullCharacter: currentBase + currentDiacritics
+                    ))
+                    letterIndex += 1
+                }
+                currentBase = String(scalar)
+                currentDiacritics = ""
+            }
+        }
+        
+        if !currentBase.isEmpty && letterIndex < letterIds.count {
+            results.append(LetterWithDiacritics(
+                letterId: letterIds[letterIndex],
+                baseCharacter: currentBase,
+                diacritics: currentDiacritics,
+                fullCharacter: currentBase + currentDiacritics
+            ))
+        }
+        
+        return results
+    }
+}
+
 struct DiacriticBreakdownView: View {
     let arabicText: String
     let showMascot: Bool

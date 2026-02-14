@@ -108,14 +108,17 @@ struct HomeView: View {
             }
             .sheet(isPresented: $showStreakDetails) { StreakDetailView() }
             .sheet(isPresented: $showXPDetails) { XPDetailView() }
-            .sheet(isPresented: $showDailyChallengeInvite) {
+            .sheet(isPresented: $showDailyChallengeInvite, onDismiss: {
+                if !showDailyChallenge {
+                    dataManager.dismissDailyChallenge()
+                }
+            }) {
                 DailyChallengeInviteView(
                     onStart: {
                         showDailyChallengeInvite = false
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { showDailyChallenge = true }
                     },
                     onDismiss: {
-                        dataManager.dismissDailyChallenge()
                         showDailyChallengeInvite = false
                     }
                 )
@@ -159,7 +162,12 @@ struct HomeView: View {
                             }
                         )
                     case .alphabet, .quiz:
-                        LevelDetailView(levelNumber: level.levelNumber, title: level.title)
+                        let letters = ArabicLetter.letters(forLevel: level.levelNumber)
+                        if letters.count == 1, let letter = letters.first {
+                            LetterLessonView(letter: letter, levelNumber: level.levelNumber)
+                        } else {
+                            LevelDetailView(levelNumber: level.levelNumber, title: level.title)
+                        }
                     }
                 }
             }

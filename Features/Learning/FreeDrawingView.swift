@@ -8,7 +8,7 @@ struct FreeDrawingStep: View {
     
     @StateObject private var model = DrawingCanvasModel()
     @State private var showSuccess = false
-    @State private var mascotMessage = "Le savais-tu ?"
+    @State private var mascotMessage = ""
     @State private var mascotDetail = ArabicFunFacts.randomFact()
     @State private var accentColor = Color.noorGold
     @State private var mascotMood: EmotionalMascot.Mood = .neutral
@@ -24,6 +24,10 @@ struct FreeDrawingStep: View {
     let requiredScore: Double = 0.50
     
     @EnvironmentObject var languageManager: LanguageManager
+    
+    private var isEnglish: Bool {
+        languageManager.currentLanguage == .english
+    }
     
     var currentForm: String {
         formType.getForm(from: letter)
@@ -130,7 +134,7 @@ struct FreeDrawingStep: View {
                 Button(action: clearDrawing) {
                     HStack(spacing: 4) {
                         Image(systemName: "arrow.counterclockwise")
-                        Text(LocalizedStringKey("Effacer"))
+                        Text(LocalizedStringKey(isEnglish ? "Clear" : "Effacer"))
                     }
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundColor(.noorSecondary)
@@ -152,7 +156,7 @@ struct FreeDrawingStep: View {
                         } else {
                             Image(systemName: (showSuccess || showFailure) ? "checkmark" : "sparkle.magnifyingglass")
                         }
-                        Text(LocalizedStringKey(showSuccess ? "Continuer" : (showFailure ? "Suivant" : "Vérifier")))
+                        Text(LocalizedStringKey(showSuccess ? (isEnglish ? "Continue" : "Continuer") : (showFailure ? (isEnglish ? "Next" : "Suivant") : (isEnglish ? "Check" : "Vérifier"))))
                     }
                     .font(.system(size: 13, weight: .bold))
                     .foregroundColor(.white)
@@ -173,7 +177,7 @@ struct FreeDrawingStep: View {
             
             if showManualValidation && !showSuccess {
                 Button(action: manualValidation) {
-                    Text(LocalizedStringKey("Je pense que c'est correct"))
+                    Text(LocalizedStringKey(isEnglish ? "I think it's correct" : "Je pense que c'est correct"))
                         .font(.system(size: 12, weight: .medium))
                         .foregroundColor(.noorSecondary.opacity(0.8))
                         .underline()
@@ -210,7 +214,7 @@ struct FreeDrawingStep: View {
     private func clearDrawing() {
         model.clear()
         let newFact = ArabicFunFacts.randomFact()
-        mascotMessage = "Le savais-tu ?"
+        mascotMessage = isEnglish ? "Did you know?" : "Le savais-tu ?"
         mascotDetail = newFact
         accentColor = .noorGold
         showSuccess = false
@@ -222,8 +226,8 @@ struct FreeDrawingStep: View {
         showSuccess = true
         model.isValidated = true
         mascotMood = .happy
-        mascotMessage = "Je te fais confiance"
-        mascotDetail = "Excuse-moi si mon analyse n'était pas juste"
+        mascotMessage = isEnglish ? "I trust you" : "Je te fais confiance"
+        mascotDetail = isEnglish ? "Sorry if my analysis wasn't right" : "Excuse-moi si mon analyse n'était pas juste"
         accentColor = .green
         
         FeedbackManager.shared.success()
@@ -241,7 +245,7 @@ struct FreeDrawingStep: View {
         
         model.isAnalyzing = true
         mascotMood = .thinking
-        mascotMessage = "Hmm, laisse-moi voir..."
+        mascotMessage = isEnglish ? "Hmm, let me see..." : "Hmm, laisse-moi voir..."
         mascotDetail = ""
         accentColor = .noorGold
         
@@ -264,23 +268,23 @@ struct FreeDrawingStep: View {
                 showSuccess = true
                 model.isValidated = true
                 mascotMood = .happy
-                mascotMessage = "Bravo, c'est parfait"
-                mascotDetail = "Tu maîtrises cette forme"
+                mascotMessage = isEnglish ? "Well done, perfect!" : "Bravo, c'est parfait"
+                mascotDetail = isEnglish ? "You've mastered this form" : "Tu maîtrises cette forme"
                 accentColor = .green
                 showManualValidation = false
                 
                 FeedbackManager.shared.success()
             } else if result.score >= requiredScore * 0.6 {
                 mascotMood = .neutral
-                mascotMessage = "Tu y es presque"
+                mascotMessage = isEnglish ? "Almost there" : "Tu y es presque"
                 accentColor = .orange
                 showManualValidation = true
                 
                 if let shape = result.shapeAnalysis {
                     if shape.strokeCoverage < 0.4 {
-                        mascotDetail = "Essaie de couvrir toute la lettre"
+                        mascotDetail = isEnglish ? "Try to cover the whole letter" : "Essaie de couvrir toute la lettre"
                     } else if shape.overflowPenalty > 0.4 {
-                        mascotDetail = "Reste dans les limites"
+                        mascotDetail = isEnglish ? "Stay within the bounds" : "Reste dans les limites"
                     } else {
                         mascotDetail = ArabicFunFacts.randomEncouragement()
                     }
@@ -289,7 +293,7 @@ struct FreeDrawingStep: View {
                 FeedbackManager.shared.warning()
             } else {
                 mascotMood = .sad
-                mascotMessage = "On réessaie ensemble"
+                mascotMessage = isEnglish ? "Let's try again together" : "On réessaie ensemble"
                 mascotDetail = ArabicFunFacts.randomEncouragement()
                 accentColor = .noorSecondary
                 showManualValidation = true
@@ -306,8 +310,8 @@ struct FreeDrawingStep: View {
                 
                 if isChallengeMode {
                     showFailure = true
-                    mascotMessage = "C'est pas bon..."
-                    mascotDetail = "On passe à la lettre suivante."
+                    mascotMessage = isEnglish ? "Not quite right..." : "C'est pas bon..."
+                    mascotDetail = isEnglish ? "Let's move to the next letter." : "On passe à la lettre suivante."
                 }
             }
         }

@@ -22,6 +22,7 @@
 		EF4FDDA7B53521597D3AB3DA /* DictationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1DA6863B69E96F484901DC /* DictationView.swift */; };
 		F113767A2F291E5800D25275 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11376792F291E5800D25275 /* LanguageManager.swift */; };
 		F113767C2F291F9B00D25275 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F113767B2F291F9B00D25275 /* Localizable.xcstrings */; };
+		F17F53E32F391C4800670D3B /* UnifiedCelebrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17F53E22F391C4800670D3B /* UnifiedCelebrationView.swift */; };
 		F190A1402F2B0F5B00F0A090 /* CelebrationOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A13A2F2B0F5B00F0A090 /* CelebrationOverlay.swift */; };
 		F190A1412F2B0F5B00F0A090 /* ArabicFunFacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A1362F2B0F5B00F0A090 /* ArabicFunFacts.swift */; };
 		F190A1422F2B0F5B00F0A090 /* RecognitionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A1342F2B0F5B00F0A090 /* RecognitionEngine.swift */; };
@@ -109,6 +110,7 @@
 		AAAA01022F2B000000000100 /* DailyChallengeInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyChallengeInviteView.swift; sourceTree = "<group>"; };
 		F11376792F291E5800D25275 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
 		F113767B2F291F9B00D25275 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		F17F53E22F391C4800670D3B /* UnifiedCelebrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedCelebrationView.swift; sourceTree = "<group>"; };
 		F190A12B2F2AFF2600F0A090 /* Noorine-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Noorine-Info.plist"; sourceTree = "<group>"; };
 		F190A1322F2B0F5B00F0A090 /* DrawingCanvasModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingCanvasModel.swift; sourceTree = "<group>"; };
 		F190A1332F2B0F5B00F0A090 /* FreeDrawingCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeDrawingCanvas.swift; sourceTree = "<group>"; };
@@ -172,15 +174,11 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		F1FCEB452F28D60B00AE6497 /* NoorineTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
 			path = NoorineTests;
 			sourceTree = "<group>";
 		};
 		F1FCEB4F2F28D60B00AE6497 /* NoorineUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
 			path = NoorineUITests;
 			sourceTree = "<group>";
 		};
@@ -262,6 +260,7 @@
 				F190A1352F2B0F5B00F0A090 /* Drawing */,
 				F190A1392F2B0F5B00F0A090 /* Mascot */,
 				F190A13E2F2B0F5B00F0A090 /* Steps */,
+				F17F53E22F391C4800670D3B /* UnifiedCelebrationView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -667,6 +666,7 @@
 				F190A1472F2B0F5B00F0A090 /* FreeDrawingCanvas.swift in Sources */,
 				F190A14C2F2B0F6800F0A090 /* LetterFormType.swift in Sources */,
 				F190A1482F2B0F5B00F0A090 /* EmotionalMascot.swift in Sources */,
+				F17F53E32F391C4800670D3B /* UnifiedCelebrationView.swift in Sources */,
 				F190A1492F2B0F5B00F0A090 /* SpeechBubble.swift in Sources */,
 				AAAA00072F2A000000000004 /* DataManager.swift in Sources */,
 				AAAA00092F2A000000000005 /* LevelDetailView.swift in Sources */,

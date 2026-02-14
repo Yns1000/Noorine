@@ -1,7 +1,12 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var languageManager: LanguageManager
     @State private var selectedTab = 0
+    
+    private var isEnglish: Bool {
+        languageManager.currentLanguage == .english
+    }
     
     init() {
         let appearance = UITabBarAppearance()
@@ -23,21 +28,21 @@ struct ContentView: View {
             HomeView()
                 .tabItem {
                     Image(systemName: selectedTab == 0 ? "map.fill" : "map")
-                    Text(LocalizedStringKey("Apprendre"))
+                    Text(LocalizedStringKey(isEnglish ? "Learn" : "Apprendre"))
                 }
                 .tag(0)
             
             PracticeView()
                 .tabItem {
                     Image(systemName: selectedTab == 1 ? "book.fill" : "book")
-                    Text(LocalizedStringKey("Réviser"))
+                    Text(LocalizedStringKey(isEnglish ? "Practice" : "Réviser"))
                 }
                 .tag(1)
             
             ProfileView()
                 .tabItem {
                     Image(systemName: selectedTab == 2 ? "person.fill" : "person")
-                    Text(LocalizedStringKey("Profil"))
+                    Text(LocalizedStringKey(isEnglish ? "Profile" : "Profil"))
                 }
                 .tag(2)
         }

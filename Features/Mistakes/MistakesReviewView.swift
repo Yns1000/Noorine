@@ -41,9 +41,9 @@ struct MistakesReviewView: View {
     }
     
     private func resetPartialProgress() {
-        for index in dataManager.mistakes.indices {
-            if dataManager.mistakes[index].correctionCount == 1 {
-                dataManager.mistakes[index].correctionCount = 0
+        for mistake in dataManager.getActiveMistakes() {
+            if mistake.correctionCount == 1 {
+                mistake.correctionCount = 0
             }
         }
     }
@@ -55,7 +55,7 @@ struct MistakesReviewView: View {
             VStack(spacing: 0) {
                 headerView
                 
-                if dataManager.mistakes.isEmpty {
+                if dataManager.getActiveMistakes().isEmpty {
                     emptyStateView
                 } else if let mistake = currentMistake {
                     progressIndicatorView(mistake: mistake)
@@ -84,7 +84,7 @@ struct MistakesReviewView: View {
     private var headerView: some View {
         HStack {
             Button(action: {
-                let hasPartialProgress = dataManager.mistakes.contains { $0.correctionCount == 1 }
+                let hasPartialProgress = dataManager.getActiveMistakes().contains { $0.correctionCount == 1 }
                 if hasPartialProgress {
                     withAnimation(.spring()) { showExitAlert = true }
                 } else {
@@ -117,11 +117,11 @@ struct MistakesReviewView: View {
             
             Spacer()
             
-            if !dataManager.mistakes.isEmpty {
+            if !dataManager.getActiveMistakes().isEmpty {
                 HStack(spacing: 4) {
                     Image(systemName: "xmark.circle.fill")
                         .font(.system(size: 12))
-                    Text("\(dataManager.mistakes.count)")
+                    Text("\(dataManager.getActiveMistakes().count)")
                         .font(.system(size: 14, weight: .bold))
                 }
                 .foregroundColor(.red.opacity(0.9))
@@ -257,7 +257,7 @@ struct MistakesReviewView: View {
     private func loadNextMistake() {
         isProcessingSuccess = false
         
-        guard !dataManager.mistakes.isEmpty else { currentMistake = nil; return }
+        guard !dataManager.getActiveMistakes().isEmpty else { currentMistake = nil; return }
         
         let selectedMistake = selectNextMistake()
         
@@ -506,13 +506,15 @@ struct MistakesReviewView: View {
     }
 
     private func selectNextMistake() -> MistakeItem? {
+        let activeMistakes = dataManager.getActiveMistakes()
+        
         if let focus = pendingFocus,
-           let targeted = dataManager.mistakes.first(where: { $0.itemId == focus.0 && $0.itemType == focus.1 }) {
+           let targeted = activeMistakes.first(where: { $0.itemId == focus.0 && $0.itemType == focus.1 }) {
             pendingFocus = nil
             return targeted
         }
         
-        let ordered = dataManager.mistakes.sorted { lhs, rhs in
+        let ordered = activeMistakes.sorted { lhs, rhs in
             if lhs.correctionCount != rhs.correctionCount {
                 return lhs.correctionCount < rhs.correctionCount
             }

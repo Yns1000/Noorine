@@ -4,11 +4,16 @@ struct LetterLessonView: View {
     let letter: ArabicLetter
     let levelNumber: Int
     @EnvironmentObject var dataManager: DataManager
+    @EnvironmentObject var languageManager: LanguageManager
     @Environment(\.presentationMode) var presentationMode
     
     @State private var currentStep = 0
     @State private var showCelebration = false
     @State private var completedForms: Set<LetterFormType> = []
+    
+    private var isEnglish: Bool {
+        languageManager.currentLanguage == .english
+    }
     
     private var availableForms: [LetterFormType] {
         LetterFormType.availableForms(for: letter.id)
@@ -65,7 +70,7 @@ struct LetterLessonView: View {
                                     .font(.system(size: 20, weight: .bold))
                                     .foregroundColor(.noorSecondary)
                                     .frame(width: 50, height: 50)
-                                    .background(Color.white)
+                                    .background(Color(.secondarySystemGroupedBackground))
                                     .clipShape(Circle())
                                     .shadow(color: .black.opacity(0.05), radius: 5)
                             }
@@ -75,7 +80,7 @@ struct LetterLessonView: View {
                         
                         Button(action: { withAnimation { currentStep += 1 } }) {
                             HStack {
-                                Text(LocalizedStringKey("Continuer"))
+                                Text(LocalizedStringKey(isEnglish ? "Continue" : "Continuer"))
                                     .font(.system(size: 18, weight: .bold))
                                 Image(systemName: "arrow.right")
                                     .font(.system(size: 18, weight: .bold))

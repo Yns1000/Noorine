@@ -1,19 +1,29 @@
 import SwiftUI
 
 struct DailyChallengeInviteView: View {
+    @EnvironmentObject var languageManager: LanguageManager
     let onStart: () -> Void
     let onDismiss: () -> Void
     
+    private var isEnglish: Bool {
+        languageManager.currentLanguage == .english
+    }
+    
     var body: some View {
         VStack(spacing: 16) {
+            Capsule()
+                .fill(Color.gray.opacity(0.4))
+                .frame(width: 36, height: 5)
+                .padding(.top, 10)
+            
             Spacer(minLength: 0)
             
             VStack(spacing: 6) {
-                Text(LocalizedStringKey("Défi du Jour !"))
+                Text(LocalizedStringKey(isEnglish ? "Daily Challenge!" : "Défi du Jour !"))
                     .font(.system(size: 24, weight: .black, design: .serif))
                     .foregroundColor(.noorText)
                 
-                Text(LocalizedStringKey("Prêt pour tes 6 exercices quotidiens ?\nGagne jusqu'à 60 XP en quelques minutes."))
+                Text(LocalizedStringKey(isEnglish ? "Ready for your 6 daily exercises?\nEarn up to 60 XP in minutes." : "Prêt pour tes 6 exercices quotidiens ?\nGagne jusqu'à 60 XP en quelques minutes."))
                     .font(.system(size: 15, weight: .medium))
                     .foregroundColor(.noorSecondary)
                     .multilineTextAlignment(.center)
@@ -26,7 +36,7 @@ struct DailyChallengeInviteView: View {
                 Button(action: onStart) {
                     HStack {
                         Image(systemName: "play.fill")
-                        Text(LocalizedStringKey("LANCER LE DÉFI"))
+                        Text(LocalizedStringKey(isEnglish ? "START CHALLENGE" : "LANCER LE DÉFI"))
                     }
                     .font(.system(size: 15, weight: .bold))
                     .foregroundColor(.noorDark)
@@ -38,7 +48,7 @@ struct DailyChallengeInviteView: View {
                 }
                 
                 Button(action: onDismiss) {
-                    Text(LocalizedStringKey("Plus tard"))
+                    Text(LocalizedStringKey(isEnglish ? "Later" : "Plus tard"))
                         .font(.system(size: 14, weight: .bold))
                         .foregroundColor(.noorSecondary)
                         .padding(.vertical, 2)

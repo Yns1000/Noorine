@@ -167,10 +167,10 @@ struct OnboardingView: View {
                     
                     TextField(languageManager.currentLanguage == .english ? "Your name" : "Ton prénom", text: $name)
                         .font(.system(size: 20, weight: .medium))
-                        .foregroundColor(.black)
+                        .foregroundColor(.noorText)
                         .multilineTextAlignment(.center)
                         .padding()
-                        .background(Color.white)
+                        .background(Color(.secondarySystemGroupedBackground))
                         .cornerRadius(16)
                         .shadow(color: .black.opacity(0.05), radius: 5)
                         .padding(.horizontal, 40)

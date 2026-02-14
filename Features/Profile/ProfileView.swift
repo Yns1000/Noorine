@@ -9,6 +9,10 @@ struct ProfileView: View {
     @State private var showLeagueSheet = false
     @State private var showFAQSheet = false
     
+    private var isEnglish: Bool {
+        languageManager.currentLanguage == .english
+    }
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -29,7 +33,7 @@ struct ProfileView: View {
                         ActivityCard()
                         
                         VStack(spacing: 16) {
-                            MenuSection(title: "Général") {
+                            MenuSection(title: LocalizedStringKey(isEnglish ? "General" : "Général")) {
                                 MenuToggleRow(
                                     icon: "bell.fill",
                                     color: .orange,
@@ -47,21 +51,17 @@ struct ProfileView: View {
                                 MenuRow(
                                     icon: "globe",
                                     color: .blue,
-                                    title: "Langue de l'interface",
+                                    title: LocalizedStringKey(isEnglish ? "Interface language" : "Langue de l'interface"),
                                     subtitle: LocalizedStringKey(languageManager.currentLanguage.displayName),
                                     action: { showLanguageSheet = true }
                                 )
-                                
-                                Divider().padding(.leading, 56)
-                                
-                                MenuRow(icon: "crown.fill", color: .noorGold, title: "Noorine Plus", subtitle: "Gérer l'abonnement")
                             }
                             
-                            MenuSection(title: "Préférences") {
+                            MenuSection(title: LocalizedStringKey(isEnglish ? "Preferences" : "Préférences")) {
                                 MenuToggleRow(
                                     icon: "speaker.wave.2.fill",
                                     color: .pink,
-                                    title: "Sons",
+                                    title: LocalizedStringKey(isEnglish ? "Sounds" : "Sons"),
                                     isOn: Binding(
                                         get: { dataManager.userProgress?.soundEnabled ?? true },
                                         set: { dataManager.userProgress?.soundEnabled = $0 }
@@ -73,7 +73,7 @@ struct ProfileView: View {
                                 MenuToggleRow(
                                     icon: "iphone.radiowaves.left.and.right",
                                     color: .purple,
-                                    title: "Vibrations",
+                                    title: LocalizedStringKey(isEnglish ? "Vibrations" : "Vibrations"),
                                     isOn: Binding(
                                         get: { dataManager.userProgress?.hapticsEnabled ?? true },
                                         set: { dataManager.userProgress?.hapticsEnabled = $0 }
@@ -81,12 +81,12 @@ struct ProfileView: View {
                                 )
                             }
                             
-                            MenuSection(title: LocalizedStringKey("Aide & Support")) {
+                            MenuSection(title: LocalizedStringKey(isEnglish ? "Help & Support" : "Aide & Support")) {
                                 MenuRow(
                                     icon: "questionmark.circle.fill",
                                     color: .blue,
-                                    title: LocalizedStringKey("Foire aux questions"),
-                                    subtitle: LocalizedStringKey("Tout savoir sur Noorine")
+                                    title: LocalizedStringKey(isEnglish ? "FAQ" : "Foire aux questions"),
+                                    subtitle: LocalizedStringKey(isEnglish ? "Learn about Noorine" : "Tout savoir sur Noorine")
                                 ) {
                                     showFAQSheet = true
                                 }
@@ -96,8 +96,8 @@ struct ProfileView: View {
                                 MenuRow(
                                     icon: "envelope.fill",
                                     color: .green,
-                                    title: LocalizedStringKey("Contactez-nous"),
-                                    subtitle: LocalizedStringKey("Signaler un problème")
+                                    title: LocalizedStringKey(isEnglish ? "Contact us" : "Contactez-nous"),
+                                    subtitle: LocalizedStringKey(isEnglish ? "Report an issue" : "Signaler un problème")
                                 ) {
                                     openMail()
                                 }
@@ -181,10 +181,10 @@ struct ProfileView: View {
                             }
 
                             VStack(spacing: 6) {
-                                Text(LocalizedStringKey("Développé par Sny avec ❤️ pour Lau"))
+                                Text(LocalizedStringKey(isEnglish ? "Made by Sny with ❤️ for Lau" : "Développé par Sny avec ❤️ pour Lau"))
                                     .font(.system(size: 13, weight: .medium))
                                     .foregroundColor(.noorSecondary)
-                                Text(LocalizedStringKey("et tous ceux qui veulent apprendre l'arabe."))
+                                Text(LocalizedStringKey(isEnglish ? "and all those who want to learn Arabic." : "et tous ceux qui veulent apprendre l'arabe."))
                                     .font(.system(size: 13, weight: .medium))
                                     .foregroundColor(.noorSecondary.opacity(0.8))
                             }
@@ -452,7 +452,7 @@ struct LanguageSelectionView: View {
             Color.noorBackground.ignoresSafeArea()
             
             VStack(spacing: 20) {
-                Text(LocalizedStringKey("Choisir la langue"))
+                Text(LocalizedStringKey(languageManager.currentLanguage == .english ? "Choose language" : "Choisir la langue"))
                     .font(.headline)
                     .foregroundColor(.noorText)
                     .padding(.top, 25)

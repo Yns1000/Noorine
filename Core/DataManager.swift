@@ -250,6 +250,7 @@ class DataManager: ObservableObject {
         let descriptor = FetchDescriptor<MistakeItem>()
         if let items = try? context.fetch(descriptor) {
             mistakes = items
+            cleanupOldMasteredItems()
         }
     }
     
@@ -257,8 +258,12 @@ class DataManager: ObservableObject {
         guard let context = modelContext else { return }
         
         if let existing = mistakes.first(where: { $0.itemId == itemId && $0.itemType == type && $0.formType == formType }) {
+            if existing.isInGracePeriod() {
+                return
+            }
             existing.correctionCount = 0
             existing.lastMistakeDate = Date()
+            existing.masteredDate = nil
         } else {
             let mistake = MistakeItem(itemId: itemId, itemType: type, formType: formType)
             context.insert(mistake)
@@ -274,10 +279,7 @@ class DataManager: ObservableObject {
         item.correctionCount += 1
         
         if item.correctionCount >= 2 {
-            context.delete(item)
-            if let index = mistakes.firstIndex(where: { $0.id == item.id }) {
-                mistakes.remove(at: index)
-            }
+            item.masteredDate = Date()
             try? context.save()
             return true
         } else {
@@ -287,7 +289,11 @@ class DataManager: ObservableObject {
     }
     
     func getMistakeCount() -> Int {
-        return mistakes.count
+        return mistakes.filter { !$0.isMastered }.count
+    }
+    
+    func getActiveMistakes() -> [MistakeItem] {
+        return mistakes.filter { !$0.isMastered }
     }
 
     func removeMistake(_ item: MistakeItem) {
@@ -297,5 +303,25 @@ class DataManager: ObservableObject {
             mistakes.remove(at: index)
         }
         try? context.save()
+    }
+    
+    func cleanupOldMasteredItems() {
+        guard let context = modelContext else { return }
+        
+        let itemsToRemove = mistakes.filter { item in
+            guard let mastered = item.masteredDate else { return false }
+            return Date().timeIntervalSince(mastered) > TimeInterval(24 * 60 * 60)
+        }
+        
+        for item in itemsToRemove {
+            context.delete(item)
+            if let index = mistakes.firstIndex(where: { $0.id == item.id }) {
+                mistakes.remove(at: index)
+            }
+        }
+        
+        if !itemsToRemove.isEmpty {
+            try? context.save()
+        }
     }
 }

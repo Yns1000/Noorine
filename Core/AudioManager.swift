@@ -156,16 +156,16 @@ class AudioManager: ObservableObject {
             "waw_fatha": "وَ", "waw_kasra": "وِ", "waw_damma": "وُ",
             "ya_fatha": "يَ", "ya_kasra": "يِ", "ya_damma": "يُ",
             
-            "ba_sukun": "بْ", "ta_sukun": "تْ", "tha_sukun": "ثْ",
-            "jim_sukun": "جْ", "ha_sukun": "حْ", "kha_sukun": "خْ",
-            "dal_sukun": "دْ", "dhal_sukun": "ذْ",
-            "ra_sukun": "رْ", "zay_sukun": "زْ",
-            "sin_sukun": "سْ", "shin_sukun": "شْ", "sad_sukun": "صْ",
-            "dad_sukun": "ضْ", "ta_emphatic_sukun": "طْ", "za_emphatic_sukun": "ظْ",
-            "ayn_sukun": "عْ", "ghayn_sukun": "غْ",
-            "fa_sukun": "فْ", "qaf_sukun": "قْ", "kaf_sukun": "كْ",
-            "lam_sukun": "لْ", "mim_sukun": "مْ", "nun_sukun": "نْ",
-            "ha_round_sukun": "هْ", "waw_sukun": "وْ", "ya_sukun": "يْ",
+            "ba_sukun": "أَبْ", "ta_sukun": "أَتْ", "tha_sukun": "أَثْ",
+            "jim_sukun": "أَجْ", "ha_sukun": "أَحْ", "kha_sukun": "أَخْ",
+            "dal_sukun": "أَدْ", "dhal_sukun": "أَذْ",
+            "ra_sukun": "أَرْ", "zay_sukun": "أَزْ",
+            "sin_sukun": "أَسْ", "shin_sukun": "أَشْ", "sad_sukun": "أَصْ",
+            "dad_sukun": "أَضْ", "ta_emphatic_sukun": "أَطْ", "za_emphatic_sukun": "أَظْ",
+            "ayn_sukun": "أَعْ", "ghayn_sukun": "أَغْ",
+            "fa_sukun": "أَفْ", "qaf_sukun": "أَقْ", "kaf_sukun": "أَكْ",
+            "lam_sukun": "أَلْ", "mim_sukun": "أَمْ", "nun_sukun": "أَنْ",
+            "ha_round_sukun": "أَهْ", "waw_sukun": "أَوْ", "ya_sukun": "أَيْ",
             
             "ba_shadda": "بَّ", "ta_shadda": "تَّ", "tha_shadda": "ثَّ",
             "jim_shadda": "جَّ", "ha_shadda": "حَّ", "kha_shadda": "خَّ",
@@ -240,7 +240,7 @@ class AudioManager: ObservableObject {
             case "fatha": arabicText = consonant + "َ"
             case "kasra": arabicText = consonant + "ِ"
             case "damma": arabicText = consonant + "ُ"
-            case "sukun": arabicText = consonant + "ْ"
+            case "sukun": arabicText = "أَ" + consonant + "ْ"
             case "shadda": arabicText = consonant + "َّ"
             case "tanwinFatha", "tanwin_fatha": arabicText = consonant + "ًا"
             case "tanwinKasra", "tanwin_kasra": arabicText = consonant + "ٍ"

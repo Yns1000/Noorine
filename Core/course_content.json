@@ -173,7 +173,8 @@
     {"id": 71, "arabic": "بِخَيْر", "transliteration": "Bikhair", "translationEn": "Fine/Well", "translationFr": "Bien", "componentLetterIds": [2, 7, 28, 10]},
     {"id": 72, "arabic": "أُحِبُّ", "transliteration": "Uhibbu", "translationEn": "I love", "translationFr": "J'aime", "componentLetterIds": [1, 6, 2]},
     {"id": 73, "arabic": "تَشَرَّفْنَا", "transliteration": "Tasharrafna", "translationEn": "Honored/Pleased", "translationFr": "Enchanté", "componentLetterIds": [3, 13, 10, 20, 25, 1]},
-    {"id": 74, "arabic": "بِمَعْرِفَتِكَ", "transliteration": "Bi-ma'rifatik", "translationEn": "To meet you", "translationFr": "De te connaître", "componentLetterIds": [2, 24, 18, 10, 20, 3, 22]}
+    {"id": 74, "arabic": "بِمَعْرِفَتِكَ", "transliteration": "Bi-ma'rifatik", "translationEn": "To meet you", "translationFr": "De te connaître", "componentLetterIds": [2, 24, 18, 10, 20, 3, 22]},
+    {"id": 75, "arabic": "أُرِيدُ", "transliteration": "Uridu", "translationEn": "I want", "translationFr": "Je veux", "componentLetterIds": [1, 10, 28, 8]}
   ],
   "phrases": [
     {"id": 1, "arabic": "أَنَا طَالِب", "transliteration": "Ana talib", "translationEn": "I am a student", "translationFr": "Je suis étudiant", "wordIds": [21, 26], "category": "introduction", "audioName": "phrase_ana_talib"},
@@ -207,9 +208,9 @@
     {"id": 28, "arabic": "عِنْدِي خَمْسَة أَقْلَام", "transliteration": "Indi khamsa aqlam", "translationEn": "I have five pens", "translationFr": "J'ai cinq stylos", "wordIds": [35], "category": "statement", "audioName": "phrase_indi_khamsa"},
     {"id": 29, "arabic": "هٰذَا أَنْفِي", "transliteration": "Hadha anfi", "translationEn": "This is my nose", "translationFr": "C'est mon nez", "wordIds": [25, 43], "category": "statement", "audioName": "phrase_hadha_anfi"},
     {"id": 30, "arabic": "هٰذِهِ عَيْنِي", "transliteration": "Hadhihi ayni", "translationEn": "This is my eye", "translationFr": "C'est mon œil", "wordIds": [42], "category": "statement", "audioName": "phrase_hadhihi_ayni"},
-    {"id": 31, "arabic": "أُرِيدُ خُبْزًا", "transliteration": "Uridu khubzan", "translationEn": "I want bread", "translationFr": "Je veux du pain", "wordIds": [47], "category": "statement", "audioName": "phrase_uridu_khubz"},
+    {"id": 31, "arabic": "أُرِيدُ خُبْزًا", "transliteration": "Uridu khubzan", "translationEn": "I want bread", "translationFr": "Je veux du pain", "wordIds": [75, 47], "category": "statement", "audioName": "phrase_uridu_khubz"},
     {"id": 32, "arabic": "هٰذَا حَلِيب", "transliteration": "Hadha halib", "translationEn": "This is milk", "translationFr": "C'est du lait", "wordIds": [25, 48], "category": "statement", "audioName": "phrase_hadha_halib"},
-    {"id": 33, "arabic": "أُرِيدُ تُفَّاحَة", "transliteration": "Uridu tuffaha", "translationEn": "I want an apple", "translationFr": "Je veux une pomme", "wordIds": [49], "category": "statement", "audioName": "phrase_uridu_tuffaha"},
+    {"id": 33, "arabic": "أُرِيدُ تُفَّاحَة", "transliteration": "Uridu tuffaha", "translationEn": "I want an apple", "translationFr": "Je veux une pomme", "wordIds": [75, 49], "category": "statement", "audioName": "phrase_uridu_tuffaha"},
     {"id": 34, "arabic": "أَنَا فِي المَدْرَسَة", "transliteration": "Ana fi al-madrasa", "translationEn": "I am at school", "translationFr": "Je suis à l'école", "wordIds": [21, 58], "category": "statement", "audioName": "phrase_ana_fi_madrasa"},
     {"id": 35, "arabic": "هٰذَا دَرْسِي", "transliteration": "Hadha darsi", "translationEn": "This is my lesson", "translationFr": "C'est ma leçon", "wordIds": [25, 60], "category": "statement", "audioName": "phrase_hadha_darsi"},
     {"id": 36, "arabic": "مِنْ أَيْنَ أَنْتَ؟", "transliteration": "Min ayna anta?", "translationEn": "Where are you from?", "translationFr": "D'où viens-tu?", "wordIds": [66, 67, 22], "category": "question", "audioName": "phrase_min_ayna"},
