@@ -460,7 +460,7 @@ struct PhraseLessonView: View {
                 .transition(.move(edge: .bottom).combined(with: .opacity))
             }
         }
-        .modifier(ShakeModifier(shakes: showError ? 2 : 0))
+        .modifier(PhraseShakeModifier(shakes: showError ? 2 : 0))
         .animation(.default, value: showError)
     }
     
@@ -935,7 +935,7 @@ struct PhraseFlowLayout: Layout {
     }
 }
 
-struct ShakeModifier: GeometryEffect {
+struct PhraseShakeModifier: GeometryEffect {
     var shakes: CGFloat
     var animatableData: CGFloat {
         get { shakes }

@@ -381,7 +381,7 @@ struct SpeakingPracticeView: View {
                     Circle()
                         .fill(RadialGradient(gradient: Gradient(colors: [.noorGold.opacity(0.3), .clear]), center: .center, startRadius: 40, endRadius: 100))
                         .frame(width: 180, height: 180)
-                    EmotionalMascot(mood: .happy, size: 100, showAura: false)
+                    EmotionalMascot(mood: .surprised, size: 100, showAura: false)
                 }
                 
                 VStack(spacing: 12) {
@@ -396,7 +396,7 @@ struct SpeakingPracticeView: View {
             .padding(40)
             .background(
                 RoundedRectangle(cornerRadius: 32)
-                    .fill(Color(UIColor.systemBackground).opacity(0.95))
+                    .fill(Color(red: 0.12, green: 0.12, blue: 0.15).opacity(0.97))
                     .shadow(color: .black.opacity(0.3), radius: 40, y: 10)
             )
             .padding(.horizontal, 32)
@@ -457,7 +457,7 @@ struct SpeakingPracticeView: View {
         
         if isValid {
             withAnimation { showSuccess = true }
-            mascotMood = .happy
+            mascotMood = .celebrating
             feedbackMessage = t("Bravo !")
             FeedbackManager.shared.success()
             failCount = 0
@@ -472,7 +472,7 @@ struct SpeakingPracticeView: View {
             
         } else if finalCheck {
             showFailure = true
-            mascotMood = .sad
+            mascotMood = .encouraging
             failCount += 1
             FeedbackManager.shared.error()
             dataManager.addMistake(itemId: String(currentLetter.id), type: "speaking")

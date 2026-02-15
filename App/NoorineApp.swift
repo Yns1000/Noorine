@@ -77,12 +77,27 @@ struct NoorineApp: App {
                 dataManager.configure(with: context)
                 SRSEngine.shared.configure(with: context)
             }
-        }
-        .modelContainer(sharedModelContainer)
-        .onChange(of: scenePhase) { _, newPhase in
-            if newPhase == .active {
-                NotificationManager.shared.scheduleAllNotifications()
+            .onChange(of: scenePhase) { _, newPhase in
+                if newPhase == .active {
+                    NotificationManager.shared.scheduleAllNotifications()
+                }
+            }
+            .onOpenURL { url in
+                print("Deep Link Received: \(url)")
+                if url.scheme == "noorine" && url.host == "lesson" {
+                    if let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
+                       let queryItems = components.queryItems,
+                       let levelValue = queryItems.first(where: { $0.name == "level" })?.value,
+                       let levelId = Int(levelValue) {
+                        
+                        print("Deep Link: Requesting level \(levelId)")
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            dataManager.requestedLevelId = levelId
+                        }
+                    }
+                }
             }
         }
+        .modelContainer(sharedModelContainer)
     }
 }

@@ -154,6 +154,21 @@ struct ArabicWord: Identifiable, Codable, Hashable {
     let translationEn: String
     let translationFr: String
     let componentLetterIds: [Int]
+    let rootId: String?
+
+    init(id: Int, arabic: String, transliteration: String, translationEn: String, translationFr: String, componentLetterIds: [Int], rootId: String? = nil) {
+        self.id = id; self.arabic = arabic; self.transliteration = transliteration
+        self.translationEn = translationEn; self.translationFr = translationFr
+        self.componentLetterIds = componentLetterIds; self.rootId = rootId
+    }
+}
+
+struct ArabicRoot: Identifiable, Codable {
+    let id: String
+    let letters: String
+    let meaningEn: String
+    let meaningFr: String
+    let wordIds: [Int]
 }
 
 struct ArabicPhrase: Identifiable, Codable {
@@ -245,6 +260,18 @@ struct CourseContent {
         loaded?.words ?? fallbackWords
     }
     
+    static var roots: [ArabicRoot] {
+        loaded?.roots ?? []
+    }
+
+    static func root(byId id: String) -> ArabicRoot? {
+        roots.first { $0.id == id }
+    }
+
+    static func wordsForRoot(_ rootId: String) -> [ArabicWord] {
+        words.filter { $0.rootId == rootId }
+    }
+
     static var phrases: [ArabicPhrase] {
         loaded?.phrases ?? fallbackPhrases
     }

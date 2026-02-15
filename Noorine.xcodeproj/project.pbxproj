@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		72527150CD016A2A1FC162BA /* SentenceBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C34CAEF02488FBAD2499ECA /* SentenceBuilderView.swift */; };
-		BB000001F660000000000001 /* SRSCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000002F660000000000002 /* SRSCard.swift */; };
-		BB000003F660000000000003 /* GameConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000004F660000000000004 /* GameConstants.swift */; };
 		7AF7AC62BA15F062BB6F5619 /* MatchingPairsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092483147B22D6A13D637F22 /* MatchingPairsView.swift */; };
 		AAAA00012F2A000000000001 /* ArabicLetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00002F2A000000000001 /* ArabicLetter.swift */; };
 		AAAA00032F2A000000000002 /* LevelProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00022F2A000000000002 /* LevelProgress.swift */; };
@@ -20,11 +18,18 @@
 		AAAA00112F2A000000000011 /* FreeDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00102F2A000000000010 /* FreeDrawingView.swift */; };
 		AAAA01012F2B000000000101 /* DailyChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA01002F2B000000000100 /* DailyChallengeView.swift */; };
 		AAAA01032F2B000000000101 /* DailyChallengeInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA01022F2B000000000100 /* DailyChallengeInviteView.swift */; };
+		BB000001F660000000000001 /* SRSCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000002F660000000000002 /* SRSCard.swift */; };
+		BB000003F660000000000003 /* GameConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000004F660000000000004 /* GameConstants.swift */; };
+		CC000001F770000000000001 /* SharedDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC000002F770000000000002 /* SharedDataStore.swift */; };
+		CC000003F770000000000003 /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC000004F770000000000004 /* LiveActivityManager.swift */; };
 		D42BE3B561DC8ED228FDDB06 /* FlashcardLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF66D2F2FB8C7008A9EBC /* FlashcardLibraryView.swift */; };
 		EF4FDDA7B53521597D3AB3DA /* DictationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1DA6863B69E96F484901DC /* DictationView.swift */; };
 		F113767A2F291E5800D25275 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11376792F291E5800D25275 /* LanguageManager.swift */; };
 		F113767C2F291F9B00D25275 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F113767B2F291F9B00D25275 /* Localizable.xcstrings */; };
 		F17F53E32F391C4800670D3B /* UnifiedCelebrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17F53E22F391C4800670D3B /* UnifiedCelebrationView.swift */; };
+		F17F53F22F420FD900670D3B /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F17F53F12F420FD900670D3B /* WidgetKit.framework */; };
+		F17F53F42F420FD900670D3B /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F17F53F32F420FD900670D3B /* SwiftUI.framework */; };
+		F17F54052F420FDA00670D3B /* NoorineWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F17F53EF2F420FD900670D3B /* NoorineWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F190A1402F2B0F5B00F0A090 /* CelebrationOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A13A2F2B0F5B00F0A090 /* CelebrationOverlay.swift */; };
 		F190A1412F2B0F5B00F0A090 /* ArabicFunFacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A1362F2B0F5B00F0A090 /* ArabicFunFacts.swift */; };
 		F190A1422F2B0F5B00F0A090 /* RecognitionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A1342F2B0F5B00F0A090 /* RecognitionEngine.swift */; };
@@ -81,6 +86,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		F17F54032F420FDA00670D3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F1FCEB2B2F28D60900AE6497 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F17F53EE2F420FD900670D3B;
+			remoteInfo = NoorineWidgetExtension;
+		};
 		F1FCEB432F28D60B00AE6497 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F1FCEB2B2F28D60900AE6497 /* Project object */;
@@ -97,10 +109,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		F17F540A2F420FDA00670D3B /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F17F54052F420FDA00670D3B /* NoorineWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		092483147B22D6A13D637F22 /* MatchingPairsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MatchingPairsView.swift; sourceTree = "<group>"; };
-		BB000002F660000000000002 /* SRSCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSCard.swift; sourceTree = "<group>"; };
-		BB000004F660000000000004 /* GameConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConstants.swift; sourceTree = "<group>"; };
 		1D1DA6863B69E96F484901DC /* DictationView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DictationView.swift; sourceTree = "<group>"; };
 		3C34CAEF02488FBAD2499ECA /* SentenceBuilderView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SentenceBuilderView.swift; sourceTree = "<group>"; };
 		AAAA00002F2A000000000001 /* ArabicLetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArabicLetter.swift; sourceTree = "<group>"; };
@@ -112,9 +136,18 @@
 		AAAA00102F2A000000000010 /* FreeDrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeDrawingView.swift; sourceTree = "<group>"; };
 		AAAA01002F2B000000000100 /* DailyChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyChallengeView.swift; sourceTree = "<group>"; };
 		AAAA01022F2B000000000100 /* DailyChallengeInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyChallengeInviteView.swift; sourceTree = "<group>"; };
+		BB000002F660000000000002 /* SRSCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSCard.swift; sourceTree = "<group>"; };
+		BB000004F660000000000004 /* GameConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConstants.swift; sourceTree = "<group>"; };
+		CC000002F770000000000002 /* SharedDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDataStore.swift; sourceTree = "<group>"; };
+		CC000004F770000000000004 /* LiveActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityManager.swift; sourceTree = "<group>"; };
 		F11376792F291E5800D25275 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
 		F113767B2F291F9B00D25275 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		F17F53E22F391C4800670D3B /* UnifiedCelebrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedCelebrationView.swift; sourceTree = "<group>"; };
+		F17F53EA2F420F7000670D3B /* Noorine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Noorine.entitlements; sourceTree = "<group>"; };
+		F17F53EF2F420FD900670D3B /* NoorineWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NoorineWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F17F53F12F420FD900670D3B /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		F17F53F32F420FD900670D3B /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		F17F540D2F420FE600670D3B /* NoorineWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NoorineWidgetExtension.entitlements; sourceTree = "<group>"; };
 		F190A12B2F2AFF2600F0A090 /* Noorine-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Noorine-Info.plist"; sourceTree = "<group>"; };
 		F190A1322F2B0F5B00F0A090 /* DrawingCanvasModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingCanvasModel.swift; sourceTree = "<group>"; };
 		F190A1332F2B0F5B00F0A090 /* FreeDrawingCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeDrawingCanvas.swift; sourceTree = "<group>"; };
@@ -175,7 +208,25 @@
 		F1FCEB752F2909FB00AE6497 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		F17F54062F420FDA00670D3B /* Exceptions for "NoorineWidget" folder in "NoorineWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = F17F53EE2F420FD900670D3B /* NoorineWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		F17F53F52F420FD900670D3B /* NoorineWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F17F54062F420FDA00670D3B /* Exceptions for "NoorineWidget" folder in "NoorineWidgetExtension" target */,
+			);
+			path = NoorineWidget;
+			sourceTree = "<group>";
+		};
 		F1FCEB452F28D60B00AE6497 /* NoorineTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = NoorineTests;
@@ -189,6 +240,15 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F17F53EC2F420FD900670D3B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F17F53F42F420FD900670D3B /* SwiftUI.framework in Frameworks */,
+				F17F53F22F420FD900670D3B /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F1FCEB302F28D60900AE6497 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -225,6 +285,15 @@
 				F1C720752F34148F00EDA1E8 /* PhraseLessonView.swift */,
 			);
 			path = Learning;
+			sourceTree = "<group>";
+		};
+		F17F53F02F420FD900670D3B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F17F53F12F420FD900670D3B /* WidgetKit.framework */,
+				F17F53F32F420FD900670D3B /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		F190A1352F2B0F5B00F0A090 /* Drawing */ = {
@@ -346,6 +415,8 @@
 		F1FCEB2A2F28D60900AE6497 = {
 			isa = PBXGroup;
 			children = (
+				F17F540D2F420FE600670D3B /* NoorineWidgetExtension.entitlements */,
+				F17F53EA2F420F7000670D3B /* Noorine.entitlements */,
 				F190A12B2F2AFF2600F0A090 /* Noorine-Info.plist */,
 				F1FCEB632F28D79800AE6497 /* Models */,
 				F1FCEB622F28D78C00AE6497 /* Features */,
@@ -354,6 +425,8 @@
 				F1FCEB5F2F28D6D000AE6497 /* App */,
 				F1FCEB452F28D60B00AE6497 /* NoorineTests */,
 				F1FCEB4F2F28D60B00AE6497 /* NoorineUITests */,
+				F17F53F52F420FD900670D3B /* NoorineWidget */,
+				F17F53F02F420FD900670D3B /* Frameworks */,
 				F1FCEB342F28D60900AE6497 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -364,6 +437,7 @@
 				F1FCEB332F28D60900AE6497 /* Noorine.app */,
 				F1FCEB422F28D60B00AE6497 /* NoorineTests.xctest */,
 				F1FCEB4C2F28D60B00AE6497 /* NoorineUITests.xctest */,
+				F17F53EF2F420FD900670D3B /* NoorineWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -396,6 +470,8 @@
 				F1C7206F2F32C36100EDA1E8 /* course_content.json */,
 				F1C720712F34138C00EDA1E8 /* SRSEngine.swift */,
 				BB000004F660000000000004 /* GameConstants.swift */,
+				CC000002F770000000000002 /* SharedDataStore.swift */,
+				CC000004F770000000000004 /* LiveActivityManager.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -483,6 +559,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		F17F53EE2F420FD900670D3B /* NoorineWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F17F54072F420FDA00670D3B /* Build configuration list for PBXNativeTarget "NoorineWidgetExtension" */;
+			buildPhases = (
+				F17F53EB2F420FD900670D3B /* Sources */,
+				F17F53EC2F420FD900670D3B /* Frameworks */,
+				F17F53ED2F420FD900670D3B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				F17F53F52F420FD900670D3B /* NoorineWidget */,
+			);
+			name = NoorineWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = NoorineWidgetExtension;
+			productReference = F17F53EF2F420FD900670D3B /* NoorineWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		F1FCEB322F28D60900AE6497 /* Noorine */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1FCEB562F28D60B00AE6497 /* Build configuration list for PBXNativeTarget "Noorine" */;
@@ -490,10 +588,12 @@
 				F1FCEB2F2F28D60900AE6497 /* Sources */,
 				F1FCEB302F28D60900AE6497 /* Frameworks */,
 				F1FCEB312F28D60900AE6497 /* Resources */,
+				F17F540A2F420FDA00670D3B /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F17F54042F420FDA00670D3B /* PBXTargetDependency */,
 			);
 			name = Noorine;
 			productName = Noorine;
@@ -549,9 +649,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 2620;
+				LastSwiftUpdateCheck = 2630;
 				LastUpgradeCheck = 2630;
 				TargetAttributes = {
+					F17F53EE2F420FD900670D3B = {
+						CreatedOnToolsVersion = 26.3;
+					};
 					F1FCEB322F28D60900AE6497 = {
 						CreatedOnToolsVersion = 26.2;
 					};
@@ -583,11 +686,19 @@
 				F1FCEB322F28D60900AE6497 /* Noorine */,
 				F1FCEB412F28D60B00AE6497 /* NoorineTests */,
 				F1FCEB4B2F28D60B00AE6497 /* NoorineUITests */,
+				F17F53EE2F420FD900670D3B /* NoorineWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F17F53ED2F420FD900670D3B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F1FCEB312F28D60900AE6497 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -616,6 +727,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F17F53EB2F420FD900670D3B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F1FCEB2F2F28D60900AE6497 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -687,6 +805,8 @@
 				D42BE3B561DC8ED228FDDB06 /* FlashcardLibraryView.swift in Sources */,
 				BB000001F660000000000001 /* SRSCard.swift in Sources */,
 				BB000003F660000000000003 /* GameConstants.swift in Sources */,
+				CC000001F770000000000001 /* SharedDataStore.swift in Sources */,
+				CC000003F770000000000003 /* LiveActivityManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -707,6 +827,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		F17F54042F420FDA00670D3B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F17F53EE2F420FD900670D3B /* NoorineWidgetExtension */;
+			targetProxy = F17F54032F420FDA00670D3B /* PBXContainerItemProxy */;
+		};
 		F1FCEB442F28D60B00AE6497 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F1FCEB322F28D60900AE6497 /* Noorine */;
@@ -720,6 +845,70 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		F17F54082F420FDA00670D3B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = NoorineWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 25FS3X3RCW;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NoorineWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NoorineWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yns.Noorine.NoorineWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F17F54092F420FDA00670D3B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = NoorineWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 25FS3X3RCW;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NoorineWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NoorineWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yns.Noorine.NoorineWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		F1FCEB542F28D60B00AE6497 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -852,6 +1041,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Noorine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 25FS3X3RCW;
@@ -888,6 +1078,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Noorine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 25FS3X3RCW;
@@ -1006,6 +1197,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F17F54072F420FDA00670D3B /* Build configuration list for PBXNativeTarget "NoorineWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F17F54082F420FDA00670D3B /* Debug */,
+				F17F54092F420FDA00670D3B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F1FCEB2E2F28D60900AE6497 /* Build configuration list for PBXProject "Noorine" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

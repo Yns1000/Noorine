@@ -1,4 +1,5 @@
 import SwiftUI
+import ActivityKit
 
 struct LetterLessonView: View {
     let letter: ArabicLetter
@@ -33,6 +34,7 @@ struct LetterLessonView: View {
                     totalSteps: totalSteps,
                     onClose: {
                         logLetterMistakeOnQuit()
+                        endLiveActivity(xp: 0)
                         presentationMode.wrappedValue.dismiss()
                     }
                 )
@@ -106,8 +108,17 @@ struct LetterLessonView: View {
             }
         }
         .navigationBarHidden(true)
+        .onAppear {
+            startLiveActivity()
+        }
+        .onChange(of: currentStep) { _, newStep in
+            updateLiveActivity(step: newStep)
+        }
         .onDisappear {
             logLetterMistakeOnQuit()
+            if !showCelebration {
+                cancelLiveActivity()
+            }
         }
     }
 
@@ -142,10 +153,51 @@ struct LetterLessonView: View {
         }
         
         dataManager.completeLetter(letterId: letter.id, inLevel: levelNumber)
+        endLiveActivity(xp: 10)
         withAnimation {
             showCelebration = true
         }
         FeedbackManager.shared.success()
+    }
+
+    private func startLiveActivity() {
+        if #available(iOS 16.2, *) {
+            LiveActivityManager.shared.startLessonActivity(
+                levelNumber: levelNumber,
+                totalItems: totalSteps,
+                lessonTitle: letter.name
+            )
+        }
+    }
+
+    private func updateLiveActivity(step: Int) {
+        if #available(iOS 16.2, *) {
+            let progress = Double(step) / Double(max(totalSteps - 1, 1))
+            let formIndex = max(0, step - 2)
+            let currentFormName = formIndex < availableForms.count
+                ? availableForms[formIndex].rawValue
+                : letter.name
+
+            LiveActivityManager.shared.updateProgress(
+                letterName: currentFormName,
+                letterArabic: letter.isolated,
+                progress: progress,
+                xpEarned: step * 3,
+                lessonTitle: letter.name
+            )
+        }
+    }
+
+    private func endLiveActivity(xp: Int) {
+        if #available(iOS 16.2, *) {
+            LiveActivityManager.shared.endLessonActivity(xpEarned: xp)
+        }
+    }
+
+    private func cancelLiveActivity() {
+        if #available(iOS 16.2, *) {
+            LiveActivityManager.shared.cancelActivity()
+        }
     }
 }
 import SwiftUI

@@ -3,6 +3,11 @@ import SwiftData
 
 struct PracticeView: View {
     @EnvironmentObject var dataManager: DataManager
+    @EnvironmentObject var languageManager: LanguageManager
+    
+    private var isEnglish: Bool {
+        languageManager.currentLanguage == .english
+    }
     
     var body: some View {
         NavigationStack {

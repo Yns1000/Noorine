@@ -1,5 +1,6 @@
 import SwiftUI
 import UniformTypeIdentifiers
+import ActivityKit
 
 struct LevelDetailView: View {
     @EnvironmentObject var dataManager: DataManager
@@ -318,6 +319,9 @@ struct VowelLessonView: View {
                 HStack {
                     Button(action: {
                         logRemainingVowelQuizMistakes()
+                        if #available(iOS 16.2, *) {
+                            LiveActivityManager.shared.endLessonActivity(xpEarned: 0)
+                        }
                         dismiss()
                     }) {
                         Image(systemName: "xmark")
@@ -357,6 +361,9 @@ struct VowelLessonView: View {
                             case .completion:
                                 VowelCompletionView(levelNumber: levelNumber, onContinue: {
                                     dataManager.completeLevel(levelNumber: levelNumber)
+                                    if #available(iOS 16.2, *) {
+                                        LiveActivityManager.shared.endLessonActivity(xpEarned: 15)
+                                    }
                                     dismiss()
                                 })
                             }
@@ -391,9 +398,52 @@ struct VowelLessonView: View {
         }
         .onAppear {
             loadSteps()
+            if #available(iOS 16.2, *) {
+                LiveActivityManager.shared.startLessonActivity(
+                    levelNumber: levelNumber,
+                    totalItems: steps.count,
+                    lessonTitle: languageManager.currentLanguage == .english ? "Vowels" : "Voyelles"
+                )
+            }
+        }
+        .onChangeCompat(of: currentStepIndex) { newIndex in
+            if #available(iOS 16.2, *) {
+                let progress = steps.count > 1 ? Double(newIndex) / Double(steps.count - 1) : 0
+                
+                var letterName = "Étape \(newIndex + 1)"
+                var letterArabic = "icon:textformat"
+                
+                if newIndex < steps.count {
+                    switch steps[newIndex] {
+                    case .intro(let v), .specialIntro(let v):
+                        letterName = v.name
+                        letterArabic = v.symbol
+                    case .example(_, let ex):
+                        letterName = ex.transliteration
+                        letterArabic = ex.combination
+                    case .quiz(let t, _, _):
+                        letterName = "Quiz: \(t.name)"
+                        letterArabic = "icon:questionmark.circle.fill"
+                    case .completion:
+                        letterName = "Bravo !"
+                        letterArabic = "icon:checkmark.seal.fill"
+                    }
+                }
+
+                LiveActivityManager.shared.updateProgress(
+                    letterName: letterName,
+                    letterArabic: letterArabic,
+                    progress: progress,
+                    xpEarned: newIndex * 3,
+                    lessonTitle: languageManager.currentLanguage == .english ? "Vowels" : "Voyelles"
+                )
+            }
         }
         .onDisappear {
             logRemainingVowelQuizMistakes()
+            if #available(iOS 16.2, *) {
+                LiveActivityManager.shared.cancelActivity()
+            }
         }
     }
 
@@ -415,6 +465,19 @@ struct VowelLessonView: View {
         guard let levelDef = CourseContent.getLevels(language: languageManager.currentLanguage).first(where: { $0.id == levelNumber }),
               levelDef.type == .vowels else { return [] }
         return levelDef.contentIds.compactMap { id in CourseContent.vowels.first(where: { $0.id == id }) }
+    }
+}
+
+extension View {
+    @ViewBuilder
+    func onChangeCompat<V: Equatable>(of value: V, perform action: @escaping (V) -> Void) -> some View {
+        if #available(iOS 17.0, *) {
+            self.onChange(of: value) { _, newValue in
+                action(newValue)
+            }
+        } else {
+            self.onChange(of: value, perform: action)
+        }
     }
 }
 
@@ -1156,7 +1219,8 @@ struct WordAssemblyView: View {
     @State private var placedSourceIds: [UUID?] = []
     @State private var showSuccess = false
     @State private var showError = false
-    
+    @State private var showRootBanner = false
+
     @State private var selectedLetter: UniqueLetter? = nil
     
     var currentWord: ArabicWord? {
@@ -1193,6 +1257,11 @@ struct WordAssemblyView: View {
                 if showSuccess {
                     VStack {
                         Spacer()
+                        if showRootBanner, let word = currentWord, let rootId = word.rootId, let root = CourseContent.root(byId: rootId) {
+                            RootBannerView(root: root, currentWord: word, isEnglish: languageManager.currentLanguage == .english)
+                                .padding(.horizontal, 20)
+                                .transition(.move(edge: .bottom).combined(with: .opacity))
+                        }
                         nextButton
                     }
                 }
@@ -1260,6 +1329,17 @@ struct WordAssemblyView: View {
     
     private var mascotSection: some View {
         VStack(spacing: 12) {
+            if !showRootBanner {
+                EmotionalMascot(
+                    mood: showSuccess ? .celebrating : (showError ? .encouraging : (selectedLetter != nil ? .thinking : .neutral)),
+                    size: 50,
+                    showAura: false
+                )
+                .animation(.spring(response: 0.4), value: showSuccess)
+                .animation(.spring(response: 0.4), value: showError)
+                .transition(.scale.combined(with: .opacity))
+            }
+            
             if showSuccess {
                 HStack(spacing: 10) {
                     Image(systemName: "checkmark.circle.fill")
@@ -1686,6 +1766,13 @@ struct WordAssemblyView: View {
         if allCorrect {
             FeedbackManager.shared.success()
             withAnimation { showSuccess = true }
+            if word.rootId != nil {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
+                        showRootBanner = true
+                    }
+                }
+            }
         } else {
             FeedbackManager.shared.error()
             showError = true
@@ -1721,6 +1808,7 @@ struct WordAssemblyView: View {
     private func loadWord(_ word: ArabicWord) {
         showSuccess = false
         showError = false
+        showRootBanner = false
         selectedLetter = nil
         placedLetters = Array(repeating: nil, count: word.componentLetterIds.count)
         placedSourceIds = Array(repeating: nil, count: word.componentLetterIds.count)
@@ -1783,6 +1871,106 @@ struct LevelSummaryView: View {
                 dismiss()
                 onContinue()
             }
+        )
+    }
+}
+
+struct RootBannerView: View {
+    let root: ArabicRoot
+    let currentWord: ArabicWord
+    let isEnglish: Bool
+    @State private var showFamily = false
+
+    var familyWords: [ArabicWord] {
+        CourseContent.wordsForRoot(root.id).filter { $0.id != currentWord.id }
+    }
+
+    var body: some View {
+        VStack(spacing: 12) {
+            HStack(spacing: 10) {
+                EmotionalMascot(mood: .thinking, size: 36, showAura: false)
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(isEnglish ? "Root" : "Racine")
+                        .font(.system(size: 11, weight: .semibold))
+                        .foregroundColor(.noorSecondary)
+                        .textCase(.uppercase)
+
+                    HStack(spacing: 6) {
+                        Text(root.letters)
+                            .font(.system(size: 22, weight: .bold))
+                            .foregroundColor(.noorGold)
+                            .environment(\.layoutDirection, .rightToLeft)
+
+                        Text("•")
+                            .foregroundColor(.noorSecondary)
+
+                        Text(isEnglish ? root.meaningEn : root.meaningFr)
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundColor(.noorText)
+                    }
+                }
+
+                Spacer()
+
+                if !familyWords.isEmpty {
+                    Button {
+                        withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
+                            showFamily.toggle()
+                        }
+                    } label: {
+                        Image(systemName: showFamily ? "chevron.up.circle.fill" : "chevron.down.circle.fill")
+                            .font(.system(size: 22))
+                            .foregroundColor(.noorGold)
+                    }
+                }
+            }
+
+            if showFamily && !familyWords.isEmpty {
+                VStack(spacing: 8) {
+                    Text(isEnglish ? "Same family" : "Même famille")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundColor(.noorSecondary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+
+                    ForEach(familyWords) { word in
+                        HStack(spacing: 12) {
+                            Text(word.arabic)
+                                .font(.system(size: 20, weight: .bold))
+                                .foregroundColor(.noorText)
+                                .environment(\.layoutDirection, .rightToLeft)
+
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(word.transliteration)
+                                    .font(.system(size: 13, weight: .medium))
+                                    .foregroundColor(.noorSecondary)
+                                Text(isEnglish ? word.translationEn : word.translationFr)
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundColor(.noorText)
+                            }
+
+                            Spacer()
+                        }
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.noorGold.opacity(0.08))
+                        )
+                    }
+                }
+                .transition(.opacity.combined(with: .move(edge: .top)))
+            }
+        }
+        .padding(16)
+        .background(
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color(.secondarySystemGroupedBackground))
+                .shadow(color: .black.opacity(0.05), radius: 10, y: 5)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color.noorGold.opacity(0.2), lineWidth: 1)
+                )
         )
     }
 }

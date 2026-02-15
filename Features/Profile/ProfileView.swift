@@ -1,4 +1,5 @@
 import SwiftUI
+import Charts
 
 struct ProfileView: View {
     @EnvironmentObject var languageManager: LanguageManager
@@ -31,6 +32,8 @@ struct ProfileView: View {
                         )
                         
                         ActivityCard()
+                        
+                        XPProgressionChartView()
                         
                         VStack(spacing: 6) {
                             Text(LocalizedStringKey(isEnglish ? "Made by Sny with ❤️ for Lau" : "Développé par Sny avec ❤️ pour Lau"))
@@ -87,7 +90,10 @@ struct ProfileView: View {
                                     title: LocalizedStringKey(isEnglish ? "Vibrations" : "Vibrations"),
                                     isOn: Binding(
                                         get: { dataManager.userProgress?.hapticsEnabled ?? true },
-                                        set: { dataManager.userProgress?.hapticsEnabled = $0 }
+                                        set: {
+                                            dataManager.userProgress?.hapticsEnabled = $0
+                                            dataManager.syncHapticPreference()
+                                        }
                                     )
                                 )
                             }
@@ -665,7 +671,10 @@ struct ActivityCard: View {
     @EnvironmentObject var languageManager: LanguageManager
     @EnvironmentObject var dataManager: DataManager
     @Environment(\.colorScheme) var colorScheme
-    
+    @State private var showHeatmap = false
+
+    private var isEnglish: Bool { languageManager.currentLanguage == .english }
+
     private var days: [String] {
         var calendar = Calendar.current
         calendar.locale = Locale(identifier: languageManager.currentLanguage.rawValue)
@@ -674,17 +683,17 @@ struct ActivityCard: View {
             symbols[1], symbols[2], symbols[3], symbols[4], symbols[5], symbols[6], symbols[0]
         ]
     }
-    
+
     var activityData: [Double] {
         var heights = Array(repeating: 0.0, count: 7)
         guard let progress = dataManager.userProgress else { return heights }
-        
+
         let calendar = Calendar.current
         let today = Date()
         guard let monday = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today)) else { return heights }
-        
+
         let dailyGoal = 50.0
-        
+
         for dayOffset in 0..<7 {
             if let date = calendar.date(byAdding: .day, value: dayOffset, to: monday) {
                 let formatter = DateFormatter()
@@ -696,47 +705,337 @@ struct ActivityCard: View {
         }
         return heights
     }
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack {
-                Text(LocalizedStringKey("Activité"))
+                Text(LocalizedStringKey(isEnglish ? "Activity" : "Activité"))
                     .font(.headline)
                     .foregroundColor(.noorText)
                 Spacer()
-                Text(LocalizedStringKey("Cette semaine"))
-                    .font(.caption)
-                    .foregroundColor(.noorSecondary)
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 5)
-                    .background(Color.noorBackground)
-                    .cornerRadius(10)
-            }
-            
-            HStack(alignment: .bottom, spacing: 0) {
-                ForEach(0..<7) { index in
-                    VStack(spacing: 8) {
-                        ZStack(alignment: .bottom) {
-                            Capsule()
-                                .fill(Color.noorSecondary.opacity(0.15))
-                                .frame(width: 8, height: 100)
-                            
-                            Capsule()
-                                .fill(
-                                    LinearGradient(
-                                        gradient: Gradient(colors: [.noorGold, .orange]),
-                                        startPoint: .bottom,
-                                        endPoint: .top
-                                    )
-                                )
-                                .frame(width: 8, height: 100 * activityData[index])
-                                .animation(.spring(response: 0.6, dampingFraction: 0.8), value: activityData[index])
-                        }
-                        Text(days[index])
-                            .font(.system(size: 10, weight: .bold))
-                            .foregroundColor(activityData[index] > 0.5 ? .noorText : .noorSecondary.opacity(0.7))
+                Button {
+                    withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
+                        showHeatmap.toggle()
                     }
-                    .frame(maxWidth: .infinity)
+                } label: {
+                    Text(LocalizedStringKey(showHeatmap ? (isEnglish ? "This week" : "Cette semaine") : (isEnglish ? "All time" : "Tout")))
+                        .font(.caption.weight(.semibold))
+                        .foregroundColor(.noorGold)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 5)
+                        .background(Color.noorGold.opacity(0.1))
+                        .cornerRadius(10)
+                }
+            }
+
+            if showHeatmap {
+                ActivityHeatmapView()
+                    .transition(.opacity.combined(with: .move(edge: .bottom)))
+            } else {
+                HStack(alignment: .bottom, spacing: 0) {
+                    ForEach(0..<7) { index in
+                        VStack(spacing: 8) {
+                            ZStack(alignment: .bottom) {
+                                Capsule()
+                                    .fill(Color.noorSecondary.opacity(0.15))
+                                    .frame(width: 8, height: 100)
+
+                                Capsule()
+                                    .fill(
+                                        LinearGradient(
+                                            gradient: Gradient(colors: [.noorGold, .orange]),
+                                            startPoint: .bottom,
+                                            endPoint: .top
+                                        )
+                                    )
+                                    .frame(width: 8, height: 100 * activityData[index])
+                                    .animation(.spring(response: 0.6, dampingFraction: 0.8), value: activityData[index])
+                            }
+                            Text(days[index])
+                                .font(.system(size: 10, weight: .bold))
+                                .foregroundColor(activityData[index] > 0.5 ? .noorText : .noorSecondary.opacity(0.7))
+                        }
+                        .frame(maxWidth: .infinity)
+                    }
+                }
+            }
+        }
+        .padding(20)
+        .background(colorScheme == .dark ? Color(UIColor.secondarySystemGroupedBackground) : Color.white)
+        .cornerRadius(24)
+        .shadow(color: Color.black.opacity(0.04), radius: 10, y: 5)
+    }
+}
+
+struct ActivityHeatmapView: View {
+    @EnvironmentObject var dataManager: DataManager
+    @EnvironmentObject var languageManager: LanguageManager
+    @Environment(\.colorScheme) var colorScheme
+
+    private let weeksToShow = 16
+    private let cellSize: CGFloat = 12
+    private let cellSpacing: CGFloat = 3
+
+    private var isEnglish: Bool { languageManager.currentLanguage == .english }
+
+    private var heatmapData: [[HeatmapCell]] {
+        let calendar = Calendar.current
+        let today = Date()
+        let dailyXP = dataManager.userProgress?.dailyXP ?? [:]
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+
+        var weeks: [[HeatmapCell]] = []
+
+        guard let thisMonday = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today)) else { return [] }
+        guard let startMonday = calendar.date(byAdding: .weekOfYear, value: -(weeksToShow - 1), to: thisMonday) else { return [] }
+
+        for weekOffset in 0..<weeksToShow {
+            guard let weekStart = calendar.date(byAdding: .weekOfYear, value: weekOffset, to: startMonday) else { continue }
+            var week: [HeatmapCell] = []
+            for dayOffset in 0..<7 {
+                guard let date = calendar.date(byAdding: .day, value: dayOffset, to: weekStart) else { continue }
+                let key = formatter.string(from: date)
+                let xp = dailyXP[key] ?? 0
+                let isToday = calendar.isDateInToday(date)
+                let isFuture = date > today
+                week.append(HeatmapCell(date: date, xp: xp, isToday: isToday, isFuture: isFuture))
+            }
+            weeks.append(week)
+        }
+        return weeks
+    }
+
+    private var monthLabels: [(String, Int)] {
+        let calendar = Calendar.current
+        let today = Date()
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: languageManager.currentLanguage.rawValue)
+
+        guard let thisMonday = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today)) else { return [] }
+        guard let startMonday = calendar.date(byAdding: .weekOfYear, value: -(weeksToShow - 1), to: thisMonday) else { return [] }
+
+        var labels: [(String, Int)] = []
+        var lastMonth = -1
+
+        for weekOffset in 0..<weeksToShow {
+            guard let weekStart = calendar.date(byAdding: .weekOfYear, value: weekOffset, to: startMonday) else { continue }
+            let month = calendar.component(.month, from: weekStart)
+            if month != lastMonth {
+                formatter.dateFormat = "MMM"
+                labels.append((formatter.string(from: weekStart), weekOffset))
+                lastMonth = month
+            }
+        }
+        return labels
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            GeometryReader { geo in
+                let totalWidth = geo.size.width
+                let weekWidth = totalWidth / CGFloat(weeksToShow)
+
+                ForEach(monthLabels, id: \.1) { label, weekIndex in
+                    Text(label)
+                        .font(.system(size: 9, weight: .medium))
+                        .foregroundColor(.noorSecondary)
+                        .position(x: weekWidth * CGFloat(weekIndex) + weekWidth / 2, y: 6)
+                }
+            }
+            .frame(height: 14)
+
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: cellSpacing) {
+                    ForEach(0..<heatmapData.count, id: \.self) { weekIndex in
+                        VStack(spacing: cellSpacing) {
+                            ForEach(0..<heatmapData[weekIndex].count, id: \.self) { dayIndex in
+                                let cell = heatmapData[weekIndex][dayIndex]
+                                RoundedRectangle(cornerRadius: 2.5)
+                                    .fill(cellColor(for: cell))
+                                    .frame(width: cellSize, height: cellSize)
+                                    .overlay(
+                                        cell.isToday ?
+                                        RoundedRectangle(cornerRadius: 2.5)
+                                            .stroke(Color.noorGold, lineWidth: 1.5) : nil
+                                    )
+                            }
+                        }
+                    }
+                }
+            }
+
+            HStack(spacing: 4) {
+                Text(isEnglish ? "Less" : "Moins")
+                    .font(.system(size: 9, weight: .medium))
+                    .foregroundColor(.noorSecondary)
+                ForEach(0..<5) { level in
+                    RoundedRectangle(cornerRadius: 2)
+                        .fill(levelColor(level))
+                        .frame(width: 10, height: 10)
+                }
+                Text(isEnglish ? "More" : "Plus")
+                    .font(.system(size: 9, weight: .medium))
+                    .foregroundColor(.noorSecondary)
+            }
+            .frame(maxWidth: .infinity, alignment: .trailing)
+        }
+    }
+
+    private func cellColor(for cell: HeatmapCell) -> Color {
+        if cell.isFuture { return colorScheme == .dark ? Color(.systemGray6) : Color(.systemGray6) }
+        if cell.xp == 0 { return colorScheme == .dark ? Color(.systemGray5) : Color(.systemGray6) }
+
+        let level: Int
+        if cell.xp < 10 { level = 1 }
+        else if cell.xp < 30 { level = 2 }
+        else if cell.xp < 50 { level = 3 }
+        else { level = 4 }
+
+        return levelColor(level)
+    }
+
+    private func levelColor(_ level: Int) -> Color {
+        switch level {
+        case 0: return Color(.systemGray6)
+        case 1: return Color.noorGold.opacity(0.25)
+        case 2: return Color.noorGold.opacity(0.5)
+        case 3: return Color.noorGold.opacity(0.75)
+        default: return Color.noorGold
+        }
+    }
+}
+
+private struct HeatmapCell {
+    let date: Date
+    let xp: Int
+    let isToday: Bool
+    let isFuture: Bool
+}
+
+struct XPProgressionChartView: View {
+    @EnvironmentObject var dataManager: DataManager
+    @EnvironmentObject var languageManager: LanguageManager
+    @Environment(\.colorScheme) var colorScheme
+    @State private var animateChart = false
+
+    private var isEnglish: Bool { languageManager.currentLanguage == .english }
+
+    private struct XPDataPoint: Identifiable {
+        let id = UUID()
+        let date: Date
+        let cumulativeXP: Int
+    }
+
+    private var chartData: [XPDataPoint] {
+        guard let progress = dataManager.userProgress else { return [] }
+        let calendar = Calendar.current
+        let today = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+
+        let daysToShow = 30
+        guard let startDate = calendar.date(byAdding: .day, value: -(daysToShow - 1), to: today) else { return [] }
+
+        var points: [XPDataPoint] = []
+        var cumulative = 0
+
+        for (key, value) in progress.dailyXP {
+            if let date = formatter.date(from: key), date < startDate {
+                cumulative += value
+            }
+        }
+
+        for dayOffset in 0..<daysToShow {
+            guard let date = calendar.date(byAdding: .day, value: dayOffset, to: startDate) else { continue }
+            let key = formatter.string(from: date)
+            cumulative += progress.dailyXP[key] ?? 0
+            points.append(XPDataPoint(date: date, cumulativeXP: cumulative))
+        }
+        return points
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                HStack(spacing: 8) {
+                    Image(systemName: "chart.line.uptrend.xyaxis")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.noorGold)
+                    Text(LocalizedStringKey(isEnglish ? "XP Progression" : "Progression XP"))
+                        .font(.headline)
+                        .foregroundColor(.noorText)
+                }
+                Spacer()
+                Text(LocalizedStringKey(isEnglish ? "Last 30 days" : "30 derniers jours"))
+                    .font(.caption.weight(.semibold))
+                    .foregroundColor(.noorSecondary)
+            }
+
+            if chartData.isEmpty || chartData.last?.cumulativeXP == 0 {
+                HStack {
+                    Spacer()
+                    VStack(spacing: 8) {
+                        Image(systemName: "chart.bar.xaxis")
+                            .font(.system(size: 32))
+                            .foregroundColor(.noorSecondary.opacity(0.4))
+                        Text(LocalizedStringKey(isEnglish ? "Start learning to see your progress" : "Commence à apprendre pour voir ta progression"))
+                            .font(.caption)
+                            .foregroundColor(.noorSecondary)
+                    }
+                    .padding(.vertical, 30)
+                    Spacer()
+                }
+            } else {
+                Chart(chartData) { point in
+                    AreaMark(
+                        x: .value("Date", point.date, unit: .day),
+                        y: .value("XP", animateChart ? point.cumulativeXP : 0)
+                    )
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [Color.noorGold.opacity(0.4), Color.noorGold.opacity(0.05)],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    .interpolationMethod(.catmullRom)
+
+                    LineMark(
+                        x: .value("Date", point.date, unit: .day),
+                        y: .value("XP", animateChart ? point.cumulativeXP : 0)
+                    )
+                    .foregroundStyle(Color.noorGold)
+                    .lineStyle(StrokeStyle(lineWidth: 2.5, lineCap: .round))
+                    .interpolationMethod(.catmullRom)
+                }
+                .chartYAxis {
+                    AxisMarks(position: .leading) { value in
+                        AxisGridLine(stroke: StrokeStyle(lineWidth: 0.5, dash: [4]))
+                            .foregroundStyle(Color.noorSecondary.opacity(0.2))
+                        AxisValueLabel {
+                            if let intVal = value.as(Int.self) {
+                                Text("\(intVal)")
+                                    .font(.system(size: 9, weight: .medium))
+                                    .foregroundStyle(Color.noorSecondary)
+                            }
+                        }
+                    }
+                }
+                .chartXAxis {
+                    AxisMarks(values: .stride(by: .day, count: 7)) { value in
+                        AxisGridLine(stroke: StrokeStyle(lineWidth: 0.5, dash: [4]))
+                            .foregroundStyle(Color.noorSecondary.opacity(0.15))
+                        AxisValueLabel(format: .dateTime.day().month(.abbreviated), centered: true)
+                            .font(.system(size: 9, weight: .medium))
+                            .foregroundStyle(Color.noorSecondary)
+                    }
+                }
+                .frame(height: 180)
+                .onAppear {
+                    withAnimation(.easeOut(duration: 0.8)) {
+                        animateChart = true
+                    }
                 }
             }
         }

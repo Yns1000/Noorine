@@ -175,6 +175,7 @@ struct HomeView: View {
                 animationId = UUID()
                 if dataManager.isAppReady {
                     performInitialScroll()
+                    dataManager.manageStreakActivity()
                     if dataManager.canShowDailyChallenge() {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { showDailyChallengeInvite = true }
                     }

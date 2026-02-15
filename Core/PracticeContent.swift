@@ -9,6 +9,15 @@ struct PracticePool {
 
 extension DataManager {
     func practicePool(language: AppLanguage) -> PracticePool {
+        if practiceUnlocked {
+            return PracticePool(
+                letters: CourseContent.letters,
+                vowels: CourseContent.vowels,
+                words: CourseContent.words,
+                phrases: CourseContent.phrases
+            )
+        }
+
         let accessibleLevelIds = Set(
             levels
                 .filter { levelState(for: $0.levelNumber) != .locked }

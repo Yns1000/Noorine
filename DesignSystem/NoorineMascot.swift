@@ -67,9 +67,10 @@ struct NoorineFace: View {
     private var moodColor: Color {
         switch mood {
         case .neutral: return .noorGold
-        case .happy: return .noorGold
-        case .sad: return .orange.opacity(0.7)
+        case .happy, .celebrating: return .noorGold
+        case .sad, .encouraging: return .orange.opacity(0.7)
         case .thinking: return .noorGold.opacity(0.8)
+        case .surprised: return .noorGold
         }
     }
     
@@ -92,11 +93,11 @@ struct NoorineFace: View {
     @ViewBuilder
     private var mouthView: some View {
         switch mood {
-        case .neutral, .thinking:
+        case .neutral, .thinking, .encouraging:
             RoundedRectangle(cornerRadius: 2)
                 .fill(Color.white.opacity(0.8))
                 .frame(width: size * 0.25, height: 2)
-        case .happy:
+        case .happy, .celebrating:
             Circle()
                 .trim(from: 0.1, to: 0.4)
                 .stroke(Color.white.opacity(0.85), style: StrokeStyle(lineWidth: size * 0.025, lineCap: .round))
@@ -106,6 +107,10 @@ struct NoorineFace: View {
                 .trim(from: 0.6, to: 0.9)
                 .stroke(Color.white.opacity(0.8), style: StrokeStyle(lineWidth: size * 0.025, lineCap: .round))
                 .frame(width: size * 0.35, height: size * 0.35)
+        case .surprised:
+            Ellipse()
+                .fill(Color.white.opacity(0.85))
+                .frame(width: size * 0.12, height: size * 0.15)
         }
     }
 }

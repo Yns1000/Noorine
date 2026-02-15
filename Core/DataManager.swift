@@ -2,6 +2,7 @@ import Foundation
 import SwiftData
 import Combine
 import SwiftUI
+import WidgetKit
 
 class DataManager: ObservableObject {
     static let shared = DataManager()
@@ -12,6 +13,10 @@ class DataManager: ObservableObject {
     @Published var levels: [LevelProgress] = []
     @Published var isAppReady: Bool = false
     @Published var progressTick: Int = 0
+    @Published var practiceUnlocked: Bool = false
+    
+    @Published var mistakeCount: Int = 0
+    @Published var requestedLevelId: Int?
     
     @Published var mistakes: [MistakeItem] = []
     
@@ -23,6 +28,13 @@ class DataManager: ObservableObject {
         loadOrCreateLevels()
         loadMistakes()
         CourseContent.validateAndLog()
+        syncHapticPreference()
+        syncToWidget()
+        syncWordOfDay()
+    }
+
+    func syncHapticPreference() {
+        HapticManager.shared.isEnabled = userProgress?.hapticsEnabled ?? true
     }
     
     func refreshCourseContent() {
@@ -118,6 +130,7 @@ class DataManager: ObservableObject {
         
         try? context.save()
         progressTick += 1
+        syncToWidget()
     }
     
     func completeLevel(levelNumber: Int) {
@@ -129,6 +142,7 @@ class DataManager: ObservableObject {
         userProgress?.addXP(GameConstants.XP.levelCompleted)
         try? context.save()
         progressTick += 1
+        syncToWidget()
     }
     
     func unlockAllLevels() {
@@ -144,6 +158,7 @@ class DataManager: ObservableObject {
         userProgress?.addXP(amount)
         userProgress?.lastDailyChallengeDate = Date()
         try? modelContext?.save()
+        syncToWidget()
     }
     
     func dismissDailyChallenge() {
@@ -329,5 +344,67 @@ class DataManager: ObservableObject {
         if !itemsToRemove.isEmpty {
             try? context.save()
         }
+    }
+
+    func syncToWidget() {
+        guard let progress = userProgress else { return }
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let todayKey = formatter.string(from: Date())
+        let todayXP = progress.dailyXP[todayKey] ?? 0
+
+        SharedDataStore.sync(
+            streakDays: progress.streakDays,
+            xpTotal: progress.xpTotal,
+            currentWeekXP: progress.currentWeekXP(),
+            todayXP: todayXP,
+            userName: progress.name.isEmpty ? "Apprenti" : progress.name
+        )
+
+        WidgetCenter.shared.reloadAllTimelines()
+        
+        manageStreakActivity()
+    }
+    
+    func manageStreakActivity() {
+        guard let progress = userProgress else { return }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let todayKey = formatter.string(from: Date())
+        let todayXP = progress.dailyXP[todayKey] ?? 0
+        let dailyGoal = 50
+        
+        if todayXP < dailyGoal {
+            let calendar = Calendar.current
+            let now = Date()
+            if let tomorrow = calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: now)) {
+                if #available(iOS 16.2, *) {
+                    LiveActivityManager.shared.startStreakActivity(streak: progress.streakDays, deadline: tomorrow)
+                }
+            }
+        } else {
+            if #available(iOS 16.2, *) {
+                LiveActivityManager.shared.stopStreakActivity()
+            }
+        }
+    }
+
+    func syncWordOfDay() {
+        let words = CourseContent.words
+        guard !words.isEmpty else { return }
+
+        let calendar = Calendar.current
+        let dayOfYear = calendar.ordinality(of: .day, in: .year, for: Date()) ?? 1
+        let index = dayOfYear % words.count
+        let word = words[index]
+
+        SharedDataStore.syncWordOfDay(
+            arabic: word.arabic,
+            transliteration: word.transliteration,
+            translationFr: word.translationFr,
+            translationEn: word.translationEn
+        )
     }
 }

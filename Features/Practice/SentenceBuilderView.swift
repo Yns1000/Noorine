@@ -9,6 +9,7 @@ struct SentenceBuilderView: View {
     @State private var currentIndex = 0
     @State private var showCelebration = false
     @State private var score = 0
+    @State private var didLoad = false
 
     @State private var correctWords: [String] = []
     @State private var availableWords: [String] = []
@@ -36,7 +37,7 @@ struct SentenceBuilderView: View {
             VStack(spacing: 0) {
                 headerSection
                 
-                if phrases.isEmpty {
+                if phrases.isEmpty && !didLoad {
                     Spacer()
                     VStack(spacing: 16) {
                         ProgressView()
@@ -45,6 +46,41 @@ struct SentenceBuilderView: View {
                         Text(isEnglish ? "Loading phrases..." : "Chargement...")
                             .font(.system(size: 14, weight: .medium))
                             .foregroundColor(.noorSecondary)
+                    }
+                    Spacer()
+                } else if phrases.isEmpty && didLoad {
+                    Spacer()
+                    VStack(spacing: 16) {
+                        Image(systemName: "text.word.spacing")
+                            .font(.system(size: 40))
+                            .foregroundColor(.noorSecondary)
+                        Text(isEnglish
+                             ? "Continue lessons to unlock sentences!"
+                             : "Continue les leçons pour débloquer les phrases !")
+                            .font(.system(size: 15, weight: .medium))
+                            .foregroundColor(.noorSecondary)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+                        Button(action: {
+                            dataManager.practiceUnlocked = true
+                            loadPhrases()
+                        }) {
+                            HStack(spacing: 8) {
+                                Image(systemName: "lock.open.fill")
+                                    .font(.system(size: 14, weight: .bold))
+                                Text(isEnglish
+                                     ? "I'm impatient" : "Je suis impatient")
+                                    .font(.system(size: 14, weight: .bold, design: .rounded))
+                            }
+                            .foregroundColor(.noorGold)
+                            .padding(.horizontal, 24)
+                            .padding(.vertical, 12)
+                            .background(
+                                Capsule()
+                                    .stroke(Color.noorGold.opacity(0.4), lineWidth: 1.5)
+                                    .background(Capsule().fill(Color.noorGold.opacity(0.08)))
+                            )
+                        }
                     }
                     Spacer()
                 } else if currentIndex < phrases.count {
@@ -252,6 +288,7 @@ struct SentenceBuilderView: View {
             $0.arabic.components(separatedBy: " ").count >= 2
         }
         phrases = Array(multiWord.shuffled().prefix(totalPhrases))
+        didLoad = true
 
         if !phrases.isEmpty {
             setupCurrentPhrase()

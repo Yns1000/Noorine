@@ -9,6 +9,7 @@ struct DictationView: View {
     @State private var currentIndex = 0
     @State private var showCelebration = false
     @State private var score = 0
+    @State private var didLoad = false
 
     private let totalWords = 6
 
@@ -16,10 +17,45 @@ struct DictationView: View {
         ZStack {
             Color.noorBackground.ignoresSafeArea()
 
-            if words.isEmpty {
+            if words.isEmpty && !didLoad {
                 VStack {
                     Spacer()
                     ProgressView().tint(.noorGold)
+                    Spacer()
+                }
+            } else if words.isEmpty && didLoad {
+                VStack(spacing: 16) {
+                    Spacer()
+                    Image(systemName: "text.book.closed")
+                        .font(.system(size: 40))
+                        .foregroundColor(.noorSecondary)
+                    Text(languageManager.currentLanguage == .english
+                         ? "Continue lessons to unlock dictation!"
+                         : "Continue les leçons pour débloquer la dictée !")
+                        .font(.system(size: 15, weight: .medium))
+                        .foregroundColor(.noorSecondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 40)
+                    Button(action: {
+                        dataManager.practiceUnlocked = true
+                        loadWords()
+                    }) {
+                        HStack(spacing: 8) {
+                            Image(systemName: "lock.open.fill")
+                                .font(.system(size: 14, weight: .bold))
+                            Text(languageManager.currentLanguage == .english
+                                 ? "I'm impatient" : "Je suis impatient")
+                                .font(.system(size: 14, weight: .bold, design: .rounded))
+                        }
+                        .foregroundColor(.noorGold)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 12)
+                        .background(
+                            Capsule()
+                                .stroke(Color.noorGold.opacity(0.4), lineWidth: 1.5)
+                                .background(Capsule().fill(Color.noorGold.opacity(0.08)))
+                        )
+                    }
                     Spacer()
                 }
             } else if currentIndex < words.count {
@@ -57,9 +93,12 @@ struct DictationView: View {
         let pool = dataManager.practicePool(language: languageManager.currentLanguage)
         let buildableWords = pool.words.filter { !$0.componentLetterIds.isEmpty }
         words = Array(buildableWords.shuffled().prefix(totalWords))
+        didLoad = true
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            playCurrentWord()
+        if !words.isEmpty {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                playCurrentWord()
+            }
         }
     }
 
@@ -121,9 +160,6 @@ struct DictationView: View {
             .padding(.bottom, 8)
             
             HStack(spacing: 12) {
-                NoorineMascot()
-                    .frame(width: 50, height: 50)
-                
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(spacing: 8) {
                         Image(systemName: "ear.fill")

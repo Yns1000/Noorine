@@ -268,9 +268,13 @@ struct FreeDrawingStep: View {
             if result.score >= requiredScore {
                 showSuccess = true
                 model.isValidated = true
-                mascotMood = .happy
-                mascotMessage = isEnglish ? "Well done, perfect!" : "Bravo, c'est parfait"
-                mascotDetail = isEnglish ? "You've mastered this form" : "Tu maîtrises cette forme"
+                mascotMood = result.score >= 0.90 ? .surprised : .celebrating
+                mascotMessage = result.score >= 0.90
+                    ? (isEnglish ? "Wow, incredible!" : "Waouh, incroyable !")
+                    : (isEnglish ? "Well done, perfect!" : "Bravo, c'est parfait")
+                mascotDetail = result.score >= 0.90
+                    ? (isEnglish ? "That's a masterpiece!" : "C'est un chef-d'œuvre !")
+                    : (isEnglish ? "You've mastered this form" : "Tu maîtrises cette forme")
                 accentColor = .green
                 showManualValidation = false
                 
@@ -293,7 +297,7 @@ struct FreeDrawingStep: View {
                 
                 FeedbackManager.shared.warning()
             } else {
-                mascotMood = .sad
+                mascotMood = .encouraging
                 mascotMessage = isEnglish ? "Let's try again together" : "On réessaie ensemble"
                 mascotDetail = ArabicFunFacts.randomEncouragement()
                 accentColor = .noorSecondary

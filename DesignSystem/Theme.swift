@@ -52,3 +52,86 @@ extension LinearGradient {
         )
     }
 }
+
+struct TapScaleModifier: ViewModifier {
+    @State private var isPressed = false
+
+    func body(content: Content) -> some View {
+        content
+            .scaleEffect(isPressed ? 0.95 : 1.0)
+            .animation(.spring(response: 0.25, dampingFraction: 0.6), value: isPressed)
+            .simultaneousGesture(
+                DragGesture(minimumDistance: 0)
+                    .onChanged { _ in isPressed = true }
+                    .onEnded { _ in isPressed = false }
+            )
+    }
+}
+
+struct ShakeModifier: ViewModifier {
+    var trigger: Bool
+    @State private var shakeOffset: CGFloat = 0
+
+    func body(content: Content) -> some View {
+        content
+            .offset(x: shakeOffset)
+            .onChange(of: trigger) { _, _ in
+                withAnimation(.linear(duration: 0.06)) { shakeOffset = -8 }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.06) {
+                    withAnimation(.linear(duration: 0.06)) { shakeOffset = 8 }
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.12) {
+                    withAnimation(.linear(duration: 0.06)) { shakeOffset = -4 }
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.18) {
+                    withAnimation(.linear(duration: 0.06)) { shakeOffset = 4 }
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.24) {
+                    withAnimation(.spring(response: 0.15, dampingFraction: 0.5)) { shakeOffset = 0 }
+                }
+            }
+    }
+}
+
+struct PulseModifier: ViewModifier {
+    var trigger: Bool
+    var color: Color = .noorSuccess
+    @State private var pulseScale: CGFloat = 1.0
+    @State private var pulseOpacity: Double = 0
+
+    func body(content: Content) -> some View {
+        content
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(color.opacity(pulseOpacity * 0.15))
+                    .scaleEffect(pulseScale)
+            )
+            .scaleEffect(pulseScale)
+            .onChange(of: trigger) { _, _ in
+                withAnimation(.easeOut(duration: 0.15)) {
+                    pulseScale = 1.08
+                    pulseOpacity = 1
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        pulseScale = 1.0
+                        pulseOpacity = 0
+                    }
+                }
+            }
+    }
+}
+
+extension View {
+    func tapScale() -> some View {
+        modifier(TapScaleModifier())
+    }
+
+    func shake(trigger: Bool) -> some View {
+        modifier(ShakeModifier(trigger: trigger))
+    }
+
+    func pulse(trigger: Bool, color: Color = .noorSuccess) -> some View {
+        modifier(PulseModifier(trigger: trigger, color: color))
+    }
+}

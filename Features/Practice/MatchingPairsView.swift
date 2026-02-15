@@ -19,6 +19,7 @@ struct SpeedQuizView: View {
     @State private var timer: Timer? = nil
     @State private var shakeOffset: CGFloat = 0
     @State private var comboScale: CGFloat = 1.0
+    @State private var didLoad = false
 
     private let totalQuestions = 10
     private let timePerQuestion: Double = 5.0
@@ -37,9 +38,44 @@ struct SpeedQuizView: View {
                     }
                 )
 
-                if words.isEmpty {
+                if words.isEmpty && !didLoad {
                     Spacer()
                     ProgressView().tint(.noorGold)
+                    Spacer()
+                } else if words.isEmpty && didLoad {
+                    Spacer()
+                    VStack(spacing: 16) {
+                        Image(systemName: "bolt.slash")
+                            .font(.system(size: 40))
+                            .foregroundColor(.noorSecondary)
+                        Text(languageManager.currentLanguage == .english
+                             ? "Continue lessons to unlock the quiz!"
+                             : "Continue les leçons pour débloquer le quiz !")
+                            .font(.system(size: 15, weight: .medium))
+                            .foregroundColor(.noorSecondary)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+                        Button(action: {
+                            dataManager.practiceUnlocked = true
+                            loadQuestions()
+                        }) {
+                            HStack(spacing: 8) {
+                                Image(systemName: "lock.open.fill")
+                                    .font(.system(size: 14, weight: .bold))
+                                Text(languageManager.currentLanguage == .english
+                                     ? "I'm impatient" : "Je suis impatient")
+                                    .font(.system(size: 14, weight: .bold, design: .rounded))
+                            }
+                            .foregroundColor(.noorGold)
+                            .padding(.horizontal, 24)
+                            .padding(.vertical, 12)
+                            .background(
+                                Capsule()
+                                    .stroke(Color.noorGold.opacity(0.4), lineWidth: 1.5)
+                                    .background(Capsule().fill(Color.noorGold.opacity(0.08)))
+                            )
+                        }
+                    }
                     Spacer()
                 } else if currentIndex < words.count {
                     let word = words[currentIndex]
@@ -51,7 +87,7 @@ struct SpeedQuizView: View {
                                 .frame(height: 4)
                             Rectangle()
                                 .fill(timerColor)
-                                .frame(width: geo.size.width * (timeRemaining / timePerQuestion), height: 4)
+                                .frame(width: max(0, geo.size.width * (timeRemaining / timePerQuestion)), height: 4)
                                 .animation(.linear(duration: 0.1), value: timeRemaining)
                         }
                     }
@@ -184,6 +220,7 @@ struct SpeedQuizView: View {
         let pool = dataManager.practicePool(language: languageManager.currentLanguage)
         let allWords = pool.words.filter { !$0.translationEn.isEmpty }
         words = Array(allWords.shuffled().prefix(totalQuestions))
+        didLoad = true
 
         if !words.isEmpty {
             setupQuestion()

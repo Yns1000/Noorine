@@ -19,7 +19,7 @@ struct ModernCardView: View {
     
     private var dynamicMascotMood: EmotionalMascot.Mood {
         if swipeProgress > 0.3 {
-            return isSwipingRight ? .happy : .thinking
+            return isSwipingRight ? .celebrating : .encouraging
         }
         return .happy
     }
