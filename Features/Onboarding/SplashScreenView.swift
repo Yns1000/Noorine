@@ -46,7 +46,7 @@ struct SplashScreenView: View {
         "En plus t'es trop intelligente ma sha الله",
         "Ai-je dis que tu étais wow ?",
         "Fais attention à ton genou",
-        "Tu es vraiment swag sub7anAllah"
+        "Tu es vraiment swag subhanAllah"
     ]
     
     var body: some View {
@@ -246,7 +246,7 @@ struct FloatingEasterEgg: View {
             .font(.system(size: 11, weight: .semibold, design: .rounded))
             .foregroundColor(.noorGold.opacity(0.6))
             .multilineTextAlignment(.center)
-            .frame(maxWidth: screenWidth * 0.4)
+            .fixedSize()
             .rotationEffect(.degrees(rotation))
             .offset(x: position.x, y: position.y + floatOffset)
             .opacity(opacity)

@@ -120,6 +120,32 @@ struct ProfileView: View {
                                 }
                             }
                             
+                            MenuSection(title: LocalizedStringKey(isEnglish ? "Open Source" : "Open Source")) {
+                                MenuRow(
+                                    icon: "chevron.left.forwardslash.chevron.right",
+                                    color: .noorGold,
+                                    title: LocalizedStringKey(isEnglish ? "GitHub Project" : "Projet GitHub"),
+                                    subtitle: LocalizedStringKey(isEnglish ? "Free & open to feedback" : "Gratuit & ouvert aux suggestions")
+                                ) {
+                                    if let url = URL(string: "https://github.com/Yns1000/Noorine/") {
+                                        UIApplication.shared.open(url)
+                                    }
+                                }
+                                
+                                Divider().padding(.leading, 56)
+                                
+                                HStack(spacing: 12) {
+                                    Image(systemName: "heart.fill")
+                                        .font(.system(size: 12))
+                                        .foregroundColor(.pink)
+                                    Text(LocalizedStringKey(isEnglish ? "This app is 100% free and open source. All feedback, contributions and ideas are welcome!" : "Cette application est 100% gratuite et open source. Toutes les critiques, contributions et idées sont les bienvenues !"))
+                                        .font(.system(size: 12, weight: .medium))
+                                        .foregroundColor(.noorSecondary)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                }
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 12)
+                            }
                             MenuSection(title: "Développement") {
                                 Button(action: {
                                     dataManager.unlockAllLevels()
