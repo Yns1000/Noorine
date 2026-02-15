@@ -19,6 +19,10 @@ struct NoorineLessonAttributes: ActivityAttributes {
 class LiveActivityManager {
     static let shared = LiveActivityManager()
     private var currentActivity: Activity<NoorineLessonAttributes>? = nil
+    
+    init() {
+        self.streakActivity = Activity<NoorineStreakAttributes>.activities.first
+    }
 
     func startLessonActivity(levelNumber: Int, totalItems: Int, lessonTitle: String) {
         print("LiveActivityManager: Requesting to start activity for \(lessonTitle)")
@@ -107,7 +111,22 @@ class LiveActivityManager {
     private var streakActivity: Activity<NoorineStreakAttributes>? = nil
 
     func startStreakActivity(streak: Int, deadline: Date) {
-        if streakActivity != nil { return }
+        let existingActivities = Activity<NoorineStreakAttributes>.activities
+        
+        if let existing = existingActivities.first {
+            print("LiveActivityManager: Found existing streak activity (ID: \(existing.id)). Updating it.")
+            streakActivity = existing
+            
+            Task {
+                let updatedState = NoorineStreakAttributes.ContentState(
+                    streakLength: streak,
+                    deadline: deadline
+                )
+                let content = ActivityContent(state: updatedState, staleDate: nil)
+                await existing.update(content)
+            }
+            return
+        }
         
         guard ActivityAuthorizationInfo().areActivitiesEnabled else { return }
 
@@ -125,15 +144,6 @@ class LiveActivityManager {
                 pushType: nil
             )
             print("LiveActivityManager: Streak Activity started! ID: \(streakActivity?.id ?? "unknown")")
-            
-            Task {
-                try? await Task.sleep(nanoseconds: 60 * 1_000_000_000)
-                if streakActivity != nil {
-                    print("LiveActivityManager: Auto-dismissing streak activity after 60s")
-                    await streakActivity?.end(nil, dismissalPolicy: .immediate)
-                    streakActivity = nil
-                }
-            }
         } catch {
             print("LiveActivityManager: Streak Start failed: \(error)")
         }

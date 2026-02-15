@@ -370,23 +370,25 @@ class DataManager: ObservableObject {
     func manageStreakActivity() {
         guard let progress = userProgress else { return }
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        let todayKey = formatter.string(from: Date())
-        let todayXP = progress.dailyXP[todayKey] ?? 0
-        let dailyGoal = 50
+        let calendar = Calendar.current
+        let today = Date()
         
-        if todayXP < dailyGoal {
-            let calendar = Calendar.current
-            let now = Date()
-            if let tomorrow = calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: now)) {
+        let isStreakSafeToday: Bool
+        if let lastDate = progress.lastActivityDate {
+            isStreakSafeToday = calendar.isDateInToday(lastDate)
+        } else {
+            isStreakSafeToday = false
+        }
+        
+        if isStreakSafeToday {
+            if #available(iOS 16.2, *) {
+                LiveActivityManager.shared.stopStreakActivity()
+            }
+        } else {            
+            if let tomorrow = calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: today)) {
                 if #available(iOS 16.2, *) {
                     LiveActivityManager.shared.startStreakActivity(streak: progress.streakDays, deadline: tomorrow)
                 }
-            }
-        } else {
-            if #available(iOS 16.2, *) {
-                LiveActivityManager.shared.stopStreakActivity()
             }
         }
     }

@@ -257,7 +257,7 @@ struct FlashcardsView: View {
     
     private var emptyStateView: some View {
         VStack(spacing: 24) {
-            EmotionalMascot(mood: .happy, size: 100, showAura: true)
+            EmotionalMascot(mood: .encouraging, size: 100, showAura: true)
             
             VStack(spacing: 8) {
                 Text(isEnglish ? "All caught up!" : "Tout est à jour !")
@@ -285,7 +285,7 @@ struct FlashcardsView: View {
     
     private var completionView: some View {
         VStack(spacing: 28) {
-            EmotionalMascot(mood: .happy, size: 100, showAura: true)
+            EmotionalMascot(mood: .celebrating, size: 100, showAura: true)
             
             VStack(spacing: 8) {
                 Text(isEnglish ? "Session Complete!" : "Session terminée !")
@@ -373,11 +373,11 @@ struct SRSCardView: View {
                 .shadow(color: .black.opacity(0.1), radius: 20, y: 10)
             
             VStack(spacing: 0) {
-                EmotionalMascot(mood: .happy, size: 60, showAura: false)
+                EmotionalMascot(mood: .thinking, size: 60, showAura: false)
                     .padding(.top, 32)
-                
+
                 Spacer()
-                
+
                 Text(card.arabic)
                     .font(.system(size: 80))
                     .foregroundColor(.noorText)
@@ -647,6 +647,7 @@ struct SRSButton: View {
             .frame(maxWidth: .infinity)
         }
         .buttonStyle(.plain)
+        .tapScale()
     }
 }
 

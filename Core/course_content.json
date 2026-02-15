@@ -215,7 +215,8 @@
     {"id": "ayn-y-n", "letters": "ع ي ن", "meaningEn": "Related to eye/spring", "meaningFr": "En rapport avec l'œil/la source", "wordIds": [42]},
     {"id": "y-w-m", "letters": "ي و م", "meaningEn": "Related to day", "meaningFr": "En rapport avec le jour", "wordIds": [63]},
     {"id": "l-y-l", "letters": "ل ي ل", "meaningEn": "Related to night", "meaningFr": "En rapport avec la nuit", "wordIds": [64]},
-    {"id": "m-h-n", "letters": "م ح ن", "meaningEn": "Related to testing", "meaningFr": "En rapport avec l'épreuve", "wordIds": [61]}
+    {"id": "m-h-n", "letters": "م ح ن", "meaningEn": "Related to testing", "meaningFr": "En rapport avec l'épreuve", "wordIds": [61]},
+    {"id": "s-n-w", "letters": "س ن و", "meaningEn": "Related to year/age", "meaningFr": "En rapport avec l'année/l'âge", "wordIds": [65]}
   ],
   "phrases": [
     {"id": 1, "arabic": "أَنَا طَالِب", "transliteration": "Ana talib", "translationEn": "I am a student", "translationFr": "Je suis étudiant", "wordIds": [21, 26], "category": "introduction", "audioName": "phrase_ana_talib"},

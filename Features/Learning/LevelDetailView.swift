@@ -567,6 +567,7 @@ struct VowelQuizView: View {
                         )
                     }
                     .disabled(showSuccess)
+                    .tapScale()
                 }
             }
             .padding(.horizontal, 20)

@@ -19,8 +19,6 @@ struct HomeView: View {
     
     @State private var animationId = UUID()
     @State private var lastAutoScrollTarget: Int? = nil
-    @State private var hasPerformedInitialScroll = false
-    @State private var scrollPosition: Int?
     
     var body: some View {
         NavigationStack {
@@ -28,75 +26,78 @@ struct HomeView: View {
                 AmbientBackground()
                     .zIndex(0)
                 
-
                 GeometryReader { geometry in
                     let sortedLevels = dataManager.levels.sorted { $0.levelNumber < $1.levelNumber }
+                    let contentHeight = CGFloat(sortedLevels.count + 1) * LayoutConfig.verticalSpacing + 50
 
-                    ScrollView(showsIndicators: false) {
-                        ZStack(alignment: .top) {
-                            GeometryReader { geoProxy in
-                                OrganizedWordLayer()
-                                    .frame(width: geometry.size.width, height: geometry.size.height)
-                                    .offset(y: -geoProxy.frame(in: .named("homeScroll")).minY)
-                                    .id(animationId)
-                            }
-                            .zIndex(0)
+                    ScrollViewReader { proxy in
+                        ScrollView(showsIndicators: false) {
+                            ZStack(alignment: .top) {
+                                PathLayer(levels: sortedLevels)
+                                    .frame(width: geometry.size.width)
+                                    .frame(height: contentHeight)
+                                    .allowsHitTesting(false)
+                                    .zIndex(0)
 
-                            PathLayer(levels: sortedLevels)
-                                .frame(width: geometry.size.width)
-                                .frame(height: CGFloat(sortedLevels.count) * LayoutConfig.verticalSpacing + 50)
-                                .allowsHitTesting(false)
-                                .zIndex(1)
-
-                            VStack(spacing: 0) {
-                                ForEach(Array(sortedLevels.enumerated()), id: \.element.levelNumber) { index, level in
-                                    LevelNode(
-                                        levelNumber: level.levelNumber,
-                                        title: CourseContent.getLevelTitle(for: level.levelNumber, language: languageManager.currentLanguage),
-                                        subtitle: CourseContent.getLevelSubtitle(for: level.levelNumber, language: languageManager.currentLanguage),
-                                        state: dataManager.levelState(for: level.levelNumber),
-                                        index: index,
-                                        onTap: {
-                                            let state = dataManager.levelState(for: level.levelNumber)
-                                            if state != .locked {
-                                                selectedLevel = level
+                                VStack(spacing: 0) {
+                                    ForEach(Array(sortedLevels.enumerated()), id: \.element.levelNumber) { index, level in
+                                        LevelNode(
+                                            levelNumber: level.levelNumber,
+                                            title: CourseContent.getLevelTitle(for: level.levelNumber, language: languageManager.currentLanguage),
+                                            subtitle: CourseContent.getLevelSubtitle(for: level.levelNumber, language: languageManager.currentLanguage),
+                                            state: dataManager.levelState(for: level.levelNumber),
+                                            index: index,
+                                            onTap: {
+                                                let state = dataManager.levelState(for: level.levelNumber)
+                                                if state != .locked {
+                                                    selectedLevel = level
+                                                }
                                             }
-                                        }
+                                        )
+                                        .frame(height: LayoutConfig.verticalSpacing)
+                                        .id("level_\(level.levelNumber)")
+                                    }
+                                    
+                                    ComingSoonNode(
+                                        index: sortedLevels.count,
+                                        isFrench: languageManager.currentLanguage != .english
                                     )
                                     .frame(height: LayoutConfig.verticalSpacing)
-                                    .id(level.levelNumber)
+                                    .id("level_coming_soon")
                                 }
+                                .zIndex(1)
                             }
-                            .zIndex(2)
+                            .padding(.bottom, 120)
+                            .padding(.top, 20)
+                            .background(
+                                GeometryReader { scrollProxy in
+                                    let scrollY = scrollProxy.frame(in: .named("homeScroll")).minY
+                                    OrganizedWordLayer()
+                                        .frame(width: geometry.size.width, height: geometry.size.height)
+                                        .offset(y: -scrollY)
+                                },
+                                alignment: .top
+                            )
                         }
-                        .padding(.bottom, 120)
-                        .padding(.top, 20)
-                    }
-                    .scrollPosition(id: $scrollPosition, anchor: .center)
-                    .coordinateSpace(name: "homeScroll")
-                    .onAppear {
-                        if dataManager.isAppReady && !dataManager.levels.isEmpty {
-                            performInitialScroll()
+                        .coordinateSpace(name: "homeScroll")
+                        .onAppear {
+                            scrollToLevel(proxy: proxy)
                         }
-                    }
-                    .onChange(of: dataManager.isAppReady) { _, ready in
-                        if ready && !dataManager.levels.isEmpty {
-                            performInitialScroll()
+                        .onChange(of: dataManager.isAppReady) { _, ready in
+                            if ready { scrollToLevel(proxy: proxy) }
                         }
-                    }
-                    .onChange(of: dataManager.levels.count) { _, count in
-                        if count > 0 && dataManager.isAppReady {
-                            performInitialScroll()
+                        .onChange(of: dataManager.levels.count) { _, _ in
+                            scrollToLevel(proxy: proxy)
                         }
-                    }
-                    .onChange(of: dataManager.levels.map { $0.isCompleted }) { _, _ in
-                        scrollToCurrentLevel()
-                    }
-                    .onChange(of: dataManager.progressTick) { _, _ in
-                        scrollToCurrentLevel()
+                        .onChange(of: dataManager.levels.map { $0.isCompleted }) { _, _ in
+                            scrollToLevel(proxy: proxy)
+                        }
+                        .onChange(of: dataManager.progressTick) { _, _ in
+                            scrollToLevel(proxy: proxy)
+                        }
                     }
                 }
-                .zIndex(2)
+                .zIndex(1)
             }
             .safeAreaInset(edge: .top) {
                 HomeHeader(
@@ -172,64 +173,47 @@ struct HomeView: View {
                 }
             }
             .onAppear {
-                animationId = UUID()
                 if dataManager.isAppReady {
-                    performInitialScroll()
                     dataManager.manageStreakActivity()
                     if dataManager.canShowDailyChallenge() {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { showDailyChallengeInvite = true }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            if selectedLevel == nil {
+                                showDailyChallengeInvite = true
+                            }
+                        }
                     }
                 }
             }
             .onChange(of: dataManager.isAppReady) { _, ready in
                 if ready {
-                    performInitialScroll()
                     if dataManager.canShowDailyChallenge() {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { showDailyChallengeInvite = true }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            if selectedLevel == nil {
+                                showDailyChallengeInvite = true
+                            }
+                        }
                     }
                 }
             }
         }
     }
     
-    private func performInitialScroll() {
-        guard !dataManager.levels.isEmpty, !hasPerformedInitialScroll else {
-            print("[SCROLL] Skip: levels=\(dataManager.levels.count), hasScrolled=\(hasPerformedInitialScroll)")
-            return
-        }
-        hasPerformedInitialScroll = true
-
-        let target = lastUnlockedLevel()
-        lastAutoScrollTarget = target
-        print("[SCROLL] Setting scrollPosition to level \(target), levels count: \(dataManager.levels.count)")
-
-        scrollPosition = target
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            print("[SCROLL] Retry scrollPosition to level \(target) at +0.5s")
-            scrollPosition = target
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            print("[SCROLL] Retry scrollPosition to level \(target) at +1.5s")
-            scrollPosition = target
-        }
-    }
-
-    private func scrollToCurrentLevel() {
+    private func scrollToLevel(proxy: ScrollViewProxy) {
         guard dataManager.isAppReady, !dataManager.levels.isEmpty else { return }
         let target = lastUnlockedLevel()
-        if lastAutoScrollTarget == target { return }
         lastAutoScrollTarget = target
-
-        withAnimation(.easeInOut(duration: 0.4)) {
-            scrollPosition = target
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+                proxy.scrollTo("level_\(target)", anchor: .center)
+            }
         }
     }
 
     private func lastUnlockedLevel() -> Int {
         let sorted = dataManager.levels.sorted { $0.levelNumber < $1.levelNumber }
-        let last = sorted.last { dataManager.levelState(for: $0.levelNumber) != .locked }
-        return last?.levelNumber ?? dataManager.currentLevelNumber
+        let lastUnlocked = sorted.last { dataManager.levelState(for: $0.levelNumber) != .locked }
+        return lastUnlocked?.levelNumber ?? dataManager.currentLevelNumber
     }
 
 }
@@ -386,7 +370,6 @@ struct FloatingWordView: View {
     }
 }
 
-
 struct FloatingItemData {
     enum ItemType {
         case word(arabic: String, french: String, english: String)
@@ -401,7 +384,6 @@ struct FloatingItemData {
         return FloatingItemData(type: .icon(name: name))
     }
 }
-
 
 struct HomeHeader: View {
     let xp: Int
@@ -521,6 +503,96 @@ struct FloatingDecoElement: View {
     }
 }
 
+struct ComingSoonNode: View {
+    let index: Int
+    let isFrench: Bool
+    @State private var pulse: CGFloat = 1.0
+    
+    var xOffset: CGFloat {
+        CGFloat(sin(Double(index) * LayoutConfig.waveFrequency)) * LayoutConfig.amplitude
+    }
+    
+    var body: some View {
+        HStack {
+            Spacer()
+            ZStack {
+                Circle()
+                    .fill(RadialGradient(
+                        colors: [Color.noorBackground, Color.noorBackground.opacity(0.8)],
+                        center: .center, startRadius: 0,
+                        endRadius: LayoutConfig.buttonSize / 2 + 15
+                    ))
+                    .frame(width: LayoutConfig.buttonSize + 30, height: LayoutConfig.buttonSize + 30)
+                    .allowsHitTesting(false)
+                
+                ZStack {
+                    Circle()
+                        .fill(Color.black.opacity(0.08))
+                        .frame(width: LayoutConfig.buttonSize, height: LayoutConfig.buttonSize)
+                        .offset(y: 5)
+                    
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                colors: [Color.noorSecondary.opacity(0.2), Color.noorSecondary.opacity(0.08)],
+                                startPoint: .topLeading, endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: LayoutConfig.buttonSize, height: LayoutConfig.buttonSize)
+                        .overlay(
+                            Circle()
+                                .stroke(
+                                    LinearGradient(
+                                        colors: [Color.noorGold.opacity(0.3), Color.orange.opacity(0.15)],
+                                        startPoint: .topLeading, endPoint: .bottomTrailing
+                                    ),
+                                    lineWidth: 2
+                                )
+                        )
+                    
+                    Image(systemName: "clock.fill")
+                        .font(.system(size: 22, weight: .semibold))
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [Color.noorGold.opacity(0.5), Color.orange.opacity(0.3)],
+                                startPoint: .top, endPoint: .bottom
+                            )
+                        )
+                        .scaleEffect(pulse)
+                }
+                
+                VStack(spacing: 3) {
+                    Text(isFrench ? "Bientôt" : "Coming Soon")
+                        .font(.system(size: 15, weight: .bold, design: .rounded))
+                        .foregroundColor(Color.noorGold.opacity(0.7))
+                    Text(isFrench ? "Nouveaux niveaux" : "New levels")
+                        .font(.system(size: 11, weight: .medium, design: .rounded))
+                        .foregroundColor(Color.noorSecondary.opacity(0.5))
+                }
+                .padding(.horizontal, 16).padding(.vertical, 10)
+                .background(
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(.ultraThinMaterial)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(Color.noorGold.opacity(0.15), lineWidth: 1)
+                        )
+                )
+                .offset(y: 80)
+                .zIndex(1)
+                .allowsHitTesting(false)
+            }
+            .offset(x: xOffset)
+            Spacer()
+        }
+        .onAppear {
+            withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
+                pulse = 1.12
+            }
+        }
+    }
+}
+
 struct LevelNode: View {
     let levelNumber: Int
     let title: String
@@ -556,6 +628,7 @@ struct LevelNode: View {
                     }
                 }
                 .buttonStyle(PlainButtonStyle())
+                .tapScale()
                 .frame(width: LayoutConfig.buttonSize, height: LayoutConfig.buttonSize)
                 .contentShape(Circle())
                 

@@ -664,6 +664,7 @@ struct StatCardModern: View {
             .shadow(color: Color.black.opacity(0.04), radius: 10, y: 5)
         }
         .buttonStyle(PlainButtonStyle())
+        .tapScale()
     }
 }
 
@@ -1305,6 +1306,9 @@ struct XPDetailView: View {
                     .cornerRadius(24)
                     .padding(.horizontal)
                     
+                    XPProgressionChart()
+                        .padding(.horizontal)
+
                     VStack(alignment: .leading, spacing: 20) {
                         Text(LocalizedStringKey("Tes Succès"))
                             .font(.system(size: 20, weight: .bold, design: .rounded))
@@ -1514,6 +1518,97 @@ struct MilestoneCard: View {
                 )
         )
         .opacity(isUnlocked ? 1.0 : 0.8)
+    }
+}
+
+private struct XPDataPoint: Identifiable {
+    let id = UUID()
+    let date: Date
+    let cumulativeXP: Int
+}
+
+struct XPProgressionChart: View {
+    @EnvironmentObject var dataManager: DataManager
+    @EnvironmentObject var languageManager: LanguageManager
+    @Environment(\.colorScheme) var colorScheme
+
+    private var isEnglish: Bool { languageManager.currentLanguage == .english }
+
+    private var dataPoints: [XPDataPoint] {
+        guard let dailyXP = dataManager.userProgress?.dailyXP, !dailyXP.isEmpty else { return [] }
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+
+        let sorted = dailyXP.compactMap { key, value -> (Date, Int)? in
+            guard let date = formatter.date(from: key) else { return nil }
+            return (date, value)
+        }.sorted { $0.0 < $1.0 }
+
+        guard !sorted.isEmpty else { return [] }
+
+        var cumulative = 0
+        var points: [XPDataPoint] = []
+        for (date, xp) in sorted {
+            cumulative += xp
+            points.append(XPDataPoint(date: date, cumulativeXP: cumulative))
+        }
+        return points
+    }
+
+    var body: some View {
+        let points = dataPoints
+        if points.count >= 2 {
+            VStack(alignment: .leading, spacing: 12) {
+                Text(isEnglish ? "XP Progression" : "Progression XP")
+                    .font(.system(size: 20, weight: .bold, design: .rounded))
+
+                Chart(points) { point in
+                    LineMark(
+                        x: .value("Date", point.date),
+                        y: .value("XP", point.cumulativeXP)
+                    )
+                    .foregroundStyle(
+                        LinearGradient(colors: [.noorGold, .orange], startPoint: .leading, endPoint: .trailing)
+                    )
+                    .interpolationMethod(.catmullRom)
+                    .lineStyle(StrokeStyle(lineWidth: 2.5, lineCap: .round))
+
+                    AreaMark(
+                        x: .value("Date", point.date),
+                        y: .value("XP", point.cumulativeXP)
+                    )
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [Color.noorGold.opacity(0.3), Color.noorGold.opacity(0.0)],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    .interpolationMethod(.catmullRom)
+                }
+                .chartXAxis {
+                    AxisMarks(values: .stride(by: .day, count: max(points.count / 5, 1))) { _ in
+                        AxisGridLine(stroke: StrokeStyle(lineWidth: 0.3))
+                        AxisValueLabel(format: .dateTime.day().month(.abbreviated))
+                            .font(.system(size: 9))
+                    }
+                }
+                .chartYAxis {
+                    AxisMarks(position: .leading) { _ in
+                        AxisGridLine(stroke: StrokeStyle(lineWidth: 0.3))
+                        AxisValueLabel()
+                            .font(.system(size: 10))
+                    }
+                }
+                .frame(height: 180)
+                .padding(.vertical, 8)
+            }
+            .padding(20)
+            .background(colorScheme == .dark ? Color(UIColor.secondarySystemGroupedBackground) : .white)
+            .cornerRadius(24)
+            .shadow(color: .black.opacity(0.04), radius: 10, y: 5)
+        }
     }
 }
 
