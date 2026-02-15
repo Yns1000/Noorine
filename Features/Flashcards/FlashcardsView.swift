@@ -178,16 +178,16 @@ struct FlashcardsView: View {
         VStack(spacing: 16) {
             if isFlipped {
                 HStack(spacing: 10) {
-                    SRSButton(response: .again, interval: "< 1m") {
+                    SRSButton(response: .again, interval: "< 1m", isEnglish: isEnglish) {
                         handleResponse(.again)
                     }
-                    SRSButton(response: .hard, interval: "< 10m") {
+                    SRSButton(response: .hard, interval: "< 10m", isEnglish: isEnglish) {
                         handleResponse(.hard)
                     }
-                    SRSButton(response: .good, interval: intervalText(.good)) {
+                    SRSButton(response: .good, interval: intervalText(.good), isEnglish: isEnglish) {
                         handleResponse(.good)
                     }
-                    SRSButton(response: .easy, interval: intervalText(.easy)) {
+                    SRSButton(response: .easy, interval: intervalText(.easy), isEnglish: isEnglish) {
                         handleResponse(.easy)
                     }
                 }
@@ -212,14 +212,15 @@ struct FlashcardsView: View {
     private func intervalText(_ response: SRSResponse) -> String {
         guard let card = currentCard else { return "" }
         let interval = manager.getInterval(for: card)
+        let d = isEnglish ? "d" : "j"
         
         switch response {
         case .again: return "< 1m"
         case .hard: return "< 10m"
         case .good:
-            return interval == 0 ? "1j" : "\(max(1, interval))j"
+            return interval == 0 ? "1\(d)" : "\(max(1, interval))\(d)"
         case .easy:
-            return interval == 0 ? "4j" : "\(max(4, interval * 2))j"
+            return interval == 0 ? "4\(d)" : "\(max(4, interval * 2))\(d)"
         }
     }
     
@@ -616,14 +617,15 @@ struct DiacriticExplanation: View {
 struct SRSButton: View {
     let response: SRSResponse
     let interval: String
+    let isEnglish: Bool
     let action: () -> Void
     
     private var config: (color: Color, icon: String, label: String) {
         switch response {
-        case .again: return (.red, "arrow.counterclockwise", "Revoir")
-        case .hard: return (.orange, "tortoise.fill", "Difficile")
-        case .good: return (.blue, "hand.thumbsup.fill", "Bien")
-        case .easy: return (.green, "bolt.fill", "Facile")
+        case .again: return (.red, "arrow.counterclockwise", isEnglish ? "Again" : "Revoir")
+        case .hard: return (.orange, "tortoise.fill", isEnglish ? "Hard" : "Difficile")
+        case .good: return (.blue, "hand.thumbsup.fill", isEnglish ? "Good" : "Bien")
+        case .easy: return (.green, "bolt.fill", isEnglish ? "Easy" : "Facile")
         }
     }
     
