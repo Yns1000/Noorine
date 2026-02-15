@@ -313,10 +313,4 @@ struct NoorineLiveActivityView: View {
     }
 }
 
-@main
-struct NoorineWidgets: WidgetBundle {
-    var body: some Widget {
-        WordOfDayWidget()
-        StreakWidget()
-    }
-}
+
