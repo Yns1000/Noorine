@@ -19,6 +19,12 @@ class DataManager: ObservableObject {
     @Published var requestedLevelId: Int?
     
     @Published var mistakes: [MistakeItem] = []
+    @Published var isDhilly: Bool = UserDefaults.standard.bool(forKey: "isDhilly")
+    
+    func setDhilly() {
+        isDhilly = true
+        UserDefaults.standard.set(true, forKey: "isDhilly")
+    }
     
     private init() {}
     
