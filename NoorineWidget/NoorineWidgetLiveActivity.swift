@@ -7,7 +7,10 @@ struct NoorineWidgetLiveActivity: Widget {
         ActivityConfiguration(for: NoorineLessonAttributes.self) { context in
             VStack(alignment: .leading, spacing: 12) {
                 HStack(spacing: 6) {
-                    Text("NOORINE LEÇON")
+                    Image(systemName: "star.fill")
+                        .font(.caption2)
+                        .foregroundColor(Color(red: 0.85, green: 0.65, blue: 0.2))
+                    Text(WidgetLocalization.lessonHeader)
                         .font(.caption2.bold())
                         .foregroundColor(.secondary)
                     Spacer()
@@ -100,7 +103,10 @@ struct NoorineStreakLiveActivity: Widget {
         ActivityConfiguration(for: NoorineStreakAttributes.self) { context in
             VStack(alignment: .leading, spacing: 12) {
                 HStack(spacing: 6) {
-                    Text("NOORINE SÉRIE")
+                    Image(systemName: "flame.fill")
+                        .font(.caption2)
+                        .foregroundColor(.orange)
+                    Text(WidgetLocalization.streakHeader)
                         .font(.caption2.bold())
                         .foregroundColor(.secondary)
                     Spacer()
@@ -112,7 +118,7 @@ struct NoorineStreakLiveActivity: Widget {
                         .foregroundColor(.orange)
                     
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("Protège ta série !")
+                        Text(WidgetLocalization.protectStreak)
                             .font(.headline)
                             .foregroundColor(.primary)
                         
@@ -159,7 +165,7 @@ struct NoorineStreakLiveActivity: Widget {
                 }
                 
                 DynamicIslandExpandedRegion(.bottom) {
-                    Text("Sauve ta flamme avant minuit !")
+                    Text(WidgetLocalization.saveFlame)
                         .font(.caption.bold())
                         .foregroundColor(.secondary)
                         .frame(maxWidth: .infinity, alignment: .center)

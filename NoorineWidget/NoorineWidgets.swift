@@ -57,7 +57,7 @@ struct WordOfDayWidgetView: View {
 
     private var smallView: some View {
         VStack(spacing: 6) {
-            Text("✨ MOT DU JOUR")
+            Text("✨ \(WidgetLocalization.wordOfDayHeader)")
                 .font(.system(size: 8, weight: .heavy, design: .rounded))
                 .foregroundStyle(.secondary)
                 .tracking(1)
@@ -114,7 +114,7 @@ struct WordOfDayWidgetView: View {
                     Image(systemName: "sparkles")
                         .font(.system(size: 10, weight: .bold))
                         .foregroundStyle(Color(red: 0.85, green: 0.65, blue: 0.2))
-                    Text("MOT DU JOUR")
+                    Text(WidgetLocalization.wordOfDayHeader)
                         .font(.system(size: 9, weight: .heavy, design: .rounded))
                         .foregroundStyle(.secondary)
                         .tracking(0.5)
@@ -154,8 +154,8 @@ struct WordOfDayWidget: Widget {
         StaticConfiguration(kind: kind, provider: WordOfDayProvider()) { entry in
             WordOfDayWidgetView(entry: entry)
         }
-        .configurationDisplayName("Mot du Jour")
-        .description("Un nouveau mot arabe chaque jour")
+        .configurationDisplayName(WidgetLocalization.wordOfDayTitle)
+        .description(WidgetLocalization.wordOfDayDesc)
         .supportedFamilies([.systemSmall, .systemMedium])
     }
 }
@@ -206,7 +206,7 @@ struct StreakWidgetView: View {
                 Image(systemName: "flame.fill")
                     .font(.system(size: 10))
                     .foregroundStyle(.orange)
-                Text("SÉRIE")
+                Text(WidgetLocalization.streakHeader)
                     .font(.system(size: 8, weight: .heavy, design: .rounded))
                     .foregroundStyle(.secondary)
                     .tracking(1)
@@ -222,7 +222,7 @@ struct StreakWidgetView: View {
                     )
                 )
 
-            Text("jours")
+            Text(WidgetLocalization.days)
                 .font(.system(size: 11, weight: .semibold))
                 .foregroundStyle(.secondary)
 
@@ -272,8 +272,8 @@ struct StreakWidget: Widget {
         StaticConfiguration(kind: kind, provider: StreakProvider()) { entry in
             StreakWidgetView(entry: entry)
         }
-        .configurationDisplayName("Série Noorine")
-        .description("Ta série de jours et progression quotidienne")
+        .configurationDisplayName(WidgetLocalization.streakWidgetTitle)
+        .description(WidgetLocalization.streakWidgetDesc)
         .supportedFamilies([.systemSmall])
     }
 }
