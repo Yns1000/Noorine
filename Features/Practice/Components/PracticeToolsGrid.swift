@@ -12,13 +12,13 @@ struct PracticeToolsGrid: View {
     @State private var showSentenceBuilder = false
 
     let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible())
+        GridItem(.adaptive(minimum: 155), spacing: 15)
     ]
 
     var body: some View {
         let pool = dataManager.practicePool(language: languageManager.currentLanguage)
-        let flashcardCount = pool.words.count
+        let allowedArabic = Set(pool.words.map { $0.arabic })
+        let flashcardCount = FlashcardManager.shared.filteredCards(allowedArabic: allowedArabic).count
 
         let isEnglish = languageManager.currentLanguage == .english
         
@@ -27,7 +27,9 @@ struct PracticeToolsGrid: View {
                 icon: "rectangle.on.rectangle.angled",
                 color: .blue,
                 title: "Flashcards",
-                subtitle: LocalizedStringKey(isEnglish ? "\(flashcardCount) words" : "\(flashcardCount) mots"),
+                subtitle: LocalizedStringKey(flashcardCount > 0
+                    ? (isEnglish ? "\(flashcardCount) cards" : "\(flashcardCount) cartes")
+                    : (isEnglish ? "Spaced review" : "Révision espacée")),
                 action: { showFlashcards = true }
             )
 
@@ -61,7 +63,7 @@ struct PracticeToolsGrid: View {
                 icon: "bolt.fill",
                 color: .mint,
                 title: LocalizedStringKey(isEnglish ? "Speed Quiz" : "Quiz Chrono"),
-                subtitle: LocalizedStringKey(isEnglish ? "Speed & vocab" : "Rapidité & vocab"),
+                subtitle: LocalizedStringKey(isEnglish ? "Speed & vocabulary" : "Rapidité & vocabulaire"),
                 action: { showMatching = true }
             )
 

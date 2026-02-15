@@ -6,7 +6,7 @@ struct PronunciationLibraryView: View {
     let onSelect: (ArabicLetter) -> Void
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 Color.noorBackground.ignoresSafeArea()
                 

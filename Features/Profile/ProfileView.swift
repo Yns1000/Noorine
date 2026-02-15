@@ -14,7 +14,7 @@ struct ProfileView: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 Color.noorBackground.ignoresSafeArea()
                 
@@ -198,6 +198,8 @@ struct ProfileView: View {
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 20)
+                    .frame(maxWidth: 800)
+                    .frame(maxWidth: .infinity)
                 }
             }
             .navigationBarHidden(true)

@@ -111,18 +111,43 @@ struct ListeningPracticeView: View {
         let pool = dataManager.practicePool(language: languageManager.currentLanguage)
         
         var built: [ListeningExercise] = []
-        for _ in 0..<totalSteps {
-            switch mode {
-            case .word:
-                let word = pool.words.randomElement() ?? CourseContent.words.first!
-                let options = makeWordOptions(target: word, pool: pool.words)
+        
+        switch mode {
+        case .word:
+            var candidates = pool.words
+            if candidates.count < totalSteps {
+                let extras = CourseContent.words.filter { w in !candidates.contains(where: { $0.id == w.id }) }
+                candidates.append(contentsOf: extras)
+            }
+            candidates.shuffle()
+            
+            var usedIds = Set<Int>()
+            for _ in 0..<totalSteps {
+                let available = candidates.filter { !usedIds.contains($0.id) }
+                let word = available.first ?? candidates.randomElement() ?? CourseContent.words.first!
+                usedIds.insert(word.id)
+                let options = makeWordOptions(target: word, pool: candidates)
                 built.append(ListeningExercise(word: word, options: options))
-            case .phrase:
-                let phrase = pool.phrases.randomElement() ?? CourseContent.phrases.first!
-                let options = makePhraseOptions(target: phrase, pool: pool.phrases)
+            }
+            
+        case .phrase:
+            var candidates = pool.phrases
+            if candidates.count < totalSteps {
+                let extras = CourseContent.phrases.filter { p in !candidates.contains(where: { $0.id == p.id }) }
+                candidates.append(contentsOf: extras)
+            }
+            candidates.shuffle()
+            
+            var usedIds = Set<Int>()
+            for _ in 0..<totalSteps {
+                let available = candidates.filter { !usedIds.contains($0.id) }
+                let phrase = available.first ?? candidates.randomElement() ?? CourseContent.phrases.first!
+                usedIds.insert(phrase.id)
+                let options = makePhraseOptions(target: phrase, pool: candidates)
                 built.append(ListeningExercise(phrase: phrase, options: options))
             }
         }
+        
         exercises = built
     }
     

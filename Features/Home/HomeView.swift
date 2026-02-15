@@ -128,7 +128,7 @@ struct HomeView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(.hidden, for: .navigationBar)
             .fullScreenCover(item: $selectedLevel) { level in
-                NavigationView {
+                NavigationStack {
                     switch level.levelType {
                     case .vowels:
                         VowelLessonView(levelNumber: level.levelNumber)
