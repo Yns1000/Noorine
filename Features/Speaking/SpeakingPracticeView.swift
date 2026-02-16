@@ -15,7 +15,7 @@ struct SpeakingPracticeView: View {
     let goalCount: Int?
     let onCompletion: (() -> Void)?
     
-    @State private var currentLetter = ArabicLetter.alphabet.randomElement()!
+    @State private var currentLetter = ArabicLetter.alphabet.randomElement() ?? ArabicLetter.alphabet[0]
     @State private var isListening = false
     @State private var showSuccess = false
     @State private var showFailure = false
@@ -264,12 +264,51 @@ struct SpeakingPracticeView: View {
         }
     }
 
+    private var confidenceBar: some View {
+        Group {
+            if (showSuccess || showFailure) && speechManager.confidence > 0 {
+                VStack(spacing: 4) {
+                    HStack(spacing: 6) {
+                        Text(languageManager.currentLanguage == .english ? "Confidence" : "Confiance")
+                            .font(.system(size: 11, weight: .medium))
+                            .foregroundColor(.noorSecondary)
+                        GeometryReader { geo in
+                            ZStack(alignment: .leading) {
+                                Capsule()
+                                    .fill(Color.gray.opacity(0.2))
+                                Capsule()
+                                    .fill(confidenceColor)
+                                    .frame(width: geo.size.width * CGFloat(min(speechManager.confidence, 1.0)))
+                                    .animation(.easeInOut, value: speechManager.confidence)
+                            }
+                        }
+                        .frame(height: 4)
+                        Text("\(Int(speechManager.confidence * 100))%")
+                            .font(.system(size: 11, weight: .bold, design: .monospaced))
+                            .foregroundColor(confidenceColor)
+                            .frame(width: 32)
+                    }
+                }
+                .padding(.horizontal, 40)
+                .transition(.opacity)
+            }
+        }
+    }
+
+    private var confidenceColor: Color {
+        let c = speechManager.confidence
+        if c >= 0.7 { return .green }
+        if c >= 0.4 { return .orange }
+        return .red
+    }
+
     private var feedbackSection: some View {
         VStack(spacing: 4) {
             feedbackView
+            confidenceBar
             debugTextSection
         }
-        .frame(height: 80)
+        .frame(height: 100)
         .clipped()
     }
 

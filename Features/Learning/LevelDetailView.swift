@@ -568,6 +568,7 @@ struct VowelQuizView: View {
                     }
                     .disabled(showSuccess)
                     .tapScale()
+                    .accessibilityLabel("\(vowel.name), \(getPhonetic(letter: baseLetter, vowel: vowel))")
                 }
             }
             .padding(.horizontal, 20)
@@ -1659,6 +1660,8 @@ struct WordAssemblyView: View {
         .buttonStyle(.plain)
         .disabled(isUsed)
         .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isSelected)
+        .accessibilityLabel("\(item.letter.name), \(item.letter.transliteration)")
+        .accessibilityHint(isUsed ? (languageManager.currentLanguage == .english ? "Already placed" : "Déjà placée") : "")
     }
     
     @State private var showLevelSummary = false
@@ -1925,6 +1928,26 @@ struct RootBannerView: View {
                             .foregroundColor(.noorGold)
                     }
                 }
+            }
+
+            if let note = isEnglish ? root.culturalNoteEn : root.culturalNoteFr {
+                HStack(alignment: .top, spacing: 8) {
+                    Image(systemName: "lightbulb.fill")
+                        .font(.system(size: 13))
+                        .foregroundColor(.noorGold)
+                        .padding(.top, 2)
+
+                    Text(note)
+                        .font(.system(size: 13, weight: .medium, design: .rounded))
+                        .foregroundColor(.noorSecondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .padding(12)
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.noorGold.opacity(0.06))
+                )
+                .transition(.opacity)
             }
 
             if showFamily && !familyWords.isEmpty {

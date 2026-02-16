@@ -57,7 +57,7 @@ struct WordOfDayWidgetView: View {
 
     private var smallView: some View {
         VStack(spacing: 6) {
-            Text("✨ \(WidgetLocalization.wordOfDayHeader)")
+            Text("\(WidgetLocalization.wordOfDayHeader)")
                 .font(.system(size: 8, weight: .heavy, design: .rounded))
                 .foregroundStyle(.secondary)
                 .tracking(1)
@@ -79,18 +79,15 @@ struct WordOfDayWidgetView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(12)
-        .background(
-            ContainerRelativeShape()
-                .fill(
-                    LinearGradient(
-                        colors: [
-                            Color(red: 0.85, green: 0.65, blue: 0.2).opacity(0.08),
-                            Color(red: 1.0, green: 0.85, blue: 0.4).opacity(0.04)
-                        ],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
+        .widgetBackground(
+            LinearGradient(
+                colors: [
+                    Color(red: 0.85, green: 0.65, blue: 0.2).opacity(0.08),
+                    Color(red: 1.0, green: 0.85, blue: 0.4).opacity(0.04)
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
         )
     }
 
@@ -111,7 +108,7 @@ struct WordOfDayWidgetView: View {
 
             VStack(alignment: .leading, spacing: 8) {
                 HStack(spacing: 4) {
-                    Image(systemName: "sparkles")
+                    Image(systemName: "book.closed.fill")
                         .font(.system(size: 10, weight: .bold))
                         .foregroundStyle(Color(red: 0.85, green: 0.65, blue: 0.2))
                     Text(WidgetLocalization.wordOfDayHeader)
@@ -131,18 +128,16 @@ struct WordOfDayWidgetView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(16)
-        .background(
-            ContainerRelativeShape()
-                .fill(
-                    LinearGradient(
-                        colors: [
-                            Color(red: 0.85, green: 0.65, blue: 0.2).opacity(0.06),
-                            Color.clear
-                        ],
-                        startPoint: .leading,
-                        endPoint: .trailing
-                    )
-                )
+
+        .widgetBackground(
+            LinearGradient(
+                colors: [
+                    Color(red: 0.85, green: 0.65, blue: 0.2).opacity(0.06),
+                    Color.clear
+                ],
+                startPoint: .leading,
+                endPoint: .trailing
+            )
         )
     }
 }
@@ -157,6 +152,7 @@ struct WordOfDayWidget: Widget {
         .configurationDisplayName(WidgetLocalization.wordOfDayTitle)
         .description(WidgetLocalization.wordOfDayDesc)
         .supportedFamilies([.systemSmall, .systemMedium])
+        .disableContentMargins()
     }
 }
 
@@ -249,18 +245,15 @@ struct StreakWidgetView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(12)
-        .background(
-            ContainerRelativeShape()
-                .fill(
-                    LinearGradient(
-                        colors: [
-                            .orange.opacity(0.06),
-                            Color(red: 0.85, green: 0.65, blue: 0.2).opacity(0.04)
-                        ],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
+        .widgetBackground(
+            LinearGradient(
+                colors: [
+                    .orange.opacity(0.06),
+                    Color(red: 0.85, green: 0.65, blue: 0.2).opacity(0.04)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
         )
     }
 }
@@ -275,6 +268,29 @@ struct StreakWidget: Widget {
         .configurationDisplayName(WidgetLocalization.streakWidgetTitle)
         .description(WidgetLocalization.streakWidgetDesc)
         .supportedFamilies([.systemSmall])
+        .disableContentMargins()
+    }
+}
+
+extension View {
+    func widgetBackground<Background: View>(_ backgroundView: Background) -> some View {
+        if #available(iOS 17.0, *) {
+            return containerBackground(for: .widget) {
+                backgroundView
+            }
+        } else {
+            return background(backgroundView)
+        }
+    }
+}
+
+extension WidgetConfiguration {
+    func disableContentMargins() -> some WidgetConfiguration {
+        if #available(iOS 17.0, *) {
+            return self.contentMarginsDisabled()
+        } else {
+            return self
+        }
     }
 }
 

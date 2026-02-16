@@ -96,14 +96,26 @@ final class SRSEngine {
     }
 
     func getStats() -> SRSStats {
-        let allCards = fetchAllCards()
+        guard let context = modelContext else {
+            return SRSStats(totalCards: 0, dueToday: 0, learning: 0, mature: 0)
+        }
+        
         let now = Date()
-        let dueCount = allCards.filter { $0.nextReviewDate <= now }.count
-        let learningCount = allCards.filter { $0.repetitions < 2 }.count
-        let matureCount = allCards.filter { $0.interval >= 21 }.count
+        
+        let totalDescriptor = FetchDescriptor<SRSCard>()
+        let totalCount = (try? context.fetchCount(totalDescriptor)) ?? 0
+        
+        let dueDescriptor = FetchDescriptor<SRSCard>(predicate: #Predicate { $0.nextReviewDate <= now })
+        let dueCount = (try? context.fetchCount(dueDescriptor)) ?? 0
+        
+        let learningDescriptor = FetchDescriptor<SRSCard>(predicate: #Predicate { $0.repetitions < 2 })
+        let learningCount = (try? context.fetchCount(learningDescriptor)) ?? 0
+        
+        let matureDescriptor = FetchDescriptor<SRSCard>(predicate: #Predicate { $0.interval >= 21 })
+        let matureCount = (try? context.fetchCount(matureDescriptor)) ?? 0
 
         return SRSStats(
-            totalCards: allCards.count,
+            totalCards: totalCount,
             dueToday: dueCount,
             learning: learningCount,
             mature: matureCount

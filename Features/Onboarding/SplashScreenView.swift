@@ -157,6 +157,8 @@ struct SplashScreenView: View {
             animateBlobs = true
             FeedbackManager.shared.tapMedium()
             
+            NotificationManager.shared.requestPermissions()
+            
             withAnimation(.spring(response: 0.8, dampingFraction: 0.65)) {
                 mascotScale = 1.0
                 mascotOpacity = 1.0

@@ -6,6 +6,7 @@ import AVFoundation
 class SpeechManager: ObservableObject {
     @Published var isRecording = false
     @Published var recognizedText = ""
+    @Published var confidence: Float = 0.0
     @Published var audioLevel: Float = 0.0
     @Published var authorizationStatus: SFSpeechRecognizerAuthorizationStatus = .notDetermined
     
@@ -61,6 +62,10 @@ class SpeechManager: ObservableObject {
             if let result = result {
                 DispatchQueue.main.async {
                     self?.recognizedText = result.bestTranscription.formattedString
+                    let segments = result.bestTranscription.segments
+                    if !segments.isEmpty {
+                        self?.confidence = segments.map(\.confidence).reduce(0, +) / Float(segments.count)
+                    }
                 }
             }
             

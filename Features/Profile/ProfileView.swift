@@ -1,5 +1,6 @@
 import SwiftUI
 import Charts
+import UserNotifications
 
 struct ProfileView: View {
     @EnvironmentObject var languageManager: LanguageManager
@@ -9,6 +10,7 @@ struct ProfileView: View {
     @State private var showXPSheet = false
     @State private var showLeagueSheet = false
     @State private var showFAQSheet = false
+    @State private var showResetConfirmation = false
     
     private var isEnglish: Bool {
         languageManager.currentLanguage == .english
@@ -56,6 +58,11 @@ struct ProfileView: View {
                                         get: { dataManager.userProgress?.notificationsEnabled ?? true },
                                         set: { newValue in
                                             dataManager.userProgress?.notificationsEnabled = newValue
+                                            if newValue {
+                                                NotificationManager.shared.requestPermissions()
+                                            } else {
+                                                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                                            }
                                         }
                                     )
                                 )
@@ -178,47 +185,69 @@ struct ProfileView: View {
                                 
                                 VStack(spacing: 0) {
                                     DevActionRow(
-                                        title: "Réinitialiser le nom",
-                                        subtitle: "Remettre 'Apprenti'",
-                                        icon: "person.text.rectangle",
-                                        color: .blue,
-                                        action: { dataManager.devResetName() }
-                                    )
-                                    
-                                    Divider().padding(.leading, 56)
-                                    
-                                    DevActionRow(
-                                        title: "Réinitialiser Défi Quotidien",
-                                        subtitle: "Le revoir aujourd'hui",
-                                        icon: "calendar.badge.minus",
-                                        color: .orange,
-                                        action: { dataManager.devResetDailyChallenge() }
-                                    )
-                                    
-                                    Divider().padding(.leading, 56)
-                                    
-                                    DevActionRow(
                                         title: "Tout réinitialiser",
-                                        subtitle: "XP, Progression, Niveaux",
+                                        subtitle: "Efface tout et ferme l'appli",
                                         icon: "trash.fill",
                                         color: .red,
-                                        action: { dataManager.devResetAllProgress() }
+                                        action: { showResetConfirmation = true }
                                     )
+                                    .alert("Tout effacer ?", isPresented: $showResetConfirmation) {
+                                        Button("Annuler", role: .cancel) { }
+                                        Button("Réinitialiser", role: .destructive) {
+                                            dataManager.devResetAllProgress()
+                                        }
+                                    } message: {
+                                        Text("Cette action est irréversible. Toute votre progression sera perdue et l'application se fermera.")
+                                    }
                                 }
-                            }
-                            
-                            MenuSection(title: "Partage & Export") {
-                                VStack(spacing: 0) {
-                                    ShareLink(item: renderMascotIcon(style: .light), preview: SharePreview("Icône Noorine (Claire)", image: renderMascotIcon(style: .light))) {
-                                        ExportRow(title: "Export Icône Claire", subtitle: "Fond Crème (Standard)", icon: "sun.max.fill", color: .orange)
-                                    }
+                                
+                                if dataManager.isDhilly {
                                     Divider().padding(.leading, 56)
-                                    ShareLink(item: renderMascotIcon(style: .dark), preview: SharePreview("Icône Noorine (Sombre)", image: renderMascotIcon(style: .dark))) {
-                                        ExportRow(title: "Export Icône Sombre", subtitle: "Fond Noir (Glow)", icon: "moon.stars.fill", color: .indigo)
-                                    }
-                                    Divider().padding(.leading, 56)
-                                    ShareLink(item: renderMascotIcon(style: .tinted), preview: SharePreview("Icône Noorine (Teintée)", image: renderMascotIcon(style: .tinted))) {
-                                        ExportRow(title: "Export Icône Teintée", subtitle: "Gabarit iOS (Grayscale)", icon: "paintpalette.fill", color: .purple)
+                                    
+                                    VStack(alignment: .leading, spacing: 8) {
+                                        HStack(spacing: 6) {
+                                            Image(systemName: "bell.badge.fill")
+                                                .foregroundColor(.noorGold)
+                                            Text(isEnglish ? "Test Notifications" : "Tester les notifications")
+                                                .font(.system(size: 14, weight: .bold, design: .rounded))
+                                                .foregroundColor(.noorText)
+                                        }
+                                        .padding(.horizontal, 16)
+                                        .padding(.top, 8)
+                                        
+                                        Text(isEnglish ? "Sent in 5 seconds" : "Envoyée dans 5 secondes")
+                                            .font(.system(size: 11, weight: .medium))
+                                            .foregroundColor(.noorSecondary)
+                                            .padding(.horizontal, 16)
+                                        
+                                        ScrollView(.horizontal, showsIndicators: false) {
+                                            HStack(spacing: 10) {
+                                                ForEach(NotificationManager.TestNotificationType.allCases, id: \.rawValue) { type in
+                                                    Button(action: {
+                                                        NotificationManager.shared.triggerTestNotification(type)
+                                                        HapticManager.shared.impact(.medium)
+                                                    }) {
+                                                        VStack(spacing: 6) {
+                                                            Image(systemName: type.icon)
+                                                                .font(.system(size: 16, weight: .semibold))
+                                                                .foregroundColor(type.color)
+                                                                .frame(width: 36, height: 36)
+                                                                .background(type.color.opacity(0.12))
+                                                                .clipShape(Circle())
+                                                            
+                                                            Text(type.displayName)
+                                                                .font(.system(size: 9, weight: .semibold))
+                                                                .foregroundColor(.noorSecondary)
+                                                                .lineLimit(1)
+                                                        }
+                                                        .frame(width: 70)
+                                                    }
+                                                    .buttonStyle(PlainButtonStyle())
+                                                }
+                                            }
+                                            .padding(.horizontal, 16)
+                                            .padding(.bottom, 12)
+                                        }
                                     }
                                 }
                             }

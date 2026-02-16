@@ -68,6 +68,18 @@ class NotificationManager {
             minute: 30,
             userName: userName
         )
+
+        if DataManager.shared.isDhilly {
+            let dhillyContent = NotificationLibrary.dhillySpecial.randomElement()!
+            scheduleNotification(
+                identifier: "dhilly_\(dayOffset)",
+                content: dhillyContent,
+                dayOffset: dayOffset,
+                hour: Int.random(in: 13...16),
+                minute: Int.random(in: 0...59),
+                userName: userName
+            )
+        }
     }
     
     private func scheduleInactivityEncouragement(userName: String) {
@@ -113,6 +125,7 @@ class NotificationManager {
         case .streakWarning: content = NotificationLibrary.streakWarning.randomElement()!
         case .inactivity3Days: content = NotificationLibrary.inactivity3Days.randomElement()!
         case .inactivity7Days: content = NotificationLibrary.inactivity7Days.randomElement()!
+        case .dhillySpecial: content = NotificationLibrary.dhillySpecial.randomElement()!
         }
         
         let notifContent = UNMutableNotificationContent()
@@ -123,7 +136,19 @@ class NotificationManager {
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
         let request = UNNotificationRequest(identifier: "test_\(type.rawValue)", content: notifContent, trigger: trigger)
         
-        UNUserNotificationCenter.current().add(request)
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            if settings.authorizationStatus == .notDetermined {
+                self.requestPermissions()
+            }
+            
+            UNUserNotificationCenter.current().add(request) { error in
+                if let error = error {
+                    print("Test notification error: \(error.localizedDescription)")
+                } else {
+                    print("Test notification '\(type.rawValue)' scheduled in 5s")
+                }
+            }
+        }
     }
     
     enum TestNotificationType: String, CaseIterable {
@@ -131,31 +156,35 @@ class NotificationManager {
         case streakWarning = "streak_warning"
         case inactivity3Days = "inactivity_3d"
         case inactivity7Days = "inactivity_7d"
-        
+        case dhillySpecial = "dhilly_special"
+
         var displayName: String {
             switch self {
             case .dailyReminder: return LanguageManager.shared.currentLanguage == .english ? "Test Morning" : "Test Matin"
             case .streakWarning: return LanguageManager.shared.currentLanguage == .english ? "Test Streak" : "Test Flamme"
             case .inactivity3Days: return LanguageManager.shared.currentLanguage == .english ? "Test Inactivity 3d" : "Test Inactivité 3j"
             case .inactivity7Days: return LanguageManager.shared.currentLanguage == .english ? "Test Inactivity 7d" : "Test Inactivité 7j"
+            case .dhillySpecial: return "Test Laurine"
             }
         }
-        
+
         var icon: String {
             switch self {
             case .dailyReminder: return "sun.max.fill"
             case .streakWarning: return "flame.fill"
             case .inactivity3Days: return "clock.badge.exclamationmark"
             case .inactivity7Days: return "calendar.badge.exclamationmark"
+            case .dhillySpecial: return "heart.fill"
             }
         }
-        
+
         var color: Color {
             switch self {
             case .dailyReminder: return .orange
             case .streakWarning: return .red
             case .inactivity3Days: return .purple
             case .inactivity7Days: return .gray
+            case .dhillySpecial: return .pink
             }
         }
     }
@@ -250,5 +279,19 @@ struct NotificationLibrary {
                 NotificationContent(title: "Un nouveau départ ? 🌱", body: "Hey [name], remettons-nous en selle ensemble. On croit en toi.")
             ]
         }
+    }
+
+    static var dhillySpecial: [NotificationContent] {
+        [
+            NotificationContent(title: "Laurine 💛", body: "Reviens t'entraîner et wow sub7anAllah ce sourire !!!!"),
+            NotificationContent(title: "Notif aléatoire 🎲", body: "Laurine wAllah je suis une notif aléatoire mais tu es la plus belle fille de l'histoire"),
+            NotificationContent(title: "Laurine Dhilly 🌟", body: "T'es trop forte ma sha Allah, reviens casser des records sur Noorine"),
+            NotificationContent(title: "Alerte beauté 🚨", body: "Laurine sub7anAllah y'a trop de lumière qui sort de cette appli quand tu l'ouvres"),
+            NotificationContent(title: "Message important 📩", body: "Laurine sache que tu es wow et que tu es une fille incroyable. Et bois de l'eau MDR."),
+            NotificationContent(title: "Coucou Laurine 🌙", body: "Même cette notif est jalouse de toi parce que t'es trop wow Allahuma barik"),
+            NotificationContent(title: "Breaking news 📰", body: "Laurine Dhilly a encore pas fait sa leçon d'arabe. Scandale. Reviens stp 🥺"),
+            NotificationContent(title: "Sub7anAllah 🤲", body: "Laurine tu brilles tellement que même ton téléphone t'envoie des compliments. Allez hop, une leçon !"),
+            NotificationContent(title: "Salam Laurine 💫", body: "WAllah t'es la meilleure élève que Noorine ait jamais eue (et la seule pr l'instant aussi mais chut)")
+        ]
     }
 }

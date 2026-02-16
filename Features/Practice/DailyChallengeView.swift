@@ -23,7 +23,7 @@ struct DailyChallengeView: View {
                     onClose: { dismiss() }
                 )
 
-                if !exercises.isEmpty {
+                if !exercises.isEmpty, currentStep < exercises.count {
                     let exercise = exercises[currentStep]
                     if exercise.type == .letter || exercise.type == .wordAssembly {
                         ZStack {

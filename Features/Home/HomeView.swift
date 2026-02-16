@@ -631,11 +631,14 @@ struct LevelNode: View {
                 .tapScale()
                 .frame(width: LayoutConfig.buttonSize, height: LayoutConfig.buttonSize)
                 .contentShape(Circle())
-                
+                .accessibilityLabel("\(title), \(subtitle)")
+                .accessibilityHint(state == .locked ? "Locked" : (state == .completed ? "Completed" : "Current level"))
+
                 LevelInfoCard(title: title, subtitle: subtitle, isCurrent: state == .current)
                     .offset(y: state == .current ? 95 : 80)
                     .zIndex(1)
                     .allowsHitTesting(false)
+                    .accessibilityHidden(true)
             }
             .offset(x: xOffset)
             Spacer()

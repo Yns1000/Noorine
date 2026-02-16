@@ -169,6 +169,13 @@ struct ArabicRoot: Identifiable, Codable {
     let meaningEn: String
     let meaningFr: String
     let wordIds: [Int]
+    let culturalNoteEn: String?
+    let culturalNoteFr: String?
+
+    init(id: String, letters: String, meaningEn: String, meaningFr: String, wordIds: [Int], culturalNoteEn: String? = nil, culturalNoteFr: String? = nil) {
+        self.id = id; self.letters = letters; self.meaningEn = meaningEn; self.meaningFr = meaningFr
+        self.wordIds = wordIds; self.culturalNoteEn = culturalNoteEn; self.culturalNoteFr = culturalNoteFr
+    }
 }
 
 struct ArabicPhrase: Identifiable, Codable {

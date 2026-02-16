@@ -260,6 +260,8 @@ class DataManager: ObservableObject {
             progress.dailyXP = [:]
             progress.lastDailyChallengeDate = nil
             progress.achievements = []
+            progress.name = ""
+            progress.notificationsEnabled = true
         }
         
         for level in levels {
@@ -267,8 +269,22 @@ class DataManager: ObservableObject {
             level.completedLetterIds = []
         }
         
+        SRSEngine.shared.reset()
+        
+        for mistake in mistakes {
+            modelContext?.delete(mistake)
+        }
+        mistakes.removeAll()
+        
         try? modelContext?.save()
-        progressTick += 1
+        
+        if let bundleID = Bundle.main.bundleIdentifier {
+            UserDefaults.standard.removePersistentDomain(forName: bundleID)
+        }
+        UserDefaults.standard.synchronize()
+        
+        print("Application data wiped. Exiting...")
+        exit(0)
     }
     
     
@@ -321,6 +337,20 @@ class DataManager: ObservableObject {
     
     func getActiveMistakes() -> [MistakeItem] {
         return mistakes.filter { !$0.isMastered }
+    }
+
+    func weakAreas() -> [(type: String, itemIds: [String], count: Int)] {
+        let active = getActiveMistakes()
+        var grouped: [String: [String]] = [:]
+        for mistake in active {
+            grouped[mistake.itemType, default: []].append(mistake.itemId)
+        }
+        return grouped.map { (type: $0.key, itemIds: Array(Set($0.value)), count: $0.value.count) }
+            .sorted { $0.count > $1.count }
+    }
+
+    func completedLevels() -> [LevelProgress] {
+        levels.filter { $0.isCompleted }.sorted { $0.levelNumber < $1.levelNumber }
     }
 
     func removeMistake(_ item: MistakeItem) {
@@ -390,11 +420,15 @@ class DataManager: ObservableObject {
             if #available(iOS 16.2, *) {
                 LiveActivityManager.shared.stopStreakActivity()
             }
-        } else {            
+        } else if progress.streakDays > 0 {
             if let tomorrow = calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: today)) {
                 if #available(iOS 16.2, *) {
                     LiveActivityManager.shared.startStreakActivity(streak: progress.streakDays, deadline: tomorrow)
                 }
+            }
+        } else {
+            if #available(iOS 16.2, *) {
+                LiveActivityManager.shared.stopStreakActivity()
             }
         }
     }
