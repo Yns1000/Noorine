@@ -43,6 +43,15 @@ enum LetterFormType: String, CaseIterable {
         }
     }
     
+    var strokeKey: String {
+        switch self {
+        case .isolated: return "isolated"
+        case .initial: return "initial"
+        case .medial: return "medial"
+        case .final: return "final"
+        }
+    }
+
     func getForm(from letter: ArabicLetter) -> String {
         switch self {
         case .isolated: return letter.isolated

@@ -1,5 +1,27 @@
 import Foundation
 
+struct StrokeGuide: Codable, Equatable, Hashable {
+    let points: [[Double]]
+    let type: String
+}
+
+struct LetterStrokeData: Codable, Equatable, Hashable {
+    let isolated: [StrokeGuide]?
+    let initial: [StrokeGuide]?
+    let medial: [StrokeGuide]?
+    let final: [StrokeGuide]?
+
+    func guides(for formType: String) -> [StrokeGuide]? {
+        switch formType {
+        case "isolated": return isolated
+        case "initial": return initial
+        case "medial": return medial
+        case "final": return final
+        default: return nil
+        }
+    }
+}
+
 struct ArabicLetter: Identifiable, Codable, Equatable, Hashable {
     let id: Int
     let name: String
@@ -9,6 +31,13 @@ struct ArabicLetter: Identifiable, Codable, Equatable, Hashable {
     let medial: String
     let final: String
     let order: Int
+    let strokes: LetterStrokeData?
+
+    init(id: Int, name: String, transliteration: String, isolated: String, initial: String, medial: String, final: String, order: Int, strokes: LetterStrokeData? = nil) {
+        self.id = id; self.name = name; self.transliteration = transliteration
+        self.isolated = isolated; self.initial = initial; self.medial = medial; self.final = final
+        self.order = order; self.strokes = strokes
+    }
     
     var pronunciationTip: String {
         switch id {

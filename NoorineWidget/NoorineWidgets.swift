@@ -266,7 +266,7 @@ struct StreakWidget: Widget {
             StreakWidgetView(entry: entry)
         }
         .configurationDisplayName(WidgetLocalization.streakWidgetTitle)
-        .description(WidgetLocalization.streakWidgetDesc)
+.description(WidgetLocalization.streakWidgetDesc)
         .supportedFamilies([.systemSmall])
         .disableContentMargins()
     }

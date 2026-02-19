@@ -90,14 +90,26 @@ struct PhraseLessonView: View {
                 }
             }
         }
-        .onAppear { setupPhrase() }
-        .onDisappear { logCurrentPhraseMistakeOnQuit() }
+        .onAppear {
+            setupPhrase()
+            startLiveActivity()
+        }
+        .onChangeCompat(of: currentPhraseIndex) { _ in
+            updateLiveActivity()
+        }
+        .onDisappear {
+            logCurrentPhraseMistakeOnQuit()
+            if phase != .complete {
+                cancelLiveActivity()
+            }
+        }
     }
     
     private var headerView: some View {
         HStack {
             Button(action: {
                 logCurrentPhraseMistakeOnQuit()
+                endLiveActivity(xp: 0)
                 dismiss()
             }) {
                 Image(systemName: "xmark")
@@ -492,6 +504,7 @@ struct PhraseLessonView: View {
             
             ActionButton(title: isEnglish ? "Finish" : "Terminer") {
                 onCompletion()
+                endLiveActivity(xp: phrases.count * 5)
                 dismiss()
             }
         }
@@ -608,6 +621,43 @@ struct PhraseLessonView: View {
             } else {
                 phase = .complete
             }
+        }
+    }
+        
+    private func startLiveActivity() {
+        if #available(iOS 16.2, *) {
+            LiveActivityManager.shared.startLessonActivity(
+                levelNumber: levelNumber,
+                totalItems: phrases.count,
+                lessonTitle: isEnglish ? "Phrases" : "Phrases"
+            )
+        }
+    }
+
+    private func updateLiveActivity() {
+        if #available(iOS 16.2, *) {
+            let progress = Double(currentPhraseIndex) / Double(max(1, phrases.count))
+            let currentTitle = "Phrase \(currentPhraseIndex + 1)"
+            
+            LiveActivityManager.shared.updateProgress(
+                letterName: currentTitle,
+                letterArabic: "icon:text.quote",
+                progress: progress,
+                xpEarned: currentPhraseIndex * 5,
+                lessonTitle: isEnglish ? "Phrases" : "Phrases"
+            )
+        }
+    }
+
+    private func endLiveActivity(xp: Int) {
+        if #available(iOS 16.2, *) {
+            LiveActivityManager.shared.endLessonActivity(xpEarned: xp)
+        }
+    }
+
+    private func cancelLiveActivity() {
+        if #available(iOS 16.2, *) {
+            LiveActivityManager.shared.cancelActivity()
         }
     }
 }

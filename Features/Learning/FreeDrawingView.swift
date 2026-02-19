@@ -16,6 +16,7 @@ struct FreeDrawingStep: View {
     @State private var currentFunFact = ArabicFunFacts.randomFact()
     @State private var hasTriedOnce = false
     @State private var showFailure = false
+    @State private var showStrokeGuide = false
     
     var isChallengeMode: Bool = false
     var onChallengeComplete: ((Bool) -> Void)? = nil
@@ -32,11 +33,35 @@ struct FreeDrawingStep: View {
     var currentForm: String {
         formType.getForm(from: letter)
     }
+
+    var currentStrokeGuides: [StrokeGuide]? {
+        letter.strokes?.guides(for: formType.strokeKey)
+    }
     
     var body: some View {
         VStack(spacing: 0) {
             HStack(alignment: .center, spacing: 20) {
-                Color.clear.frame(width: 44, height: 44)
+                VStack(spacing: 4) {
+                    Button(action: {
+                        withAnimation {
+                            showStrokeGuide.toggle()
+                        }
+                    }) {
+                        ZStack {
+                            Circle()
+                                .fill(showStrokeGuide ? Color.noorGold.opacity(0.1) : Color.noorSecondary.opacity(0.1))
+                                .frame(width: 44, height: 44)
+                            
+                            Image(systemName: "questionmark")
+                                .font(.system(size: 18, weight: .bold))
+                                .foregroundColor(showStrokeGuide ? .noorGold : .noorSecondary)
+                        }
+                    }
+                    
+                    Text(LocalizedStringKey(isEnglish ? "Experimental" : "Expérimental"))
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundColor(.noorSecondary.opacity(0.7))
+                }
                 
                 VStack(spacing: 4) {
                     if isChallengeMode {
@@ -67,19 +92,25 @@ struct FreeDrawingStep: View {
                     }
                 }
                 
-                Button(action: {
-                    AudioManager.shared.playLetter(currentForm)
-                    HapticManager.shared.impact(.light)
-                }) {
-                    ZStack {
-                        Circle()
-                            .fill(Color.noorGold.opacity(0.1))
-                            .frame(width: 44, height: 44)
-                        
-                        Image(systemName: "speaker.wave.2.fill")
-                            .font(.system(size: 18))
-                            .foregroundColor(.noorGold)
+                VStack(spacing: 4) {
+                    Button(action: {
+                        AudioManager.shared.playLetter(currentForm)
+                        HapticManager.shared.impact(.light)
+                    }) {
+                        ZStack {
+                            Circle()
+                                .fill(Color.noorGold.opacity(0.1))
+                                .frame(width: 44, height: 44)
+                            
+                            Image(systemName: "speaker.wave.2.fill")
+                                .font(.system(size: 18))
+                                .foregroundColor(.noorGold)
+                        }
                     }
+                    
+                    Text(LocalizedStringKey(isEnglish ? "Experimental" : "Expérimental"))
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundColor(.clear)
                 }
             }
             .frame(maxWidth: .infinity)
@@ -95,15 +126,30 @@ struct FreeDrawingStep: View {
                                 lineWidth: (showSuccess || showFailure) ? 3 : 2
                             )
                     )
-                
+
                 FreeDrawingCanvas(
                     model: model,
                     referenceText: currentForm,
                     canvasSize: canvasSize
                 )
+
+                if let guides = currentStrokeGuides {
+                    StrokeGuideOverlay(
+                        guides: guides,
+                        canvasSize: canvasSize,
+                        isVisible: $showStrokeGuide
+                    )
+                }
             }
             .frame(width: canvasSize.width + 10, height: canvasSize.height + 10)
             .padding(.top, 8)
+            .onChange(of: model.hasContent) { _, hasContent in
+                if hasContent && showStrokeGuide {
+                    withAnimation(.easeOut(duration: 0.3)) {
+                        showStrokeGuide = false
+                    }
+                }
+            }
             
             if hasTriedOnce && model.hasContent {
                 HStack(spacing: 8) {

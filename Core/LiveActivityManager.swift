@@ -26,6 +26,16 @@ class LiveActivityManager {
 
     func startLessonActivity(levelNumber: Int, totalItems: Int, lessonTitle: String) {
         print("LiveActivityManager: Requesting to start activity for \(lessonTitle)")
+        
+        let activitiesToKill = Activity<NoorineLessonAttributes>.activities
+        
+        Task {
+            for activity in activitiesToKill {
+                print("LiveActivityManager: Ending stale activity \(activity.id)")
+                await activity.end(nil, dismissalPolicy: .immediate)
+            }
+        }
+        
         guard ActivityAuthorizationInfo().areActivitiesEnabled else {
             print("LiveActivityManager: Activities are NOT enabled in settings")
             return

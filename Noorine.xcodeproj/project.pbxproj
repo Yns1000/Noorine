@@ -38,6 +38,7 @@
 		F190A1452F2B0F5B00F0A090 /* LessonHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A13B2F2B0F5B00F0A090 /* LessonHeader.swift */; };
 		F190A1462F2B0F5B00F0A090 /* LetterFormsStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A13C2F2B0F5B00F0A090 /* LetterFormsStep.swift */; };
 		F190A1472F2B0F5B00F0A090 /* FreeDrawingCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A1332F2B0F5B00F0A090 /* FreeDrawingCanvas.swift */; };
+		F1SGO8A317864948A46E930D /* StrokeGuideOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1SGO1D7B2E55305AE5811FA /* StrokeGuideOverlay.swift */; };
 		F190A1482F2B0F5B00F0A090 /* EmotionalMascot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A1372F2B0F5B00F0A090 /* EmotionalMascot.swift */; };
 		F190A1492F2B0F5B00F0A090 /* SpeechBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A1382F2B0F5B00F0A090 /* SpeechBubble.swift */; };
 		F190A14C2F2B0F6800F0A090 /* LetterFormType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A14A2F2B0F6800F0A090 /* LetterFormType.swift */; };
@@ -83,6 +84,7 @@
 		F1FCEB722F2909E100AE6497 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEB712F2909E100AE6497 /* HomeView.swift */; };
 		F1FCEB742F2909EF00AE6497 /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEB732F2909EF00AE6497 /* PracticeView.swift */; };
 		F1FCEB762F2909FB00AE6497 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEB752F2909FB00AE6497 /* ProfileView.swift */; };
+		DD000001F880000000000001 /* GlyphCalibrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD000002F880000000000002 /* GlyphCalibrator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +153,7 @@
 		F190A12B2F2AFF2600F0A090 /* Noorine-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Noorine-Info.plist"; sourceTree = "<group>"; };
 		F190A1322F2B0F5B00F0A090 /* DrawingCanvasModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingCanvasModel.swift; sourceTree = "<group>"; };
 		F190A1332F2B0F5B00F0A090 /* FreeDrawingCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeDrawingCanvas.swift; sourceTree = "<group>"; };
+		F1SGO1D7B2E55305AE5811FA /* StrokeGuideOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeGuideOverlay.swift; sourceTree = "<group>"; };
 		F190A1342F2B0F5B00F0A090 /* RecognitionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionEngine.swift; sourceTree = "<group>"; };
 		F190A1362F2B0F5B00F0A090 /* ArabicFunFacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArabicFunFacts.swift; sourceTree = "<group>"; };
 		F190A1372F2B0F5B00F0A090 /* EmotionalMascot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionalMascot.swift; sourceTree = "<group>"; };
@@ -206,6 +209,7 @@
 		F1FCEB712F2909E100AE6497 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		F1FCEB732F2909EF00AE6497 /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
 		F1FCEB752F2909FB00AE6497 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		DD000002F880000000000002 /* GlyphCalibrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlyphCalibrator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -301,6 +305,7 @@
 			children = (
 				F190A1322F2B0F5B00F0A090 /* DrawingCanvasModel.swift */,
 				F190A1332F2B0F5B00F0A090 /* FreeDrawingCanvas.swift */,
+				F1SGO1D7B2E55305AE5811FA /* StrokeGuideOverlay.swift */,
 				F190A1342F2B0F5B00F0A090 /* RecognitionEngine.swift */,
 			);
 			path = Drawing;
@@ -422,6 +427,7 @@
 				F1FCEB622F28D78C00AE6497 /* Features */,
 				F1FCEB612F28D77F00AE6497 /* DesignSystem */,
 				F1FCEB602F28D77000AE6497 /* Core */,
+				DD000003F880000000000003 /* Utilities */,
 				F1FCEB5F2F28D6D000AE6497 /* App */,
 				F1FCEB452F28D60B00AE6497 /* NoorineTests */,
 				F1FCEB4F2F28D60B00AE6497 /* NoorineUITests */,
@@ -554,6 +560,14 @@
 				F113767B2F291F9B00D25275 /* Localizable.xcstrings */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		DD000003F880000000000003 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				DD000002F880000000000002 /* GlyphCalibrator.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -788,6 +802,7 @@
 				F190A1452F2B0F5B00F0A090 /* LessonHeader.swift in Sources */,
 				F190A1462F2B0F5B00F0A090 /* LetterFormsStep.swift in Sources */,
 				F190A1472F2B0F5B00F0A090 /* FreeDrawingCanvas.swift in Sources */,
+				F1SGO8A317864948A46E930D /* StrokeGuideOverlay.swift in Sources */,
 				F190A14C2F2B0F6800F0A090 /* LetterFormType.swift in Sources */,
 				F190A1482F2B0F5B00F0A090 /* EmotionalMascot.swift in Sources */,
 				F17F53E32F391C4800670D3B /* UnifiedCelebrationView.swift in Sources */,
@@ -807,6 +822,7 @@
 				BB000003F660000000000003 /* GameConstants.swift in Sources */,
 				CC000001F770000000000001 /* SharedDataStore.swift in Sources */,
 				CC000003F770000000000003 /* LiveActivityManager.swift in Sources */,
+				DD000001F880000000000001 /* GlyphCalibrator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

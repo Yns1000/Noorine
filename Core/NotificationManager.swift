@@ -285,13 +285,18 @@ struct NotificationLibrary {
         [
             NotificationContent(title: "Laurine 💛", body: "Reviens t'entraîner et wow sub7anAllah ce sourire !!!!"),
             NotificationContent(title: "Notif aléatoire 🎲", body: "Laurine wAllah je suis une notif aléatoire mais tu es la plus belle fille de l'histoire"),
-            NotificationContent(title: "Laurine Dhilly 🌟", body: "T'es trop forte ma sha Allah, reviens casser des records sur Noorine"),
+            NotificationContent(title: "Laurine mon reuf 🌟", body: "T'es trop forte ma sha Allah, reviens casser des records sur Noorine PRINCESSE"),
             NotificationContent(title: "Alerte beauté 🚨", body: "Laurine sub7anAllah y'a trop de lumière qui sort de cette appli quand tu l'ouvres"),
             NotificationContent(title: "Message important 📩", body: "Laurine sache que tu es wow et que tu es une fille incroyable. Et bois de l'eau MDR."),
             NotificationContent(title: "Coucou Laurine 🌙", body: "Même cette notif est jalouse de toi parce que t'es trop wow Allahuma barik"),
-            NotificationContent(title: "Breaking news 📰", body: "Laurine Dhilly a encore pas fait sa leçon d'arabe. Scandale. Reviens stp 🥺"),
+            NotificationContent(title: "Breaking news 📰", body: "Laurine Marie etc... a encore pas fait sa leçon d'arabe. Scandale. Reviens 3afak 🥺"),
             NotificationContent(title: "Sub7anAllah 🤲", body: "Laurine tu brilles tellement que même ton téléphone t'envoie des compliments. Allez hop, une leçon !"),
-            NotificationContent(title: "Salam Laurine 💫", body: "WAllah t'es la meilleure élève que Noorine ait jamais eue (et la seule pr l'instant aussi mais chut)")
+            NotificationContent(title: "Salam Laurine 💫", body: "T'es la meilleure élève que Noorine ait jamais eue (et la seule pour l'instant aussi mais oklm)"),
+            NotificationContent(title: "Cheffe 👩‍🍳", body: "T'es parfaite mon gars."),
+            NotificationContent(title: "Mdddr Laurine 😂", body: "22 piges j'ai jamais croisé quelqu'un de mieux que toi dans cette dunya lol"),
+            NotificationContent(title: "Pitié", body: "3 pas et tu exploses tes balles en SAUTANT pcq t'es une R4 LAURINE"),
+            NotificationContent(title: "T'as des yeux 👀", body: "Et j'ai jamais vu un truc aussi stylé sur quelqu'un LD"),
+            NotificationContent(title: "Tu es ✨", body: "La plus belle LD et accessoirement fille de l'histoire."),
         ]
     }
 }

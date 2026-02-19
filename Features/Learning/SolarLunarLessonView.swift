@@ -43,14 +43,26 @@ struct SolarLunarLessonView: View {
                 }
             }
         }
-        .onAppear { prepareQuiz() }
-        .onDisappear { logRemainingQuizMistakes() }
+        .onAppear {
+            prepareQuiz()
+            startLiveActivity()
+        }
+        .onChangeCompat(of: currentStep) { _ in
+            updateLiveActivity()
+        }
+        .onDisappear {
+            logRemainingQuizMistakes()
+            if currentStep < 5 {
+                cancelLiveActivity()
+            }
+        }
     }
     
     private var headerView: some View {
         HStack {
             Button(action: {
                 logRemainingQuizMistakes()
+                endLiveActivity(xp: 0)
                 dismiss()
             }) {
                 Image(systemName: "xmark")
@@ -332,6 +344,7 @@ struct SolarLunarLessonView: View {
             
             Button(action: {
                     onCompletion()
+                    endLiveActivity(xp: 50)
                     dismiss()
                 }) {
                 Text(isEnglish ? "Finish" : "Terminer")
@@ -414,6 +427,63 @@ struct SolarLunarLessonView: View {
                     currentStep = 5
                 }
             }
+        }
+    }
+    
+    private func startLiveActivity() {
+        if #available(iOS 16.2, *) {
+            LiveActivityManager.shared.startLessonActivity(
+                levelNumber: 0,
+                totalItems: steps.count,
+                lessonTitle: isEnglish ? "Sun & Moon" : "Solaire & Lunaire"
+            )
+        }
+    }
+
+    private func updateLiveActivity() {
+        if #available(iOS 16.2, *) {
+            let progress = Double(currentStep) / Double(steps.count - 1)
+            var icon = "icon:sun.max.fill"
+            var title = "Intro"
+            
+            switch currentStep {
+            case 1: 
+                icon = "icon:sun.max.fill"
+                title = isEnglish ? "Solar Letters" : "Lettres Solaires"
+            case 2:
+                icon = "icon:moon.fill"
+                title = isEnglish ? "Lunar Letters" : "Lettres Lunaires"
+            case 3:
+                icon = "icon:lightbulb.fill"
+                title = isEnglish ? "The Rule" : "La Règle"
+            case 4:
+                icon = "icon:questionmark.circle.fill"
+                title = "Quiz"
+            case 5:
+                icon = "icon:star.fill"
+                title = isEnglish ? "Complete" : "Terminé"
+            default: break
+            }
+            
+            LiveActivityManager.shared.updateProgress(
+                letterName: title,
+                letterArabic: icon,
+                progress: progress,
+                xpEarned: currentStep * 5,
+                lessonTitle: isEnglish ? "Sun & Moon" : "Solaire & Lunaire"
+            )
+        }
+    }
+
+    private func endLiveActivity(xp: Int) {
+        if #available(iOS 16.2, *) {
+            LiveActivityManager.shared.endLessonActivity(xpEarned: xp)
+        }
+    }
+
+    private func cancelLiveActivity() {
+        if #available(iOS 16.2, *) {
+            LiveActivityManager.shared.cancelActivity()
         }
     }
 }
