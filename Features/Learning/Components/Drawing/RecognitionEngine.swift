@@ -1,6 +1,9 @@
 import SwiftUI
+#if os(iOS)
 import Vision
+#if canImport(UIKit)
 import UIKit
+#endif
 
 class HandwritingRecognizer {
     static func recognizeText(from image: UIImage, completion: @escaping (String?) -> Void) {
@@ -319,3 +322,4 @@ struct RecognitionResult {
     let recognizedText: String?
     let shapeAnalysis: ShapeAnalysis?
 }
+#endif

@@ -1,6 +1,6 @@
 import XCTest
 
-final class NoorineUITests: XCTestCase {
+final class NoorineWatch_Watch_AppUITests: XCTestCase {
 
     override func setUpWithError() throws {
         continueAfterFailure = false

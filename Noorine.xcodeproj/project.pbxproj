@@ -23,6 +23,7 @@
 		CC000001F770000000000001 /* SharedDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC000002F770000000000002 /* SharedDataStore.swift */; };
 		CC000003F770000000000003 /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC000004F770000000000004 /* LiveActivityManager.swift */; };
 		D42BE3B561DC8ED228FDDB06 /* FlashcardLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF66D2F2FB8C7008A9EBC /* FlashcardLibraryView.swift */; };
+		DD000001F880000000000001 /* GlyphCalibrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD000002F880000000000002 /* GlyphCalibrator.swift */; };
 		EF4FDDA7B53521597D3AB3DA /* DictationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1DA6863B69E96F484901DC /* DictationView.swift */; };
 		F113767A2F291E5800D25275 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11376792F291E5800D25275 /* LanguageManager.swift */; };
 		F113767C2F291F9B00D25275 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F113767B2F291F9B00D25275 /* Localizable.xcstrings */; };
@@ -38,7 +39,6 @@
 		F190A1452F2B0F5B00F0A090 /* LessonHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A13B2F2B0F5B00F0A090 /* LessonHeader.swift */; };
 		F190A1462F2B0F5B00F0A090 /* LetterFormsStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A13C2F2B0F5B00F0A090 /* LetterFormsStep.swift */; };
 		F190A1472F2B0F5B00F0A090 /* FreeDrawingCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A1332F2B0F5B00F0A090 /* FreeDrawingCanvas.swift */; };
-		F1SGO8A317864948A46E930D /* StrokeGuideOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1SGO1D7B2E55305AE5811FA /* StrokeGuideOverlay.swift */; };
 		F190A1482F2B0F5B00F0A090 /* EmotionalMascot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A1372F2B0F5B00F0A090 /* EmotionalMascot.swift */; };
 		F190A1492F2B0F5B00F0A090 /* SpeechBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A1382F2B0F5B00F0A090 /* SpeechBubble.swift */; };
 		F190A14C2F2B0F6800F0A090 /* LetterFormType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A14A2F2B0F6800F0A090 /* LetterFormType.swift */; };
@@ -75,6 +75,16 @@
 		F1E700072F50000100ABC107 /* PracticeChoiceExercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E700032F50000100ABC103 /* PracticeChoiceExercises.swift */; };
 		F1E700082F50000100ABC108 /* ResourcesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E700042F50000100ABC104 /* ResourcesView.swift */; };
 		F1E7000A2F50000100ABC10A /* ListeningPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E700092F50000100ABC109 /* ListeningPracticeView.swift */; };
+		F1FAA4382F4711FE009343A0 /* NoorineWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = F1FAA4182F4711FD009343A0 /* NoorineWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F1FAA4432F47130E009343A0 /* ArabicLetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00002F2A000000000001 /* ArabicLetter.swift */; };
+		F1FAA4442F471321009343A0 /* course_content.json in Resources */ = {isa = PBXBuildFile; fileRef = F1C7206F2F32C36100EDA1E8 /* course_content.json */; };
+		F1FAA4452F471339009343A0 /* RecognitionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190A1342F2B0F5B00F0A090 /* RecognitionEngine.swift */; };
+		F1FAA44A2F47169D009343A0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FAA4482F47169D009343A0 /* Extensions.swift */; };
+		F1FAA44B2F47169D009343A0 /* WatchSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FAA4492F47169D009343A0 /* WatchSyncManager.swift */; };
+		F1FAA44C2F4716A4009343A0 /* WatchSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FAA4492F47169D009343A0 /* WatchSyncManager.swift */; };
+		F1FAA44D2F4716B6009343A0 /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6742F2FB8DB008A9EBC /* DataLoader.swift */; };
+		F1FAA44E2F4716C1009343A0 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11376792F291E5800D25275 /* LanguageManager.swift */; };
+		F1FAA44F2F47176B009343A0 /* Flashcard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDF6812F2FBAA8008A9EBC /* Flashcard.swift */; };
 		F1FCEB372F28D60900AE6497 /* NoorineApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEB362F28D60900AE6497 /* NoorineApp.swift */; };
 		F1FCEB392F28D60900AE6497 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEB382F28D60900AE6497 /* ContentView.swift */; };
 		F1FCEB3D2F28D60B00AE6497 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1FCEB3C2F28D60B00AE6497 /* Assets.xcassets */; };
@@ -84,7 +94,7 @@
 		F1FCEB722F2909E100AE6497 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEB712F2909E100AE6497 /* HomeView.swift */; };
 		F1FCEB742F2909EF00AE6497 /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEB732F2909EF00AE6497 /* PracticeView.swift */; };
 		F1FCEB762F2909FB00AE6497 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEB752F2909FB00AE6497 /* ProfileView.swift */; };
-		DD000001F880000000000001 /* GlyphCalibrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD000002F880000000000002 /* GlyphCalibrator.swift */; };
+		F1SGO8A317864948A46E930D /* StrokeGuideOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1SGO1D7B2E55305AE5811FA /* StrokeGuideOverlay.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +104,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = F17F53EE2F420FD900670D3B;
 			remoteInfo = NoorineWidgetExtension;
+		};
+		F1FAA4252F4711FE009343A0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F1FCEB2B2F28D60900AE6497 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F1FAA4172F4711FD009343A0;
+			remoteInfo = "NoorineWatch Watch App";
+		};
+		F1FAA42F2F4711FE009343A0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F1FCEB2B2F28D60900AE6497 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F1FAA4172F4711FD009343A0;
+			remoteInfo = "NoorineWatch Watch App";
+		};
+		F1FAA4362F4711FE009343A0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F1FCEB2B2F28D60900AE6497 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F1FAA4172F4711FD009343A0;
+			remoteInfo = "NoorineWatch Watch App";
 		};
 		F1FCEB432F28D60B00AE6497 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -123,6 +154,17 @@
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F1FAA43C2F4711FE009343A0 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				F1FAA4382F4711FE009343A0 /* NoorineWatch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -142,6 +184,7 @@
 		BB000004F660000000000004 /* GameConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConstants.swift; sourceTree = "<group>"; };
 		CC000002F770000000000002 /* SharedDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDataStore.swift; sourceTree = "<group>"; };
 		CC000004F770000000000004 /* LiveActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityManager.swift; sourceTree = "<group>"; };
+		DD000002F880000000000002 /* GlyphCalibrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlyphCalibrator.swift; sourceTree = "<group>"; };
 		F11376792F291E5800D25275 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
 		F113767B2F291F9B00D25275 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		F17F53E22F391C4800670D3B /* UnifiedCelebrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedCelebrationView.swift; sourceTree = "<group>"; };
@@ -153,7 +196,6 @@
 		F190A12B2F2AFF2600F0A090 /* Noorine-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Noorine-Info.plist"; sourceTree = "<group>"; };
 		F190A1322F2B0F5B00F0A090 /* DrawingCanvasModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingCanvasModel.swift; sourceTree = "<group>"; };
 		F190A1332F2B0F5B00F0A090 /* FreeDrawingCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeDrawingCanvas.swift; sourceTree = "<group>"; };
-		F1SGO1D7B2E55305AE5811FA /* StrokeGuideOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeGuideOverlay.swift; sourceTree = "<group>"; };
 		F190A1342F2B0F5B00F0A090 /* RecognitionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionEngine.swift; sourceTree = "<group>"; };
 		F190A1362F2B0F5B00F0A090 /* ArabicFunFacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArabicFunFacts.swift; sourceTree = "<group>"; };
 		F190A1372F2B0F5B00F0A090 /* EmotionalMascot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionalMascot.swift; sourceTree = "<group>"; };
@@ -197,6 +239,11 @@
 		F1E700032F50000100ABC103 /* PracticeChoiceExercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeChoiceExercises.swift; sourceTree = "<group>"; };
 		F1E700042F50000100ABC104 /* ResourcesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesView.swift; sourceTree = "<group>"; };
 		F1E700092F50000100ABC109 /* ListeningPracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningPracticeView.swift; sourceTree = "<group>"; };
+		F1FAA4182F4711FD009343A0 /* NoorineWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NoorineWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1FAA4242F4711FE009343A0 /* NoorineWatch Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NoorineWatch Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1FAA42E2F4711FE009343A0 /* NoorineWatch Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NoorineWatch Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1FAA4482F47169D009343A0 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		F1FAA4492F47169D009343A0 /* WatchSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSyncManager.swift; sourceTree = "<group>"; };
 		F1FCEB332F28D60900AE6497 /* Noorine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Noorine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1FCEB362F28D60900AE6497 /* NoorineApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoorineApp.swift; sourceTree = "<group>"; };
 		F1FCEB382F28D60900AE6497 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -209,7 +256,7 @@
 		F1FCEB712F2909E100AE6497 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		F1FCEB732F2909EF00AE6497 /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
 		F1FCEB752F2909FB00AE6497 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		DD000002F880000000000002 /* GlyphCalibrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlyphCalibrator.swift; sourceTree = "<group>"; };
+		F1SGO1D7B2E55305AE5811FA /* StrokeGuideOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeGuideOverlay.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -231,6 +278,21 @@
 			path = NoorineWidget;
 			sourceTree = "<group>";
 		};
+		F1FAA4192F4711FD009343A0 /* NoorineWatch Watch App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "NoorineWatch Watch App";
+			sourceTree = "<group>";
+		};
+		F1FAA4272F4711FE009343A0 /* NoorineWatch Watch AppTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "NoorineWatch Watch AppTests";
+			sourceTree = "<group>";
+		};
+		F1FAA4312F4711FE009343A0 /* NoorineWatch Watch AppUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "NoorineWatch Watch AppUITests";
+			sourceTree = "<group>";
+		};
 		F1FCEB452F28D60B00AE6497 /* NoorineTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = NoorineTests;
@@ -250,6 +312,27 @@
 			files = (
 				F17F53F42F420FD900670D3B /* SwiftUI.framework in Frameworks */,
 				F17F53F22F420FD900670D3B /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1FAA4152F4711FD009343A0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1FAA4212F4711FE009343A0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1FAA42B2F4711FE009343A0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +372,14 @@
 				F1C720752F34148F00EDA1E8 /* PhraseLessonView.swift */,
 			);
 			path = Learning;
+			sourceTree = "<group>";
+		};
+		DD000003F880000000000003 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				DD000002F880000000000002 /* GlyphCalibrator.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		F17F53F02F420FD900670D3B /* Frameworks */ = {
@@ -432,6 +523,9 @@
 				F1FCEB452F28D60B00AE6497 /* NoorineTests */,
 				F1FCEB4F2F28D60B00AE6497 /* NoorineUITests */,
 				F17F53F52F420FD900670D3B /* NoorineWidget */,
+				F1FAA4192F4711FD009343A0 /* NoorineWatch Watch App */,
+				F1FAA4272F4711FE009343A0 /* NoorineWatch Watch AppTests */,
+				F1FAA4312F4711FE009343A0 /* NoorineWatch Watch AppUITests */,
 				F17F53F02F420FD900670D3B /* Frameworks */,
 				F1FCEB342F28D60900AE6497 /* Products */,
 			);
@@ -444,6 +538,9 @@
 				F1FCEB422F28D60B00AE6497 /* NoorineTests.xctest */,
 				F1FCEB4C2F28D60B00AE6497 /* NoorineUITests.xctest */,
 				F17F53EF2F420FD900670D3B /* NoorineWidgetExtension.appex */,
+				F1FAA4182F4711FD009343A0 /* NoorineWatch Watch App.app */,
+				F1FAA4242F4711FE009343A0 /* NoorineWatch Watch AppTests.xctest */,
+				F1FAA42E2F4711FE009343A0 /* NoorineWatch Watch AppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -459,6 +556,8 @@
 		F1FCEB602F28D77000AE6497 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				F1FAA4482F47169D009343A0 /* Extensions.swift */,
+				F1FAA4492F47169D009343A0 /* WatchSyncManager.swift */,
 				F1BDF6892F2FD31A008A9EBC /* FactsData.swift */,
 				F1BDF6852F2FCA9A008A9EBC /* PhoneticDictionary.swift */,
 				F1BDF6832F2FBB1F008A9EBC /* NotificationManager.swift */,
@@ -562,14 +661,6 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
-		DD000003F880000000000003 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				DD000002F880000000000002 /* GlyphCalibrator.swift */,
-			);
-			path = Utilities;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -595,6 +686,74 @@
 			productReference = F17F53EF2F420FD900670D3B /* NoorineWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		F1FAA4172F4711FD009343A0 /* NoorineWatch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1FAA4392F4711FE009343A0 /* Build configuration list for PBXNativeTarget "NoorineWatch Watch App" */;
+			buildPhases = (
+				F1FAA4142F4711FD009343A0 /* Sources */,
+				F1FAA4152F4711FD009343A0 /* Frameworks */,
+				F1FAA4162F4711FD009343A0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				F1FAA4192F4711FD009343A0 /* NoorineWatch Watch App */,
+			);
+			name = "NoorineWatch Watch App";
+			packageProductDependencies = (
+			);
+			productName = "NoorineWatch Watch App";
+			productReference = F1FAA4182F4711FD009343A0 /* NoorineWatch Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F1FAA4232F4711FE009343A0 /* NoorineWatch Watch AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1FAA43D2F4711FE009343A0 /* Build configuration list for PBXNativeTarget "NoorineWatch Watch AppTests" */;
+			buildPhases = (
+				F1FAA4202F4711FE009343A0 /* Sources */,
+				F1FAA4212F4711FE009343A0 /* Frameworks */,
+				F1FAA4222F4711FE009343A0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F1FAA4262F4711FE009343A0 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				F1FAA4272F4711FE009343A0 /* NoorineWatch Watch AppTests */,
+			);
+			name = "NoorineWatch Watch AppTests";
+			packageProductDependencies = (
+			);
+			productName = "NoorineWatch Watch AppTests";
+			productReference = F1FAA4242F4711FE009343A0 /* NoorineWatch Watch AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F1FAA42D2F4711FE009343A0 /* NoorineWatch Watch AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1FAA4402F4711FE009343A0 /* Build configuration list for PBXNativeTarget "NoorineWatch Watch AppUITests" */;
+			buildPhases = (
+				F1FAA42A2F4711FE009343A0 /* Sources */,
+				F1FAA42B2F4711FE009343A0 /* Frameworks */,
+				F1FAA42C2F4711FE009343A0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F1FAA4302F4711FE009343A0 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				F1FAA4312F4711FE009343A0 /* NoorineWatch Watch AppUITests */,
+			);
+			name = "NoorineWatch Watch AppUITests";
+			packageProductDependencies = (
+			);
+			productName = "NoorineWatch Watch AppUITests";
+			productReference = F1FAA42E2F4711FE009343A0 /* NoorineWatch Watch AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		F1FCEB322F28D60900AE6497 /* Noorine */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1FCEB562F28D60B00AE6497 /* Build configuration list for PBXNativeTarget "Noorine" */;
@@ -603,11 +762,13 @@
 				F1FCEB302F28D60900AE6497 /* Frameworks */,
 				F1FCEB312F28D60900AE6497 /* Resources */,
 				F17F540A2F420FDA00670D3B /* Embed Foundation Extensions */,
+				F1FAA43C2F4711FE009343A0 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				F17F54042F420FDA00670D3B /* PBXTargetDependency */,
+				F1FAA4372F4711FE009343A0 /* PBXTargetDependency */,
 			);
 			name = Noorine;
 			productName = Noorine;
@@ -669,6 +830,17 @@
 					F17F53EE2F420FD900670D3B = {
 						CreatedOnToolsVersion = 26.3;
 					};
+					F1FAA4172F4711FD009343A0 = {
+						CreatedOnToolsVersion = 26.3;
+					};
+					F1FAA4232F4711FE009343A0 = {
+						CreatedOnToolsVersion = 26.3;
+						TestTargetID = F1FAA4172F4711FD009343A0;
+					};
+					F1FAA42D2F4711FE009343A0 = {
+						CreatedOnToolsVersion = 26.3;
+						TestTargetID = F1FAA4172F4711FD009343A0;
+					};
 					F1FCEB322F28D60900AE6497 = {
 						CreatedOnToolsVersion = 26.2;
 					};
@@ -701,12 +873,37 @@
 				F1FCEB412F28D60B00AE6497 /* NoorineTests */,
 				F1FCEB4B2F28D60B00AE6497 /* NoorineUITests */,
 				F17F53EE2F420FD900670D3B /* NoorineWidgetExtension */,
+				F1FAA4172F4711FD009343A0 /* NoorineWatch Watch App */,
+				F1FAA4232F4711FE009343A0 /* NoorineWatch Watch AppTests */,
+				F1FAA42D2F4711FE009343A0 /* NoorineWatch Watch AppUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		F17F53ED2F420FD900670D3B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1FAA4162F4711FD009343A0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1FAA4442F471321009343A0 /* course_content.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1FAA4222F4711FE009343A0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1FAA42C2F4711FE009343A0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -742,6 +939,33 @@
 
 /* Begin PBXSourcesBuildPhase section */
 		F17F53EB2F420FD900670D3B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1FAA4142F4711FD009343A0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1FAA44D2F4716B6009343A0 /* DataLoader.swift in Sources */,
+				F1FAA4452F471339009343A0 /* RecognitionEngine.swift in Sources */,
+				F1FAA44C2F4716A4009343A0 /* WatchSyncManager.swift in Sources */,
+				F1FAA44F2F47176B009343A0 /* Flashcard.swift in Sources */,
+				F1FAA4432F47130E009343A0 /* ArabicLetter.swift in Sources */,
+				F1FAA44E2F4716C1009343A0 /* LanguageManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1FAA4202F4711FE009343A0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1FAA42A2F4711FE009343A0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -803,6 +1027,8 @@
 				F190A1462F2B0F5B00F0A090 /* LetterFormsStep.swift in Sources */,
 				F190A1472F2B0F5B00F0A090 /* FreeDrawingCanvas.swift in Sources */,
 				F1SGO8A317864948A46E930D /* StrokeGuideOverlay.swift in Sources */,
+				F1FAA44A2F47169D009343A0 /* Extensions.swift in Sources */,
+				F1FAA44B2F47169D009343A0 /* WatchSyncManager.swift in Sources */,
 				F190A14C2F2B0F6800F0A090 /* LetterFormType.swift in Sources */,
 				F190A1482F2B0F5B00F0A090 /* EmotionalMascot.swift in Sources */,
 				F17F53E32F391C4800670D3B /* UnifiedCelebrationView.swift in Sources */,
@@ -848,6 +1074,21 @@
 			target = F17F53EE2F420FD900670D3B /* NoorineWidgetExtension */;
 			targetProxy = F17F54032F420FDA00670D3B /* PBXContainerItemProxy */;
 		};
+		F1FAA4262F4711FE009343A0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F1FAA4172F4711FD009343A0 /* NoorineWatch Watch App */;
+			targetProxy = F1FAA4252F4711FE009343A0 /* PBXContainerItemProxy */;
+		};
+		F1FAA4302F4711FE009343A0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F1FAA4172F4711FD009343A0 /* NoorineWatch Watch App */;
+			targetProxy = F1FAA42F2F4711FE009343A0 /* PBXContainerItemProxy */;
+		};
+		F1FAA4372F4711FE009343A0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F1FAA4172F4711FD009343A0 /* NoorineWatch Watch App */;
+			targetProxy = F1FAA4362F4711FE009343A0 /* PBXContainerItemProxy */;
+		};
 		F1FCEB442F28D60B00AE6497 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F1FCEB322F28D60900AE6497 /* Noorine */;
@@ -868,7 +1109,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = NoorineWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 25FS3X3RCW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NoorineWidget/Info.plist;
@@ -900,7 +1141,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = NoorineWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 25FS3X3RCW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NoorineWidget/Info.plist;
@@ -922,6 +1163,162 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F1FAA43A2F4711FE009343A0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 25FS3X3RCW;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = NoorineWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.yns.Noorine;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yns.Noorine.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Debug;
+		};
+		F1FAA43B2F4711FE009343A0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 25FS3X3RCW;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = NoorineWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.yns.Noorine;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yns.Noorine.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Release;
+		};
+		F1FAA43E2F4711FE009343A0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 25FS3X3RCW;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yns.NoorineWatch-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NoorineWatch Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NoorineWatch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Debug;
+		};
+		F1FAA43F2F4711FE009343A0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 25FS3X3RCW;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yns.NoorineWatch-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NoorineWatch Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NoorineWatch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Release;
+		};
+		F1FAA4412F4711FE009343A0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 25FS3X3RCW;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yns.NoorineWatch-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "NoorineWatch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Debug;
+		};
+		F1FAA4422F4711FE009343A0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 25FS3X3RCW;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yns.NoorineWatch-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "NoorineWatch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 26.2;
 			};
 			name = Release;
 		};
@@ -1059,7 +1456,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Noorine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 25FS3X3RCW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1096,7 +1493,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Noorine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 25FS3X3RCW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1218,6 +1615,33 @@
 			buildConfigurations = (
 				F17F54082F420FDA00670D3B /* Debug */,
 				F17F54092F420FDA00670D3B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1FAA4392F4711FE009343A0 /* Build configuration list for PBXNativeTarget "NoorineWatch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1FAA43A2F4711FE009343A0 /* Debug */,
+				F1FAA43B2F4711FE009343A0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1FAA43D2F4711FE009343A0 /* Build configuration list for PBXNativeTarget "NoorineWatch Watch AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1FAA43E2F4711FE009343A0 /* Debug */,
+				F1FAA43F2F4711FE009343A0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1FAA4402F4711FE009343A0 /* Build configuration list for PBXNativeTarget "NoorineWatch Watch AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1FAA4412F4711FE009343A0 /* Debug */,
+				F1FAA4422F4711FE009343A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

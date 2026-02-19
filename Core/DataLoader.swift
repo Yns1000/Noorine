@@ -1,12 +1,13 @@
 import Foundation
 
 class DataLoader {
+#if os(iOS)
     static func loadFlashcards() -> [Flashcard] {
         guard let url = Bundle.main.url(forResource: "flashcards", withExtension: "json") else {
             print("Error: flashcards.json not found")
             return []
         }
-        
+
         do {
             let data = try Data(contentsOf: url)
             let decoder = JSONDecoder()
@@ -16,8 +17,9 @@ class DataLoader {
             return []
         }
     }
-    
-    
+#endif
+
+
     struct CourseContentJSON: Codable {
         let letters: [ArabicLetter]
         let vowels: [ArabicVowel]
