@@ -74,3 +74,5 @@ DerivedData/
 
 # Accidental asset drops
 DesignSystem/Assets.xcassets/AppIcon.appiconset/.com.apple.Foundation.NSItemProvider.*
+
+xcuserdata/
