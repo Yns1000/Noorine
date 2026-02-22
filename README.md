@@ -5,7 +5,7 @@ Hi there! I created Noorine because I wanted a simple, stress-free app to learn 
 This project is 100% free and open-source. Feel free to explore the code!
 
 <p align="center">
-  <img src="screenshots/screen_iphone.png" width="220">
+  <img src="screenshots/screen_ios.png" width="220">
   <img src="screenshots/screen_watch.png" width="220">
 </p>
 
