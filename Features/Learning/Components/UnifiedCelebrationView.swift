@@ -10,7 +10,8 @@ enum CelebrationType {
     case dictation
     case phraseLevel
     case vowelMastery
-    
+    case checkpoint
+
     var accentColor: Color {
         switch self {
         case .speedQuiz: return .orange

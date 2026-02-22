@@ -36,7 +36,9 @@ final class UserProgress {
     }
     
     var lastDailyChallengeDismissedDate: Date? = nil
-    
+    var lastWeeklySummaryDate: Date? = nil
+    var completedCheckpoints: [Int] = []
+
     enum AchievementID: String, CaseIterable {
         case beginner = "beginner"
         case persistent = "persistent"

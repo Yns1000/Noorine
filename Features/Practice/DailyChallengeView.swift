@@ -112,9 +112,18 @@ struct DailyChallengeView: View {
             }
             usedTypes.insert(String(describing: type))
 
+            let weakLetterIds = Set(dataManager.getWeakLetterIds())
+            let weakWordIds = Set(dataManager.getWeakWordIds())
+
             switch type {
             case .letter:
-                let letter = pool.letters.randomElement(using: &rng) ?? ArabicLetter.alphabet[0]
+                let weakPool = pool.letters.filter { weakLetterIds.contains($0.id) }
+                let letter: ArabicLetter
+                if !weakPool.isEmpty && Bool.random(using: &rng) {
+                    letter = weakPool.randomElement(using: &rng) ?? pool.letters[0]
+                } else {
+                    letter = pool.letters.randomElement(using: &rng) ?? ArabicLetter.alphabet[0]
+                }
                 let form = LetterFormType.allCases.randomElement(using: &rng) ?? .isolated
                 selected.append(PracticeExercise(letter: letter, formType: form))
             case .vowel:
@@ -123,7 +132,13 @@ struct DailyChallengeView: View {
                 let options = makeVowelOptions(target: vowel, pool: pool.vowels)
                 selected.append(PracticeExercise(baseLetter: base, vowel: vowel, vowelOptions: options))
             case .word:
-                let word = pool.words.randomElement(using: &rng) ?? CourseContent.words[0]
+                let weakPool = pool.words.filter { weakWordIds.contains($0.id) }
+                let word: ArabicWord
+                if !weakPool.isEmpty && Bool.random(using: &rng) {
+                    word = weakPool.randomElement(using: &rng) ?? pool.words[0]
+                } else {
+                    word = pool.words.randomElement(using: &rng) ?? CourseContent.words[0]
+                }
                 let options = makeWordOptions(target: word, pool: pool.words)
                 selected.append(PracticeExercise(word: word, wordOptions: options))
             case .phrase:

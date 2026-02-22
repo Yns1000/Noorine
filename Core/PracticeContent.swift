@@ -7,6 +7,13 @@ struct PracticePool {
     let phrases: [ArabicPhrase]
 }
 
+struct PracticeRecommendation {
+    let weakLetters: [ArabicLetter]
+    let weakWords: [ArabicWord]
+    let suggestedTool: String
+    let message: String
+}
+
 extension DataManager {
     func practicePool(language: AppLanguage) -> PracticePool {
         if practiceUnlocked {

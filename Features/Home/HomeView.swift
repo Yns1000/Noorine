@@ -16,7 +16,9 @@ struct HomeView: View {
     @State private var showXPDetails = false
     @State private var showDailyChallengeInvite = false
     @State private var showDailyChallenge = false
-    
+    @State private var showCheckpointTest = false
+    @State private var checkpointAfterLevel: Int = 0
+
     @State private var animationId = UUID()
     @State private var lastAutoScrollTarget: Int? = nil
     
@@ -28,7 +30,10 @@ struct HomeView: View {
                 
                 GeometryReader { geometry in
                     let sortedLevels = dataManager.levels.sorted { $0.levelNumber < $1.levelNumber }
-                    let contentHeight = CGFloat(sortedLevels.count + 1) * LayoutConfig.verticalSpacing + 50
+                    let checkpointCount = GameConstants.Checkpoint.afterLevels.filter { cp in
+                        sortedLevels.contains(where: { $0.levelNumber == cp })
+                    }.count
+                    let contentHeight = CGFloat(sortedLevels.count + checkpointCount + 1) * LayoutConfig.verticalSpacing + 50
 
                     ScrollViewReader { proxy in
                         ScrollView(showsIndicators: false) {
@@ -40,26 +45,47 @@ struct HomeView: View {
                                     .zIndex(0)
 
                                 VStack(spacing: 0) {
-                                    ForEach(Array(sortedLevels.enumerated()), id: \.element.levelNumber) { index, level in
-                                        LevelNode(
-                                            levelNumber: level.levelNumber,
-                                            title: CourseContent.getLevelTitle(for: level.levelNumber, language: languageManager.currentLanguage),
-                                            subtitle: CourseContent.getLevelSubtitle(for: level.levelNumber, language: languageManager.currentLanguage),
-                                            state: dataManager.levelState(for: level.levelNumber),
-                                            index: index,
-                                            onTap: {
-                                                let state = dataManager.levelState(for: level.levelNumber)
-                                                if state != .locked {
-                                                    selectedLevel = level
+                                    let nodeItems = buildNodeItems(from: sortedLevels)
+                                    ForEach(Array(nodeItems.enumerated()), id: \.element.id) { index, item in
+                                        switch item {
+                                        case .level(let level):
+                                            LevelNode(
+                                                levelNumber: level.levelNumber,
+                                                title: CourseContent.getLevelTitle(for: level.levelNumber, language: languageManager.currentLanguage),
+                                                subtitle: CourseContent.getLevelSubtitle(for: level.levelNumber, language: languageManager.currentLanguage),
+                                                state: dataManager.levelState(for: level.levelNumber),
+                                                index: index,
+                                                onTap: {
+                                                    let state = dataManager.levelState(for: level.levelNumber)
+                                                    if state != .locked {
+                                                        selectedLevel = level
+                                                    }
                                                 }
-                                            }
-                                        )
-                                        .frame(height: LayoutConfig.verticalSpacing)
-                                        .id("level_\(level.levelNumber)")
+                                            )
+                                            .frame(height: LayoutConfig.verticalSpacing)
+                                            .id("level_\(level.levelNumber)")
+
+                                        case .checkpoint(let afterLevel):
+                                            CheckpointNode(
+                                                afterLevel: afterLevel,
+                                                state: checkpointState(afterLevel: afterLevel),
+                                                index: index,
+                                                isFrench: languageManager.currentLanguage != .english,
+                                                onTap: {
+                                                    let st = checkpointState(afterLevel: afterLevel)
+                                                    if st == .available {
+                                                        checkpointAfterLevel = afterLevel
+                                                        showCheckpointTest = true
+                                                    }
+                                                }
+                                            )
+                                            .frame(height: LayoutConfig.verticalSpacing)
+                                            .id("checkpoint_\(afterLevel)")
+                                        }
                                     }
-                                    
+
                                     ComingSoonNode(
-                                        index: sortedLevels.count,
+                                        index: nodeItems.count,
                                         isFrench: languageManager.currentLanguage != .english
                                     )
                                     .frame(height: LayoutConfig.verticalSpacing)
@@ -126,6 +152,11 @@ struct HomeView: View {
                 .presentationDetents([.height(240)])
             }
             .fullScreenCover(isPresented: $showDailyChallenge) { DailyChallengeView() }
+            .fullScreenCover(isPresented: $showCheckpointTest) {
+                NavigationStack {
+                    CheckpointTestView(afterLevel: checkpointAfterLevel)
+                }
+            }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(.hidden, for: .navigationBar)
             .fullScreenCover(item: $selectedLevel) { level in
@@ -216,6 +247,47 @@ struct HomeView: View {
         return lastUnlocked?.levelNumber ?? dataManager.currentLevelNumber
     }
 
+    // MARK: - Node Items (levels + checkpoints interleaved)
+
+    enum PathNodeItem: Identifiable {
+        case level(LevelProgress)
+        case checkpoint(afterLevel: Int)
+
+        var id: String {
+            switch self {
+            case .level(let lp): return "level_\(lp.levelNumber)"
+            case .checkpoint(let after): return "checkpoint_\(after)"
+            }
+        }
+    }
+
+    private func buildNodeItems(from sortedLevels: [LevelProgress]) -> [PathNodeItem] {
+        var items: [PathNodeItem] = []
+        let checkpointSet = Set(GameConstants.Checkpoint.afterLevels)
+
+        for level in sortedLevels {
+            items.append(.level(level))
+            if checkpointSet.contains(level.levelNumber) {
+                items.append(.checkpoint(afterLevel: level.levelNumber))
+            }
+        }
+        return items
+    }
+
+    enum CheckpointNodeState {
+        case locked
+        case available
+        case completed
+    }
+
+    private func checkpointState(afterLevel: Int) -> CheckpointNodeState {
+        if dataManager.isCheckpointCompleted(afterLevel: afterLevel) {
+            return .completed
+        } else if dataManager.isCheckpointAvailable(afterLevel: afterLevel) {
+            return .available
+        }
+        return .locked
+    }
 }
 
 struct AmbientBackground: View {
