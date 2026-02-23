@@ -222,6 +222,7 @@ struct VowelLessonView: View {
     @EnvironmentObject var languageManager: LanguageManager
     
     @State private var currentStepIndex = 0
+    @State private var isTransitioning = false
 
     @State private var steps: [VowelStep] = []
     
@@ -379,9 +380,12 @@ struct VowelLessonView: View {
 
                 if !steps.isEmpty, currentStepIndex < steps.count - 1, !isQuizStep(steps[currentStepIndex]) {
                     Button(action: {
+                        guard !isTransitioning else { return }
+                        isTransitioning = true
                         withAnimation(.spring()) {
                             currentStepIndex += 1
                         }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { isTransitioning = false }
                     }) {
                         Text(languageManager.currentLanguage == .english ? "Continue" : "Continuer")
                             .font(.system(size: 20, weight: .bold, design: .rounded))
@@ -608,7 +612,14 @@ struct VowelQuizView: View {
         case .shadda:
             return consonant + consonant
         default:
-            return consonant + vowel.transliteration
+            let isEnglish = languageManager.currentLanguage == .english
+            let vowelText: String
+            if !isEnglish && vowel.transliteration == "u" {
+                vowelText = "ou"
+            } else {
+                vowelText = vowel.transliteration
+            }
+            return consonant + vowelText
         }
     }
     

@@ -10,25 +10,18 @@
       "final": "ـا",
       "order": 1,
       "strokes": {
-        "isolated": [
-          {
-            "points": [
-              [0.5, 0.2],
-              [0.5, 0.7]
-            ],
-            "type": "line"
-          }
-        ],
-        "final": [
-          {
-            "points": [
-              [0.8, 0.7],
-              [0.5, 0.7],
-              [0.5, 0.2]
-            ],
-            "type": "curve"
-          }
-        ]
+        "isolated": [{"points": [[0.5, 0.2], [0.5, 0.7]], "type": "line"}],
+        "final": [{"points": [[0.8, 0.7], [0.5, 0.7], [0.5, 0.2]], "type": "curve"}]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw a straight vertical line from top to bottom.",
+        "isolatedFr": "Commence en haut et trace une ligne droite verticale vers le bas.",
+        "initialEn": "Draw a straight vertical line from top to bottom.",
+        "initialFr": "Trace une ligne droite verticale vers le bas.",
+        "medialEn": "Connect from the right, then go straight up.",
+        "medialFr": "Connecte depuis la droite, puis monte tout droit.",
+        "finalEn": "Connect from the right, then go straight up.",
+        "finalFr": "Connecte depuis la droite, puis trace une ligne verticale vers le haut."
       }
     },
     {
@@ -42,72 +35,31 @@
       "order": 2,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.8, 0.4],
-              [0.8, 0.6],
-              [0.7, 0.7],
-              [0.3, 0.7],
-              [0.2, 0.6],
-              [0.2, 0.4]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.5, 0.85]],
-            "type": "dot"
-          }
+          {"points": [[0.8, 0.5], [0.75, 0.65], [0.6, 0.7], [0.4, 0.7], [0.25, 0.65], [0.2, 0.5]], "type": "curve"},
+          {"points": [[0.5, 0.85]], "type": "dot"}
         ],
         "initial": [
-          {
-            "points": [
-              [0.7, 0.4],
-              [0.7, 0.6],
-              [0.6, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.5, 0.85]],
-            "type": "dot"
-          }
+          {"points": [[0.7, 0.5], [0.65, 0.65], [0.5, 0.7], [0.2, 0.7]], "type": "curve"},
+          {"points": [[0.5, 0.85]], "type": "dot"}
         ],
         "medial": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.65, 0.7],
-              [0.55, 0.4],
-              [0.45, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.5, 0.85]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.65, 0.7], [0.55, 0.4], [0.45, 0.7], [0.1, 0.7]], "type": "curve"},
+          {"points": [[0.5, 0.85]], "type": "dot"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.8, 0.7],
-              [0.8, 0.5],
-              [0.8, 0.7],
-              [0.7, 0.7],
-              [0.3, 0.7],
-              [0.2, 0.6],
-              [0.2, 0.4]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.5, 0.85]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.7, 0.7], [0.5, 0.7], [0.35, 0.7], [0.25, 0.65], [0.2, 0.5]], "type": "curve"},
+          {"points": [[0.5, 0.85]], "type": "dot"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw a wide, flat boat shape from right to left. Add one dot centered below.",
+        "isolatedFr": "Trace une forme de barque aplatie de droite à gauche, puis place un point centré en dessous.",
+        "initialEn": "Draw a small tooth down, then a flat line to the left. One dot below.",
+        "initialFr": "Dessine une petite dent vers le bas puis un trait plat vers la gauche. Un point en dessous.",
+        "medialEn": "Draw a small bump between the connecting lines. One dot below.",
+        "medialFr": "Dessine une petite bosse entre la ligne d'écriture. Un point en dessous.",
+        "finalEn": "Connect from right, then sweep left to form the boat's tail. One dot below.",
+        "finalFr": "Connecte par la droite, puis balaye à gauche pour fermer la barque. Un point en dessous."
       }
     },
     {
@@ -121,88 +73,35 @@
       "order": 3,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.8, 0.4],
-              [0.8, 0.6],
-              [0.7, 0.7],
-              [0.3, 0.7],
-              [0.2, 0.6],
-              [0.2, 0.4]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.4, 0.25]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.6, 0.25]],
-            "type": "dot"
-          }
+          {"points": [[0.8, 0.5], [0.75, 0.65], [0.6, 0.7], [0.4, 0.7], [0.25, 0.65], [0.2, 0.5]], "type": "curve"},
+          {"points": [[0.4, 0.25]], "type": "dot"},
+          {"points": [[0.6, 0.25]], "type": "dot"}
         ],
         "initial": [
-          {
-            "points": [
-              [0.7, 0.4],
-              [0.7, 0.6],
-              [0.6, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.4, 0.25]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.6, 0.25]],
-            "type": "dot"
-          }
+          {"points": [[0.7, 0.5], [0.65, 0.65], [0.5, 0.7], [0.2, 0.7]], "type": "curve"},
+          {"points": [[0.4, 0.25]], "type": "dot"},
+          {"points": [[0.6, 0.25]], "type": "dot"}
         ],
         "medial": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.65, 0.7],
-              [0.55, 0.4],
-              [0.45, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.4, 0.25]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.6, 0.25]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.65, 0.7], [0.55, 0.4], [0.45, 0.7], [0.1, 0.7]], "type": "curve"},
+          {"points": [[0.4, 0.25]], "type": "dot"},
+          {"points": [[0.6, 0.25]], "type": "dot"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.8, 0.7],
-              [0.8, 0.5],
-              [0.8, 0.7],
-              [0.7, 0.7],
-              [0.3, 0.7],
-              [0.2, 0.6],
-              [0.2, 0.4]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.4, 0.25]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.6, 0.25]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.7, 0.7], [0.5, 0.7], [0.35, 0.7], [0.25, 0.65], [0.2, 0.5]], "type": "curve"},
+          {"points": [[0.4, 0.25]], "type": "dot"},
+          {"points": [[0.6, 0.25]], "type": "dot"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw the same flat boat shape as Bā'. Place two dots side-by-side above it.",
+        "isolatedFr": "Trace la même barque aplatie que le Bā'. Place deux points côte à côte au-dessus.",
+        "initialEn": "Small tooth down, connect left. Two dots above.",
+        "initialFr": "Petite dent vers le bas, ligne vers la gauche. Deux points au-dessus.",
+        "medialEn": "Draw a bump on the line. Two dots above.",
+        "medialFr": "Dessine une petite bosse sur la ligne. Deux points au-dessus.",
+        "finalEn": "Connect, draw the boat tail. Two dots above.",
+        "finalFr": "Connecte, ferme la forme de la barque. Deux points au-dessus."
       }
     },
     {
@@ -216,104 +115,39 @@
       "order": 4,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.8, 0.4],
-              [0.8, 0.6],
-              [0.7, 0.7],
-              [0.3, 0.7],
-              [0.2, 0.6],
-              [0.2, 0.4]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.5, 0.15]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.4, 0.25]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.6, 0.25]],
-            "type": "dot"
-          }
+          {"points": [[0.8, 0.5], [0.75, 0.65], [0.6, 0.7], [0.4, 0.7], [0.25, 0.65], [0.2, 0.5]], "type": "curve"},
+          {"points": [[0.5, 0.15]], "type": "dot"},
+          {"points": [[0.4, 0.25]], "type": "dot"},
+          {"points": [[0.6, 0.25]], "type": "dot"}
         ],
         "initial": [
-          {
-            "points": [
-              [0.7, 0.4],
-              [0.7, 0.6],
-              [0.6, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.5, 0.15]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.4, 0.25]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.6, 0.25]],
-            "type": "dot"
-          }
+          {"points": [[0.7, 0.5], [0.65, 0.65], [0.5, 0.7], [0.2, 0.7]], "type": "curve"},
+          {"points": [[0.5, 0.15]], "type": "dot"},
+          {"points": [[0.4, 0.25]], "type": "dot"},
+          {"points": [[0.6, 0.25]], "type": "dot"}
         ],
         "medial": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.65, 0.7],
-              [0.55, 0.4],
-              [0.45, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.5, 0.15]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.4, 0.25]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.6, 0.25]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.65, 0.7], [0.55, 0.4], [0.45, 0.7], [0.1, 0.7]], "type": "curve"},
+          {"points": [[0.5, 0.15]], "type": "dot"},
+          {"points": [[0.4, 0.25]], "type": "dot"},
+          {"points": [[0.6, 0.25]], "type": "dot"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.8, 0.7],
-              [0.8, 0.5],
-              [0.8, 0.7],
-              [0.7, 0.7],
-              [0.3, 0.7],
-              [0.2, 0.6],
-              [0.2, 0.4]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.5, 0.15]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.4, 0.25]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.6, 0.25]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.7, 0.7], [0.5, 0.7], [0.35, 0.7], [0.25, 0.65], [0.2, 0.5]], "type": "curve"},
+          {"points": [[0.5, 0.15]], "type": "dot"},
+          {"points": [[0.4, 0.25]], "type": "dot"},
+          {"points": [[0.6, 0.25]], "type": "dot"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw the flat boat shape. Add three dots arranged in a triangle above.",
+        "isolatedFr": "Trace la barque aplatie. Place trois points en forme de pyramide au-dessus.",
+        "initialEn": "Small tooth down, connect left. Three dots above.",
+        "initialFr": "Petite dent vers le bas, ligne vers la gauche. Trois points en pyramide au-dessus.",
+        "medialEn": "Draw a bump on the line. Three dots above.",
+        "medialFr": "Dessine une petite bosse. Trois points au-dessus.",
+        "finalEn": "Connect, draw the boat tail. Three dots above.",
+        "finalFr": "Connecte, ferme la barque. Trois points au-dessus."
       }
     },
     {
@@ -327,72 +161,31 @@
       "order": 5,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.3, 0.35],
-              [0.7, 0.35],
-              [0.7, 0.45],
-              [0.5, 0.85],
-              [0.2, 0.75],
-              [0.2, 0.6]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.5, 0.6]],
-            "type": "dot"
-          }
+          {"points": [[0.3, 0.3], [0.7, 0.3], [0.7, 0.4], [0.5, 0.85], [0.2, 0.7], [0.2, 0.5]], "type": "curve"},
+          {"points": [[0.45, 0.55]], "type": "dot"}
         ],
         "initial": [
-          {
-            "points": [
-              [0.3, 0.35],
-              [0.7, 0.35],
-              [0.7, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.5, 0.85]],
-            "type": "dot"
-          }
+          {"points": [[0.3, 0.35], [0.7, 0.35], [0.7, 0.7], [0.2, 0.7]], "type": "curve"},
+          {"points": [[0.5, 0.85]], "type": "dot"}
         ],
         "medial": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.7, 0.7],
-              [0.5, 0.4],
-              [0.8, 0.4],
-              [0.6, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.5, 0.85]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.7, 0.7], [0.5, 0.4], [0.8, 0.4], [0.6, 0.7], [0.1, 0.7]], "type": "curve"},
+          {"points": [[0.5, 0.85]], "type": "dot"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.7, 0.7],
-              [0.5, 0.4],
-              [0.8, 0.4],
-              [0.6, 0.6],
-              [0.5, 0.85],
-              [0.2, 0.75]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.5, 0.6]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.7, 0.7], [0.5, 0.4], [0.8, 0.4], [0.6, 0.6], [0.5, 0.85], [0.2, 0.75]], "type": "curve"},
+          {"points": [[0.45, 0.55]], "type": "dot"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw a small horizontal line from left to right, then sweep down into a large belly. One dot inside.",
+        "isolatedFr": "Trace une petite barre de gauche à droite, puis redescends en formant un grand demi-cercle (un gros ventre). Ajoute un point à l'intérieur.",
+        "initialEn": "Draw the top line left-to-right, then angle down-left to connect to the writing line. One dot below.",
+        "initialFr": "Fais la barre gauche-droite, puis descends en biais vers la gauche. Un point en dessous.",
+        "medialEn": "Connect, draw the triangular head, connect left. One dot below.",
+        "medialFr": "Connecte, dessine la tête triangulaire, repars à gauche. Un point sous la ligne.",
+        "finalEn": "Connect, draw the head, then sweep down into the large belly. One dot inside.",
+        "finalFr": "Connecte, dessine la tête puis plonge sous la ligne avec le grand ventre. Un point au centre."
       }
     },
     {
@@ -406,56 +199,27 @@
       "order": 6,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.3, 0.35],
-              [0.7, 0.35],
-              [0.7, 0.45],
-              [0.5, 0.85],
-              [0.2, 0.75],
-              [0.2, 0.6]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.3, 0.3], [0.7, 0.3], [0.7, 0.4], [0.5, 0.85], [0.2, 0.7], [0.2, 0.5]], "type": "curve"}
         ],
         "initial": [
-          {
-            "points": [
-              [0.3, 0.35],
-              [0.7, 0.35],
-              [0.7, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.3, 0.35], [0.7, 0.35], [0.7, 0.7], [0.2, 0.7]], "type": "curve"}
         ],
         "medial": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.7, 0.7],
-              [0.5, 0.4],
-              [0.8, 0.4],
-              [0.6, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.9, 0.7], [0.7, 0.7], [0.5, 0.4], [0.8, 0.4], [0.6, 0.7], [0.1, 0.7]], "type": "curve"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.7, 0.7],
-              [0.5, 0.4],
-              [0.8, 0.4],
-              [0.6, 0.6],
-              [0.5, 0.85],
-              [0.2, 0.75]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.9, 0.7], [0.7, 0.7], [0.5, 0.4], [0.8, 0.4], [0.6, 0.6], [0.5, 0.85], [0.2, 0.75]], "type": "curve"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw the exact same shape as Jīm (top line left-to-right, large belly), but with NO dots.",
+        "isolatedFr": "Trace la même forme que Jīm (barre gauche-droite, gros ventre en bas), mais sans aucun point.",
+        "initialEn": "Top line left-to-right, connect flat left. No dots.",
+        "initialFr": "Tête gauche-droite, descends et connecte à gauche. Sans point.",
+        "medialEn": "Connect, triangular head, connect left. No dots.",
+        "medialFr": "Connecte, tête triangulaire, repars à gauche. Sans point.",
+        "finalEn": "Connect, draw the head, then the large belly. No dots.",
+        "finalFr": "Connecte, tête puis plonge sous la ligne avec le grand ventre. Sans point."
       }
     },
     {
@@ -469,72 +233,31 @@
       "order": 7,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.3, 0.35],
-              [0.7, 0.35],
-              [0.7, 0.45],
-              [0.5, 0.85],
-              [0.2, 0.75],
-              [0.2, 0.6]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.5, 0.2]],
-            "type": "dot"
-          }
+          {"points": [[0.3, 0.3], [0.7, 0.3], [0.7, 0.4], [0.5, 0.85], [0.2, 0.7], [0.2, 0.5]], "type": "curve"},
+          {"points": [[0.5, 0.15]], "type": "dot"}
         ],
         "initial": [
-          {
-            "points": [
-              [0.3, 0.35],
-              [0.7, 0.35],
-              [0.7, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.5, 0.2]],
-            "type": "dot"
-          }
+          {"points": [[0.3, 0.35], [0.7, 0.35], [0.7, 0.7], [0.2, 0.7]], "type": "curve"},
+          {"points": [[0.5, 0.15]], "type": "dot"}
         ],
         "medial": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.7, 0.7],
-              [0.5, 0.4],
-              [0.8, 0.4],
-              [0.6, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.65, 0.2]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.7, 0.7], [0.5, 0.4], [0.8, 0.4], [0.6, 0.7], [0.1, 0.7]], "type": "curve"},
+          {"points": [[0.65, 0.2]], "type": "dot"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.7, 0.7],
-              [0.5, 0.4],
-              [0.8, 0.4],
-              [0.6, 0.6],
-              [0.5, 0.85],
-              [0.2, 0.75]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.65, 0.2]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.7, 0.7], [0.5, 0.4], [0.8, 0.4], [0.6, 0.6], [0.5, 0.85], [0.2, 0.75]], "type": "curve"},
+          {"points": [[0.65, 0.2]], "type": "dot"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw the same shape as Jīm, but place one dot above the head.",
+        "isolatedFr": "Trace la même forme que Jīm, mais place un point au-dessus de la tête.",
+        "initialEn": "Top line left-to-right, connect flat left. One dot above.",
+        "initialFr": "Tête gauche-droite, descends et connecte. Un point au-dessus.",
+        "medialEn": "Connect, triangular head, connect left. One dot above.",
+        "medialFr": "Connecte, tête triangulaire. Un point au-dessus.",
+        "finalEn": "Connect, draw the head, then the large belly. One dot above.",
+        "finalFr": "Connecte, tête puis plonge sous la ligne. Un point au-dessus."
       }
     },
     {
@@ -548,27 +271,21 @@
       "order": 8,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.7, 0.3],
-              [0.6, 0.7],
-              [0.3, 0.7]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.7, 0.3], [0.6, 0.7], [0.3, 0.7]], "type": "curve"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.6, 0.7],
-              [0.7, 0.3],
-              [0.6, 0.7],
-              [0.3, 0.7]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.9, 0.7], [0.6, 0.7], [0.7, 0.3], [0.6, 0.7], [0.3, 0.7]], "type": "curve"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw a smooth curve angling down from top-right to bottom-left, ending with a short flat tail.",
+        "isolatedFr": "Trace une courbe douce qui descend de haut-droite vers bas-gauche, puis termine par une petite ligne horizontale sur la base.",
+        "initialEn": "Same as isolated. This letter never connects to the next letter.",
+        "initialFr": "Identique à la forme isolée. Cette lettre ne s'accroche jamais à la suivante.",
+        "medialEn": "Connect from the right, then draw the curve. Does not connect forward.",
+        "medialFr": "Connecte depuis la droite, monte puis trace la courbe. Ne connecte pas après.",
+        "finalEn": "Connect from the right, then draw the curve. Does not connect forward.",
+        "finalFr": "Connecte depuis la droite, monte puis trace la courbe. Ne connecte pas après."
       }
     },
     {
@@ -582,35 +299,23 @@
       "order": 9,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.7, 0.3],
-              [0.6, 0.7],
-              [0.3, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.7, 0.15]],
-            "type": "dot"
-          }
+          {"points": [[0.7, 0.3], [0.6, 0.7], [0.3, 0.7]], "type": "curve"},
+          {"points": [[0.7, 0.15]], "type": "dot"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.6, 0.7],
-              [0.7, 0.3],
-              [0.6, 0.7],
-              [0.3, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.7, 0.15]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.6, 0.7], [0.7, 0.3], [0.6, 0.7], [0.3, 0.7]], "type": "curve"},
+          {"points": [[0.7, 0.15]], "type": "dot"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw the exact same angled curve as Dāl, then add one dot right above the top point.",
+        "isolatedFr": "Trace la même courbe anguleuse que Dāl, puis ajoute un point juste au-dessus du sommet.",
+        "initialEn": "Same as isolated. Never connects forward. One dot above.",
+        "initialFr": "Identique à la forme isolée. Ne s'accroche jamais après. Un point au-dessus.",
+        "medialEn": "Connect from the right, draw the curve. One dot above.",
+        "medialFr": "Connecte depuis la droite, trace la courbe. Un point au-dessus.",
+        "finalEn": "Connect from the right, draw the curve. One dot above.",
+        "finalFr": "Connecte depuis la droite, trace la courbe. Un point au-dessus."
       }
     },
     {
@@ -624,27 +329,21 @@
       "order": 10,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.6, 0.4],
-              [0.5, 0.7],
-              [0.3, 0.9]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.6, 0.4], [0.5, 0.7], [0.3, 0.9]], "type": "curve"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.6, 0.7],
-              [0.6, 0.5],
-              [0.6, 0.7],
-              [0.3, 0.9]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.9, 0.7], [0.6, 0.7], [0.6, 0.5], [0.6, 0.7], [0.3, 0.9]], "type": "curve"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Start slightly above the line, then sweep down and left like a smooth slide.",
+        "isolatedFr": "Commence juste au-dessus de la ligne d'écriture, puis glisse en courbe vers le bas à gauche (comme un toboggan).",
+        "initialEn": "Same as isolated. Rā' never connects to the next letter.",
+        "initialFr": "Identique à la forme isolée. Rā' ne s'accroche jamais à la lettre suivante.",
+        "medialEn": "Connect from right, then sweep down the slide.",
+        "medialFr": "Connecte depuis la droite, puis glisse vers le bas en courbe.",
+        "finalEn": "Connect from right, then sweep down the slide.",
+        "finalFr": "Connecte depuis la droite, puis glisse vers le bas en courbe."
       }
     },
     {
@@ -658,35 +357,23 @@
       "order": 11,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.6, 0.4],
-              [0.5, 0.7],
-              [0.3, 0.9]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.6, 0.2]],
-            "type": "dot"
-          }
+          {"points": [[0.6, 0.4], [0.5, 0.7], [0.3, 0.9]], "type": "curve"},
+          {"points": [[0.6, 0.2]], "type": "dot"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.6, 0.7],
-              [0.6, 0.5],
-              [0.6, 0.7],
-              [0.3, 0.9]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.6, 0.2]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.6, 0.7], [0.6, 0.5], [0.6, 0.7], [0.3, 0.9]], "type": "curve"},
+          {"points": [[0.6, 0.2]], "type": "dot"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw the same sweeping slide as Rā', then add one dot above.",
+        "isolatedFr": "Trace le même toboggan glissant que Rā', puis ajoute un point au-dessus.",
+        "initialEn": "Same as isolated. Never connects forward. One dot above.",
+        "initialFr": "Identique à la forme isolée. Ne s'accroche jamais. Un point au-dessus.",
+        "medialEn": "Connect from right, sweep down. One dot above.",
+        "medialFr": "Connecte depuis la droite, glisse vers le bas. Un point au-dessus.",
+        "finalEn": "Connect from right, sweep down. One dot above.",
+        "finalFr": "Connecte depuis la droite, glisse vers le bas. Un point au-dessus."
       }
     },
     {
@@ -700,77 +387,27 @@
       "order": 12,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.8, 0.4],
-              [0.8, 0.7],
-              [0.7, 0.7],
-              [0.7, 0.4],
-              [0.7, 0.7],
-              [0.6, 0.7],
-              [0.6, 0.4],
-              [0.6, 0.7],
-              [0.4, 0.9],
-              [0.2, 0.7],
-              [0.2, 0.5]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.85, 0.55], [0.8, 0.7], [0.75, 0.55], [0.7, 0.7], [0.65, 0.55], [0.6, 0.7], [0.4, 0.95], [0.2, 0.65], [0.2, 0.45]], "type": "curve"}
         ],
         "initial": [
-          {
-            "points": [
-              [0.8, 0.4],
-              [0.8, 0.7],
-              [0.7, 0.7],
-              [0.7, 0.4],
-              [0.7, 0.7],
-              [0.6, 0.7],
-              [0.6, 0.4],
-              [0.6, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.8, 0.4], [0.8, 0.7], [0.7, 0.7], [0.7, 0.4], [0.7, 0.7], [0.6, 0.7], [0.6, 0.4], [0.6, 0.7], [0.2, 0.7]], "type": "curve"}
         ],
         "medial": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.8, 0.7],
-              [0.8, 0.4],
-              [0.8, 0.7],
-              [0.7, 0.7],
-              [0.7, 0.4],
-              [0.7, 0.7],
-              [0.6, 0.7],
-              [0.6, 0.4],
-              [0.6, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.9, 0.7], [0.8, 0.7], [0.8, 0.4], [0.8, 0.7], [0.7, 0.7], [0.7, 0.4], [0.7, 0.7], [0.6, 0.7], [0.6, 0.4], [0.6, 0.7], [0.1, 0.7]], "type": "curve"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.8, 0.7],
-              [0.8, 0.4],
-              [0.8, 0.7],
-              [0.7, 0.7],
-              [0.7, 0.4],
-              [0.7, 0.7],
-              [0.6, 0.7],
-              [0.6, 0.4],
-              [0.6, 0.7],
-              [0.4, 0.9],
-              [0.2, 0.7],
-              [0.2, 0.5]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.9, 0.7], [0.8, 0.7], [0.8, 0.4], [0.8, 0.7], [0.7, 0.7], [0.7, 0.4], [0.7, 0.7], [0.6, 0.7], [0.6, 0.4], [0.6, 0.7], [0.4, 0.95], [0.2, 0.65], [0.2, 0.45]], "type": "curve"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw three small teeth from right to left, then dip below the line into a deep, round bowl.",
+        "isolatedFr": "Dessine trois petites 'dents' consécutives de droite à gauche, puis plonge sous la ligne pour former un grand bol.",
+        "initialEn": "Draw the three small teeth, then flatten out to connect to the next letter.",
+        "initialFr": "Dessine les trois petites dents, puis trace une ligne plate vers la gauche.",
+        "medialEn": "Connect, draw three teeth on the line, connect left.",
+        "medialFr": "Connecte, dessine les trois dents sur la ligne, continue à gauche.",
+        "finalEn": "Connect, draw three teeth, then finish with the deep bowl below the line.",
+        "finalFr": "Connecte, trace les trois dents, puis termine par le grand bol sous la ligne."
       }
     },
     {
@@ -784,125 +421,39 @@
       "order": 13,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.8, 0.4],
-              [0.8, 0.7],
-              [0.7, 0.7],
-              [0.7, 0.4],
-              [0.7, 0.7],
-              [0.6, 0.7],
-              [0.6, 0.4],
-              [0.6, 0.7],
-              [0.4, 0.9],
-              [0.2, 0.7],
-              [0.2, 0.5]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.7, 0.15]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.62, 0.25]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.78, 0.25]],
-            "type": "dot"
-          }
+          {"points": [[0.85, 0.55], [0.8, 0.7], [0.75, 0.55], [0.7, 0.7], [0.65, 0.55], [0.6, 0.7], [0.4, 0.95], [0.2, 0.65], [0.2, 0.45]], "type": "curve"},
+          {"points": [[0.75, 0.25]], "type": "dot"},
+          {"points": [[0.65, 0.25]], "type": "dot"},
+          {"points": [[0.7, 0.15]], "type": "dot"}
         ],
         "initial": [
-          {
-            "points": [
-              [0.8, 0.4],
-              [0.8, 0.7],
-              [0.7, 0.7],
-              [0.7, 0.4],
-              [0.7, 0.7],
-              [0.6, 0.7],
-              [0.6, 0.4],
-              [0.6, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.7, 0.15]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.62, 0.25]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.78, 0.25]],
-            "type": "dot"
-          }
+          {"points": [[0.8, 0.4], [0.8, 0.7], [0.7, 0.7], [0.7, 0.4], [0.7, 0.7], [0.6, 0.7], [0.6, 0.4], [0.6, 0.7], [0.2, 0.7]], "type": "curve"},
+          {"points": [[0.75, 0.25]], "type": "dot"},
+          {"points": [[0.65, 0.25]], "type": "dot"},
+          {"points": [[0.7, 0.15]], "type": "dot"}
         ],
         "medial": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.8, 0.7],
-              [0.8, 0.4],
-              [0.8, 0.7],
-              [0.7, 0.7],
-              [0.7, 0.4],
-              [0.7, 0.7],
-              [0.6, 0.7],
-              [0.6, 0.4],
-              [0.6, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.7, 0.15]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.62, 0.25]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.78, 0.25]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.8, 0.7], [0.8, 0.4], [0.8, 0.7], [0.7, 0.7], [0.7, 0.4], [0.7, 0.7], [0.6, 0.7], [0.6, 0.4], [0.6, 0.7], [0.1, 0.7]], "type": "curve"},
+          {"points": [[0.75, 0.25]], "type": "dot"},
+          {"points": [[0.65, 0.25]], "type": "dot"},
+          {"points": [[0.7, 0.15]], "type": "dot"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.8, 0.7],
-              [0.8, 0.4],
-              [0.8, 0.7],
-              [0.7, 0.7],
-              [0.7, 0.4],
-              [0.7, 0.7],
-              [0.6, 0.7],
-              [0.6, 0.4],
-              [0.6, 0.7],
-              [0.4, 0.9],
-              [0.2, 0.7],
-              [0.2, 0.5]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.7, 0.15]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.62, 0.25]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.78, 0.25]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.8, 0.7], [0.8, 0.4], [0.8, 0.7], [0.7, 0.7], [0.7, 0.4], [0.7, 0.7], [0.6, 0.7], [0.6, 0.4], [0.6, 0.7], [0.4, 0.95], [0.2, 0.65], [0.2, 0.45]], "type": "curve"},
+          {"points": [[0.75, 0.25]], "type": "dot"},
+          {"points": [[0.65, 0.25]], "type": "dot"},
+          {"points": [[0.7, 0.15]], "type": "dot"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw the same three teeth and deep bowl as Sīn, then add three dots in a triangle above the teeth.",
+        "isolatedFr": "Dessine les mêmes dents et le grand bol que Sīn. Ajoute trois points en pyramide au-dessus des dents.",
+        "initialEn": "Three teeth, connect left. Three dots above.",
+        "initialFr": "Trois dents, ligne vers la gauche. Trois points au-dessus.",
+        "medialEn": "Connect, three teeth, connect left. Three dots above.",
+        "medialFr": "Connecte, trois dents sur la ligne, continue. Trois points.",
+        "finalEn": "Connect, three teeth, deep bowl. Three dots above.",
+        "finalFr": "Connecte, trois dents, plonge en grand bol. Trois points."
       }
     },
     {
@@ -916,91 +467,31 @@
       "order": 14,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.4, 0.7],
-              [0.6, 0.5],
-              [0.8, 0.7],
-              [0.4, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [
-              [0.4, 0.7],
-              [0.4, 0.5],
-              [0.4, 0.7],
-              [0.2, 0.9],
-              [0.05, 0.7],
-              [0.05, 0.5]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.3, 0.7], [0.5, 0.5], [0.7, 0.7], [0.3, 0.7]], "type": "curve"},
+          {"points": [[0.3, 0.7], [0.3, 0.95], [0.1, 0.95], [0.05, 0.7], [0.05, 0.5]], "type": "curve"}
         ],
         "initial": [
-          {
-            "points": [
-              [0.4, 0.7],
-              [0.6, 0.5],
-              [0.8, 0.7],
-              [0.4, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [
-              [0.4, 0.7],
-              [0.4, 0.5],
-              [0.4, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.4, 0.7], [0.6, 0.5], [0.8, 0.7], [0.4, 0.7]], "type": "curve"},
+          {"points": [[0.4, 0.7], [0.35, 0.65], [0.3, 0.7], [0.1, 0.7]], "type": "curve"}
         ],
         "medial": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.4, 0.7],
-              [0.6, 0.5],
-              [0.8, 0.7],
-              [0.4, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [
-              [0.4, 0.7],
-              [0.4, 0.5],
-              [0.4, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.9, 0.7], [0.4, 0.7], [0.6, 0.5], [0.8, 0.7], [0.4, 0.7]], "type": "curve"},
+          {"points": [[0.4, 0.7], [0.35, 0.65], [0.3, 0.7], [0.1, 0.7]], "type": "curve"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.4, 0.7],
-              [0.6, 0.5],
-              [0.8, 0.7],
-              [0.4, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [
-              [0.4, 0.7],
-              [0.4, 0.5],
-              [0.4, 0.7],
-              [0.2, 0.9],
-              [0.05, 0.7],
-              [0.05, 0.5]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.9, 0.7], [0.4, 0.7], [0.6, 0.5], [0.8, 0.7], [0.4, 0.7]], "type": "curve"},
+          {"points": [[0.4, 0.7], [0.4, 0.95], [0.2, 0.95], [0.1, 0.7], [0.1, 0.5]], "type": "curve"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw a large flat loop starting from the bottom-left going up-right. Close it, add a tiny tooth, then dip into a deep bowl.",
+        "isolatedFr": "Forme une boucle en partant du bas à gauche, monte vers la droite, ferme-la, ajoute une toute petite dent, puis enchaîne avec un grand bol sous la ligne.",
+        "initialEn": "Draw the loop, the tiny tooth, then connect flat left.",
+        "initialFr": "Dessine la boucle, la petite dent, puis connecte à plat vers la gauche.",
+        "medialEn": "Connect, draw the loop over the line, tiny tooth, connect.",
+        "medialFr": "Connecte, dessine la boucle par-dessus la ligne, la dent, connecte.",
+        "finalEn": "Connect, draw the loop, tiny tooth, and the deep bowl.",
+        "finalFr": "Connecte, boucle, dent, puis plonge en grand bol."
       }
     },
     {
@@ -1014,107 +505,35 @@
       "order": 15,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.4, 0.7],
-              [0.6, 0.5],
-              [0.8, 0.7],
-              [0.4, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [
-              [0.4, 0.7],
-              [0.4, 0.5],
-              [0.4, 0.7],
-              [0.2, 0.9],
-              [0.05, 0.7],
-              [0.05, 0.5]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.6, 0.3]],
-            "type": "dot"
-          }
+          {"points": [[0.3, 0.7], [0.5, 0.5], [0.7, 0.7], [0.3, 0.7]], "type": "curve"},
+          {"points": [[0.3, 0.7], [0.3, 0.95], [0.1, 0.95], [0.05, 0.7], [0.05, 0.5]], "type": "curve"},
+          {"points": [[0.5, 0.35]], "type": "dot"}
         ],
         "initial": [
-          {
-            "points": [
-              [0.4, 0.7],
-              [0.6, 0.5],
-              [0.8, 0.7],
-              [0.4, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [
-              [0.4, 0.7],
-              [0.4, 0.5],
-              [0.4, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.6, 0.3]],
-            "type": "dot"
-          }
+          {"points": [[0.4, 0.7], [0.6, 0.5], [0.8, 0.7], [0.4, 0.7]], "type": "curve"},
+          {"points": [[0.4, 0.7], [0.35, 0.65], [0.3, 0.7], [0.1, 0.7]], "type": "curve"},
+          {"points": [[0.6, 0.35]], "type": "dot"}
         ],
         "medial": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.4, 0.7],
-              [0.6, 0.5],
-              [0.8, 0.7],
-              [0.4, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [
-              [0.4, 0.7],
-              [0.4, 0.5],
-              [0.4, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.6, 0.3]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.4, 0.7], [0.6, 0.5], [0.8, 0.7], [0.4, 0.7]], "type": "curve"},
+          {"points": [[0.4, 0.7], [0.35, 0.65], [0.3, 0.7], [0.1, 0.7]], "type": "curve"},
+          {"points": [[0.6, 0.35]], "type": "dot"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.4, 0.7],
-              [0.6, 0.5],
-              [0.8, 0.7],
-              [0.4, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [
-              [0.4, 0.7],
-              [0.4, 0.5],
-              [0.4, 0.7],
-              [0.2, 0.9],
-              [0.05, 0.7],
-              [0.05, 0.5]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.6, 0.3]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.4, 0.7], [0.6, 0.5], [0.8, 0.7], [0.4, 0.7]], "type": "curve"},
+          {"points": [[0.4, 0.7], [0.4, 0.95], [0.2, 0.95], [0.1, 0.7], [0.1, 0.5]], "type": "curve"},
+          {"points": [[0.6, 0.35]], "type": "dot"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Same loop and bowl as Ṣād, but add one dot directly above the loop.",
+        "isolatedFr": "Même boucle et même bol que Ṣād, mais ajoute un point juste au-dessus de la boucle.",
+        "initialEn": "Loop, tooth, connect flat. One dot above.",
+        "initialFr": "Boucle, petite dent, ligne plate. Un point au-dessus.",
+        "medialEn": "Connect, loop, tooth, connect. One dot above.",
+        "medialFr": "Connecte, boucle, dent, connecte. Un point au-dessus.",
+        "finalEn": "Connect, loop, tooth, deep bowl. One dot above.",
+        "finalFr": "Connecte, boucle, dent, plonge en bol. Un point au-dessus."
       }
     },
     {
@@ -1128,79 +547,31 @@
       "order": 16,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.3, 0.7],
-              [0.5, 0.5],
-              [0.7, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [
-              [0.5, 0.1],
-              [0.5, 0.7]
-            ],
-            "type": "line"
-          }
+          {"points": [[0.3, 0.7], [0.5, 0.5], [0.7, 0.7], [0.2, 0.7]], "type": "curve"},
+          {"points": [[0.65, 0.1], [0.65, 0.7]], "type": "line"}
         ],
         "initial": [
-          {
-            "points": [
-              [0.3, 0.7],
-              [0.5, 0.5],
-              [0.7, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [
-              [0.5, 0.1],
-              [0.5, 0.7]
-            ],
-            "type": "line"
-          }
+          {"points": [[0.3, 0.7], [0.5, 0.5], [0.7, 0.7], [0.1, 0.7]], "type": "curve"},
+          {"points": [[0.65, 0.1], [0.65, 0.7]], "type": "line"}
         ],
         "medial": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.3, 0.7],
-              [0.5, 0.5],
-              [0.7, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [
-              [0.5, 0.1],
-              [0.5, 0.7]
-            ],
-            "type": "line"
-          }
+          {"points": [[0.9, 0.7], [0.3, 0.7], [0.5, 0.5], [0.7, 0.7], [0.1, 0.7]], "type": "curve"},
+          {"points": [[0.65, 0.1], [0.65, 0.7]], "type": "line"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.3, 0.7],
-              [0.5, 0.5],
-              [0.7, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [
-              [0.5, 0.1],
-              [0.5, 0.7]
-            ],
-            "type": "line"
-          }
+          {"points": [[0.9, 0.7], [0.3, 0.7], [0.5, 0.5], [0.7, 0.7], [0.2, 0.7]], "type": "curve"},
+          {"points": [[0.65, 0.1], [0.65, 0.7]], "type": "line"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw the same loop as Ṣād, extending the tail flat to the left. Then draw a tall vertical stick dropping onto the right side of the loop.",
+        "isolatedFr": "Trace la même boucle que Ṣād et allonge la queue à plat. Puis ajoute une grande barre verticale qui s'ancre sur le côté droit de la boucle.",
+        "initialEn": "Loop, extend flat to the left. Stick on the right side.",
+        "initialFr": "Boucle, ligne plate à gauche. Grande barre verticale à droite.",
+        "medialEn": "Connect, draw the loop over the line, connect. Stick on the right.",
+        "medialFr": "Connecte, boucle sur la ligne, connecte. Grande barre à droite.",
+        "finalEn": "Connect, draw the loop, extend flat tail. Stick on the right.",
+        "finalFr": "Connecte, boucle, queue à plat. Grande barre verticale à droite."
       }
     },
     {
@@ -1214,95 +585,35 @@
       "order": 17,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.3, 0.7],
-              [0.5, 0.5],
-              [0.7, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [
-              [0.5, 0.1],
-              [0.5, 0.7]
-            ],
-            "type": "line"
-          },
-          {
-            "points": [[0.65, 0.3]],
-            "type": "dot"
-          }
+          {"points": [[0.3, 0.7], [0.5, 0.5], [0.7, 0.7], [0.2, 0.7]], "type": "curve"},
+          {"points": [[0.65, 0.1], [0.65, 0.7]], "type": "line"},
+          {"points": [[0.8, 0.3]], "type": "dot"}
         ],
         "initial": [
-          {
-            "points": [
-              [0.3, 0.7],
-              [0.5, 0.5],
-              [0.7, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [
-              [0.5, 0.1],
-              [0.5, 0.7]
-            ],
-            "type": "line"
-          },
-          {
-            "points": [[0.65, 0.3]],
-            "type": "dot"
-          }
+          {"points": [[0.3, 0.7], [0.5, 0.5], [0.7, 0.7], [0.1, 0.7]], "type": "curve"},
+          {"points": [[0.65, 0.1], [0.65, 0.7]], "type": "line"},
+          {"points": [[0.8, 0.3]], "type": "dot"}
         ],
         "medial": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.3, 0.7],
-              [0.5, 0.5],
-              [0.7, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [
-              [0.5, 0.1],
-              [0.5, 0.7]
-            ],
-            "type": "line"
-          },
-          {
-            "points": [[0.65, 0.3]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.3, 0.7], [0.5, 0.5], [0.7, 0.7], [0.1, 0.7]], "type": "curve"},
+          {"points": [[0.65, 0.1], [0.65, 0.7]], "type": "line"},
+          {"points": [[0.8, 0.3]], "type": "dot"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.3, 0.7],
-              [0.5, 0.5],
-              [0.7, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [
-              [0.5, 0.1],
-              [0.5, 0.7]
-            ],
-            "type": "line"
-          },
-          {
-            "points": [[0.65, 0.3]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.3, 0.7], [0.5, 0.5], [0.7, 0.7], [0.2, 0.7]], "type": "curve"},
+          {"points": [[0.65, 0.1], [0.65, 0.7]], "type": "line"},
+          {"points": [[0.8, 0.3]], "type": "dot"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Exactly like Ṭā' (loop + tall stick), but add one dot to the right of the vertical stick.",
+        "isolatedFr": "Exactement comme Ṭā' (boucle + grande barre), mais ajoute un point à droite de la barre verticale.",
+        "initialEn": "Loop, stick, connect flat. One dot right of the stick.",
+        "initialFr": "Boucle, barre, ligne plate. Un point à droite de la barre.",
+        "medialEn": "Connect, loop, stick, connect. One dot right of the stick.",
+        "medialFr": "Connecte, boucle, barre, connecte. Un point à droite de la barre.",
+        "finalEn": "Connect, loop, stick, tail. One dot right of the stick.",
+        "finalFr": "Connecte, boucle, barre, queue. Un point à droite de la barre."
       }
     },
     {
@@ -1316,73 +627,29 @@
       "order": 18,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.7, 0.3],
-              [0.4, 0.3],
-              [0.4, 0.5],
-              [0.6, 0.5]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [
-              [0.6, 0.5],
-              [0.2, 0.7],
-              [0.2, 0.9],
-              [0.6, 0.9],
-              [0.8, 0.7]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.7, 0.3], [0.4, 0.3], [0.4, 0.5], [0.7, 0.5]], "type": "curve"},
+          {"points": [[0.7, 0.5], [0.3, 0.95], [0.6, 0.95], [0.8, 0.7]], "type": "curve"}
         ],
         "initial": [
-          {
-            "points": [
-              [0.7, 0.3],
-              [0.4, 0.3],
-              [0.4, 0.5],
-              [0.6, 0.5],
-              [0.6, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.7, 0.3], [0.4, 0.3], [0.4, 0.5], [0.6, 0.5], [0.6, 0.7], [0.2, 0.7]], "type": "curve"}
         ],
         "medial": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.6, 0.7],
-              [0.5, 0.4],
-              [0.7, 0.4],
-              [0.6, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.9, 0.7], [0.6, 0.7], [0.5, 0.4], [0.7, 0.4], [0.6, 0.7], [0.1, 0.7]], "type": "curve"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.6, 0.7],
-              [0.5, 0.4],
-              [0.7, 0.4],
-              [0.6, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [
-              [0.6, 0.7],
-              [0.2, 0.9],
-              [0.6, 0.9],
-              [0.8, 0.7]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.9, 0.7], [0.6, 0.7], [0.5, 0.4], [0.7, 0.4], [0.6, 0.7]], "type": "curve"},
+          {"points": [[0.6, 0.7], [0.2, 0.95], [0.6, 0.95], [0.8, 0.7]], "type": "curve"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw a small backward 'C' at the top, immediately connected to a much larger backward 'C' dipping below the line.",
+        "isolatedFr": "Dessine un petit demi-cercle (comme un 'C' à l'envers) en haut, suivi d'un grand demi-cercle plongeant sous la ligne.",
+        "initialEn": "Small backward 'C', then angle down to connect flat left.",
+        "initialFr": "Petit demi-cercle, puis descends pour connecter à plat vers la gauche.",
+        "medialEn": "Connect, draw an inverted triangle filling the gap, connect left.",
+        "medialFr": "Connecte, dessine un triangle inversé (boucle fermée), puis repars à gauche.",
+        "finalEn": "Connect, draw the inverted triangle, then the large dipping belly.",
+        "finalFr": "Connecte, dessine le triangle inversé, puis plonge avec le grand ventre."
       }
     },
     {
@@ -1396,89 +663,33 @@
       "order": 19,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.7, 0.3],
-              [0.4, 0.3],
-              [0.4, 0.5],
-              [0.6, 0.5]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [
-              [0.6, 0.5],
-              [0.2, 0.7],
-              [0.2, 0.9],
-              [0.6, 0.9],
-              [0.8, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.55, 0.15]],
-            "type": "dot"
-          }
+          {"points": [[0.7, 0.3], [0.4, 0.3], [0.4, 0.5], [0.7, 0.5]], "type": "curve"},
+          {"points": [[0.7, 0.5], [0.3, 0.95], [0.6, 0.95], [0.8, 0.7]], "type": "curve"},
+          {"points": [[0.55, 0.15]], "type": "dot"}
         ],
         "initial": [
-          {
-            "points": [
-              [0.7, 0.3],
-              [0.4, 0.3],
-              [0.4, 0.5],
-              [0.6, 0.5],
-              [0.6, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.55, 0.15]],
-            "type": "dot"
-          }
+          {"points": [[0.7, 0.3], [0.4, 0.3], [0.4, 0.5], [0.6, 0.5], [0.6, 0.7], [0.2, 0.7]], "type": "curve"},
+          {"points": [[0.55, 0.15]], "type": "dot"}
         ],
         "medial": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.6, 0.7],
-              [0.5, 0.4],
-              [0.7, 0.4],
-              [0.6, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.6, 0.2]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.6, 0.7], [0.5, 0.4], [0.7, 0.4], [0.6, 0.7], [0.1, 0.7]], "type": "curve"},
+          {"points": [[0.6, 0.2]], "type": "dot"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.6, 0.7],
-              [0.5, 0.4],
-              [0.7, 0.4],
-              [0.6, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [
-              [0.6, 0.7],
-              [0.2, 0.9],
-              [0.6, 0.9],
-              [0.8, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.6, 0.2]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.6, 0.7], [0.5, 0.4], [0.7, 0.4], [0.6, 0.7]], "type": "curve"},
+          {"points": [[0.6, 0.7], [0.2, 0.95], [0.6, 0.95], [0.8, 0.7]], "type": "curve"},
+          {"points": [[0.6, 0.2]], "type": "dot"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Same double backward 'C' shape as 'Ayn, but add one dot directly above the top curve.",
+        "isolatedFr": "Même forme de double 'C' inversé que le 'Ayn, mais ajoute un point juste au-dessus du haut.",
+        "initialEn": "Small backward 'C', connect left. One dot above.",
+        "initialFr": "Petit demi-cercle, connexion à gauche. Un point au-dessus.",
+        "medialEn": "Connect, inverted triangle, connect. One dot above.",
+        "medialFr": "Connecte, triangle inversé, connecte. Un point au-dessus.",
+        "finalEn": "Connect, inverted triangle, large belly. One dot above.",
+        "finalFr": "Connecte, triangle inversé, grand ventre. Un point au-dessus."
       }
     },
     {
@@ -1492,74 +703,31 @@
       "order": 20,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.6, 0.6],
-              [0.5, 0.4],
-              [0.7, 0.4],
-              [0.7, 0.6],
-              [0.6, 0.7],
-              [0.2, 0.7],
-              [0.2, 0.5]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.6, 0.25]],
-            "type": "dot"
-          }
+          {"points": [[0.6, 0.6], [0.5, 0.4], [0.7, 0.4], [0.7, 0.6], [0.6, 0.7], [0.2, 0.7], [0.2, 0.5]], "type": "curve"},
+          {"points": [[0.6, 0.25]], "type": "dot"}
         ],
         "initial": [
-          {
-            "points": [
-              [0.6, 0.7],
-              [0.5, 0.4],
-              [0.7, 0.4],
-              [0.7, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.6, 0.25]],
-            "type": "dot"
-          }
+          {"points": [[0.6, 0.7], [0.5, 0.4], [0.7, 0.4], [0.7, 0.7], [0.2, 0.7]], "type": "curve"},
+          {"points": [[0.6, 0.25]], "type": "dot"}
         ],
         "medial": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.7, 0.7],
-              [0.5, 0.5],
-              [0.7, 0.5],
-              [0.7, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.6, 0.3]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.7, 0.7], [0.5, 0.5], [0.7, 0.5], [0.7, 0.7], [0.2, 0.7]], "type": "curve"},
+          {"points": [[0.6, 0.3]], "type": "dot"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.7, 0.7],
-              [0.5, 0.5],
-              [0.7, 0.5],
-              [0.7, 0.7],
-              [0.2, 0.7],
-              [0.2, 0.5]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.6, 0.3]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.7, 0.7], [0.5, 0.5], [0.7, 0.5], [0.7, 0.7], [0.2, 0.7], [0.2, 0.5]], "type": "curve"},
+          {"points": [[0.6, 0.3]], "type": "dot"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw a small closed loop at the top, swoop down, and finish with a wide flat boat shape. One dot above the loop.",
+        "isolatedFr": "Fais une petite boucle ronde fermée en haut, puis descends pour tracer une barque plate. Un point au-dessus.",
+        "initialEn": "Small loop, drop down to the line, connect left. One dot above.",
+        "initialFr": "Petite boucle, descends sur la ligne, connecte à gauche. Un point.",
+        "medialEn": "Connect, draw a loop above the line, connect left. One dot above.",
+        "medialFr": "Connecte, trace une boucle sur la ligne, connecte. Un point.",
+        "finalEn": "Connect, draw the loop, finish with the flat boat tail. One dot above.",
+        "finalFr": "Connecte, trace la boucle, termine avec la barque plate. Un point."
       }
     },
     {
@@ -1573,92 +741,35 @@
       "order": 21,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.6, 0.6],
-              [0.5, 0.4],
-              [0.7, 0.4],
-              [0.7, 0.6],
-              [0.6, 0.7],
-              [0.4, 0.9],
-              [0.2, 0.7],
-              [0.2, 0.5]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.55, 0.2]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.65, 0.2]],
-            "type": "dot"
-          }
+          {"points": [[0.6, 0.6], [0.5, 0.4], [0.7, 0.4], [0.7, 0.6], [0.6, 0.7], [0.4, 0.95], [0.2, 0.7], [0.2, 0.5]], "type": "curve"},
+          {"points": [[0.5, 0.2]], "type": "dot"},
+          {"points": [[0.7, 0.2]], "type": "dot"}
         ],
         "initial": [
-          {
-            "points": [
-              [0.6, 0.7],
-              [0.5, 0.4],
-              [0.7, 0.4],
-              [0.7, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.55, 0.2]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.65, 0.2]],
-            "type": "dot"
-          }
+          {"points": [[0.6, 0.7], [0.5, 0.4], [0.7, 0.4], [0.7, 0.7], [0.2, 0.7]], "type": "curve"},
+          {"points": [[0.5, 0.2]], "type": "dot"},
+          {"points": [[0.7, 0.2]], "type": "dot"}
         ],
         "medial": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.7, 0.7],
-              [0.5, 0.5],
-              [0.7, 0.5],
-              [0.7, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.55, 0.3]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.65, 0.3]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.7, 0.7], [0.5, 0.5], [0.7, 0.5], [0.7, 0.7], [0.2, 0.7]], "type": "curve"},
+          {"points": [[0.5, 0.3]], "type": "dot"},
+          {"points": [[0.7, 0.3]], "type": "dot"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.7, 0.7],
-              [0.5, 0.5],
-              [0.7, 0.5],
-              [0.7, 0.7],
-              [0.4, 0.9],
-              [0.2, 0.7],
-              [0.2, 0.5]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.55, 0.3]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.65, 0.3]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.7, 0.7], [0.5, 0.5], [0.7, 0.5], [0.7, 0.7], [0.4, 0.95], [0.2, 0.7], [0.2, 0.5]], "type": "curve"},
+          {"points": [[0.5, 0.3]], "type": "dot"},
+          {"points": [[0.7, 0.3]], "type": "dot"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw the same top loop as Fā', but instead of a flat boat, dip into a deep round bowl below the line. Two dots above.",
+        "isolatedFr": "Fais la même petite boucle que le Fā', mais plonge sous la ligne pour faire un bol profond (comme le Nūn). Deux points.",
+        "initialEn": "Exactly like initial Fā' (loop and flat connection), but with two dots.",
+        "initialFr": "Exactement comme le Fā' initial (boucle et ligne plate), mais avec deux points.",
+        "medialEn": "Connect, draw the loop, connect left. Two dots above.",
+        "medialFr": "Connecte, boucle, connecte à gauche. Deux points au-dessus.",
+        "finalEn": "Connect, draw the loop, then dip into the deep bowl. Two dots.",
+        "finalFr": "Connecte, trace la boucle, puis plonge en grand bol. Deux points."
       }
     },
     {
@@ -1672,69 +783,29 @@
       "order": 22,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.7, 0.2],
-              [0.7, 0.7],
-              [0.2, 0.7],
-              [0.2, 0.5]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [
-              [0.5, 0.4],
-              [0.4, 0.5],
-              [0.5, 0.6]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.7, 0.2], [0.7, 0.7], [0.2, 0.7], [0.2, 0.5]], "type": "curve"},
+          {"points": [[0.5, 0.4], [0.4, 0.5], [0.5, 0.6]], "type": "curve"}
         ],
         "initial": [
-          {
-            "points": [
-              [0.7, 0.2],
-              [0.3, 0.4],
-              [0.7, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.7, 0.2], [0.3, 0.4], [0.7, 0.7], [0.2, 0.7]], "type": "curve"}
         ],
         "medial": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.7, 0.7],
-              [0.6, 0.2],
-              [0.3, 0.4],
-              [0.6, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.9, 0.7], [0.7, 0.7], [0.6, 0.2], [0.3, 0.4], [0.6, 0.7], [0.1, 0.7]], "type": "curve"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.7, 0.7],
-              [0.7, 0.2],
-              [0.7, 0.7],
-              [0.2, 0.7],
-              [0.2, 0.5]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [
-              [0.5, 0.4],
-              [0.4, 0.5],
-              [0.5, 0.6]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.9, 0.7], [0.7, 0.7], [0.7, 0.2], [0.7, 0.7], [0.2, 0.7], [0.2, 0.5]], "type": "curve"},
+          {"points": [[0.5, 0.4], [0.4, 0.5], [0.5, 0.6]], "type": "curve"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw a tall vertical line that turns left into a flat bottom. Inside, draw a tiny S-shaped symbol (Hamza).",
+        "isolatedFr": "Trace un grand 'L' inversé de haut en bas, puis vers la gauche. Ajoute un petit zigzag (une Hamza) à l'intérieur.",
+        "initialEn": "Draw an angled line from top-right to bottom-left, then flatten it out to the left.",
+        "initialFr": "Dessine une ligne oblique de haut-droite vers bas-gauche, puis repars à plat vers la gauche.",
+        "medialEn": "Connect, draw the tall angled line leaning right, come back down and connect left.",
+        "medialFr": "Connecte, monte en biais vers la droite, redescends et connecte vers la gauche.",
+        "finalEn": "Connect, draw the tall straight line and flat bottom, with the mini Hamza inside.",
+        "finalFr": "Connecte, trace le grand 'L' inversé avec le petit zigzag à l'intérieur."
       }
     },
     {
@@ -1748,53 +819,27 @@
       "order": 23,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.5, 0.2],
-              [0.5, 0.7],
-              [0.3, 0.9],
-              [0.1, 0.7],
-              [0.1, 0.5]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.5, 0.2], [0.5, 0.7], [0.3, 0.95], [0.1, 0.7], [0.1, 0.5]], "type": "curve"}
         ],
         "initial": [
-          {
-            "points": [
-              [0.6, 0.2],
-              [0.6, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.6, 0.2], [0.6, 0.7], [0.2, 0.7]], "type": "curve"}
         ],
         "medial": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.5, 0.7],
-              [0.5, 0.2],
-              [0.5, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.9, 0.7], [0.5, 0.7], [0.5, 0.2], [0.5, 0.7], [0.1, 0.7]], "type": "curve"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.6, 0.7],
-              [0.6, 0.2],
-              [0.6, 0.7],
-              [0.4, 0.9],
-              [0.2, 0.7],
-              [0.2, 0.5]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.9, 0.7], [0.6, 0.7], [0.6, 0.2], [0.6, 0.7], [0.4, 0.95], [0.2, 0.7], [0.2, 0.5]], "type": "curve"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Start from the top like an Alif, but dip below the line into a deep, round hook.",
+        "isolatedFr": "Commence en haut avec une longue ligne verticale, puis plonge sous la ligne d'écriture pour faire un crochet rond.",
+        "initialEn": "Tall vertical line, stop at the line and connect flat left (like a large 'L').",
+        "initialFr": "Longue ligne verticale, puis angle droit vers la gauche (comme un 'L').",
+        "medialEn": "Connect, go straight up tall, straight down the same line, connect left.",
+        "medialFr": "Connecte, monte très haut, redescends sur le même trait, connecte à gauche.",
+        "finalEn": "Connect, go tall up, come down and form the deep hook below the line.",
+        "finalFr": "Connecte, monte haut, redescends et plonge avec le crochet rond."
       }
     },
     {
@@ -1808,52 +853,27 @@
       "order": 24,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.4, 0.6],
-              [0.6, 0.5],
-              [0.6, 0.6],
-              [0.4, 0.6],
-              [0.4, 0.9]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.5, 0.6], [0.7, 0.5], [0.7, 0.6], [0.5, 0.6], [0.3, 0.6], [0.3, 0.95]], "type": "curve"}
         ],
         "initial": [
-          {
-            "points": [
-              [0.5, 0.6],
-              [0.7, 0.5],
-              [0.7, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.5, 0.6], [0.7, 0.5], [0.7, 0.7], [0.2, 0.7]], "type": "curve"}
         ],
         "medial": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.6, 0.7],
-              [0.5, 0.9],
-              [0.4, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.9, 0.7], [0.6, 0.7], [0.5, 0.9], [0.4, 0.7], [0.1, 0.7]], "type": "curve"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.6, 0.7],
-              [0.5, 0.9],
-              [0.4, 0.7],
-              [0.4, 0.95]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.9, 0.7], [0.6, 0.7], [0.5, 0.6], [0.7, 0.5], [0.7, 0.6], [0.5, 0.6], [0.3, 0.6], [0.3, 0.95]], "type": "curve"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw a small circle looping down, move a bit left, then draw a straight line dropping down.",
+        "isolatedFr": "Dessine une petite boucle fermée, décale-toi vers la gauche, puis trace une longue ligne droite plongeant vers le bas.",
+        "initialEn": "Small loop, connect flat to the left.",
+        "initialFr": "Petite boucle ronde, connecte à plat vers la gauche.",
+        "medialEn": "Connect, draw a small loop dipping below the line, connect left.",
+        "medialFr": "Connecte, dessine une boucle qui pend légèrement sous la ligne, connecte.",
+        "finalEn": "Connect, draw the loop, then drop the tail straight down.",
+        "finalFr": "Connecte, dessine la boucle, puis laisse tomber la longue queue droite vers le bas."
       }
     },
     {
@@ -1867,67 +887,31 @@
       "order": 25,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.8, 0.4],
-              [0.8, 0.7],
-              [0.5, 0.9],
-              [0.2, 0.7],
-              [0.2, 0.4]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.5, 0.3]],
-            "type": "dot"
-          }
+          {"points": [[0.8, 0.4], [0.8, 0.7], [0.5, 0.95], [0.2, 0.7], [0.2, 0.4]], "type": "curve"},
+          {"points": [[0.5, 0.3]], "type": "dot"}
         ],
         "initial": [
-          {
-            "points": [
-              [0.7, 0.4],
-              [0.7, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.6, 0.2]],
-            "type": "dot"
-          }
+          {"points": [[0.7, 0.4], [0.7, 0.7], [0.2, 0.7]], "type": "curve"},
+          {"points": [[0.6, 0.2]], "type": "dot"}
         ],
         "medial": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.6, 0.7],
-              [0.6, 0.4],
-              [0.6, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.6, 0.2]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.6, 0.7], [0.6, 0.4], [0.6, 0.7], [0.1, 0.7]], "type": "curve"},
+          {"points": [[0.6, 0.2]], "type": "dot"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.8, 0.7],
-              [0.5, 0.9],
-              [0.2, 0.7],
-              [0.2, 0.4]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.5, 0.4]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.8, 0.7], [0.5, 0.95], [0.2, 0.7], [0.2, 0.4]], "type": "curve"},
+          {"points": [[0.5, 0.3]], "type": "dot"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw a deep, perfectly round bowl dipping well below the line. Add one dot in the center above it.",
+        "isolatedFr": "Dessine un grand bol très profond sous la ligne, de droite à gauche. Place un point bien centré au-dessus.",
+        "initialEn": "Looks exactly like initial Bā' (small tooth, flat line). One dot above.",
+        "initialFr": "Identique au Bā' initial (petite dent, ligne plate). Un point au-dessus.",
+        "medialEn": "Looks exactly like medial Bā' (small bump). One dot above.",
+        "medialFr": "Identique au Bā' médian (petite bosse). Un point au-dessus.",
+        "finalEn": "Connect, then draw the deep, perfectly round bowl. One dot above.",
+        "finalFr": "Connecte, puis trace le grand bol profond. Un point au-dessus."
       }
     },
     {
@@ -1941,58 +925,27 @@
       "order": 26,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.5, 0.4],
-              [0.7, 0.6],
-              [0.5, 0.8],
-              [0.3, 0.6],
-              [0.5, 0.4]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.5, 0.4], [0.7, 0.6], [0.5, 0.8], [0.3, 0.6], [0.5, 0.4]], "type": "curve"}
         ],
         "initial": [
-          {
-            "points": [
-              [0.7, 0.3],
-              [0.3, 0.7],
-              [0.6, 0.6],
-              [0.4, 0.5],
-              [0.5, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.6, 0.3], [0.3, 0.7], [0.7, 0.7], [0.5, 0.4], [0.4, 0.5], [0.6, 0.6], [0.2, 0.7]], "type": "curve"}
         ],
         "medial": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.6, 0.7],
-              [0.4, 0.9],
-              [0.6, 0.9],
-              [0.4, 0.5],
-              [0.6, 0.5],
-              [0.4, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.9, 0.7], [0.6, 0.7], [0.4, 0.95], [0.6, 0.95], [0.4, 0.5], [0.6, 0.5], [0.4, 0.7], [0.1, 0.7]], "type": "curve"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.6, 0.7],
-              [0.6, 0.3],
-              [0.4, 0.4],
-              [0.4, 0.6],
-              [0.6, 0.6]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.9, 0.7], [0.6, 0.7], [0.6, 0.3], [0.4, 0.4], [0.4, 0.6], [0.6, 0.6]], "type": "curve"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw a simple closed circle resting on the line.",
+        "isolatedFr": "Dessine un simple cercle fermé posé sur la ligne.",
+        "initialEn": "Draw a large triangle pointing left, with a small inner loop, then connect left.",
+        "initialFr": "Dessine une grande boucle en pointe, fais un petit rond à l'intérieur, puis ressors vers la gauche.",
+        "medialEn": "Connect, dip down into a loop, come up into an upper loop (like an 8), connect.",
+        "medialFr": "Connecte, fais une boucle en bas, croise pour faire une boucle en haut (comme un '8'), connecte.",
+        "finalEn": "Connect, go straight up, then draw a small flag/circle attached to the left.",
+        "finalFr": "Connecte, monte tout droit, et trace un petit cercle attaché sur la gauche."
       }
     },
     {
@@ -2006,30 +959,21 @@
       "order": 27,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.5, 0.6],
-              [0.4, 0.4],
-              [0.6, 0.4],
-              [0.6, 0.6],
-              [0.3, 0.9]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.5, 0.6], [0.4, 0.4], [0.6, 0.4], [0.6, 0.6], [0.3, 0.95]], "type": "curve"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.6, 0.7],
-              [0.4, 0.5],
-              [0.6, 0.5],
-              [0.6, 0.7],
-              [0.3, 0.9]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.9, 0.7], [0.6, 0.7], [0.4, 0.5], [0.6, 0.5], [0.6, 0.7], [0.3, 0.95]], "type": "curve"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw a small closed loop (head) resting on the line, then sweep down left like a Rā'.",
+        "isolatedFr": "Dessine une petite tête ronde posée sur la ligne, puis glisse vers le bas et la gauche (comme le toboggan du Rā').",
+        "initialEn": "Same as isolated. Wāw never connects forward.",
+        "initialFr": "Identique à la forme isolée. Wāw ne s'accroche jamais après.",
+        "medialEn": "Connect, draw the round head, sweep down. Doesn't connect left.",
+        "medialFr": "Connecte, dessine la petite tête, glisse en bas. Ne connecte pas.",
+        "finalEn": "Connect, draw the round head, sweep down.",
+        "finalFr": "Connecte, dessine la petite tête, glisse en bas."
       }
     },
     {
@@ -2043,86 +987,35 @@
       "order": 28,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.7, 0.3],
-              [0.4, 0.3],
-              [0.4, 0.5],
-              [0.7, 0.5],
-              [0.7, 0.7],
-              [0.5, 0.9],
-              [0.2, 0.7],
-              [0.2, 0.5]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.4, 0.95]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.6, 0.95]],
-            "type": "dot"
-          }
+          {"points": [[0.7, 0.3], [0.4, 0.3], [0.4, 0.5], [0.7, 0.5], [0.7, 0.7], [0.5, 0.95], [0.2, 0.7], [0.2, 0.5]], "type": "curve"},
+          {"points": [[0.4, 0.98]], "type": "dot"},
+          {"points": [[0.6, 0.98]], "type": "dot"}
         ],
         "initial": [
-          {
-            "points": [
-              [0.7, 0.4],
-              [0.7, 0.7],
-              [0.2, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.4, 0.9]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.6, 0.9]],
-            "type": "dot"
-          }
+          {"points": [[0.7, 0.4], [0.7, 0.7], [0.2, 0.7]], "type": "curve"},
+          {"points": [[0.4, 0.9]], "type": "dot"},
+          {"points": [[0.6, 0.9]], "type": "dot"}
         ],
         "medial": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.6, 0.7],
-              [0.6, 0.4],
-              [0.6, 0.7],
-              [0.1, 0.7]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.4, 0.9]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.6, 0.9]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.6, 0.7], [0.6, 0.4], [0.6, 0.7], [0.1, 0.7]], "type": "curve"},
+          {"points": [[0.4, 0.9]], "type": "dot"},
+          {"points": [[0.6, 0.9]], "type": "dot"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.7, 0.7],
-              [0.5, 0.9],
-              [0.2, 0.7],
-              [0.2, 0.5]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.4, 0.95]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.6, 0.95]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.7, 0.7], [0.7, 0.5], [0.5, 0.95], [0.2, 0.7], [0.2, 0.5]], "type": "curve"},
+          {"points": [[0.4, 0.98]], "type": "dot"},
+          {"points": [[0.6, 0.98]], "type": "dot"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw an S-curve like a swan's neck, ending in a large flat bowl below. Two dots under the bowl.",
+        "isolatedFr": "Forme une courbe en 'S' couché (comme le cou d'un cygne) et termine par un grand bol aplati sous la ligne. Deux points en dessous.",
+        "initialEn": "Exactly like initial Bā' (small tooth). Two dots below.",
+        "initialFr": "Identique au Bā' initial (petite dent). Deux points en dessous.",
+        "medialEn": "Exactly like medial Bā' (small bump). Two dots below.",
+        "medialFr": "Identique au Bā' médian (petite bosse). Deux points en dessous.",
+        "finalEn": "Connect, swoop down and back up forming the flat bowl. Two dots below.",
+        "finalFr": "Connecte, plonge sous la ligne et remonte en grand bol plat. Deux points en dessous."
       }
     },
     {
@@ -2136,46 +1029,25 @@
       "order": 29,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.5, 0.4],
-              [0.7, 0.6],
-              [0.5, 0.8],
-              [0.3, 0.6],
-              [0.5, 0.4]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.4, 0.2]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.6, 0.2]],
-            "type": "dot"
-          }
+          {"points": [[0.5, 0.4], [0.7, 0.6], [0.5, 0.8], [0.3, 0.6], [0.5, 0.4]], "type": "curve"},
+          {"points": [[0.4, 0.2]], "type": "dot"},
+          {"points": [[0.6, 0.2]], "type": "dot"}
         ],
         "final": [
-          {
-            "points": [
-              [0.9, 0.7],
-              [0.6, 0.7],
-              [0.6, 0.3],
-              [0.4, 0.4],
-              [0.4, 0.6],
-              [0.6, 0.6]
-            ],
-            "type": "curve"
-          },
-          {
-            "points": [[0.4, 0.15]],
-            "type": "dot"
-          },
-          {
-            "points": [[0.6, 0.15]],
-            "type": "dot"
-          }
+          {"points": [[0.9, 0.7], [0.6, 0.7], [0.6, 0.3], [0.4, 0.4], [0.4, 0.6], [0.6, 0.6]], "type": "curve"},
+          {"points": [[0.4, 0.15]], "type": "dot"},
+          {"points": [[0.6, 0.15]], "type": "dot"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Same as isolated Hā' (a circle), but with two dots above.",
+        "isolatedFr": "Même forme que le Hā' isolé (un cercle), mais avec deux points au-dessus.",
+        "initialEn": "Tā' Marbūṭa is only found at the end of words.",
+        "initialFr": "Le Tā' Marbūṭa ne se trouve qu'à la toute fin des mots.",
+        "medialEn": "Tā' Marbūṭa is only found at the end of words.",
+        "medialFr": "Le Tā' Marbūṭa ne se trouve qu'à la toute fin des mots.",
+        "finalEn": "Same as final Hā' (connect, go up, draw flag), with two dots above.",
+        "finalFr": "Connecte, monte, petite boucle (comme le Hā' final), et ajoute deux points."
       }
     },
     {
@@ -2189,17 +1061,18 @@
       "order": 30,
       "strokes": {
         "isolated": [
-          {
-            "points": [
-              [0.7, 0.3],
-              [0.4, 0.3],
-              [0.4, 0.5],
-              [0.7, 0.5],
-              [0.4, 0.7]
-            ],
-            "type": "curve"
-          }
+          {"points": [[0.7, 0.3], [0.4, 0.3], [0.4, 0.5], [0.7, 0.5], [0.4, 0.7]], "type": "curve"}
         ]
+      },
+      "drawingInstructions": {
+        "isolatedEn": "Draw a tiny 'C' shape facing right, then a straight diagonal tail slicing down-left.",
+        "isolatedFr": "Trace un minuscule 'C' regardant vers la droite, suivi d'une petite queue en diagonale vers le bas-gauche.",
+        "initialEn": "Hamza is drawn independently above or below another letter.",
+        "initialFr": "La Hamza se dessine de façon indépendante, souvent au-dessus ou en dessous d'une autre lettre.",
+        "medialEn": "Hamza is drawn independently above or below another letter.",
+        "medialFr": "La Hamza se dessine de façon indépendante, souvent au-dessus ou en dessous d'une autre lettre.",
+        "finalEn": "Hamza is drawn independently above or below another letter.",
+        "finalFr": "La Hamza se dessine de façon indépendante, souvent au-dessus ou en dessous d'une autre lettre."
       }
     }
   ],
@@ -2422,10 +1295,7 @@
       "transliteration": "Ab",
       "translationEn": "Father",
       "translationFr": "Père",
-      "componentLetterIds": [
-        1,
-        2
-      ]
+      "componentLetterIds": [1, 2]
     },
     {
       "id": 2,
@@ -2433,11 +1303,7 @@
       "transliteration": "Bab",
       "translationEn": "Door",
       "translationFr": "Porte",
-      "componentLetterIds": [
-        2,
-        1,
-        2
-      ]
+      "componentLetterIds": [2, 1, 2]
     },
     {
       "id": 3,
@@ -2445,10 +1311,7 @@
       "transliteration": "Umm",
       "translationEn": "Mother",
       "translationFr": "Mère",
-      "componentLetterIds": [
-        1,
-        24
-      ]
+      "componentLetterIds": [1, 24]
     },
     {
       "id": 4,
@@ -2456,10 +1319,7 @@
       "transliteration": "Akh",
       "translationEn": "Brother",
       "translationFr": "Frère",
-      "componentLetterIds": [
-        1,
-        7
-      ]
+      "componentLetterIds": [1, 7]
     },
     {
       "id": 5,
@@ -2467,10 +1327,7 @@
       "transliteration": "Yad",
       "translationEn": "Hand",
       "translationFr": "Main",
-      "componentLetterIds": [
-        28,
-        8
-      ]
+      "componentLetterIds": [28, 8]
     },
     {
       "id": 6,
@@ -2478,11 +1335,7 @@
       "transliteration": "Shams",
       "translationEn": "Sun",
       "translationFr": "Soleil",
-      "componentLetterIds": [
-        13,
-        24,
-        12
-      ],
+      "componentLetterIds": [13, 24, 12],
       "rootId": "sh-m-s"
     },
     {
@@ -2491,11 +1344,7 @@
       "transliteration": "Qamar",
       "translationEn": "Moon",
       "translationFr": "Lune",
-      "componentLetterIds": [
-        21,
-        24,
-        10
-      ],
+      "componentLetterIds": [21, 24, 10],
       "rootId": "q-m-r"
     },
     {
@@ -2504,11 +1353,7 @@
       "transliteration": "Nour",
       "translationEn": "Light",
       "translationFr": "Lumière",
-      "componentLetterIds": [
-        25,
-        27,
-        10
-      ],
+      "componentLetterIds": [25, 27, 10],
       "rootId": "n-w-r"
     },
     {
@@ -2517,12 +1362,7 @@
       "transliteration": "Kitab",
       "translationEn": "Book",
       "translationFr": "Livre",
-      "componentLetterIds": [
-        22,
-        3,
-        1,
-        2
-      ],
+      "componentLetterIds": [22, 3, 1, 2],
       "rootId": "k-t-b"
     },
     {
@@ -2531,11 +1371,7 @@
       "transliteration": "Qalam",
       "translationEn": "Pen",
       "translationFr": "Stylo",
-      "componentLetterIds": [
-        21,
-        23,
-        24
-      ],
+      "componentLetterIds": [21, 23, 24],
       "rootId": "q-l-m"
     },
     {
@@ -2544,11 +1380,7 @@
       "transliteration": "Bayt",
       "translationEn": "House",
       "translationFr": "Maison",
-      "componentLetterIds": [
-        2,
-        28,
-        3
-      ],
+      "componentLetterIds": [2, 28, 3],
       "rootId": "b-y-t"
     },
     {
@@ -2557,11 +1389,7 @@
       "transliteration": "Walad",
       "translationEn": "Boy",
       "translationFr": "Garçon",
-      "componentLetterIds": [
-        27,
-        23,
-        8
-      ],
+      "componentLetterIds": [27, 23, 8],
       "rootId": "w-l-d"
     },
     {
@@ -2570,11 +1398,7 @@
       "transliteration": "Bint",
       "translationEn": "Girl",
       "translationFr": "Fille",
-      "componentLetterIds": [
-        2,
-        25,
-        3
-      ],
+      "componentLetterIds": [2, 25, 3],
       "rootId": "b-n-t"
     },
     {
@@ -2583,11 +1407,7 @@
       "transliteration": "Ukht",
       "translationEn": "Sister",
       "translationFr": "Sœur",
-      "componentLetterIds": [
-        1,
-        7,
-        3
-      ]
+      "componentLetterIds": [1, 7, 3]
     },
     {
       "id": 15,
@@ -2595,10 +1415,7 @@
       "transliteration": "Jadd",
       "translationEn": "Grandfather",
       "translationFr": "Grand-père",
-      "componentLetterIds": [
-        5,
-        8
-      ]
+      "componentLetterIds": [5, 8]
     },
     {
       "id": 16,
@@ -2606,12 +1423,7 @@
       "transliteration": "Ahmar",
       "translationEn": "Red",
       "translationFr": "Rouge",
-      "componentLetterIds": [
-        1,
-        6,
-        24,
-        10
-      ],
+      "componentLetterIds": [1, 6, 24, 10],
       "rootId": "h-m-r"
     },
     {
@@ -2620,12 +1432,7 @@
       "transliteration": "Azraq",
       "translationEn": "Blue",
       "translationFr": "Bleu",
-      "componentLetterIds": [
-        1,
-        11,
-        10,
-        21
-      ],
+      "componentLetterIds": [1, 11, 10, 21],
       "rootId": "z-r-q"
     },
     {
@@ -2634,12 +1441,7 @@
       "transliteration": "Akhdar",
       "translationEn": "Green",
       "translationFr": "Vert",
-      "componentLetterIds": [
-        1,
-        7,
-        15,
-        10
-      ],
+      "componentLetterIds": [1, 7, 15, 10],
       "rootId": "kh-d-r"
     },
     {
@@ -2648,12 +1450,7 @@
       "transliteration": "Abyad",
       "translationEn": "White",
       "translationFr": "Blanc",
-      "componentLetterIds": [
-        1,
-        2,
-        28,
-        15
-      ],
+      "componentLetterIds": [1, 2, 28, 15],
       "rootId": "b-y-d"
     },
     {
@@ -2662,12 +1459,7 @@
       "transliteration": "Aswad",
       "translationEn": "Black",
       "translationFr": "Noir",
-      "componentLetterIds": [
-        1,
-        12,
-        27,
-        8
-      ],
+      "componentLetterIds": [1, 12, 27, 8],
       "rootId": "s-w-d"
     },
     {
@@ -2676,11 +1468,7 @@
       "transliteration": "Ana",
       "translationEn": "I/Me",
       "translationFr": "Je/Moi",
-      "componentLetterIds": [
-        1,
-        25,
-        1
-      ]
+      "componentLetterIds": [1, 25, 1]
     },
     {
       "id": 22,
@@ -2688,11 +1476,7 @@
       "transliteration": "Anta",
       "translationEn": "You (m)",
       "translationFr": "Tu (m)",
-      "componentLetterIds": [
-        1,
-        25,
-        3
-      ]
+      "componentLetterIds": [1, 25, 3]
     },
     {
       "id": 23,
@@ -2700,10 +1484,7 @@
       "transliteration": "Huwa",
       "translationEn": "He",
       "translationFr": "Il",
-      "componentLetterIds": [
-        26,
-        27
-      ]
+      "componentLetterIds": [26, 27]
     },
     {
       "id": 24,
@@ -2711,10 +1492,7 @@
       "transliteration": "Hiya",
       "translationEn": "She",
       "translationFr": "Elle",
-      "componentLetterIds": [
-        26,
-        28
-      ]
+      "componentLetterIds": [26, 28]
     },
     {
       "id": 25,
@@ -2722,11 +1500,7 @@
       "transliteration": "Hadha",
       "translationEn": "This (m)",
       "translationFr": "Ceci (m)",
-      "componentLetterIds": [
-        26,
-        9,
-        1
-      ]
+      "componentLetterIds": [26, 9, 1]
     },
     {
       "id": 26,
@@ -2734,12 +1508,7 @@
       "transliteration": "Talib",
       "translationEn": "Student (m)",
       "translationFr": "Étudiant",
-      "componentLetterIds": [
-        16,
-        1,
-        23,
-        2
-      ],
+      "componentLetterIds": [16, 1, 23, 2],
       "rootId": "t-l-b"
     },
     {
@@ -2748,13 +1517,7 @@
       "transliteration": "Taliba",
       "translationEn": "Student (f)",
       "translationFr": "Étudiante",
-      "componentLetterIds": [
-        16,
-        1,
-        23,
-        2,
-        29
-      ],
+      "componentLetterIds": [16, 1, 23, 2, 29],
       "rootId": "t-l-b"
     },
     {
@@ -2763,12 +1526,7 @@
       "transliteration": "Muallim",
       "translationEn": "Teacher (m)",
       "translationFr": "Professeur",
-      "componentLetterIds": [
-        24,
-        18,
-        23,
-        24
-      ],
+      "componentLetterIds": [24, 18, 23, 24],
       "rootId": "ayn-l-m"
     },
     {
@@ -2777,12 +1535,7 @@
       "transliteration": "Sadiq",
       "translationEn": "Friend (m)",
       "translationFr": "Ami",
-      "componentLetterIds": [
-        14,
-        8,
-        28,
-        21
-      ],
+      "componentLetterIds": [14, 8, 28, 21],
       "rootId": "s-d-q"
     },
     {
@@ -2791,11 +1544,7 @@
       "transliteration": "Maa",
       "translationEn": "Water",
       "translationFr": "Eau",
-      "componentLetterIds": [
-        24,
-        1,
-        30
-      ]
+      "componentLetterIds": [24, 1, 30]
     },
     {
       "id": 31,
@@ -2803,12 +1552,7 @@
       "transliteration": "Wahid",
       "translationEn": "One",
       "translationFr": "Un (1)",
-      "componentLetterIds": [
-        27,
-        1,
-        6,
-        8
-      ]
+      "componentLetterIds": [27, 1, 6, 8]
     },
     {
       "id": 32,
@@ -2816,13 +1560,7 @@
       "transliteration": "Ithnan",
       "translationEn": "Two",
       "translationFr": "Deux (2)",
-      "componentLetterIds": [
-        1,
-        4,
-        25,
-        1,
-        25
-      ]
+      "componentLetterIds": [1, 4, 25, 1, 25]
     },
     {
       "id": 33,
@@ -2830,13 +1568,7 @@
       "transliteration": "Thalatha",
       "translationEn": "Three",
       "translationFr": "Trois (3)",
-      "componentLetterIds": [
-        4,
-        23,
-        1,
-        4,
-        29
-      ]
+      "componentLetterIds": [4, 23, 1, 4, 29]
     },
     {
       "id": 34,
@@ -2844,13 +1576,7 @@
       "transliteration": "Arba'a",
       "translationEn": "Four",
       "translationFr": "Quatre (4)",
-      "componentLetterIds": [
-        1,
-        10,
-        2,
-        18,
-        29
-      ]
+      "componentLetterIds": [1, 10, 2, 18, 29]
     },
     {
       "id": 35,
@@ -2858,12 +1584,7 @@
       "transliteration": "Khamsa",
       "translationEn": "Five",
       "translationFr": "Cinq (5)",
-      "componentLetterIds": [
-        7,
-        24,
-        12,
-        29
-      ]
+      "componentLetterIds": [7, 24, 12, 29]
     },
     {
       "id": 36,
@@ -2871,11 +1592,7 @@
       "transliteration": "Sitta",
       "translationEn": "Six",
       "translationFr": "Six (6)",
-      "componentLetterIds": [
-        12,
-        3,
-        29
-      ]
+      "componentLetterIds": [12, 3, 29]
     },
     {
       "id": 37,
@@ -2883,12 +1600,7 @@
       "transliteration": "Sab'a",
       "translationEn": "Seven",
       "translationFr": "Sept (7)",
-      "componentLetterIds": [
-        12,
-        2,
-        18,
-        29
-      ]
+      "componentLetterIds": [12, 2, 18, 29]
     },
     {
       "id": 38,
@@ -2896,14 +1608,7 @@
       "transliteration": "Thamaniya",
       "translationEn": "Eight",
       "translationFr": "Huit (8)",
-      "componentLetterIds": [
-        4,
-        24,
-        1,
-        25,
-        28,
-        29
-      ]
+      "componentLetterIds": [4, 24, 1, 25, 28, 29]
     },
     {
       "id": 39,
@@ -2911,12 +1616,7 @@
       "transliteration": "Tis'a",
       "translationEn": "Nine",
       "translationFr": "Neuf (9)",
-      "componentLetterIds": [
-        3,
-        12,
-        18,
-        29
-      ]
+      "componentLetterIds": [3, 12, 18, 29]
     },
     {
       "id": 40,
@@ -2924,12 +1624,7 @@
       "transliteration": "Ashara",
       "translationEn": "Ten",
       "translationFr": "Dix (10)",
-      "componentLetterIds": [
-        18,
-        13,
-        10,
-        29
-      ]
+      "componentLetterIds": [18, 13, 10, 29]
     },
     {
       "id": 41,
@@ -2937,11 +1632,7 @@
       "transliteration": "Ra's",
       "translationEn": "Head",
       "translationFr": "Tête",
-      "componentLetterIds": [
-        10,
-        1,
-        12
-      ],
+      "componentLetterIds": [10, 1, 12],
       "rootId": "r-a-s"
     },
     {
@@ -2950,11 +1641,7 @@
       "transliteration": "'Ayn",
       "translationEn": "Eye",
       "translationFr": "Œil",
-      "componentLetterIds": [
-        18,
-        28,
-        25
-      ],
+      "componentLetterIds": [18, 28, 25],
       "rootId": "ayn-y-n"
     },
     {
@@ -2963,11 +1650,7 @@
       "transliteration": "Anf",
       "translationEn": "Nose",
       "translationFr": "Nez",
-      "componentLetterIds": [
-        1,
-        25,
-        20
-      ]
+      "componentLetterIds": [1, 25, 20]
     },
     {
       "id": 44,
@@ -2975,10 +1658,7 @@
       "transliteration": "Fam",
       "translationEn": "Mouth",
       "translationFr": "Bouche",
-      "componentLetterIds": [
-        20,
-        24
-      ]
+      "componentLetterIds": [20, 24]
     },
     {
       "id": 45,
@@ -2986,11 +1666,7 @@
       "transliteration": "Udhun",
       "translationEn": "Ear",
       "translationFr": "Oreille",
-      "componentLetterIds": [
-        1,
-        9,
-        25
-      ]
+      "componentLetterIds": [1, 9, 25]
     },
     {
       "id": 46,
@@ -2998,11 +1674,7 @@
       "transliteration": "Qalb",
       "translationEn": "Heart",
       "translationFr": "Cœur",
-      "componentLetterIds": [
-        21,
-        23,
-        2
-      ],
+      "componentLetterIds": [21, 23, 2],
       "rootId": "q-l-b"
     },
     {
@@ -3011,11 +1683,7 @@
       "transliteration": "Khubz",
       "translationEn": "Bread",
       "translationFr": "Pain",
-      "componentLetterIds": [
-        7,
-        2,
-        11
-      ],
+      "componentLetterIds": [7, 2, 11],
       "rootId": "kh-b-z"
     },
     {
@@ -3024,12 +1692,7 @@
       "transliteration": "Halib",
       "translationEn": "Milk",
       "translationFr": "Lait",
-      "componentLetterIds": [
-        6,
-        23,
-        28,
-        2
-      ],
+      "componentLetterIds": [6, 23, 28, 2],
       "rootId": "h-l-b"
     },
     {
@@ -3038,13 +1701,7 @@
       "transliteration": "Tuffaha",
       "translationEn": "Apple",
       "translationFr": "Pomme",
-      "componentLetterIds": [
-        3,
-        20,
-        1,
-        6,
-        29
-      ],
+      "componentLetterIds": [3, 20, 1, 6, 29],
       "rootId": "t-f-h"
     },
     {
@@ -3053,11 +1710,7 @@
       "transliteration": "Samak",
       "translationEn": "Fish",
       "translationFr": "Poisson",
-      "componentLetterIds": [
-        12,
-        24,
-        22
-      ],
+      "componentLetterIds": [12, 24, 22],
       "rootId": "s-m-k"
     },
     {
@@ -3066,11 +1719,7 @@
       "transliteration": "Aruz",
       "translationEn": "Rice",
       "translationFr": "Riz",
-      "componentLetterIds": [
-        1,
-        10,
-        11
-      ]
+      "componentLetterIds": [1, 10, 11]
     },
     {
       "id": 52,
@@ -3078,11 +1727,7 @@
       "transliteration": "Lahm",
       "translationEn": "Meat",
       "translationFr": "Viande",
-      "componentLetterIds": [
-        23,
-        6,
-        24
-      ],
+      "componentLetterIds": [23, 6, 24],
       "rootId": "l-h-m"
     },
     {
@@ -3091,12 +1736,7 @@
       "transliteration": "Shajara",
       "translationEn": "Tree",
       "translationFr": "Arbre",
-      "componentLetterIds": [
-        13,
-        5,
-        10,
-        29
-      ],
+      "componentLetterIds": [13, 5, 10, 29],
       "rootId": "sh-j-r"
     },
     {
@@ -3105,12 +1745,7 @@
       "transliteration": "Zahra",
       "translationEn": "Flower",
       "translationFr": "Fleur",
-      "componentLetterIds": [
-        11,
-        26,
-        10,
-        29
-      ],
+      "componentLetterIds": [11, 26, 10, 29],
       "rootId": "z-h-r"
     },
     {
@@ -3119,11 +1754,7 @@
       "transliteration": "Bahr",
       "translationEn": "Sea",
       "translationFr": "Mer",
-      "componentLetterIds": [
-        2,
-        6,
-        10
-      ],
+      "componentLetterIds": [2, 6, 10],
       "rootId": "b-h-r"
     },
     {
@@ -3132,12 +1763,7 @@
       "transliteration": "Samaa",
       "translationEn": "Sky",
       "translationFr": "Ciel",
-      "componentLetterIds": [
-        12,
-        24,
-        1,
-        30
-      ],
+      "componentLetterIds": [12, 24, 1, 30],
       "rootId": "s-m-w"
     },
     {
@@ -3146,11 +1772,7 @@
       "transliteration": "Ard",
       "translationEn": "Earth",
       "translationFr": "Terre",
-      "componentLetterIds": [
-        1,
-        10,
-        15
-      ]
+      "componentLetterIds": [1, 10, 15]
     },
     {
       "id": 58,
@@ -3158,13 +1780,7 @@
       "transliteration": "Madrasa",
       "translationEn": "School",
       "translationFr": "École",
-      "componentLetterIds": [
-        24,
-        8,
-        10,
-        12,
-        29
-      ],
+      "componentLetterIds": [24, 8, 10, 12, 29],
       "rootId": "d-r-s"
     },
     {
@@ -3173,11 +1789,7 @@
       "transliteration": "Fasl",
       "translationEn": "Class",
       "translationFr": "Classe",
-      "componentLetterIds": [
-        20,
-        14,
-        23
-      ],
+      "componentLetterIds": [20, 14, 23],
       "rootId": "f-s-l"
     },
     {
@@ -3186,11 +1798,7 @@
       "transliteration": "Dars",
       "translationEn": "Lesson",
       "translationFr": "Leçon",
-      "componentLetterIds": [
-        8,
-        10,
-        12
-      ],
+      "componentLetterIds": [8, 10, 12],
       "rootId": "d-r-s"
     },
     {
@@ -3199,14 +1807,7 @@
       "transliteration": "Imtihan",
       "translationEn": "Exam",
       "translationFr": "Examen",
-      "componentLetterIds": [
-        1,
-        24,
-        3,
-        6,
-        1,
-        25
-      ],
+      "componentLetterIds": [1, 24, 3, 6, 1, 25],
       "rootId": "m-h-n"
     },
     {
@@ -3215,12 +1816,7 @@
       "transliteration": "Wajib",
       "translationEn": "Homework",
       "translationFr": "Devoir",
-      "componentLetterIds": [
-        27,
-        1,
-        5,
-        2
-      ],
+      "componentLetterIds": [27, 1, 5, 2],
       "rootId": "w-j-b"
     },
     {
@@ -3229,11 +1825,7 @@
       "transliteration": "Yawm",
       "translationEn": "Day",
       "translationFr": "Jour",
-      "componentLetterIds": [
-        28,
-        27,
-        24
-      ],
+      "componentLetterIds": [28, 27, 24],
       "rootId": "y-w-m"
     },
     {
@@ -3242,11 +1834,7 @@
       "transliteration": "Layl",
       "translationEn": "Night",
       "translationFr": "Nuit",
-      "componentLetterIds": [
-        23,
-        28,
-        23
-      ],
+      "componentLetterIds": [23, 28, 23],
       "rootId": "l-y-l"
     },
     {
@@ -3255,11 +1843,7 @@
       "transliteration": "Sana",
       "translationEn": "Year",
       "translationFr": "Année",
-      "componentLetterIds": [
-        12,
-        25,
-        29
-      ],
+      "componentLetterIds": [12, 25, 29],
       "rootId": "s-n-w"
     },
     {
@@ -3268,10 +1852,7 @@
       "transliteration": "Min",
       "translationEn": "From",
       "translationFr": "De",
-      "componentLetterIds": [
-        24,
-        25
-      ]
+      "componentLetterIds": [24, 25]
     },
     {
       "id": 67,
@@ -3279,11 +1860,7 @@
       "transliteration": "Ayna",
       "translationEn": "Where",
       "translationFr": "Où",
-      "componentLetterIds": [
-        1,
-        28,
-        25
-      ]
+      "componentLetterIds": [1, 28, 25]
     },
     {
       "id": 68,
@@ -3291,13 +1868,7 @@
       "transliteration": "Faransa",
       "translationEn": "France",
       "translationFr": "France",
-      "componentLetterIds": [
-        20,
-        10,
-        25,
-        12,
-        1
-      ]
+      "componentLetterIds": [20, 10, 25, 12, 1]
     },
     {
       "id": 69,
@@ -3305,12 +1876,7 @@
       "transliteration": "Madha",
       "translationEn": "What",
       "translationFr": "Quoi",
-      "componentLetterIds": [
-        24,
-        1,
-        9,
-        1
-      ]
+      "componentLetterIds": [24, 1, 9, 1]
     },
     {
       "id": 70,
@@ -3318,12 +1884,7 @@
       "transliteration": "Turid",
       "translationEn": "You want",
       "translationFr": "Tu veux",
-      "componentLetterIds": [
-        3,
-        10,
-        28,
-        8
-      ],
+      "componentLetterIds": [3, 10, 28, 8],
       "rootId": "r-w-d"
     },
     {
@@ -3332,12 +1893,7 @@
       "transliteration": "Bikhair",
       "translationEn": "Fine/Well",
       "translationFr": "Bien",
-      "componentLetterIds": [
-        2,
-        7,
-        28,
-        10
-      ],
+      "componentLetterIds": [2, 7, 28, 10],
       "rootId": "kh-y-r"
     },
     {
@@ -3346,11 +1902,7 @@
       "transliteration": "Uhibbu",
       "translationEn": "I love",
       "translationFr": "J'aime",
-      "componentLetterIds": [
-        1,
-        6,
-        2
-      ],
+      "componentLetterIds": [1, 6, 2],
       "rootId": "h-b-b"
     },
     {
@@ -3359,14 +1911,7 @@
       "transliteration": "Tasharrafna",
       "translationEn": "Honored/Pleased",
       "translationFr": "Enchanté",
-      "componentLetterIds": [
-        3,
-        13,
-        10,
-        20,
-        25,
-        1
-      ],
+      "componentLetterIds": [3, 13, 10, 20, 25, 1],
       "rootId": "sh-r-f"
     },
     {
@@ -3375,15 +1920,7 @@
       "transliteration": "Bi-ma'rifatik",
       "translationEn": "To meet you",
       "translationFr": "De te connaître",
-      "componentLetterIds": [
-        2,
-        24,
-        18,
-        10,
-        20,
-        3,
-        22
-      ],
+      "componentLetterIds": [2, 24, 18, 10, 20, 3, 22],
       "rootId": "ayn-r-f"
     },
     {
@@ -3392,12 +1929,7 @@
       "transliteration": "Uridu",
       "translationEn": "I want",
       "translationFr": "Je veux",
-      "componentLetterIds": [
-        1,
-        10,
-        28,
-        8
-      ],
+      "componentLetterIds": [1, 10, 28, 8],
       "rootId": "r-w-d"
     }
   ],
@@ -3407,9 +1939,7 @@
       "letters": "ك ت ب",
       "meaningEn": "Related to writing",
       "meaningFr": "En rapport avec l'écriture",
-      "wordIds": [
-        9
-      ],
+      "wordIds": [9],
       "culturalNoteEn": "This root gives: kitab (book), maktaba (library), katib (writer), maktub (destiny). Arabs say 'maktub' meaning 'it was written/meant to be'.",
       "culturalNoteFr": "Cette racine donne : kitab (livre), maktaba (bibliothèque), katib (écrivain), maktub (destin). On dit 'maktub' pour 'c'était écrit'."
     },
@@ -3418,10 +1948,7 @@
       "letters": "د ر س",
       "meaningEn": "Related to studying",
       "meaningFr": "En rapport avec l'étude",
-      "wordIds": [
-        58,
-        60
-      ],
+      "wordIds": [58, 60],
       "culturalNoteEn": "Madrasa (school) literally means 'place of study'. This word entered many languages including French and English.",
       "culturalNoteFr": "Madrasa (école) signifie littéralement 'lieu d'étude'. Ce mot est entré dans beaucoup de langues dont le français."
     },
@@ -3430,10 +1957,7 @@
       "letters": "ط ل ب",
       "meaningEn": "Related to seeking/studying",
       "meaningFr": "En rapport avec la demande/l'étude",
-      "wordIds": [
-        26,
-        27
-      ],
+      "wordIds": [26, 27],
       "culturalNoteEn": "Talib means 'seeker of knowledge'. The word Taliban literally means 'students'.",
       "culturalNoteFr": "Talib signifie 'celui qui cherche le savoir'. Le mot Taliban signifie littéralement 'étudiants'."
     },
@@ -3442,9 +1966,7 @@
       "letters": "ع ل م",
       "meaningEn": "Related to knowledge",
       "meaningFr": "En rapport avec le savoir",
-      "wordIds": [
-        28
-      ],
+      "wordIds": [28],
       "culturalNoteEn": "This root gives: ilm (science), alim (scholar), alam (world/flag), muallim (teacher). Knowledge is central in Islamic culture.",
       "culturalNoteFr": "Cette racine donne : ilm (science), alim (savant), alam (monde/drapeau), muallim (enseignant). Le savoir est central en culture islamique."
     },
@@ -3453,9 +1975,7 @@
       "letters": "ص د ق",
       "meaningEn": "Related to truth/friendship",
       "meaningFr": "En rapport avec la vérité/l'amitié",
-      "wordIds": [
-        29
-      ],
+      "wordIds": [29],
       "culturalNoteEn": "Sadiq (friend) shares its root with sidq (truth) and sadaqa (charity). A true friend is one who is truthful.",
       "culturalNoteFr": "Sadiq (ami) partage sa racine avec sidq (vérité) et sadaqa (charité). Un vrai ami est celui qui est sincère."
     },
@@ -3464,9 +1984,7 @@
       "letters": "ق ل م",
       "meaningEn": "Related to writing/cutting",
       "meaningFr": "En rapport avec l'écriture/couper",
-      "wordIds": [
-        10
-      ],
+      "wordIds": [10],
       "culturalNoteEn": "Qalam (pen) originally meant 'reed cut for writing'. Surah Al-Qalam in the Quran is named after the pen.",
       "culturalNoteFr": "Qalam (stylo) signifiait à l'origine 'roseau taillé pour écrire'. La sourate Al-Qalam dans le Coran est nommée d'après le calame."
     },
@@ -3475,9 +1993,7 @@
       "letters": "ب ي ت",
       "meaningEn": "Related to dwelling/home",
       "meaningFr": "En rapport avec la demeure/le foyer",
-      "wordIds": [
-        11
-      ],
+      "wordIds": [11],
       "culturalNoteEn": "Bayt means both 'house' and 'verse of poetry'. Al-Bayt Al-Haram is the Kaaba in Mecca.",
       "culturalNoteFr": "Bayt signifie à la fois 'maison' et 'vers de poésie'. Al-Bayt Al-Haram désigne la Kaaba à La Mecque."
     },
@@ -3486,9 +2002,7 @@
       "letters": "و ل د",
       "meaningEn": "Related to birth/children",
       "meaningFr": "En rapport avec la naissance/les enfants",
-      "wordIds": [
-        12
-      ],
+      "wordIds": [12],
       "culturalNoteEn": "Walad (boy/child) and mawlid (birthday/birthplace) share this root. Al-Mawlid An-Nabawi celebrates the Prophet's birthday.",
       "culturalNoteFr": "Walad (garçon/enfant) et mawlid (anniversaire/lieu de naissance) partagent cette racine. Al-Mawlid An-Nabawi célèbre l'anniversaire du Prophète."
     },
@@ -3497,18 +2011,14 @@
       "letters": "ب ن ت",
       "meaningEn": "Related to daughter/girl",
       "meaningFr": "En rapport avec la fille",
-      "wordIds": [
-        13
-      ]
+      "wordIds": [13]
     },
     {
       "id": "sh-m-s",
       "letters": "ش م س",
       "meaningEn": "Related to the sun",
       "meaningFr": "En rapport avec le soleil",
-      "wordIds": [
-        6
-      ],
+      "wordIds": [6],
       "culturalNoteEn": "Shams (sun) is a 'solar letter' — when preceded by al-, it assimilates: ash-shams, not al-shams. The name Shams Ad-Din means 'sun of the faith'.",
       "culturalNoteFr": "Shams (soleil) est une 'lettre solaire' — précédée de al-, elle s'assimile : ash-shams, pas al-shams. Le nom Shams Ad-Din signifie 'soleil de la foi'."
     },
@@ -3517,9 +2027,7 @@
       "letters": "ق م ر",
       "meaningEn": "Related to the moon",
       "meaningFr": "En rapport avec la lune",
-      "wordIds": [
-        7
-      ],
+      "wordIds": [7],
       "culturalNoteEn": "Qamar (moon) is a 'lunar letter' — it keeps al- intact: al-qamar. Surah Al-Qamar in the Quran describes the splitting of the moon.",
       "culturalNoteFr": "Qamar (lune) est une 'lettre lunaire' — elle garde al- intact : al-qamar. La sourate Al-Qamar dans le Coran décrit la fissure de la lune."
     },
@@ -3528,9 +2036,7 @@
       "letters": "ن و ر",
       "meaningEn": "Related to light",
       "meaningFr": "En rapport avec la lumière",
-      "wordIds": [
-        8
-      ],
+      "wordIds": [8],
       "culturalNoteEn": "Nur (light) is a very popular name. Surah An-Nur is chapter 24 of the Quran. The name Noorine comes from this root!",
       "culturalNoteFr": "Nur (lumière) est un prénom très populaire. Sourate An-Nur est le chapitre 24 du Coran. Le nom Noorine vient de cette racine !"
     },
@@ -3539,54 +2045,42 @@
       "letters": "ح م ر",
       "meaningEn": "Related to redness",
       "meaningFr": "En rapport avec le rouge",
-      "wordIds": [
-        16
-      ]
+      "wordIds": [16]
     },
     {
       "id": "z-r-q",
       "letters": "ز ر ق",
       "meaningEn": "Related to blue",
       "meaningFr": "En rapport avec le bleu",
-      "wordIds": [
-        17
-      ]
+      "wordIds": [17]
     },
     {
       "id": "kh-d-r",
       "letters": "خ ض ر",
       "meaningEn": "Related to green/vegetation",
       "meaningFr": "En rapport avec le vert/la végétation",
-      "wordIds": [
-        18
-      ]
+      "wordIds": [18]
     },
     {
       "id": "b-y-d",
       "letters": "ب ي ض",
       "meaningEn": "Related to whiteness/eggs",
       "meaningFr": "En rapport avec la blancheur/les œufs",
-      "wordIds": [
-        19
-      ]
+      "wordIds": [19]
     },
     {
       "id": "s-w-d",
       "letters": "س و د",
       "meaningEn": "Related to blackness",
       "meaningFr": "En rapport avec la noirceur",
-      "wordIds": [
-        20
-      ]
+      "wordIds": [20]
     },
     {
       "id": "q-l-b",
       "letters": "ق ل ب",
       "meaningEn": "Related to heart/turning",
       "meaningFr": "En rapport avec le cœur/retourner",
-      "wordIds": [
-        46
-      ],
+      "wordIds": [46],
       "culturalNoteEn": "Qalb (heart) literally means 'that which turns'. The heart 'turns' between states. This is why in Arabic, feelings are described through the heart.",
       "culturalNoteFr": "Qalb (cœur) signifie littéralement 'ce qui tourne'. Le cœur 'tourne' entre les états. C'est pourquoi en arabe, les sentiments sont décrits à travers le cœur."
     },
@@ -3595,36 +2089,28 @@
       "letters": "خ ب ز",
       "meaningEn": "Related to bread/baking",
       "meaningFr": "En rapport avec le pain/la boulangerie",
-      "wordIds": [
-        47
-      ]
+      "wordIds": [47]
     },
     {
       "id": "h-l-b",
       "letters": "ح ل ب",
       "meaningEn": "Related to milking",
       "meaningFr": "En rapport avec la traite/le lait",
-      "wordIds": [
-        48
-      ]
+      "wordIds": [48]
     },
     {
       "id": "s-m-k",
       "letters": "س م ك",
       "meaningEn": "Related to fish",
       "meaningFr": "En rapport avec le poisson",
-      "wordIds": [
-        50
-      ]
+      "wordIds": [50]
     },
     {
       "id": "l-h-m",
       "letters": "ل ح م",
       "meaningEn": "Related to meat/bonding",
       "meaningFr": "En rapport avec la viande/le lien",
-      "wordIds": [
-        52
-      ],
+      "wordIds": [52],
       "culturalNoteEn": "Lahm (meat) shares its root with iltaham (to weld/bond). Family bonds in Arabic culture are described as 'flesh ties' (silat ar-rahim).",
       "culturalNoteFr": "Lahm (viande) partage sa racine avec iltaham (souder/lier). Les liens familiaux en culture arabe sont décrits comme 'liens de chair' (silat ar-rahim)."
     },
@@ -3633,27 +2119,21 @@
       "letters": "ش ج ر",
       "meaningEn": "Related to trees",
       "meaningFr": "En rapport avec les arbres",
-      "wordIds": [
-        53
-      ]
+      "wordIds": [53]
     },
     {
       "id": "z-h-r",
       "letters": "ز ه ر",
       "meaningEn": "Related to flowers/brightness",
       "meaningFr": "En rapport avec les fleurs/l'éclat",
-      "wordIds": [
-        54
-      ]
+      "wordIds": [54]
     },
     {
       "id": "b-h-r",
       "letters": "ب ح ر",
       "meaningEn": "Related to sea/vastness",
       "meaningFr": "En rapport avec la mer/l'immensité",
-      "wordIds": [
-        55
-      ],
+      "wordIds": [55],
       "culturalNoteEn": "Bahr (sea) also gives bahhar (sailor) and Bahrain (two seas). The word conveys vastness and depth.",
       "culturalNoteFr": "Bahr (mer) donne aussi bahhar (marin) et Bahreïn (deux mers). Le mot évoque l'immensité et la profondeur."
     },
@@ -3662,9 +2142,7 @@
       "letters": "س م و",
       "meaningEn": "Related to sky/height",
       "meaningFr": "En rapport avec le ciel/la hauteur",
-      "wordIds": [
-        56
-      ],
+      "wordIds": [56],
       "culturalNoteEn": "Sama' (sky) shares its root with sami (elevated) and ism (name). In Arabic, your 'name' lifts you up, like the sky.",
       "culturalNoteFr": "Sama' (ciel) partage sa racine avec sami (élevé) et ism (nom). En arabe, ton 'nom' t'élève, comme le ciel."
     },
@@ -3673,37 +2151,28 @@
       "letters": "ف ص ل",
       "meaningEn": "Related to separating/season",
       "meaningFr": "En rapport avec la séparation/la saison",
-      "wordIds": [
-        59
-      ]
+      "wordIds": [59]
     },
     {
       "id": "w-j-b",
       "letters": "و ج ب",
       "meaningEn": "Related to duty/obligation",
       "meaningFr": "En rapport avec le devoir/l'obligation",
-      "wordIds": [
-        62
-      ]
+      "wordIds": [62]
     },
     {
       "id": "r-w-d",
       "letters": "ر و د",
       "meaningEn": "Related to wanting/seeking",
       "meaningFr": "En rapport avec la volonté/la recherche",
-      "wordIds": [
-        70,
-        75
-      ]
+      "wordIds": [70, 75]
     },
     {
       "id": "kh-y-r",
       "letters": "خ ي ر",
       "meaningEn": "Related to goodness",
       "meaningFr": "En rapport avec le bien/la bonté",
-      "wordIds": [
-        71
-      ],
+      "wordIds": [71],
       "culturalNoteEn": "Khayr (goodness) appears often in daily speech: 'Sabah al-khayr' (good morning), 'khayr in sha Allah' (good if God wills).",
       "culturalNoteFr": "Khayr (bien) apparaît souvent au quotidien : 'Sabah al-khayr' (bonjour), 'khayr in sha Allah' (le bien si Dieu veut)."
     },
@@ -3712,9 +2181,7 @@
       "letters": "ح ب ب",
       "meaningEn": "Related to love",
       "meaningFr": "En rapport avec l'amour",
-      "wordIds": [
-        72
-      ],
+      "wordIds": [72],
       "culturalNoteEn": "Hubb (love) gives habib (beloved) and mahbub (loved one). The word habibi/habibti is one of the most common terms of endearment in Arabic.",
       "culturalNoteFr": "Hubb (amour) donne habib (bien-aimé) et mahbub (aimé). Le mot habibi/habibti est l'un des termes affectueux les plus utilisés en arabe."
     },
@@ -3723,18 +2190,14 @@
       "letters": "ش ر ف",
       "meaningEn": "Related to honor",
       "meaningFr": "En rapport avec l'honneur",
-      "wordIds": [
-        73
-      ]
+      "wordIds": [73]
     },
     {
       "id": "ayn-r-f",
       "letters": "ع ر ف",
       "meaningEn": "Related to knowing",
       "meaningFr": "En rapport avec la connaissance",
-      "wordIds": [
-        74
-      ],
+      "wordIds": [74],
       "culturalNoteEn": "Ma'rifa (knowledge) and ta'aruf (getting to know each other) share this root. 'Arafa also means the Day of Arafat during Hajj.",
       "culturalNoteFr": "Ma'rifa (connaissance) et ta'aruf (faire connaissance) partagent cette racine. 'Arafa désigne aussi le jour d'Arafat pendant le Hajj."
     },
@@ -3743,18 +2206,14 @@
       "letters": "ت ف ح",
       "meaningEn": "Related to apple",
       "meaningFr": "En rapport avec la pomme",
-      "wordIds": [
-        49
-      ]
+      "wordIds": [49]
     },
     {
       "id": "r-a-s",
       "letters": "ر أ س",
       "meaningEn": "Related to head/leading",
       "meaningFr": "En rapport avec la tête/diriger",
-      "wordIds": [
-        41
-      ],
+      "wordIds": [41],
       "culturalNoteEn": "Ra's (head) also gives ra'is (president/leader). Ra's Al-Khaimah is a UAE emirate meaning 'top of the tent'.",
       "culturalNoteFr": "Ra's (tête) donne aussi ra'is (président/chef). Ras Al-Khaimah est un émirat des EAU signifiant 'sommet de la tente'."
     },
@@ -3763,9 +2222,7 @@
       "letters": "ع ي ن",
       "meaningEn": "Related to eye/spring",
       "meaningFr": "En rapport avec l'œil/la source",
-      "wordIds": [
-        42
-      ],
+      "wordIds": [42],
       "culturalNoteEn": "Ayn means both 'eye' and 'spring of water'. It is also the name of the Arabic letter ع, one of the most distinctive sounds in Arabic.",
       "culturalNoteFr": "Ayn signifie à la fois 'œil' et 'source d'eau'. C'est aussi le nom de la lettre arabe ع, l'un des sons les plus distinctifs de l'arabe."
     },
@@ -3774,9 +2231,7 @@
       "letters": "ي و م",
       "meaningEn": "Related to day",
       "meaningFr": "En rapport avec le jour",
-      "wordIds": [
-        63
-      ],
+      "wordIds": [63],
       "culturalNoteEn": "Yawm (day) gives yawmiyya (daily). Yawm Al-Qiyama (Day of Judgment) is a core concept in Islamic belief.",
       "culturalNoteFr": "Yawm (jour) donne yawmiyya (quotidien). Yawm Al-Qiyama (Jour du Jugement) est un concept central en islam."
     },
@@ -3785,9 +2240,7 @@
       "letters": "ل ي ل",
       "meaningEn": "Related to night",
       "meaningFr": "En rapport avec la nuit",
-      "wordIds": [
-        64
-      ],
+      "wordIds": [64],
       "culturalNoteEn": "Layl (night) is the title of Surah Al-Layl. Laylat Al-Qadr (Night of Decree) is the most sacred night in Ramadan.",
       "culturalNoteFr": "Layl (nuit) est le titre de la sourate Al-Layl. Laylat Al-Qadr (Nuit du Destin) est la nuit la plus sacrée du Ramadan."
     },
@@ -3796,18 +2249,14 @@
       "letters": "م ح ن",
       "meaningEn": "Related to testing",
       "meaningFr": "En rapport avec l'épreuve",
-      "wordIds": [
-        61
-      ]
+      "wordIds": [61]
     },
     {
       "id": "s-n-w",
       "letters": "س ن و",
       "meaningEn": "Related to year/age",
       "meaningFr": "En rapport avec l'année/l'âge",
-      "wordIds": [
-        65
-      ]
+      "wordIds": [65]
     }
   ],
   "phrases": [
@@ -3817,10 +2266,7 @@
       "transliteration": "Ana talib",
       "translationEn": "I am a student",
       "translationFr": "Je suis étudiant",
-      "wordIds": [
-        21,
-        26
-      ],
+      "wordIds": [21, 26],
       "category": "introduction",
       "audioName": "phrase_ana_talib"
     },
@@ -3830,10 +2276,7 @@
       "transliteration": "Hadha kitab",
       "translationEn": "This is a book",
       "translationFr": "Ceci est un livre",
-      "wordIds": [
-        25,
-        9
-      ],
+      "wordIds": [25, 9],
       "category": "statement",
       "audioName": "phrase_hadha_kitab"
     },
@@ -3913,10 +2356,7 @@
       "transliteration": "Huwa sadiqi",
       "translationEn": "He is my friend",
       "translationFr": "C'est mon ami",
-      "wordIds": [
-        23,
-        29
-      ],
+      "wordIds": [23, 29],
       "category": "introduction",
       "audioName": "phrase_huwa_sadiqi"
     },
@@ -3926,10 +2366,7 @@
       "transliteration": "Ana mu'allim",
       "translationEn": "I am a teacher",
       "translationFr": "Je suis professeur",
-      "wordIds": [
-        21,
-        28
-      ],
+      "wordIds": [21, 28],
       "category": "introduction",
       "audioName": "phrase_ana_muallim"
     },
@@ -3939,10 +2376,7 @@
       "transliteration": "Ana taliba",
       "translationEn": "I am a student (f)",
       "translationFr": "Je suis étudiante",
-      "wordIds": [
-        21,
-        27
-      ],
+      "wordIds": [21, 27],
       "category": "introduction",
       "audioName": "phrase_ana_taliba"
     },
@@ -3952,10 +2386,7 @@
       "transliteration": "Huwa talib",
       "translationEn": "He is a student",
       "translationFr": "C'est un étudiant",
-      "wordIds": [
-        23,
-        26
-      ],
+      "wordIds": [23, 26],
       "category": "statement",
       "audioName": "phrase_huwa_talib"
     },
@@ -3965,10 +2396,7 @@
       "transliteration": "Hiya taliba",
       "translationEn": "She is a student",
       "translationFr": "C'est une étudiante",
-      "wordIds": [
-        24,
-        27
-      ],
+      "wordIds": [24, 27],
       "category": "statement",
       "audioName": "phrase_hiya_taliba"
     },
@@ -3978,10 +2406,7 @@
       "transliteration": "Anta sadiq",
       "translationEn": "You are a friend",
       "translationFr": "Tu es un ami",
-      "wordIds": [
-        22,
-        29
-      ],
+      "wordIds": [22, 29],
       "category": "statement",
       "audioName": "phrase_anta_sadiq"
     },
@@ -3991,10 +2416,7 @@
       "transliteration": "Hadha qalam",
       "translationEn": "This is a pen",
       "translationFr": "C'est un stylo",
-      "wordIds": [
-        25,
-        10
-      ],
+      "wordIds": [25, 10],
       "category": "statement",
       "audioName": "phrase_hadha_qalam"
     },
@@ -4004,10 +2426,7 @@
       "transliteration": "Hadha bayt",
       "translationEn": "This is a house",
       "translationFr": "C'est une maison",
-      "wordIds": [
-        25,
-        11
-      ],
+      "wordIds": [25, 11],
       "category": "statement",
       "audioName": "phrase_hadha_bayt"
     },
@@ -4017,10 +2436,7 @@
       "transliteration": "Hadha bab",
       "translationEn": "This is a door",
       "translationFr": "C'est une porte",
-      "wordIds": [
-        25,
-        2
-      ],
+      "wordIds": [25, 2],
       "category": "statement",
       "audioName": "phrase_hadha_bab"
     },
@@ -4050,11 +2466,7 @@
       "transliteration": "Hadha bayt ahmar",
       "translationEn": "This is a red house",
       "translationFr": "C'est une maison rouge",
-      "wordIds": [
-        25,
-        11,
-        16
-      ],
+      "wordIds": [25, 11, 16],
       "category": "statement",
       "audioName": "phrase_hadha_bayt_ahmar"
     },
@@ -4064,11 +2476,7 @@
       "transliteration": "Hadha qalam azraq",
       "translationEn": "This is a blue pen",
       "translationFr": "C'est un stylo bleu",
-      "wordIds": [
-        25,
-        10,
-        17
-      ],
+      "wordIds": [25, 10, 17],
       "category": "statement",
       "audioName": "phrase_hadha_qalam_azraq"
     },
@@ -4078,11 +2486,7 @@
       "transliteration": "Hadha bab akhdar",
       "translationEn": "This is a green door",
       "translationFr": "C'est une porte verte",
-      "wordIds": [
-        25,
-        2,
-        18
-      ],
+      "wordIds": [25, 2, 18],
       "category": "statement",
       "audioName": "phrase_hadha_bab_akhdar"
     },
@@ -4092,11 +2496,7 @@
       "transliteration": "Hadha kitab abyad",
       "translationEn": "This is a white book",
       "translationFr": "C'est un livre blanc",
-      "wordIds": [
-        25,
-        9,
-        19
-      ],
+      "wordIds": [25, 9, 19],
       "category": "statement",
       "audioName": "phrase_hadha_kitab_abyad"
     },
@@ -4106,11 +2506,7 @@
       "transliteration": "Hadha qalam aswad",
       "translationEn": "This is a black pen",
       "translationFr": "C'est un stylo noir",
-      "wordIds": [
-        25,
-        10,
-        20
-      ],
+      "wordIds": [25, 10, 20],
       "category": "statement",
       "audioName": "phrase_hadha_qalam_aswad"
     },
@@ -4120,9 +2516,7 @@
       "transliteration": "Indi thalatha kutub",
       "translationEn": "I have three books",
       "translationFr": "J'ai trois livres",
-      "wordIds": [
-        33
-      ],
+      "wordIds": [33],
       "category": "statement",
       "audioName": "phrase_indi_thalatha"
     },
@@ -4132,10 +2526,7 @@
       "transliteration": "Hadha wahid",
       "translationEn": "This is one",
       "translationFr": "C'est un",
-      "wordIds": [
-        25,
-        31
-      ],
+      "wordIds": [25, 31],
       "category": "statement",
       "audioName": "phrase_hadha_wahid"
     },
@@ -4145,9 +2536,7 @@
       "transliteration": "Indi khamsa aqlam",
       "translationEn": "I have five pens",
       "translationFr": "J'ai cinq stylos",
-      "wordIds": [
-        35
-      ],
+      "wordIds": [35],
       "category": "statement",
       "audioName": "phrase_indi_khamsa"
     },
@@ -4157,10 +2546,7 @@
       "transliteration": "Hadha anfi",
       "translationEn": "This is my nose",
       "translationFr": "C'est mon nez",
-      "wordIds": [
-        25,
-        43
-      ],
+      "wordIds": [25, 43],
       "category": "statement",
       "audioName": "phrase_hadha_anfi"
     },
@@ -4170,9 +2556,7 @@
       "transliteration": "Hadhihi ayni",
       "translationEn": "This is my eye",
       "translationFr": "C'est mon œil",
-      "wordIds": [
-        42
-      ],
+      "wordIds": [42],
       "category": "statement",
       "audioName": "phrase_hadhihi_ayni"
     },
@@ -4182,10 +2566,7 @@
       "transliteration": "Uridu khubzan",
       "translationEn": "I want bread",
       "translationFr": "Je veux du pain",
-      "wordIds": [
-        75,
-        47
-      ],
+      "wordIds": [75, 47],
       "category": "statement",
       "audioName": "phrase_uridu_khubz"
     },
@@ -4195,10 +2576,7 @@
       "transliteration": "Hadha halib",
       "translationEn": "This is milk",
       "translationFr": "C'est du lait",
-      "wordIds": [
-        25,
-        48
-      ],
+      "wordIds": [25, 48],
       "category": "statement",
       "audioName": "phrase_hadha_halib"
     },
@@ -4208,10 +2586,7 @@
       "transliteration": "Uridu tuffaha",
       "translationEn": "I want an apple",
       "translationFr": "Je veux une pomme",
-      "wordIds": [
-        75,
-        49
-      ],
+      "wordIds": [75, 49],
       "category": "statement",
       "audioName": "phrase_uridu_tuffaha"
     },
@@ -4221,10 +2596,7 @@
       "transliteration": "Ana fi al-madrasa",
       "translationEn": "I am at school",
       "translationFr": "Je suis à l'école",
-      "wordIds": [
-        21,
-        58
-      ],
+      "wordIds": [21, 58],
       "category": "statement",
       "audioName": "phrase_ana_fi_madrasa"
     },
@@ -4234,10 +2606,7 @@
       "transliteration": "Hadha darsi",
       "translationEn": "This is my lesson",
       "translationFr": "C'est ma leçon",
-      "wordIds": [
-        25,
-        60
-      ],
+      "wordIds": [25, 60],
       "category": "statement",
       "audioName": "phrase_hadha_darsi"
     },
@@ -4247,11 +2616,7 @@
       "transliteration": "Min ayna anta?",
       "translationEn": "Where are you from?",
       "translationFr": "D'où viens-tu?",
-      "wordIds": [
-        66,
-        67,
-        22
-      ],
+      "wordIds": [66, 67, 22],
       "category": "question",
       "audioName": "phrase_min_ayna"
     },
@@ -4261,11 +2626,7 @@
       "transliteration": "Ana min faransa",
       "translationEn": "I am from France",
       "translationFr": "Je suis de France",
-      "wordIds": [
-        21,
-        66,
-        68
-      ],
+      "wordIds": [21, 66, 68],
       "category": "introduction",
       "audioName": "phrase_ana_min_faransa"
     },
@@ -4275,10 +2636,7 @@
       "transliteration": "Madha turid?",
       "translationEn": "What do you want?",
       "translationFr": "Que veux-tu?",
-      "wordIds": [
-        69,
-        70
-      ],
+      "wordIds": [69, 70],
       "category": "question",
       "audioName": "phrase_madha_turid"
     },
@@ -4288,10 +2646,7 @@
       "transliteration": "Ana bikhair shukran",
       "translationEn": "I'm fine, thank you",
       "translationFr": "Je vais bien, merci",
-      "wordIds": [
-        21,
-        71
-      ],
+      "wordIds": [21, 71],
       "category": "response",
       "audioName": "phrase_ana_bikhair_shukran"
     },
@@ -4301,11 +2656,7 @@
       "transliteration": "Ana uhibbu al-kitab",
       "translationEn": "I love the book",
       "translationFr": "J'aime le livre",
-      "wordIds": [
-        21,
-        72,
-        9
-      ],
+      "wordIds": [21, 72, 9],
       "category": "statement",
       "audioName": "phrase_ana_uhibbu_kitab"
     },
@@ -4315,10 +2666,7 @@
       "transliteration": "Al-bahr azraq",
       "translationEn": "The sea is blue",
       "translationFr": "La mer est bleue",
-      "wordIds": [
-        55,
-        17
-      ],
+      "wordIds": [55, 17],
       "category": "statement",
       "audioName": "phrase_bahr_azraq"
     },
@@ -4328,9 +2676,7 @@
       "transliteration": "As-samaa jamila",
       "translationEn": "The sky is beautiful",
       "translationFr": "Le ciel est beau",
-      "wordIds": [
-        56
-      ],
+      "wordIds": [56],
       "category": "statement",
       "audioName": "phrase_samaa_jamila"
     },
@@ -4340,9 +2686,7 @@
       "transliteration": "Uhibbu as-samak",
       "translationEn": "I like fish",
       "translationFr": "J'aime le poisson",
-      "wordIds": [
-        50
-      ],
+      "wordIds": [50],
       "category": "statement",
       "audioName": "phrase_uhibbu_samak"
     },
@@ -4352,9 +2696,7 @@
       "transliteration": "Yawm jamil",
       "translationEn": "A beautiful day",
       "translationFr": "Un beau jour",
-      "wordIds": [
-        63
-      ],
+      "wordIds": [63],
       "category": "statement",
       "audioName": "phrase_yawm_jamil"
     },
@@ -4364,12 +2706,52 @@
       "transliteration": "Tasharrafna bi-ma'rifatik",
       "translationEn": "Pleased to meet you",
       "translationFr": "Enchanté de te connaître",
-      "wordIds": [
-        73,
-        74
-      ],
+      "wordIds": [73, 74],
       "category": "greeting",
       "audioName": "phrase_tasharrafna"
+    }
+  ],
+  "dialogues": [
+    {
+      "id": 1,
+      "titleEn": "At the Café",
+      "titleFr": "Au café",
+      "category": "café",
+      "lines": [
+        {"id": 1, "speaker": "A", "arabic": "السَّلَامُ عَلَيْكُم", "transliteration": "Assalamu alaykum", "translationEn": "Peace be upon you", "translationFr": "La paix soit sur vous", "isUserTurn": false, "options": null},
+        {"id": 2, "speaker": "B", "arabic": "وَعَلَيْكُمُ السَّلَام", "transliteration": "Wa alaykumu assalam", "translationEn": "And upon you peace", "translationFr": "Et sur vous la paix", "isUserTurn": true, "options": ["وَعَلَيْكُمُ السَّلَام", "شُكْرًا", "مَعَ السَّلَامَة", "لَا"]},
+        {"id": 3, "speaker": "A", "arabic": "مَاذَا تُرِيد؟", "transliteration": "Madha turid?", "translationEn": "What would you like?", "translationFr": "Que voulez-vous ?", "isUserTurn": false, "options": null},
+        {"id": 4, "speaker": "B", "arabic": "قَهْوَة مِن فَضْلِك", "transliteration": "Qahwa min fadlik", "translationEn": "Coffee please", "translationFr": "Un café s'il vous plaît", "isUserTurn": true, "options": ["قَهْوَة مِن فَضْلِك", "أَنَا طَالِب", "مَا اسْمُكَ", "أَيْنَ الْمَدْرَسَة"]},
+        {"id": 5, "speaker": "A", "arabic": "تَفَضَّل", "transliteration": "Tafaddal", "translationEn": "Here you go", "translationFr": "Voilà", "isUserTurn": false, "options": null},
+        {"id": 6, "speaker": "B", "arabic": "شُكْرًا", "transliteration": "Shukran", "translationEn": "Thank you", "translationFr": "Merci", "isUserTurn": true, "options": ["شُكْرًا", "مَعَ السَّلَامَة", "نَعَم", "لَا"]}
+      ]
+    },
+    {
+      "id": 2,
+      "titleEn": "Introductions",
+      "titleFr": "Se présenter",
+      "category": "introduction",
+      "lines": [
+        {"id": 1, "speaker": "A", "arabic": "مَا اسْمُكَ؟", "transliteration": "Ma ismuka?", "translationEn": "What is your name?", "translationFr": "Comment t'appelles-tu ?", "isUserTurn": false, "options": null},
+        {"id": 2, "speaker": "B", "arabic": "اِسْمِي لُورِين", "transliteration": "Ismi Laurine", "translationEn": "My name is Laurine", "translationFr": "Je m'appelle Laurine", "isUserTurn": true, "options": ["اِسْمِي لُورِين", "أَنَا مِن فَرَنْسَا", "شُكْرًا", "مَرْحَبًا"]},
+        {"id": 3, "speaker": "A", "arabic": "مِن أَيْنَ أَنْتِ؟", "transliteration": "Min ayna anti?", "translationEn": "Where are you from?", "translationFr": "D'où es-tu ?", "isUserTurn": false, "options": null},
+        {"id": 4, "speaker": "B", "arabic": "أَنَا مِن فَرَنْسَا", "transliteration": "Ana min Faransa", "translationEn": "I am from France", "translationFr": "Je suis de France", "isUserTurn": true, "options": ["أَنَا مِن فَرَنْسَا", "اِسْمِي لُورِين", "قَهْوَة مِن فَضْلِك", "كَيْفَ حَالُكَ"]},
+        {"id": 5, "speaker": "A", "arabic": "تَشَرَّفْنَا", "transliteration": "Tasharrafna", "translationEn": "Nice to meet you", "translationFr": "Enchanté(e)", "isUserTurn": false, "options": null},
+        {"id": 6, "speaker": "B", "arabic": "أَنَا كَذَلِك", "transliteration": "Ana kadhalik", "translationEn": "Me too", "translationFr": "Moi aussi", "isUserTurn": true, "options": ["أَنَا كَذَلِك", "شُكْرًا", "مَعَ السَّلَامَة", "نَعَم"]}
+      ]
+    },
+    {
+      "id": 3,
+      "titleEn": "At the Market",
+      "titleFr": "Au marché",
+      "category": "market",
+      "lines": [
+        {"id": 1, "speaker": "A", "arabic": "مَرْحَبًا! أَهْلًا وَسَهْلًا", "transliteration": "Marhaban! Ahlan wa sahlan", "translationEn": "Hello! Welcome", "translationFr": "Bonjour ! Bienvenue", "isUserTurn": false, "options": null},
+        {"id": 2, "speaker": "B", "arabic": "بِكَم هٰذَا؟", "transliteration": "Bikam hadha?", "translationEn": "How much is this?", "translationFr": "C'est combien ?", "isUserTurn": true, "options": ["بِكَم هٰذَا؟", "مَا اسْمُكَ", "أَيْنَ الْحَمَّام", "شُكْرًا"]},
+        {"id": 3, "speaker": "A", "arabic": "خَمْسَة دَرَاهِم", "transliteration": "Khamsa darahim", "translationEn": "Five dirhams", "translationFr": "Cinq dirhams", "isUserTurn": false, "options": null},
+        {"id": 4, "speaker": "B", "arabic": "حَسَنًا، أُرِيدُهُ", "transliteration": "Hasanan, uriduhu", "translationEn": "OK, I want it", "translationFr": "D'accord, je le veux", "isUserTurn": true, "options": ["حَسَنًا، أُرِيدُهُ", "لَا شُكْرًا", "بِكَم هٰذَا؟", "مَعَ السَّلَامَة"]},
+        {"id": 5, "speaker": "A", "arabic": "شُكْرًا! مَعَ السَّلَامَة", "transliteration": "Shukran! Ma'a assalama", "translationEn": "Thank you! Goodbye", "translationFr": "Merci ! Au revoir", "isUserTurn": false, "options": null}
+      ]
     }
   ],
   "levels": {
@@ -4379,212 +2761,119 @@
         "type": "alphabet",
         "titleKey": "Alphabet 1 (أ ب ت ث)",
         "subtitle": "أ ب ت ث",
-        "contentIds": [
-          1,
-          2,
-          3,
-          4
-        ]
+        "contentIds": [1, 2, 3, 4]
       },
       {
         "id": 2,
         "type": "vowels",
         "titleKey": "Short Vowels",
         "subtitle": "Introduction & Quiz",
-        "contentIds": [
-          1,
-          2,
-          3
-        ]
+        "contentIds": [1, 2, 3]
       },
       {
         "id": 3,
         "type": "alphabet",
         "titleKey": "Alphabet 2 (ج ح خ د ذ)",
         "subtitle": "ج ح خ د ذ",
-        "contentIds": [
-          5,
-          6,
-          7,
-          8,
-          9
-        ]
+        "contentIds": [5, 6, 7, 8, 9]
       },
       {
         "id": 4,
         "type": "vowels",
         "titleKey": "Practice: Vowels",
         "subtitle": "ج - ذ + Harakat",
-        "contentIds": [
-          1,
-          2,
-          3
-        ]
+        "contentIds": [1, 2, 3]
       },
       {
         "id": 5,
         "type": "alphabet",
         "titleKey": "Alphabet 3 (ر ز س ش ص)",
         "subtitle": "ر ز س ش ص",
-        "contentIds": [
-          10,
-          11,
-          12,
-          13,
-          14
-        ]
+        "contentIds": [10, 11, 12, 13, 14]
       },
       {
         "id": 6,
         "type": "vowels",
         "titleKey": "Practice: Vowels",
         "subtitle": "ر - ص + Harakat",
-        "contentIds": [
-          1,
-          2,
-          3
-        ]
+        "contentIds": [1, 2, 3]
       },
       {
         "id": 7,
         "type": "alphabet",
         "titleKey": "Alphabet 4 (ض ط ظ ع غ)",
         "subtitle": "ض ط ظ ع غ",
-        "contentIds": [
-          15,
-          16,
-          17,
-          18,
-          19
-        ]
+        "contentIds": [15, 16, 17, 18, 19]
       },
       {
         "id": 8,
         "type": "vowels",
         "titleKey": "Practice: Vowels",
         "subtitle": "ض - غ + Harakat",
-        "contentIds": [
-          1,
-          2,
-          3
-        ]
+        "contentIds": [1, 2, 3]
       },
       {
         "id": 9,
         "type": "alphabet",
         "titleKey": "Alphabet 5 (ف ق ك ل م ن ه و ي)",
         "subtitle": "ف ق ك ل م ن ه و ي",
-        "contentIds": [
-          20,
-          21,
-          22,
-          23,
-          24,
-          25,
-          26,
-          27,
-          28
-        ]
+        "contentIds": [20, 21, 22, 23, 24, 25, 26, 27, 28]
       },
       {
         "id": 10,
         "type": "vowels",
         "titleKey": "Practice: Vowels",
         "subtitle": "ف - ي + Harakat",
-        "contentIds": [
-          1,
-          2,
-          3
-        ]
+        "contentIds": [1, 2, 3]
       },
       {
         "id": 11,
         "type": "wordBuild",
         "titleKey": "Family",
         "subtitle": "أَبْ - أُخْت",
-        "contentIds": [
-          1,
-          3,
-          4,
-          14,
-          15
-        ]
+        "contentIds": [1, 3, 4, 14, 15]
       },
       {
         "id": 12,
         "type": "wordBuild",
         "titleKey": "Pronouns",
         "subtitle": "أَنَا - هُوَ",
-        "contentIds": [
-          21,
-          22,
-          23,
-          24,
-          25
-        ]
+        "contentIds": [21, 22, 23, 24, 25]
       },
       {
         "id": 13,
         "type": "phrases",
         "titleKey": "Introductions",
         "subtitle": "أَنَا طَالِب",
-        "contentIds": [
-          1,
-          5,
-          11,
-          12
-        ]
+        "contentIds": [1, 5, 11, 12]
       },
       {
         "id": 14,
         "type": "wordBuild",
         "titleKey": "People & Roles",
         "subtitle": "طَالِب - مُعَلِّم",
-        "contentIds": [
-          26,
-          27,
-          28,
-          29
-        ]
+        "contentIds": [26, 27, 28, 29]
       },
       {
         "id": 15,
         "type": "phrases",
         "titleKey": "People Phrases",
         "subtitle": "هُوَ صَدِيقِي",
-        "contentIds": [
-          10,
-          13,
-          14,
-          15
-        ]
+        "contentIds": [10, 13, 14, 15]
       },
       {
         "id": 16,
         "type": "wordBuild",
         "titleKey": "Objects & Home",
         "subtitle": "كِتَاب - بَيْت",
-        "contentIds": [
-          2,
-          9,
-          10,
-          11,
-          30,
-          5
-        ]
+        "contentIds": [2, 9, 10, 11, 30, 5]
       },
       {
         "id": 17,
         "type": "phrases",
         "titleKey": "Object Phrases",
         "subtitle": "هٰذَا قَلَم",
-        "contentIds": [
-          2,
-          16,
-          17,
-          18,
-          19
-        ]
+        "contentIds": [2, 16, 17, 18, 19]
       },
       {
         "id": 18,
@@ -4598,307 +2887,168 @@
         "type": "wordBuild",
         "titleKey": "Sun & Moon",
         "subtitle": "شَمْس - قَمَر",
-        "contentIds": [
-          6,
-          7,
-          8
-        ]
+        "contentIds": [6, 7, 8]
       },
       {
         "id": 20,
         "type": "phrases",
         "titleKey": "Greetings",
         "subtitle": "السَّلَامُ عَلَيْكُم",
-        "contentIds": [
-          3,
-          6,
-          7,
-          8,
-          9,
-          20
-        ]
+        "contentIds": [3, 6, 7, 8, 9, 20]
       },
       {
         "id": 21,
         "type": "wordBuild",
         "titleKey": "Colors 1",
         "subtitle": "أَحْمَر - أَزْرَق",
-        "contentIds": [
-          16,
-          17
-        ]
+        "contentIds": [16, 17]
       },
       {
         "id": 22,
         "type": "wordBuild",
         "titleKey": "Colors 2",
         "subtitle": "أَخْضَر - أَبْيَض - أَسْوَد",
-        "contentIds": [
-          18,
-          19,
-          20
-        ]
+        "contentIds": [18, 19, 20]
       },
       {
         "id": 23,
         "type": "phrases",
         "titleKey": "Color Phrases",
         "subtitle": "هٰذَا بَيْت أَحْمَر",
-        "contentIds": [
-          21,
-          22,
-          23,
-          24,
-          25
-        ]
+        "contentIds": [21, 22, 23, 24, 25]
       },
       {
         "id": 24,
         "type": "wordBuild",
         "titleKey": "Review: Essentials",
         "subtitle": "أَبْ - مَاء",
-        "contentIds": [
-          1,
-          2,
-          9,
-          10,
-          11,
-          21,
-          23,
-          25,
-          30
-        ]
+        "contentIds": [1, 2, 9, 10, 11, 21, 23, 25, 30]
       },
       {
         "id": 25,
         "type": "speaking",
         "titleKey": "Pronunciation 1",
         "subtitle": "أ - ص",
-        "contentIds": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10,
-          11,
-          12,
-          13,
-          14
-        ]
+        "contentIds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
       },
       {
         "id": 26,
         "type": "speaking",
         "titleKey": "Pronunciation 2",
         "subtitle": "ض - ي",
-        "contentIds": [
-          15,
-          16,
-          17,
-          18,
-          19,
-          20,
-          21,
-          22,
-          23,
-          24,
-          25,
-          26,
-          27,
-          28
-        ]
+        "contentIds": [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28]
       },
       {
         "id": 27,
         "type": "wordBuild",
         "titleKey": "Numbers 1-5",
         "subtitle": "وَاحِد - خَمْسَة",
-        "contentIds": [
-          31,
-          32,
-          33,
-          34,
-          35
-        ]
+        "contentIds": [31, 32, 33, 34, 35]
       },
       {
         "id": 28,
         "type": "wordBuild",
         "titleKey": "Numbers 6-10",
         "subtitle": "سِتَّة - عَشَرَة",
-        "contentIds": [
-          36,
-          37,
-          38,
-          39,
-          40
-        ]
+        "contentIds": [36, 37, 38, 39, 40]
       },
       {
         "id": 29,
         "type": "phrases",
         "titleKey": "Counting",
         "subtitle": "عِنْدِي ثَلَاثَة كُتُب",
-        "contentIds": [
-          26,
-          27,
-          28
-        ]
+        "contentIds": [26, 27, 28]
       },
       {
         "id": 30,
         "type": "wordBuild",
         "titleKey": "Body Parts",
         "subtitle": "رَأْس - قَلْب",
-        "contentIds": [
-          41,
-          42,
-          43,
-          44,
-          45,
-          46
-        ]
+        "contentIds": [41, 42, 43, 44, 45, 46]
       },
       {
         "id": 31,
         "type": "phrases",
         "titleKey": "My Body",
         "subtitle": "هٰذَا أَنْفِي",
-        "contentIds": [
-          29,
-          30
-        ]
+        "contentIds": [29, 30]
       },
       {
         "id": 32,
         "type": "wordBuild",
         "titleKey": "Food",
         "subtitle": "خُبْز - لَحْم",
-        "contentIds": [
-          47,
-          48,
-          49,
-          50,
-          51,
-          52
-        ]
+        "contentIds": [47, 48, 49, 50, 51, 52]
       },
       {
         "id": 33,
         "type": "phrases",
         "titleKey": "At the Restaurant",
         "subtitle": "أُرِيدُ خُبْزًا",
-        "contentIds": [
-          31,
-          32,
-          33,
-          43
-        ]
+        "contentIds": [31, 32, 33, 43]
       },
       {
         "id": 34,
         "type": "wordBuild",
         "titleKey": "Nature",
         "subtitle": "شَجَرَة - أَرْض",
-        "contentIds": [
-          53,
-          54,
-          55,
-          56,
-          57
-        ]
+        "contentIds": [53, 54, 55, 56, 57]
       },
       {
         "id": 35,
         "type": "phrases",
         "titleKey": "Nature Phrases",
         "subtitle": "البَحْر أَزْرَق",
-        "contentIds": [
-          41,
-          42,
-          44
-        ]
+        "contentIds": [41, 42, 44]
       },
       {
         "id": 36,
         "type": "wordBuild",
         "titleKey": "School",
         "subtitle": "مَدْرَسَة - وَاجِب",
-        "contentIds": [
-          58,
-          59,
-          60,
-          61,
-          62
-        ]
+        "contentIds": [58, 59, 60, 61, 62]
       },
       {
         "id": 37,
         "type": "phrases",
         "titleKey": "At School",
         "subtitle": "أَنَا فِي المَدْرَسَة",
-        "contentIds": [
-          34,
-          35
-        ]
+        "contentIds": [34, 35]
       },
       {
         "id": 38,
         "type": "wordBuild",
         "titleKey": "Time",
         "subtitle": "يَوْم - سَنَة",
-        "contentIds": [
-          63,
-          64,
-          65
-        ]
+        "contentIds": [63, 64, 65]
       },
       {
         "id": 39,
         "type": "vowels",
         "titleKey": "Sukun & Shadda",
         "subtitle": "سْ - سَّ",
-        "contentIds": [
-          4,
-          5
-        ]
+        "contentIds": [4, 5]
       },
       {
         "id": 40,
         "type": "vowels",
         "titleKey": "Tanwin",
         "subtitle": "ـًا ـٍ ـٌ",
-        "contentIds": [
-          6
-        ]
+        "contentIds": [6]
       },
       {
         "id": 41,
-        "type": "phrases",
+        "type": "dialogue",
         "titleKey": "Dialogue",
         "subtitle": "مِنْ أَيْنَ أَنْتَ؟",
-        "contentIds": [
-          36,
-          37,
-          38,
-          39,
-          40,
-          45
-        ]
+        "contentIds": [1]
       },
       {
         "id": 42,
         "type": "alphabet",
         "titleKey": "Special Letter",
         "subtitle": "ة Ta Marbouta",
-        "contentIds": [
-          29
-        ]
+        "contentIds": [29]
       }
     ],
     "fr": [
@@ -4907,212 +3057,119 @@
         "type": "alphabet",
         "titleKey": "Alphabet 1 (أ ب ت ث)",
         "subtitle": "أ ب ت ث",
-        "contentIds": [
-          1,
-          2,
-          3,
-          4
-        ]
+        "contentIds": [1, 2, 3, 4]
       },
       {
         "id": 2,
         "type": "vowels",
         "titleKey": "Les Voyelles Courtes",
         "subtitle": "Introduction & Quiz",
-        "contentIds": [
-          1,
-          2,
-          3
-        ]
+        "contentIds": [1, 2, 3]
       },
       {
         "id": 3,
         "type": "alphabet",
         "titleKey": "Alphabet 2 (ج ح خ د ذ)",
         "subtitle": "ج ح خ د ذ",
-        "contentIds": [
-          5,
-          6,
-          7,
-          8,
-          9
-        ]
+        "contentIds": [5, 6, 7, 8, 9]
       },
       {
         "id": 4,
         "type": "vowels",
         "titleKey": "Pratique : Voyelles",
         "subtitle": "ج - ذ + Harakat",
-        "contentIds": [
-          1,
-          2,
-          3
-        ]
+        "contentIds": [1, 2, 3]
       },
       {
         "id": 5,
         "type": "alphabet",
         "titleKey": "Alphabet 3 (ر ز س ش ص)",
         "subtitle": "ر ز س ش ص",
-        "contentIds": [
-          10,
-          11,
-          12,
-          13,
-          14
-        ]
+        "contentIds": [10, 11, 12, 13, 14]
       },
       {
         "id": 6,
         "type": "vowels",
         "titleKey": "Pratique : Voyelles",
         "subtitle": "ر - ص + Harakat",
-        "contentIds": [
-          1,
-          2,
-          3
-        ]
+        "contentIds": [1, 2, 3]
       },
       {
         "id": 7,
         "type": "alphabet",
         "titleKey": "Alphabet 4 (ض ط ظ ع غ)",
         "subtitle": "ض ط ظ ع غ",
-        "contentIds": [
-          15,
-          16,
-          17,
-          18,
-          19
-        ]
+        "contentIds": [15, 16, 17, 18, 19]
       },
       {
         "id": 8,
         "type": "vowels",
         "titleKey": "Pratique : Voyelles",
         "subtitle": "ض - غ + Harakat",
-        "contentIds": [
-          1,
-          2,
-          3
-        ]
+        "contentIds": [1, 2, 3]
       },
       {
         "id": 9,
         "type": "alphabet",
         "titleKey": "Alphabet 5 (ف ق ك ل م ن ه و ي)",
         "subtitle": "ف ق ك ل م ن ه و ي",
-        "contentIds": [
-          20,
-          21,
-          22,
-          23,
-          24,
-          25,
-          26,
-          27,
-          28
-        ]
+        "contentIds": [20, 21, 22, 23, 24, 25, 26, 27, 28]
       },
       {
         "id": 10,
         "type": "vowels",
         "titleKey": "Pratique : Voyelles",
         "subtitle": "ف - ي + Harakat",
-        "contentIds": [
-          1,
-          2,
-          3
-        ]
+        "contentIds": [1, 2, 3]
       },
       {
         "id": 11,
         "type": "wordBuild",
         "titleKey": "La Famille",
         "subtitle": "أَبْ - أُخْت",
-        "contentIds": [
-          1,
-          3,
-          4,
-          14,
-          15
-        ]
+        "contentIds": [1, 3, 4, 14, 15]
       },
       {
         "id": 12,
         "type": "wordBuild",
         "titleKey": "Les Pronoms",
         "subtitle": "أَنَا - هُوَ",
-        "contentIds": [
-          21,
-          22,
-          23,
-          24,
-          25
-        ]
+        "contentIds": [21, 22, 23, 24, 25]
       },
       {
         "id": 13,
         "type": "phrases",
         "titleKey": "Se présenter",
         "subtitle": "أَنَا طَالِب",
-        "contentIds": [
-          1,
-          5,
-          11,
-          12
-        ]
+        "contentIds": [1, 5, 11, 12]
       },
       {
         "id": 14,
         "type": "wordBuild",
         "titleKey": "Personnes & Rôles",
         "subtitle": "طَالِب - مُعَلِّم",
-        "contentIds": [
-          26,
-          27,
-          28,
-          29
-        ]
+        "contentIds": [26, 27, 28, 29]
       },
       {
         "id": 15,
         "type": "phrases",
         "titleKey": "Phrases : Personnes",
         "subtitle": "هُوَ صَدِيقِي",
-        "contentIds": [
-          10,
-          13,
-          14,
-          15
-        ]
+        "contentIds": [10, 13, 14, 15]
       },
       {
         "id": 16,
         "type": "wordBuild",
         "titleKey": "Objets & Maison",
         "subtitle": "كِتَاب - بَيْت",
-        "contentIds": [
-          2,
-          9,
-          10,
-          11,
-          30,
-          5
-        ]
+        "contentIds": [2, 9, 10, 11, 30, 5]
       },
       {
         "id": 17,
         "type": "phrases",
         "titleKey": "Phrases : Objets",
         "subtitle": "هٰذَا قَلَم",
-        "contentIds": [
-          2,
-          16,
-          17,
-          18,
-          19
-        ]
+        "contentIds": [2, 16, 17, 18, 19]
       },
       {
         "id": 18,
@@ -5126,307 +3183,168 @@
         "type": "wordBuild",
         "titleKey": "Soleil & Lune",
         "subtitle": "شَمْس - قَمَر",
-        "contentIds": [
-          6,
-          7,
-          8
-        ]
+        "contentIds": [6, 7, 8]
       },
       {
         "id": 20,
         "type": "phrases",
         "titleKey": "Salutations",
         "subtitle": "السَّلَامُ عَلَيْكُم",
-        "contentIds": [
-          3,
-          6,
-          7,
-          8,
-          9,
-          20
-        ]
+        "contentIds": [3, 6, 7, 8, 9, 20]
       },
       {
         "id": 21,
         "type": "wordBuild",
         "titleKey": "Couleurs 1",
         "subtitle": "أَحْمَر - أَزْرَق",
-        "contentIds": [
-          16,
-          17
-        ]
+        "contentIds": [16, 17]
       },
       {
         "id": 22,
         "type": "wordBuild",
         "titleKey": "Couleurs 2",
         "subtitle": "أَخْضَر - أَبْيَض - أَسْوَد",
-        "contentIds": [
-          18,
-          19,
-          20
-        ]
+        "contentIds": [18, 19, 20]
       },
       {
         "id": 23,
         "type": "phrases",
         "titleKey": "Phrases : Couleurs",
         "subtitle": "هٰذَا بَيْت أَحْمَر",
-        "contentIds": [
-          21,
-          22,
-          23,
-          24,
-          25
-        ]
+        "contentIds": [21, 22, 23, 24, 25]
       },
       {
         "id": 24,
         "type": "wordBuild",
         "titleKey": "Révision : Essentiels",
         "subtitle": "أَبْ - مَاء",
-        "contentIds": [
-          1,
-          2,
-          9,
-          10,
-          11,
-          21,
-          23,
-          25,
-          30
-        ]
+        "contentIds": [1, 2, 9, 10, 11, 21, 23, 25, 30]
       },
       {
         "id": 25,
         "type": "speaking",
         "titleKey": "Prononciation 1",
         "subtitle": "أ - ص",
-        "contentIds": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10,
-          11,
-          12,
-          13,
-          14
-        ]
+        "contentIds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
       },
       {
         "id": 26,
         "type": "speaking",
         "titleKey": "Prononciation 2",
         "subtitle": "ض - ي",
-        "contentIds": [
-          15,
-          16,
-          17,
-          18,
-          19,
-          20,
-          21,
-          22,
-          23,
-          24,
-          25,
-          26,
-          27,
-          28
-        ]
+        "contentIds": [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28]
       },
       {
         "id": 27,
         "type": "wordBuild",
         "titleKey": "Nombres 1-5",
         "subtitle": "وَاحِد - خَمْسَة",
-        "contentIds": [
-          31,
-          32,
-          33,
-          34,
-          35
-        ]
+        "contentIds": [31, 32, 33, 34, 35]
       },
       {
         "id": 28,
         "type": "wordBuild",
         "titleKey": "Nombres 6-10",
         "subtitle": "سِتَّة - عَشَرَة",
-        "contentIds": [
-          36,
-          37,
-          38,
-          39,
-          40
-        ]
+        "contentIds": [36, 37, 38, 39, 40]
       },
       {
         "id": 29,
         "type": "phrases",
         "titleKey": "Compter",
         "subtitle": "عِنْدِي ثَلَاثَة كُتُب",
-        "contentIds": [
-          26,
-          27,
-          28
-        ]
+        "contentIds": [26, 27, 28]
       },
       {
         "id": 30,
         "type": "wordBuild",
         "titleKey": "Le Corps",
         "subtitle": "رَأْس - قَلْب",
-        "contentIds": [
-          41,
-          42,
-          43,
-          44,
-          45,
-          46
-        ]
+        "contentIds": [41, 42, 43, 44, 45, 46]
       },
       {
         "id": 31,
         "type": "phrases",
         "titleKey": "Mon Corps",
         "subtitle": "هٰذَا أَنْفِي",
-        "contentIds": [
-          29,
-          30
-        ]
+        "contentIds": [29, 30]
       },
       {
         "id": 32,
         "type": "wordBuild",
         "titleKey": "Nourriture",
         "subtitle": "خُبْز - لَحْم",
-        "contentIds": [
-          47,
-          48,
-          49,
-          50,
-          51,
-          52
-        ]
+        "contentIds": [47, 48, 49, 50, 51, 52]
       },
       {
         "id": 33,
         "type": "phrases",
         "titleKey": "Au Restaurant",
         "subtitle": "أُرِيدُ خُبْزًا",
-        "contentIds": [
-          31,
-          32,
-          33,
-          43
-        ]
+        "contentIds": [31, 32, 33, 43]
       },
       {
         "id": 34,
         "type": "wordBuild",
         "titleKey": "La Nature",
         "subtitle": "شَجَرَة - أَرْض",
-        "contentIds": [
-          53,
-          54,
-          55,
-          56,
-          57
-        ]
+        "contentIds": [53, 54, 55, 56, 57]
       },
       {
         "id": 35,
         "type": "phrases",
         "titleKey": "Phrases : Nature",
         "subtitle": "البَحْر أَزْرَق",
-        "contentIds": [
-          41,
-          42,
-          44
-        ]
+        "contentIds": [41, 42, 44]
       },
       {
         "id": 36,
         "type": "wordBuild",
         "titleKey": "L'École",
         "subtitle": "مَدْرَسَة - وَاجِب",
-        "contentIds": [
-          58,
-          59,
-          60,
-          61,
-          62
-        ]
+        "contentIds": [58, 59, 60, 61, 62]
       },
       {
         "id": 37,
         "type": "phrases",
         "titleKey": "À l'École",
         "subtitle": "أَنَا فِي المَدْرَسَة",
-        "contentIds": [
-          34,
-          35
-        ]
+        "contentIds": [34, 35]
       },
       {
         "id": 38,
         "type": "wordBuild",
         "titleKey": "Le Temps",
         "subtitle": "يَوْم - سَنَة",
-        "contentIds": [
-          63,
-          64,
-          65
-        ]
+        "contentIds": [63, 64, 65]
       },
       {
         "id": 39,
         "type": "vowels",
         "titleKey": "Sukun & Shadda",
         "subtitle": "سْ - سَّ",
-        "contentIds": [
-          4,
-          5
-        ]
+        "contentIds": [4, 5]
       },
       {
         "id": 40,
         "type": "vowels",
         "titleKey": "Tanwin",
         "subtitle": "ـًا ـٍ ـٌ",
-        "contentIds": [
-          6
-        ]
+        "contentIds": [6]
       },
       {
         "id": 41,
-        "type": "phrases",
+        "type": "dialogue",
         "titleKey": "Dialogue",
         "subtitle": "مِنْ أَيْنَ أَنْتَ؟",
-        "contentIds": [
-          36,
-          37,
-          38,
-          39,
-          40,
-          45
-        ]
+        "contentIds": [1]
       },
       {
         "id": 42,
         "type": "alphabet",
         "titleKey": "Lettre Spéciale",
         "subtitle": "ة Ta Marbouta",
-        "contentIds": [
-          29
-        ]
+        "contentIds": [29]
       }
     ]
   }

@@ -35,7 +35,6 @@ struct CheckpointTestView: View {
     @State private var shakeWrong = false
     @State private var progressValue: CGFloat = 0
 
-    // Drawing question state
     @StateObject private var drawingModel = DrawingCanvasModel()
     @State private var drawingLetterTarget: ArabicLetter? = nil
     @State private var drawingValidated = false
@@ -86,8 +85,6 @@ struct CheckpointTestView: View {
         .navigationBarHidden(true)
     }
 
-    // MARK: - Header
-
     private var headerBar: some View {
         HStack {
             Button(action: { dismiss() }) {
@@ -114,7 +111,7 @@ struct CheckpointTestView: View {
                     .font(.system(size: 15, weight: .bold, design: .rounded))
                     .foregroundColor(.noorGold)
             }
-            .frame(width: 40, alignment: .trailing)
+            .fixedSize()
         }
         .padding(.horizontal, 20)
         .padding(.top, 12)
@@ -153,18 +150,14 @@ struct CheckpointTestView: View {
             .foregroundColor(.noorSecondary)
     }
 
-    // MARK: - Multiple Choice View
-
     @ViewBuilder
     private func multipleChoiceView(_ question: CheckpointQuestion) -> some View {
         VStack(spacing: 24) {
-            // Prompt
             Text(question.prompt)
                 .font(.system(size: 17, weight: .semibold))
                 .foregroundColor(.noorText)
                 .multilineTextAlignment(.center)
 
-            // Arabic display
             if let arabic = question.arabicDisplay {
                 Text(arabic)
                     .font(.system(size: 56, weight: .bold))
@@ -177,7 +170,6 @@ struct CheckpointTestView: View {
                     )
             }
 
-            // Options
             VStack(spacing: 12) {
                 ForEach(Array(question.options.enumerated()), id: \.offset) { index, option in
                     Button(action: {
@@ -219,8 +211,6 @@ struct CheckpointTestView: View {
         }
     }
 
-    // MARK: - Drawing Question View
-
     @ViewBuilder
     private func drawingQuestionView(_ question: CheckpointQuestion) -> some View {
         VStack(spacing: 20) {
@@ -257,7 +247,7 @@ struct CheckpointTestView: View {
 
                 HStack(spacing: 16) {
                     Button(action: {
-                        drawingModel.clearAll()
+                        drawingModel.clear()
                         drawingValidated = false
                     }) {
                         HStack(spacing: 6) {
@@ -318,8 +308,6 @@ struct CheckpointTestView: View {
         }
     }
 
-    // MARK: - Option Styling
-
     private func optionTextColor(_ index: Int, question: CheckpointQuestion) -> Color {
         if !isAnswerRevealed { return .noorText }
         if index == question.correctIndex { return .green }
@@ -345,8 +333,6 @@ struct CheckpointTestView: View {
         return Color.clear
     }
 
-    // MARK: - Actions
-
     private func selectAnswer(_ index: Int, question: CheckpointQuestion) {
         selectedAnswer = index
         isAnswerRevealed = true
@@ -356,7 +342,7 @@ struct CheckpointTestView: View {
             score += 1
             HapticManager.shared.impact(.medium)
         } else {
-            HapticManager.shared.notification(.error)
+            HapticManager.shared.impact(.rigid)
             withAnimation(.default.repeatCount(3, autoreverses: true).speed(6)) {
                 shakeWrong = true
             }
@@ -371,8 +357,6 @@ struct CheckpointTestView: View {
     }
 
     private func validateDrawing() {
-        // Simplified drawing validation: we always give the point if they drew something
-        // A more advanced version could use RecognitionEngine
         let hasDrawn = drawingModel.strokes.count >= 1 && drawingModel.strokes.contains(where: { $0.count >= 3 })
         drawingCorrect = hasDrawn
         drawingValidated = true
@@ -381,7 +365,7 @@ struct CheckpointTestView: View {
             score += 1
             HapticManager.shared.impact(.medium)
         } else {
-            HapticManager.shared.notification(.error)
+            HapticManager.shared.impact(.rigid)
         }
     }
 
@@ -396,7 +380,7 @@ struct CheckpointTestView: View {
                 isAnswerRevealed = false
                 drawingValidated = false
                 drawingCorrect = false
-                drawingModel.clearAll()
+                drawingModel.clear()
                 progressValue = CGFloat(nextIndex) / CGFloat(questions.count)
             }
         }
@@ -409,19 +393,17 @@ struct CheckpointTestView: View {
         let passed = score >= GameConstants.Checkpoint.passThreshold
         if passed {
             dataManager.completeCheckpoint(afterLevel: afterLevel)
-            HapticManager.shared.notification(.success)
+            HapticManager.shared.impact(.heavy)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                 showCelebration = true
             }
         } else {
-            HapticManager.shared.notification(.warning)
+            HapticManager.shared.impact(.soft)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                 showFailure = true
             }
         }
     }
-
-    // MARK: - Celebration / Failure Views
 
     private var celebrationView: some View {
         UnifiedCelebrationView(
@@ -469,7 +451,6 @@ struct CheckpointTestView: View {
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
 
-                // Stars showing score
                 HStack(spacing: 16) {
                     ForEach(0..<3, id: \.self) { i in
                         let starThreshold = i == 0 ? 1 : (i == 1 ? GameConstants.Checkpoint.passThreshold : questions.count)
@@ -525,18 +506,41 @@ struct CheckpointTestView: View {
             progressValue = 0
             drawingValidated = false
             drawingCorrect = false
-            drawingModel.clearAll()
+            drawingModel.clear()
             buildQuestions()
         }
     }
 
-    // MARK: - Question Builder
+    private func shuffleOptions(_ options: [String], correctAnswer: String) -> ([String], Int) {
+        var shuffled = options.shuffled()
+        if !shuffled.contains(correctAnswer) {
+            shuffled[0] = correctAnswer
+            shuffled.shuffle()
+        }
+        let idx = shuffled.firstIndex(of: correctAnswer) ?? 0
+        return (shuffled, idx)
+    }
+
+    private func makeLetterQuestion(_ target: ArabicLetter, allLetters: [ArabicLetter]) -> CheckpointQuestion {
+        let correctAnswer = target.transliteration
+        var options = [correctAnswer]
+        let distractors = allLetters.filter { $0.id != target.id }.shuffled().prefix(3).map { $0.transliteration }
+        options.append(contentsOf: distractors)
+        while options.count < 4 { options.append("—") }
+        let (shuffled, idx) = shuffleOptions(options, correctAnswer: correctAnswer)
+        return CheckpointQuestion(
+            type: .letterRecognition,
+            prompt: isEnglish ? "What is this letter?" : "Quelle est cette lettre ?",
+            arabicDisplay: target.isolated,
+            options: shuffled,
+            correctIndex: idx
+        )
+    }
 
     private func buildQuestions() {
         var result: [CheckpointQuestion] = []
         let lang = languageManager.currentLanguage
 
-        // Gather content from levels 1..afterLevel
         let levelDefs = CourseContent.getLevels(language: lang).filter { $0.id <= afterLevel }
         var letterIds = Set<Int>()
         var wordIds = Set<Int>()
@@ -555,38 +559,20 @@ struct CheckpointTestView: View {
             }
         }
 
-        let letters = ArabicLetter.alphabet.filter { letterIds.contains($0.id) }
+        let letters: [ArabicLetter]
+        if letterIds.isEmpty {
+            letters = Array(ArabicLetter.alphabet.prefix(max(afterLevel, 4)))
+        } else {
+            letters = ArabicLetter.alphabet.filter { letterIds.contains($0.id) }
+        }
         let words = CourseContent.words.filter { wordIds.contains($0.id) }
         let vowels = CourseContent.vowels.filter { vowelIds.contains($0.id) }
 
-        // Q1 & Q2: Letter Recognition (2 questions)
         let shuffledLetters = letters.shuffled()
         for i in 0..<min(2, shuffledLetters.count) {
-            let target = shuffledLetters[i]
-            var options = [target.transliteration]
-            let distractors = letters.filter { $0.id != target.id }.shuffled().prefix(3).map { $0.transliteration }
-            options.append(contentsOf: distractors)
-
-            // Ensure we have 4 options
-            while options.count < 4 {
-                options.append("—")
-            }
-
-            let shuffledOptions = options.enumerated().sorted { _, _ in Bool.random() }
-            let correctIdx = shuffledOptions.firstIndex(where: { $0.offset == 0 })!
-
-            result.append(CheckpointQuestion(
-                type: .letterRecognition,
-                prompt: isEnglish
-                    ? "What is this letter?"
-                    : "Quelle est cette lettre ?",
-                arabicDisplay: target.isolated,
-                options: shuffledOptions.map { $0.element },
-                correctIndex: correctIdx
-            ))
+            result.append(makeLetterQuestion(shuffledLetters[i], allLetters: letters))
         }
 
-        // Q3: Contextual Form
         if letters.count >= 2 {
             let target = letters.randomElement()!
             let forms = ["initial", "medial", "final"]
@@ -612,42 +598,35 @@ struct CheckpointTestView: View {
             }
 
             var options = [correctForm]
-            // Add incorrect forms from same letter + different letters
             let otherForms = [target.isolated, target.initial, target.medial, target.final]
                 .filter { $0 != correctForm }
             options.append(contentsOf: otherForms.shuffled().prefix(2))
-
             if options.count < 4, let extra = letters.filter({ $0.id != target.id }).randomElement() {
                 options.append(extra.isolated)
             }
             while options.count < 4 { options.append("—") }
 
-            let shuffledOpts = options.enumerated().sorted { _, _ in Bool.random() }
-            let correctIdx = shuffledOpts.firstIndex(where: { $0.offset == 0 })!
-
+            let (shuffled, idx) = shuffleOptions(options, correctAnswer: correctForm)
             result.append(CheckpointQuestion(
                 type: .contextualForm,
                 prompt: isEnglish
                     ? "Find the \(formLabel) form of \(target.transliteration)"
                     : "Trouve la forme \(formLabel) de \(target.transliteration)",
                 arabicDisplay: target.isolated,
-                options: shuffledOpts.map { $0.element },
-                correctIndex: correctIdx
+                options: shuffled,
+                correctIndex: idx
             ))
         }
 
-        // Q4: Vowel Identification
         if vowels.count >= 2 {
             let target = vowels.randomElement()!
-            var options = [target.name]
+            let correctAnswer = target.name
+            var options = [correctAnswer]
             let distractors = vowels.filter { $0.id != target.id }.shuffled().prefix(3).map { $0.name }
             options.append(contentsOf: distractors)
             while options.count < 4 { options.append("—") }
 
-            let shuffledOpts = options.enumerated().sorted { _, _ in Bool.random() }
-            let correctIdx = shuffledOpts.firstIndex(where: { $0.offset == 0 })!
-
-            // Show the vowel on a letter example
+            let (shuffled, idx) = shuffleOptions(options, correctAnswer: correctAnswer)
             let exampleDisplay = target.examples.first?.combination ?? target.symbol
 
             result.append(CheckpointQuestion(
@@ -656,70 +635,36 @@ struct CheckpointTestView: View {
                     ? "Which vowel is this?"
                     : "Quelle est cette voyelle ?",
                 arabicDisplay: exampleDisplay,
-                options: shuffledOpts.map { $0.element },
-                correctIndex: correctIdx
+                options: shuffled,
+                correctIndex: idx
             ))
-        } else {
-            // Fallback: extra letter recognition if no vowels
-            if let target = shuffledLetters.dropFirst(2).first {
-                var options = [target.transliteration]
-                let distractors = letters.filter { $0.id != target.id }.shuffled().prefix(3).map { $0.transliteration }
-                options.append(contentsOf: distractors)
-                while options.count < 4 { options.append("—") }
-                let shuffledOpts = options.enumerated().sorted { _, _ in Bool.random() }
-                let correctIdx = shuffledOpts.firstIndex(where: { $0.offset == 0 })!
-                result.append(CheckpointQuestion(
-                    type: .letterRecognition,
-                    prompt: isEnglish ? "What is this letter?" : "Quelle est cette lettre ?",
-                    arabicDisplay: target.isolated,
-                    options: shuffledOpts.map { $0.element },
-                    correctIndex: correctIdx
-                ))
-            }
+        } else if let target = shuffledLetters[safe: 2] {
+            result.append(makeLetterQuestion(target, allLetters: letters))
         }
 
-        // Q5: Word Translation
         if words.count >= 2 {
             let target = words.randomElement()!
-            let translation = isEnglish ? target.translationEn : target.translationFr
-            var options = [translation]
+            let correctAnswer = isEnglish ? target.translationEn : target.translationFr
+            var options = [correctAnswer]
             let distractors = words.filter { $0.id != target.id }.shuffled().prefix(3)
                 .map { isEnglish ? $0.translationEn : $0.translationFr }
             options.append(contentsOf: distractors)
             while options.count < 4 { options.append("—") }
 
-            let shuffledOpts = options.enumerated().sorted { _, _ in Bool.random() }
-            let correctIdx = shuffledOpts.firstIndex(where: { $0.offset == 0 })!
-
+            let (shuffled, idx) = shuffleOptions(options, correctAnswer: correctAnswer)
             result.append(CheckpointQuestion(
                 type: .wordTranslation,
                 prompt: isEnglish
                     ? "What does this word mean?"
                     : "Que signifie ce mot ?",
                 arabicDisplay: target.arabic,
-                options: shuffledOpts.map { $0.element },
-                correctIndex: correctIdx
+                options: shuffled,
+                correctIndex: idx
             ))
-        } else {
-            // Fallback: extra letter recognition
-            if let target = letters.shuffled().first {
-                var options = [target.transliteration]
-                let distractors = letters.filter { $0.id != target.id }.shuffled().prefix(3).map { $0.transliteration }
-                options.append(contentsOf: distractors)
-                while options.count < 4 { options.append("—") }
-                let shuffledOpts = options.enumerated().sorted { _, _ in Bool.random() }
-                let correctIdx = shuffledOpts.firstIndex(where: { $0.offset == 0 })!
-                result.append(CheckpointQuestion(
-                    type: .letterRecognition,
-                    prompt: isEnglish ? "What is this letter?" : "Quelle est cette lettre ?",
-                    arabicDisplay: target.isolated,
-                    options: shuffledOpts.map { $0.element },
-                    correctIndex: correctIdx
-                ))
-            }
+        } else if let target = shuffledLetters[safe: 3] ?? letters.shuffled().first {
+            result.append(makeLetterQuestion(target, allLetters: letters))
         }
 
-        // Q6: Drawing Free
         if let drawTarget = letters.shuffled().first {
             drawingLetterTarget = drawTarget
             result.append(CheckpointQuestion(
@@ -733,9 +678,12 @@ struct CheckpointTestView: View {
             ))
         }
 
-        // Ensure exactly 6 questions (trim or pad)
         while result.count > GameConstants.Checkpoint.questionsCount {
             result.removeLast()
+        }
+        while result.count < GameConstants.Checkpoint.questionsCount {
+            guard let target = letters.shuffled().first else { break }
+            result.append(makeLetterQuestion(target, allLetters: letters))
         }
 
         questions = result

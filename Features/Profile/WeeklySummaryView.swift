@@ -61,11 +61,11 @@ struct WeeklySummaryView: View {
                         VStack(spacing: 6) {
                             Text("\(animatedXP)")
                                 .font(.system(size: 56, weight: .black, design: .rounded))
-                                .foregroundStyle(.noorGold)
+                                .foregroundColor(.noorGold)
                                 .contentTransition(.numericText())
                             Text("XP")
                                 .font(.system(size: 18, weight: .bold))
-                                .foregroundStyle(.noorGold.opacity(0.7))
+                                .foregroundColor(.noorGold.opacity(0.7))
                         }
                         .transition(.scale.combined(with: .opacity))
                     }
@@ -120,7 +120,7 @@ struct WeeklySummaryView: View {
                             VStack(spacing: 4) {
                                 HStack(spacing: 6) {
                                     Image(systemName: "character.textbox")
-                                        .foregroundStyle(.noorGold)
+                                        .foregroundColor(.noorGold)
                                     Text("\(letters)")
                                         .font(.system(size: 28, weight: .black, design: .rounded))
                                         .foregroundStyle(.white)
@@ -141,7 +141,7 @@ struct WeeklySummaryView: View {
                     if showMessage {
                         Text(encouragement)
                             .font(.system(size: 20, weight: .bold, design: .rounded))
-                            .foregroundStyle(.noorGold)
+                            .foregroundColor(.noorGold)
                             .multilineTextAlignment(.center)
                             .transition(.scale.combined(with: .opacity))
                     }

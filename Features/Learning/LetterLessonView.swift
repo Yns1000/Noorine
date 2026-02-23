@@ -11,6 +11,7 @@ struct LetterLessonView: View {
     @State private var currentStep = 0
     @State private var showCelebration = false
     @State private var completedForms: Set<LetterFormType> = []
+    @State private var isTransitioning = false
     
     private var isEnglish: Bool {
         languageManager.currentLanguage == .english
@@ -80,7 +81,12 @@ struct LetterLessonView: View {
                         
                         Spacer()
                         
-                        Button(action: { withAnimation { currentStep += 1 } }) {
+                        Button(action: {
+                            guard !isTransitioning else { return }
+                            isTransitioning = true
+                            withAnimation { currentStep += 1 }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { isTransitioning = false }
+                        }) {
                             HStack {
                                 Text(LocalizedStringKey(isEnglish ? "Continue" : "Continuer"))
                                     .font(.system(size: 18, weight: .bold))

@@ -193,6 +193,10 @@ struct HomeView: View {
                                 selectedLevel = nil
                             }
                         )
+                    case .dialogue:
+                        DialogueView(levelNumber: level.levelNumber, onCompletion: {
+                            selectedLevel = nil
+                        })
                     case .alphabet, .quiz:
                         let letters = ArabicLetter.letters(forLevel: level.levelNumber)
                         if letters.count == 1, let letter = letters.first {
@@ -246,8 +250,6 @@ struct HomeView: View {
         let lastUnlocked = sorted.last { dataManager.levelState(for: $0.levelNumber) != .locked }
         return lastUnlocked?.levelNumber ?? dataManager.currentLevelNumber
     }
-
-    // MARK: - Node Items (levels + checkpoints interleaved)
 
     enum PathNodeItem: Identifiable {
         case level(LevelProgress)
@@ -775,6 +777,167 @@ struct LevelInfoCard: View {
             }
         )
         .onAppear { if isCurrent { withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) { glowPulse = true } } }
+    }
+}
+
+struct CheckpointNode: View {
+    let afterLevel: Int
+    let state: HomeView.CheckpointNodeState
+    let index: Int
+    let isFrench: Bool
+    let onTap: () -> Void
+
+    @State private var pulse: CGFloat = 1.0
+    @State private var shieldGlow: Double = 0.6
+
+    var xOffset: CGFloat {
+        CGFloat(sin(Double(index) * LayoutConfig.waveFrequency)) * LayoutConfig.amplitude
+    }
+
+    var body: some View {
+        HStack {
+            Spacer()
+            ZStack {
+                Circle()
+                    .fill(RadialGradient(
+                        colors: [Color.noorBackground, Color.noorBackground.opacity(0.8)],
+                        center: .center, startRadius: 0,
+                        endRadius: LayoutConfig.buttonSize / 2 + 15
+                    ))
+                    .frame(width: LayoutConfig.buttonSize + 30, height: LayoutConfig.buttonSize + 30)
+                    .allowsHitTesting(false)
+
+                if state == .available {
+                    Circle()
+                        .fill(RadialGradient(
+                            colors: [Color.orange.opacity(0.25), Color.clear],
+                            center: .center, startRadius: 20, endRadius: 60
+                        ))
+                        .frame(width: 120, height: 120)
+                        .opacity(shieldGlow)
+                        .allowsHitTesting(false)
+                }
+
+                Button(action: onTap) {
+                    ZStack {
+                        Circle()
+                            .fill(Color.black.opacity(0.08))
+                            .frame(width: LayoutConfig.buttonSize, height: LayoutConfig.buttonSize)
+                            .offset(y: 5)
+
+                        Circle()
+                            .fill(buttonGradient)
+                            .frame(width: LayoutConfig.buttonSize, height: LayoutConfig.buttonSize)
+                            .overlay(
+                                Circle()
+                                    .strokeBorder(borderGradient, lineWidth: 2.5)
+                            )
+                            .shadow(color: shadowColor, radius: 10, y: 4)
+
+                        Image(systemName: iconName)
+                            .font(.system(size: 26, weight: .bold))
+                            .foregroundColor(iconColor)
+                            .scaleEffect(state == .available ? pulse : 1.0)
+                    }
+                }
+                .buttonStyle(PlainButtonStyle())
+                .tapScale()
+                .frame(width: LayoutConfig.buttonSize, height: LayoutConfig.buttonSize)
+                .contentShape(Circle())
+                .disabled(state == .locked)
+
+                VStack(spacing: 3) {
+                    Text("Checkpoint")
+                        .font(.system(size: 15, weight: .bold, design: .rounded))
+                        .foregroundColor(state == .completed ? .noorGold : (state == .available ? .orange : .noorSecondary.opacity(0.5)))
+                    Text(subtitleText)
+                        .font(.system(size: 11, weight: .medium, design: .rounded))
+                        .foregroundColor(state == .available ? .orange.opacity(0.7) : .noorSecondary.opacity(0.4))
+                }
+                .padding(.horizontal, 16).padding(.vertical, 10)
+                .background(
+                    RoundedRectangle(cornerRadius: 14)
+                        .fill(Color.noorBackground)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 14)
+                                .stroke(
+                                    state == .available
+                                        ? LinearGradient(colors: [.orange.opacity(0.5), .noorGold.opacity(0.3)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                                        : LinearGradient(colors: [.white.opacity(0.1), .white.opacity(0.05)], startPoint: .topLeading, endPoint: .bottomTrailing),
+                                    lineWidth: 1
+                                )
+                        )
+                        .shadow(color: Color.black.opacity(0.06), radius: 4, y: 2)
+                )
+                .offset(y: 80)
+                .zIndex(1)
+                .allowsHitTesting(false)
+            }
+            .offset(x: xOffset)
+            Spacer()
+        }
+        .onAppear {
+            if state == .available {
+                withAnimation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true)) {
+                    pulse = 1.15
+                    shieldGlow = 0.9
+                }
+            }
+        }
+    }
+
+    private var iconName: String {
+        switch state {
+        case .completed: return "checkmark.shield.fill"
+        case .available: return "shield.fill"
+        case .locked: return "lock.shield.fill"
+        }
+    }
+
+    private var iconColor: Color {
+        switch state {
+        case .completed: return .white
+        case .available: return .white
+        case .locked: return .noorSecondary.opacity(0.4)
+        }
+    }
+
+    private var buttonGradient: LinearGradient {
+        switch state {
+        case .completed:
+            return LinearGradient(colors: [.noorGold, .orange.opacity(0.9)], startPoint: .topLeading, endPoint: .bottomTrailing)
+        case .available:
+            return LinearGradient(colors: [.orange, .red.opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
+        case .locked:
+            return LinearGradient(colors: [.noorSecondary.opacity(0.2), .noorSecondary.opacity(0.1)], startPoint: .topLeading, endPoint: .bottomTrailing)
+        }
+    }
+
+    private var borderGradient: LinearGradient {
+        switch state {
+        case .completed:
+            return LinearGradient(colors: [.white.opacity(0.4), .noorGold.opacity(0.3)], startPoint: .topLeading, endPoint: .bottomTrailing)
+        case .available:
+            return LinearGradient(colors: [.white.opacity(0.5), .orange.opacity(0.4)], startPoint: .topLeading, endPoint: .bottomTrailing)
+        case .locked:
+            return LinearGradient(colors: [.white.opacity(0.1), .clear], startPoint: .topLeading, endPoint: .bottomTrailing)
+        }
+    }
+
+    private var shadowColor: Color {
+        switch state {
+        case .completed: return .noorGold.opacity(0.4)
+        case .available: return .orange.opacity(0.4)
+        case .locked: return .clear
+        }
+    }
+
+    private var subtitleText: String {
+        switch state {
+        case .completed: return isFrench ? "Validé !" : "Passed!"
+        case .available: return isFrench ? "Prêt à tester" : "Ready to test"
+        case .locked: return isFrench ? "Termine les niveaux" : "Complete the levels"
+        }
     }
 }
 

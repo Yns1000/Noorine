@@ -58,9 +58,20 @@ struct FreeDrawingStep: View {
                         }
                     }
                     
-                    Text(LocalizedStringKey(isEnglish ? "Experimental" : "Expérimental"))
-                        .font(.system(size: 10, weight: .medium))
-                        .foregroundColor(.noorSecondary.opacity(0.7))
+                    if showStrokeGuide {
+                        HStack(spacing: 3) {
+                            Image(systemName: "flask.fill")
+                                .font(.system(size: 8, weight: .semibold))
+                            Text(LocalizedStringKey(isEnglish ? "Experimental" : "Expérimental"))
+                                .font(.system(size: 9, weight: .semibold))
+                        }
+                        .foregroundColor(.noorGold.opacity(0.8))
+                        .transition(.opacity)
+                    } else {
+                        Text(LocalizedStringKey(isEnglish ? "Guide" : "Guide"))
+                            .font(.system(size: 10, weight: .medium))
+                            .foregroundColor(.noorSecondary.opacity(0.7))
+                    }
                 }
                 
                 VStack(spacing: 4) {
@@ -108,9 +119,9 @@ struct FreeDrawingStep: View {
                         }
                     }
                     
-                    Text(LocalizedStringKey(isEnglish ? "Experimental" : "Expérimental"))
+                    Text(LocalizedStringKey(isEnglish ? "Listen" : "Écouter"))
                         .font(.system(size: 10, weight: .medium))
-                        .foregroundColor(.clear)
+                        .foregroundColor(.noorSecondary.opacity(0.7))
                 }
             }
             .frame(maxWidth: .infinity)
@@ -242,8 +253,13 @@ struct FreeDrawingStep: View {
             )
             .padding(.bottom, 30)
             .onAppear {
-                mascotMessage = isEnglish ? "Did you know?" : "Le savais-tu ?"
-                mascotDetail = ArabicFunFacts.randomFact()
+                if let instruction = letter.drawingInstructions?.instruction(for: formType.strokeKey, isEnglish: isEnglish) {
+                    mascotMessage = isEnglish ? "How to draw" : "Comment dessiner"
+                    mascotDetail = instruction
+                } else {
+                    mascotMessage = isEnglish ? "Did you know?" : "Le savais-tu ?"
+                    mascotDetail = ArabicFunFacts.randomFact()
+                }
             }
         }
     }
@@ -260,9 +276,14 @@ struct FreeDrawingStep: View {
     
     private func clearDrawing() {
         model.clear()
-        let newFact = ArabicFunFacts.randomFact()
-        mascotMessage = isEnglish ? "Did you know?" : "Le savais-tu ?"
-        mascotDetail = newFact
+        if let instruction = letter.drawingInstructions?.instruction(for: formType.strokeKey, isEnglish: isEnglish) {
+            mascotMessage = isEnglish ? "How to draw" : "Comment dessiner"
+            mascotDetail = instruction
+        } else {
+            let newFact = ArabicFunFacts.randomFact()
+            mascotMessage = isEnglish ? "Did you know?" : "Le savais-tu ?"
+            mascotDetail = newFact
+        }
         accentColor = .noorGold
         showSuccess = false
         mascotMood = .neutral

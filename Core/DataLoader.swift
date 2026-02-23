@@ -26,6 +26,7 @@ class DataLoader {
         let words: [ArabicWord]
         let roots: [ArabicRoot]?
         let phrases: [ArabicPhrase]?
+        let dialogues: [Dialogue]?
         let levels: [String: [LevelDefinitionJSON]]
     }
     

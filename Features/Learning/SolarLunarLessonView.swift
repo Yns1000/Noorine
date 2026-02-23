@@ -13,6 +13,7 @@ struct SolarLunarLessonView: View {
     @State private var correctCount = 0
     @State private var quizLetters: [ArabicLetter] = []
     @State private var currentQuizIndex = 0
+    @State private var isTransitioning = false
     
     private let steps = ["intro", "solar", "lunar", "rule", "quiz", "complete"]
     
@@ -369,7 +370,12 @@ struct SolarLunarLessonView: View {
     }
     
     private var continueButton: some View {
-        Button(action: { withAnimation { currentStep += 1 } }) {
+        Button(action: {
+            guard !isTransitioning else { return }
+            isTransitioning = true
+            withAnimation { currentStep += 1 }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { isTransitioning = false }
+        }) {
             Text(isEnglish ? "Continue" : "Continuer")
                 .font(.system(size: 17, weight: .semibold))
                 .foregroundColor(.white)

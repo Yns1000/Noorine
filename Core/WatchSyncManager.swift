@@ -107,15 +107,6 @@ extension WatchSyncManager: WCSessionDelegate {
         let size = CGSize(width: 300, height: 300)
         let renderer = UIGraphicsImageRenderer(size: size)
         
-        let allPoints = strokes.flatMap { $0 }
-        let minX = allPoints.map(\.x).min() ?? 0
-        let minY = allPoints.map(\.y).min() ?? 0
-        let maxX = allPoints.map(\.x).max() ?? 1
-        let maxY = allPoints.map(\.y).max() ?? 1
-        
-        let pathW = max(1, maxX - minX)
-        let pathH = max(1, maxY - minY)
-        
         let image = renderer.image { context in
             UIColor.black.setFill()
             context.fill(CGRect(origin: .zero, size: size))

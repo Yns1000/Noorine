@@ -5,6 +5,27 @@ struct StrokeGuide: Codable, Equatable, Hashable {
     let type: String
 }
 
+struct DrawingInstructions: Codable, Equatable, Hashable {
+    let isolatedEn: String?
+    let isolatedFr: String?
+    let initialEn: String?
+    let initialFr: String?
+    let medialEn: String?
+    let medialFr: String?
+    let finalEn: String?
+    let finalFr: String?
+
+    func instruction(for form: String, isEnglish: Bool) -> String? {
+        switch form {
+        case "isolated": return isEnglish ? isolatedEn : isolatedFr
+        case "initial": return isEnglish ? initialEn : initialFr
+        case "medial": return isEnglish ? medialEn : medialFr
+        case "final": return isEnglish ? finalEn : finalFr
+        default: return nil
+        }
+    }
+}
+
 struct LetterStrokeData: Codable, Equatable, Hashable {
     let isolated: [StrokeGuide]?
     let initial: [StrokeGuide]?
@@ -32,11 +53,13 @@ struct ArabicLetter: Identifiable, Codable, Equatable, Hashable {
     let final: String
     let order: Int
     let strokes: LetterStrokeData?
+    let drawingInstructions: DrawingInstructions?
 
-    init(id: Int, name: String, transliteration: String, isolated: String, initial: String, medial: String, final: String, order: Int, strokes: LetterStrokeData? = nil) {
+    init(id: Int, name: String, transliteration: String, isolated: String, initial: String, medial: String, final: String, order: Int, strokes: LetterStrokeData? = nil, drawingInstructions: DrawingInstructions? = nil) {
         self.id = id; self.name = name; self.transliteration = transliteration
         self.isolated = isolated; self.initial = initial; self.medial = medial; self.final = final
         self.order = order; self.strokes = strokes
+        self.drawingInstructions = drawingInstructions
     }
     
     var pronunciationTip: String {
@@ -164,6 +187,7 @@ enum LevelType: String, Codable {
     case solarLunar
     case phrases
     case speaking
+    case dialogue
 }
 
 struct LevelDefinition: Identifiable {
@@ -311,7 +335,11 @@ struct CourseContent {
     static var phrases: [ArabicPhrase] {
         loaded?.phrases ?? fallbackPhrases
     }
-    
+
+    static var dialogues: [Dialogue] {
+        loaded?.dialogues ?? []
+    }
+
     static func getLevels(language: AppLanguage) -> [LevelDefinition] {
         let key = language == .french ? "fr" : "en"
         if let jsonLevels = loaded?.levels[key] {
@@ -520,6 +548,9 @@ struct CourseContent {
                             )
                         )
                     }
+                case .dialogue:
+                    let dialogueIds = Set((loaded?.dialogues ?? []).map { $0.id })
+                    checkIds(level.contentIds, in: dialogueIds, context: "Level \(level.id) dialogue")
                 }
             }
         }

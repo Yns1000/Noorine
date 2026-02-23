@@ -14,6 +14,80 @@ class AudioManager: ObservableObject {
     private let cacheQueue = DispatchQueue(label: "AudioManager.TTSCache")
     private var cacheInFlight: Set<String> = []
     private var isWarmedUp = false
+
+    private lazy var arabicToAudioName: [String: String] = {
+        var map: [String: String] = [:]
+
+        let letterAudioMap: [String: String] = [
+            "ا": "alif",  "أَلِف": "alif",
+            "ب": "b",     "بَاء": "b",
+            "ت": "t",     "تَاء": "t",
+            "ث": "th",    "ثَاء": "th",
+            "ج": "jm",    "جِيم": "jm",
+            "خ": "kh",    "خَاء": "kh",
+            "د": "dl",    "دَال": "dl",
+            "ذ": "dhl",   "ذَال": "dhl",
+            "ر": "r",     "رَاء": "r",
+            "ز": "zy",    "زَاي": "zy",
+            "س": "sn",    "سِين": "sn",
+            "ش": "shn",   "شِين": "shn",
+            "ض": "d",     "ضَاد": "d",
+            "ح": "haa",   "حَاء": "haa",
+            "ص": "saad",  "صَاد": "saad",
+            "ط": "taa_emp","طَاء": "taa_emp",
+            "ظ": "dhaa_emp","ظَاء": "dhaa_emp",
+            "ع": "ayn",   "عَين": "ayn",
+            "غ": "ghayn", "غَين": "ghayn",
+            "ف": "f",     "فَاء": "f",
+            "ق": "qf",    "قَاف": "qf",
+            "ك": "kf",    "كَاف": "kf",
+            "ل": "lm",    "لَام": "lm",
+            "م": "mm",    "مِيم": "mm",
+            "ن": "nn",    "نُون": "nn",
+            "ه": "h",     "هَاء": "h",
+            "و": "ww",    "وَاو": "ww",
+            "ي": "y",     "يَاء": "y",
+            "ة": "tmarba",
+            "ء": "hamza", "هَمْزَة": "hamza",
+        ]
+        for (key, value) in letterAudioMap {
+            map[key] = value
+        }
+
+        for word in CourseContent.words {
+            let name = word.transliteration
+                .lowercased()
+                .replacingOccurrences(of: "[^a-z0-9_]", with: "", options: .regularExpression)
+            if !name.isEmpty {
+                map[word.arabic] = name
+            }
+        }
+
+        for phrase in CourseContent.phrases {
+            if let audioName = phrase.audioName, !audioName.isEmpty {
+                map[phrase.arabic] = audioName
+            }
+        }
+
+        for vowel in CourseContent.vowels {
+            for example in vowel.examples {
+                if !example.audioName.isEmpty {
+                    map[example.combination] = example.audioName
+                }
+            }
+        }
+
+        for card in FlashcardManager.shared.allCards {
+            let name = card.transliteration
+                .lowercased()
+                .replacingOccurrences(of: "[^a-z0-9_]", with: "", options: .regularExpression)
+            if !name.isEmpty {
+                map[card.arabic] = name
+            }
+        }
+
+        return map
+    }()
     
     private init() {
         configureAudioSession()
@@ -74,7 +148,13 @@ class AudioManager: ObservableObject {
     
     func playText(_ text: String, style: SpeechStyle = .word, useCache: Bool = true) {
         stopAllAudio()
-        
+
+        if let name = generatedAudioName(for: text),
+           let url = bundledAudioURL(for: name) {
+            playAudioFile(url)
+            return
+        }
+
         let voice = selectArabicVoice()
         let profile = speechProfile(for: style)
         let cacheKey = makeCacheKey(text: text, profile: profile, voice: voice)
@@ -91,6 +171,11 @@ class AudioManager: ObservableObject {
         if useCache {
             cacheUtterance(text: text, profile: profile, voice: voice, cacheKey: cacheKey)
         }
+    }
+
+    private func generatedAudioName(for arabicText: String) -> String? {
+        let trimmed = arabicText.trimmingCharacters(in: .whitespacesAndNewlines)
+        return arabicToAudioName[trimmed]
     }
     
     func playSystemSound(_ soundID: SystemSoundID) {

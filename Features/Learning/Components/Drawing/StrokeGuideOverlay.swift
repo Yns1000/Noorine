@@ -102,16 +102,17 @@ struct StrokeGuideOverlay: View {
                     .opacity(visible ? 1 : 0)
 
                 if isCompleted || (isCurrentlyAnimating && animationProgress > 0.7) {
-                    arrowHead(points: points, progress: isCompleted ? 1.0 : animationProgress)
+                    arrowHead(points: points, isCurve: guide.type == "curve", progress: isCompleted ? 1.0 : animationProgress)
                 }
             }
         }
     }
 
-    private func arrowHead(points: [CGPoint], progress: Double) -> some View {
-        let totalLength = pathLength(points: points)
+    private func arrowHead(points: [CGPoint], isCurve: Bool, progress: Double) -> some View {
+        let linear = linearizedPoints(points, isCurve: isCurve)
+        let totalLength = pathLength(points: linear)
         let targetLength = totalLength * progress
-        let (position, angle) = pointAndAngle(along: points, at: targetLength)
+        let (position, angle) = pointAndAngle(along: linear, at: targetLength)
 
         return Triangle()
             .fill(Color.noorGold)
@@ -163,6 +164,37 @@ struct StrokeGuideOverlay: View {
         startAnimation()
     }
 
+    private func linearizedPoints(_ controlPoints: [CGPoint], isCurve: Bool) -> [CGPoint] {
+        guard controlPoints.count >= 2 else { return controlPoints }
+        if !isCurve || controlPoints.count < 3 {
+            return controlPoints
+        }
+
+        var result: [CGPoint] = [controlPoints[0]]
+        let subdivisions = 20
+
+        for i in 0..<(controlPoints.count - 1) {
+            let p0 = controlPoints[max(0, i - 1)]
+            let p1 = controlPoints[i]
+            let p2 = controlPoints[i + 1]
+            let p3 = controlPoints[min(controlPoints.count - 1, i + 2)]
+
+            let cp1 = CGPoint(x: p1.x + (p2.x - p0.x) / 6.0,
+                              y: p1.y + (p2.y - p0.y) / 6.0)
+            let cp2 = CGPoint(x: p2.x - (p3.x - p1.x) / 6.0,
+                              y: p2.y - (p3.y - p1.y) / 6.0)
+
+            for s in 1...subdivisions {
+                let t = Double(s) / Double(subdivisions)
+                let mt = 1.0 - t
+                let x = mt * mt * mt * p1.x + 3 * mt * mt * t * cp1.x + 3 * mt * t * t * cp2.x + t * t * t * p2.x
+                let y = mt * mt * mt * p1.y + 3 * mt * mt * t * cp1.y + 3 * mt * t * t * cp2.y + t * t * t * p2.y
+                result.append(CGPoint(x: x, y: y))
+            }
+        }
+        return result
+    }
+
     private func pathLength(points: [CGPoint]) -> Double {
         var length: Double = 0
         for i in 1..<points.count {
@@ -204,14 +236,16 @@ struct StrokePath: Shape {
         path.move(to: points[0])
 
         if isCurve && points.count >= 3 {
-            for i in 1..<points.count {
+            for i in 0..<(points.count - 1) {
                 let p0 = points[max(0, i - 1)]
                 let p1 = points[i]
-                let cp = CGPoint(
-                    x: (p0.x + p1.x) / 2,
-                    y: (p0.y + p1.y) / 2
-                )
-                path.addQuadCurve(to: p1, control: cp)
+                let p2 = points[i + 1]
+                let p3 = points[min(points.count - 1, i + 2)]
+                let cp1 = CGPoint(x: p1.x + (p2.x - p0.x) / 6.0,
+                                  y: p1.y + (p2.y - p0.y) / 6.0)
+                let cp2 = CGPoint(x: p2.x - (p3.x - p1.x) / 6.0,
+                                  y: p2.y - (p3.y - p1.y) / 6.0)
+                path.addCurve(to: p2, control1: cp1, control2: cp2)
             }
         } else {
             for i in 1..<points.count {

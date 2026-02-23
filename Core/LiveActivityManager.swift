@@ -165,6 +165,16 @@ class LiveActivityManager {
             streakActivity = nil
         }
     }
+    
+    func cleanupOrphanedStreakActivities() {
+        Task {
+            for activity in Activity<NoorineStreakAttributes>.activities {
+                if activity.id != streakActivity?.id {
+                    await activity.end(nil, dismissalPolicy: .immediate)
+                }
+            }
+        }
+    }
 }
 
 struct NoorineStreakAttributes: ActivityAttributes {

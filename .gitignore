@@ -6,6 +6,9 @@
 ## User settings
 xcuserdata/
 
+# Audio generation script (contains API key)
+generate_all_audio.py
+
 ## xcode build symbols
 *.moved-aside
 *.xcuserstate

@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		72527150CD016A2A1FC162BA /* SentenceBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C34CAEF02488FBAD2499ECA /* SentenceBuilderView.swift */; };
 		7AF7AC62BA15F062BB6F5619 /* MatchingPairsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092483147B22D6A13D637F22 /* MatchingPairsView.swift */; };
+		AA0C020100000001000C0201 /* WeeklySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0C020000000001000C0200 /* WeeklySummaryView.swift */; };
+		AA0C020300000002000C0203 /* CheckpointTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0C020200000002000C0202 /* CheckpointTestView.swift */; };
+		AA0C020500000003000C0205 /* Dialogue.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0C020400000003000C0204 /* Dialogue.swift */; };
+		AA0C020700000004000C0207 /* DialogueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0C020600000004000C0206 /* DialogueView.swift */; };
+		AA0C020900000005000C0209 /* Dialogue.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0C020400000003000C0204 /* Dialogue.swift */; };
 		AAAA00012F2A000000000001 /* ArabicLetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00002F2A000000000001 /* ArabicLetter.swift */; };
 		AAAA00032F2A000000000002 /* LevelProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00022F2A000000000002 /* LevelProgress.swift */; };
 		AAAA00052F2A000000000003 /* UserProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00042F2A000000000003 /* UserProgress.swift */; };
@@ -27,6 +32,192 @@
 		EF4FDDA7B53521597D3AB3DA /* DictationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1DA6863B69E96F484901DC /* DictationView.swift */; };
 		F113767A2F291E5800D25275 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11376792F291E5800D25275 /* LanguageManager.swift */; };
 		F113767C2F291F9B00D25275 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F113767B2F291F9B00D25275 /* Localizable.xcstrings */; };
+		F16959492F4C9A5C001B03A1 /* bayt.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958AD2F4C9A5C001B03A1 /* bayt.mp3 */; };
+		F169594A2F4C9A5C001B03A1 /* phrase_samaa_jamila.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169590D2F4C9A5C001B03A1 /* phrase_samaa_jamila.mp3 */; };
+		F169594B2F4C9A5C001B03A1 /* faransa.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958B92F4C9A5C001B03A1 /* faransa.mp3 */; };
+		F169594C2F4C9A5C001B03A1 /* saba.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169591F2F4C9A5C001B03A1 /* saba.mp3 */; };
+		F169594D2F4C9A5C001B03A1 /* t.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169592C2F4C9A5C001B03A1 /* t.mp3 */; };
+		F169594E2F4C9A5C001B03A1 /* madha.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958D92F4C9A5C001B03A1 /* madha.mp3 */; };
+		F169594F2F4C9A5C001B03A1 /* madrasa.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958DA2F4C9A5C001B03A1 /* madrasa.mp3 */; };
+		F16959502F4C9A5C001B03A1 /* mim_shadda.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958DD2F4C9A5C001B03A1 /* mim_shadda.mp3 */; };
+		F16959512F4C9A5C001B03A1 /* nn.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958E42F4C9A5C001B03A1 /* nn.mp3 */; };
+		F16959522F4C9A5C001B03A1 /* bb.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958AE2F4C9A5C001B03A1 /* bb.mp3 */; };
+		F16959532F4C9A5C001B03A1 /* phrase_huwa_sadiqi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959022F4C9A5C001B03A1 /* phrase_huwa_sadiqi.mp3 */; };
+		F16959542F4C9A5C001B03A1 /* akhdar.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958972F4C9A5C001B03A1 /* akhdar.mp3 */; };
+		F16959552F4C9A5C001B03A1 /* lam_sukun.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958D42F4C9A5C001B03A1 /* lam_sukun.mp3 */; };
+		F16959562F4C9A5C001B03A1 /* ukht.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169593C2F4C9A5C001B03A1 /* ukht.mp3 */; };
+		F16959572F4C9A5C001B03A1 /* b.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958A42F4C9A5C001B03A1 /* b.mp3 */; };
+		F16959582F4C9A5C001B03A1 /* mift.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958DC2F4C9A5C001B03A1 /* mift.mp3 */; };
+		F16959592F4C9A5C001B03A1 /* phrase_tasharrafna.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169590F2F4C9A5C001B03A1 /* phrase_tasharrafna.mp3 */; };
+		F169595A2F4C9A5C001B03A1 /* bab.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958AB2F4C9A5C001B03A1 /* bab.mp3 */; };
+		F169595B2F4C9A5C001B03A1 /* ba_shadda.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958A82F4C9A5C001B03A1 /* ba_shadda.mp3 */; };
+		F169595C2F4C9A5C001B03A1 /* phrase_ana_bikhair_shukran.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958E92F4C9A5C001B03A1 /* phrase_ana_bikhair_shukran.mp3 */; };
+		F169595D2F4C9A5C001B03A1 /* maa.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958D82F4C9A5C001B03A1 /* maa.mp3 */; };
+		F169595E2F4C9A5C001B03A1 /* phrase_hadha_qalam_azraq.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958FE2F4C9A5C001B03A1 /* phrase_hadha_qalam_azraq.mp3 */; };
+		F169595F2F4C9A5C001B03A1 /* zahra.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959462F4C9A5C001B03A1 /* zahra.mp3 */; };
+		F16959602F4C9A5C001B03A1 /* sa_fatha.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169591D2F4C9A5C001B03A1 /* sa_fatha.mp3 */; };
+		F16959612F4C9A5C001B03A1 /* arbaa.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169589C2F4C9A5C001B03A1 /* arbaa.mp3 */; };
+		F16959622F4C9A5C001B03A1 /* r.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959192F4C9A5C001B03A1 /* r.mp3 */; };
+		F16959632F4C9A5C001B03A1 /* salm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959212F4C9A5C001B03A1 /* salm.mp3 */; };
+		F16959642F4C9A5C001B03A1 /* phrase_hadha_kitab.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958FA2F4C9A5C001B03A1 /* phrase_hadha_kitab.mp3 */; };
+		F16959652F4C9A5C001B03A1 /* ta_kasra.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169592F2F4C9A5C001B03A1 /* ta_kasra.mp3 */; };
+		F16959662F4C9A5C001B03A1 /* ab.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958932F4C9A5C001B03A1 /* ab.mp3 */; };
+		F16959672F4C9A5C001B03A1 /* phrase_bahr_azraq.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958F12F4C9A5C001B03A1 /* phrase_bahr_azraq.mp3 */; };
+		F16959682F4C9A5C001B03A1 /* masjid.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958DB2F4C9A5C001B03A1 /* masjid.mp3 */; };
+		F16959692F4C9A5C001B03A1 /* fam.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958B82F4C9A5C001B03A1 /* fam.mp3 */; };
+		F169596A2F4C9A5C001B03A1 /* phrase_hadha_wahid.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958FF2F4C9A5C001B03A1 /* phrase_hadha_wahid.mp3 */; };
+		F169596B2F4C9A5C001B03A1 /* tasharrafna.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959322F4C9A5C001B03A1 /* tasharrafna.mp3 */; };
+		F169596C2F4C9A5C001B03A1 /* yawm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959452F4C9A5C001B03A1 /* yawm.mp3 */; };
+		F169596D2F4C9A5C001B03A1 /* ahmar.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958952F4C9A5C001B03A1 /* ahmar.mp3 */; };
+		F169596E2F4C9A5C001B03A1 /* phrase_maa_salama.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959092F4C9A5C001B03A1 /* phrase_maa_salama.mp3 */; };
+		F169596F2F4C9A5C001B03A1 /* phrase_madha_turid.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169590A2F4C9A5C001B03A1 /* phrase_madha_turid.mp3 */; };
+		F16959702F4C9A5C001B03A1 /* tisa.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959362F4C9A5C001B03A1 /* tisa.mp3 */; };
+		F16959712F4C9A5C001B03A1 /* kalb.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958CA2F4C9A5C001B03A1 /* kalb.mp3 */; };
+		F16959722F4C9A5C001B03A1 /* phrase_hadha_darsi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958F82F4C9A5C001B03A1 /* phrase_hadha_darsi.mp3 */; };
+		F16959732F4C9A5C001B03A1 /* f.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958B72F4C9A5C001B03A1 /* f.mp3 */; };
+		F16959742F4C9A5C001B03A1 /* uhibbu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169593B2F4C9A5C001B03A1 /* uhibbu.mp3 */; };
+		F16959752F4C9A5C001B03A1 /* layl.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958D52F4C9A5C001B03A1 /* layl.mp3 */; };
+		F16959762F4C9A5C001B03A1 /* kf.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958CB2F4C9A5C001B03A1 /* kf.mp3 */; };
+		F16959772F4C9A5C001B03A1 /* phrase_hadha_bab.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958F42F4C9A5C001B03A1 /* phrase_hadha_bab.mp3 */; };
+		F16959782F4C9A5C001B03A1 /* phrase_hadha_bayt.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958F62F4C9A5C001B03A1 /* phrase_hadha_bayt.mp3 */; };
+		F16959792F4C9A5C001B03A1 /* thalatha.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959342F4C9A5C001B03A1 /* thalatha.mp3 */; };
+		F169597A2F4C9A5C001B03A1 /* phrase_uridu_tuffaha.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959122F4C9A5C001B03A1 /* phrase_uridu_tuffaha.mp3 */; };
+		F169597B2F4C9A5C001B03A1 /* ba_tanwin_fatha.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958AA2F4C9A5C001B03A1 /* ba_tanwin_fatha.mp3 */; };
+		F169597C2F4C9A5C001B03A1 /* turid.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959392F4C9A5C001B03A1 /* turid.mp3 */; };
+		F169597D2F4C9A5C001B03A1 /* h.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958BC2F4C9A5C001B03A1 /* h.mp3 */; };
+		F169597E2F4C9A5C001B03A1 /* khamsa.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958CD2F4C9A5C001B03A1 /* khamsa.mp3 */; };
+		F169597F2F4C9A5C001B03A1 /* akh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958962F4C9A5C001B03A1 /* akh.mp3 */; };
+		F16959802F4C9A5C001B03A1 /* shams.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959262F4C9A5C001B03A1 /* shams.mp3 */; };
+		F16959812F4C9A5C001B03A1 /* phrase_ana_talib.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958ED2F4C9A5C001B03A1 /* phrase_ana_talib.mp3 */; };
+		F16959822F4C9A5C001B03A1 /* phrase_min_ayna.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169590B2F4C9A5C001B03A1 /* phrase_min_ayna.mp3 */; };
+		F16959832F4C9A5C001B03A1 /* sa_damma.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169591C2F4C9A5C001B03A1 /* sa_damma.mp3 */; };
+		F16959842F4C9A5C001B03A1 /* talib.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959302F4C9A5C001B03A1 /* talib.mp3 */; };
+		F16959852F4C9A5C001B03A1 /* phrase_hadha_qalam.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958FC2F4C9A5C001B03A1 /* phrase_hadha_qalam.mp3 */; };
+		F16959862F4C9A5C001B03A1 /* kh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958CC2F4C9A5C001B03A1 /* kh.mp3 */; };
+		F16959872F4C9A5C001B03A1 /* qalam.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959142F4C9A5C001B03A1 /* qalam.mp3 */; };
+		F16959882F4C9A5C001B03A1 /* phrase_hadha_bayt_ahmar.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958F72F4C9A5C001B03A1 /* phrase_hadha_bayt_ahmar.mp3 */; };
+		F16959892F4C9A5C001B03A1 /* phrase_maa_min_fadlik.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959082F4C9A5C001B03A1 /* phrase_maa_min_fadlik.mp3 */; };
+		F169598A2F4C9A5C001B03A1 /* ithnan.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958C32F4C9A5C001B03A1 /* ithnan.mp3 */; };
+		F169598B2F4C9A5C001B03A1 /* phrase_uridu_khubz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959112F4C9A5C001B03A1 /* phrase_uridu_khubz.mp3 */; };
+		F169598C2F4C9A5C001B03A1 /* ba_sukun.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958A92F4C9A5C001B03A1 /* ba_sukun.mp3 */; };
+		F169598D2F4C9A5C001B03A1 /* y.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959432F4C9A5C001B03A1 /* y.mp3 */; };
+		F169598E2F4C9A5C001B03A1 /* phrase_hadha_bab_akhdar.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958F52F4C9A5C001B03A1 /* phrase_hadha_bab_akhdar.mp3 */; };
+		F169598F2F4C9A5C001B03A1 /* dl.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958B62F4C9A5C001B03A1 /* dl.mp3 */; };
+		F16959902F4C9A5C001B03A1 /* bahr.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958AC2F4C9A5C001B03A1 /* bahr.mp3 */; };
+		F16959912F4C9A5C001B03A1 /* tuffaha.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959382F4C9A5C001B03A1 /* tuffaha.mp3 */; };
+		F16959922F4C9A5C001B03A1 /* mm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958E02F4C9A5C001B03A1 /* mm.mp3 */; };
+		F16959932F4C9A5C001B03A1 /* ana.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958992F4C9A5C001B03A1 /* ana.mp3 */; };
+		F16959942F4C9A5C001B03A1 /* phrase_ana_bikhair.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958E82F4C9A5C001B03A1 /* phrase_ana_bikhair.mp3 */; };
+		F16959952F4C9A5C001B03A1 /* hiya.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958C02F4C9A5C001B03A1 /* hiya.mp3 */; };
+		F16959962F4C9A5C001B03A1 /* phrase_ana_uhibbu_kitab.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958EF2F4C9A5C001B03A1 /* phrase_ana_uhibbu_kitab.mp3 */; };
+		F16959972F4C9A5C001B03A1 /* bint.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958B12F4C9A5C001B03A1 /* bint.mp3 */; };
+		F16959982F4C9A5C001B03A1 /* kitb.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958D02F4C9A5C001B03A1 /* kitb.mp3 */; };
+		F16959992F4C9A5C001B03A1 /* zy.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959472F4C9A5C001B03A1 /* zy.mp3 */; };
+		F169599A2F4C9A5C001B03A1 /* phrase_yawm_jamil.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959132F4C9A5C001B03A1 /* phrase_yawm_jamil.mp3 */; };
+		F169599B2F4C9A5C001B03A1 /* phrase_bikhair.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958F22F4C9A5C001B03A1 /* phrase_bikhair.mp3 */; };
+		F169599C2F4C9A5C001B03A1 /* samaa.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959222F4C9A5C001B03A1 /* samaa.mp3 */; };
+		F169599D2F4C9A5C001B03A1 /* yad.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959442F4C9A5C001B03A1 /* yad.mp3 */; };
+		F169599E2F4C9A5C001B03A1 /* hadha.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958BD2F4C9A5C001B03A1 /* hadha.mp3 */; };
+		F169599F2F4C9A5C001B03A1 /* ja_damma.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958C42F4C9A5C001B03A1 /* ja_damma.mp3 */; };
+		F16959A02F4C9A5C001B03A1 /* bikhair.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958AF2F4C9A5C001B03A1 /* bikhair.mp3 */; };
+		F16959A12F4C9A5C001B03A1 /* ayna.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958A22F4C9A5C001B03A1 /* ayna.mp3 */; };
+		F16959A22F4C9A5C001B03A1 /* mim_sukun.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958DE2F4C9A5C001B03A1 /* mim_sukun.mp3 */; };
+		F16959A32F4C9A5C001B03A1 /* phrase_salam.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169590C2F4C9A5C001B03A1 /* phrase_salam.mp3 */; };
+		F16959A42F4C9A5C001B03A1 /* nun_sukun.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958E62F4C9A5C001B03A1 /* nun_sukun.mp3 */; };
+		F16959A52F4C9A5C001B03A1 /* sin_shadda.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959292F4C9A5C001B03A1 /* sin_shadda.mp3 */; };
+		F16959A62F4C9A5C001B03A1 /* d.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958B22F4C9A5C001B03A1 /* d.mp3 */; };
+		F16959A72F4C9A5C001B03A1 /* sa_kasra.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169591E2F4C9A5C001B03A1 /* sa_kasra.mp3 */; };
+		F16959A82F4C9A5C001B03A1 /* dars.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958B42F4C9A5C001B03A1 /* dars.mp3 */; };
+		F16959A92F4C9A5C001B03A1 /* lm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958D62F4C9A5C001B03A1 /* lm.mp3 */; };
+		F16959AA2F4C9A5C001B03A1 /* kitab.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958CF2F4C9A5C001B03A1 /* kitab.mp3 */; };
+		F16959AB2F4C9A5C001B03A1 /* ja_fatha.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958C52F4C9A5C001B03A1 /* ja_fatha.mp3 */; };
+		F16959AC2F4C9A5C001B03A1 /* jadd.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958C72F4C9A5C001B03A1 /* jadd.mp3 */; };
+		F16959AD2F4C9A5C001B03A1 /* sadiq.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959202F4C9A5C001B03A1 /* sadiq.mp3 */; };
+		F16959AE2F4C9A5C001B03A1 /* phrase_ana_muallim.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958EC2F4C9A5C001B03A1 /* phrase_ana_muallim.mp3 */; };
+		F16959AF2F4C9A5C001B03A1 /* shukran.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959282F4C9A5C001B03A1 /* shukran.mp3 */; };
+		F16959B02F4C9A5C001B03A1 /* sana.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959242F4C9A5C001B03A1 /* sana.mp3 */; };
+		F16959B12F4C9A5C001B03A1 /* nour.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958E52F4C9A5C001B03A1 /* nour.mp3 */; };
+		F16959B22F4C9A5C001B03A1 /* huwa.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958C12F4C9A5C001B03A1 /* huwa.mp3 */; };
+		F16959B32F4C9A5C001B03A1 /* wajib.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959402F4C9A5C001B03A1 /* wajib.mp3 */; };
+		F16959B42F4C9A5C001B03A1 /* aswad.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958A02F4C9A5C001B03A1 /* aswad.mp3 */; };
+		F16959B52F4C9A5C001B03A1 /* muallim.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958E12F4C9A5C001B03A1 /* muallim.mp3 */; };
+		F16959B62F4C9A5C001B03A1 /* phrase_huwa_talib.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959032F4C9A5C001B03A1 /* phrase_huwa_talib.mp3 */; };
+		F16959B72F4C9A5C001B03A1 /* phrase_indi_khamsa.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959042F4C9A5C001B03A1 /* phrase_indi_khamsa.mp3 */; };
+		F16959B82F4C9A5C001B03A1 /* qi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959182F4C9A5C001B03A1 /* qi.mp3 */; };
+		F16959B92F4C9A5C001B03A1 /* ja_kasra.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958C62F4C9A5C001B03A1 /* ja_kasra.mp3 */; };
+		F16959BA2F4C9A5C001B03A1 /* phrase_hadha_halib.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958F92F4C9A5C001B03A1 /* phrase_hadha_halib.mp3 */; };
+		F16959BB2F4C9A5C001B03A1 /* anf.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169589A2F4C9A5C001B03A1 /* anf.mp3 */; };
+		F16959BC2F4C9A5C001B03A1 /* umm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169593D2F4C9A5C001B03A1 /* umm.mp3 */; };
+		F16959BD2F4C9A5C001B03A1 /* kaf_tanwin_fatha.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958C92F4C9A5C001B03A1 /* kaf_tanwin_fatha.mp3 */; };
+		F16959BE2F4C9A5C001B03A1 /* wahid.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169593F2F4C9A5C001B03A1 /* wahid.mp3 */; };
+		F16959BF2F4C9A5C001B03A1 /* walad.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959412F4C9A5C001B03A1 /* walad.mp3 */; };
+		F16959C02F4C9A5C001B03A1 /* phrase_hiya_taliba.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959012F4C9A5C001B03A1 /* phrase_hiya_taliba.mp3 */; };
+		F16959C12F4C9A5C001B03A1 /* ta_damma.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169592D2F4C9A5C001B03A1 /* ta_damma.mp3 */; };
+		F16959C22F4C9A5C001B03A1 /* ayn.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958A12F4C9A5C001B03A1 /* ayn.mp3 */; };
+		F16959C32F4C9A5C001B03A1 /* hamza.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958BF2F4C9A5C001B03A1 /* hamza.mp3 */; };
+		F16959C42F4C9A5C001B03A1 /* najm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958E32F4C9A5C001B03A1 /* najm.mp3 */; };
+		F16959C52F4C9A5C001B03A1 /* ghayn.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958BB2F4C9A5C001B03A1 /* ghayn.mp3 */; };
+		F16959C62F4C9A5C001B03A1 /* min.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958DF2F4C9A5C001B03A1 /* min.mp3 */; };
+		F16959C72F4C9A5C001B03A1 /* phrase_ahlan.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958E72F4C9A5C001B03A1 /* phrase_ahlan.mp3 */; };
+		F16959C82F4C9A5C001B03A1 /* uridu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169593E2F4C9A5C001B03A1 /* uridu.mp3 */; };
+		F16959C92F4C9A5C001B03A1 /* ard.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169589D2F4C9A5C001B03A1 /* ard.mp3 */; };
+		F16959CA2F4C9A5C001B03A1 /* phrase_hadhihi_ayni.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959002F4C9A5C001B03A1 /* phrase_hadhihi_ayni.mp3 */; };
+		F16959CB2F4C9A5C001B03A1 /* ww.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959422F4C9A5C001B03A1 /* ww.mp3 */; };
+		F16959CC2F4C9A5C001B03A1 /* ba_kasra.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958A72F4C9A5C001B03A1 /* ba_kasra.mp3 */; };
+		F16959CD2F4C9A5C001B03A1 /* shn.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959272F4C9A5C001B03A1 /* shn.mp3 */; };
+		F16959CE2F4C9A5C001B03A1 /* phrase_indi_thalatha.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959052F4C9A5C001B03A1 /* phrase_indi_thalatha.mp3 */; };
+		F16959CF2F4C9A5C001B03A1 /* sn.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169592B2F4C9A5C001B03A1 /* sn.mp3 */; };
+		F16959D02F4C9A5C001B03A1 /* fasl.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958BA2F4C9A5C001B03A1 /* fasl.mp3 */; };
+		F16959D12F4C9A5C001B03A1 /* phrase_kayfa_haluk.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959062F4C9A5C001B03A1 /* phrase_kayfa_haluk.mp3 */; };
+		F16959D22F4C9A5C001B03A1 /* taliba.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959312F4C9A5C001B03A1 /* taliba.mp3 */; };
+		F16959D32F4C9A5C001B03A1 /* phrase_shukran.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169590E2F4C9A5C001B03A1 /* phrase_shukran.mp3 */; };
+		F16959D42F4C9A5C001B03A1 /* khubz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958CE2F4C9A5C001B03A1 /* khubz.mp3 */; };
+		F16959D52F4C9A5C001B03A1 /* thamaniya.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959352F4C9A5C001B03A1 /* thamaniya.mp3 */; };
+		F16959D62F4C9A5C001B03A1 /* ba_damma.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958A52F4C9A5C001B03A1 /* ba_damma.mp3 */; };
+		F16959D72F4C9A5C001B03A1 /* nahr.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958E22F4C9A5C001B03A1 /* nahr.mp3 */; };
+		F16959D82F4C9A5C001B03A1 /* anta.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169589B2F4C9A5C001B03A1 /* anta.mp3 */; };
+		F16959D92F4C9A5C001B03A1 /* bimarifatik.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958B02F4C9A5C001B03A1 /* bimarifatik.mp3 */; };
+		F16959DA2F4C9A5C001B03A1 /* ashara.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169589F2F4C9A5C001B03A1 /* ashara.mp3 */; };
+		F16959DB2F4C9A5C001B03A1 /* aruz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169589E2F4C9A5C001B03A1 /* aruz.mp3 */; };
+		F16959DC2F4C9A5C001B03A1 /* phrase_hadha_anfi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958F32F4C9A5C001B03A1 /* phrase_hadha_anfi.mp3 */; };
+		F16959DD2F4C9A5C001B03A1 /* lam_shadda.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958D32F4C9A5C001B03A1 /* lam_shadda.mp3 */; };
+		F16959DE2F4C9A5C001B03A1 /* tmarba.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959372F4C9A5C001B03A1 /* tmarba.mp3 */; };
+		F16959DF2F4C9A5C001B03A1 /* udhun.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169593A2F4C9A5C001B03A1 /* udhun.mp3 */; };
+		F16959E02F4C9A5C001B03A1 /* dal_tanwin_fatha.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958B32F4C9A5C001B03A1 /* dal_tanwin_fatha.mp3 */; };
+		F16959E12F4C9A5C001B03A1 /* th.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959332F4C9A5C001B03A1 /* th.mp3 */; };
+		F16959E22F4C9A5C001B03A1 /* jm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958C82F4C9A5C001B03A1 /* jm.mp3 */; };
+		F16959E32F4C9A5C001B03A1 /* phrase_ana_taliba.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958EE2F4C9A5C001B03A1 /* phrase_ana_taliba.mp3 */; };
+		F16959E42F4C9A5C001B03A1 /* phrase_ana_min_faransa.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958EB2F4C9A5C001B03A1 /* phrase_ana_min_faransa.mp3 */; };
+		F16959E52F4C9A5C001B03A1 /* sitta.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169592A2F4C9A5C001B03A1 /* sitta.mp3 */; };
+		F16959E62F4C9A5C001B03A1 /* samak.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959232F4C9A5C001B03A1 /* samak.mp3 */; };
+		F16959E72F4C9A5C001B03A1 /* halib.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958BE2F4C9A5C001B03A1 /* halib.mp3 */; };
+		F16959E82F4C9A5C001B03A1 /* lahm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958D22F4C9A5C001B03A1 /* lahm.mp3 */; };
+		F16959E92F4C9A5C001B03A1 /* shajara.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959252F4C9A5C001B03A1 /* shajara.mp3 */; };
+		F16959EA2F4C9A5C001B03A1 /* qamar.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959162F4C9A5C001B03A1 /* qamar.mp3 */; };
+		F16959EB2F4C9A5C001B03A1 /* m.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958D72F4C9A5C001B03A1 /* m.mp3 */; };
+		F16959EC2F4C9A5C001B03A1 /* abyad.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958942F4C9A5C001B03A1 /* abyad.mp3 */; };
+		F16959ED2F4C9A5C001B03A1 /* imtihan.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958C22F4C9A5C001B03A1 /* imtihan.mp3 */; };
+		F16959EE2F4C9A5C001B03A1 /* ra_tanwin_fatha.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169591A2F4C9A5C001B03A1 /* ra_tanwin_fatha.mp3 */; };
+		F16959EF2F4C9A5C001B03A1 /* generate_all_audio.py in Resources */ = {isa = PBXBuildFile; fileRef = F16958922F4C9A5C001B03A1 /* generate_all_audio.py */; };
+		F16959F02F4C9A5C001B03A1 /* ba_fatha.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958A62F4C9A5C001B03A1 /* ba_fatha.mp3 */; };
+		F16959F12F4C9A5C001B03A1 /* kurs.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958D12F4C9A5C001B03A1 /* kurs.mp3 */; };
+		F16959F22F4C9A5C001B03A1 /* phrase_hadha_qalam_aswad.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958FD2F4C9A5C001B03A1 /* phrase_hadha_qalam_aswad.mp3 */; };
+		F16959F32F4C9A5C001B03A1 /* phrase_ma_ismuka.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959072F4C9A5C001B03A1 /* phrase_ma_ismuka.mp3 */; };
+		F16959F42F4C9A5C001B03A1 /* qf.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959172F4C9A5C001B03A1 /* qf.mp3 */; };
+		F16959F52F4C9A5C001B03A1 /* ta_fatha.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169592E2F4C9A5C001B03A1 /* ta_fatha.mp3 */; };
+		F16959F62F4C9A5C001B03A1 /* azraq.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958A32F4C9A5C001B03A1 /* azraq.mp3 */; };
+		F16959F72F4C9A5C001B03A1 /* alif.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958982F4C9A5C001B03A1 /* alif.mp3 */; };
+		F16959F82F4C9A5C001B03A1 /* phrase_hadha_kitab_abyad.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958FB2F4C9A5C001B03A1 /* phrase_hadha_kitab_abyad.mp3 */; };
+		F16959F92F4C9A5C001B03A1 /* qalb.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959152F4C9A5C001B03A1 /* qalb.mp3 */; };
+		F16959FA2F4C9A5C001B03A1 /* phrase_ana_fi_madrasa.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958EA2F4C9A5C001B03A1 /* phrase_ana_fi_madrasa.mp3 */; };
+		F16959FB2F4C9A5C001B03A1 /* phrase_uhibbu_samak.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959102F4C9A5C001B03A1 /* phrase_uhibbu_samak.mp3 */; };
+		F16959FC2F4C9A5C001B03A1 /* phrase_anta_sadiq.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958F02F4C9A5C001B03A1 /* phrase_anta_sadiq.mp3 */; };
+		F16959FD2F4C9A5C001B03A1 /* dhl.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16958B52F4C9A5C001B03A1 /* dhl.mp3 */; };
+		F16959FE2F4C9A5C001B03A1 /* ras.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F169591B2F4C9A5C001B03A1 /* ras.mp3 */; };
+		F1695A032F4CD347001B03A1 /* saad.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F1695A012F4CD347001B03A1 /* saad.mp3 */; };
+		F1695A042F4CD347001B03A1 /* dhaa_emp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F16959FF2F4CD347001B03A1 /* dhaa_emp.mp3 */; };
+		F1695A052F4CD347001B03A1 /* taa_emp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F1695A022F4CD347001B03A1 /* taa_emp.mp3 */; };
+		F1695A062F4CD347001B03A1 /* haa.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F1695A002F4CD347001B03A1 /* haa.mp3 */; };
 		F17F53E32F391C4800670D3B /* UnifiedCelebrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17F53E22F391C4800670D3B /* UnifiedCelebrationView.swift */; };
 		F17F53F22F420FD900670D3B /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F17F53F12F420FD900670D3B /* WidgetKit.framework */; };
 		F17F53F42F420FD900670D3B /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F17F53F32F420FD900670D3B /* SwiftUI.framework */; };
@@ -171,6 +362,10 @@
 		092483147B22D6A13D637F22 /* MatchingPairsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MatchingPairsView.swift; sourceTree = "<group>"; };
 		1D1DA6863B69E96F484901DC /* DictationView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DictationView.swift; sourceTree = "<group>"; };
 		3C34CAEF02488FBAD2499ECA /* SentenceBuilderView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SentenceBuilderView.swift; sourceTree = "<group>"; };
+		AA0C020000000001000C0200 /* WeeklySummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklySummaryView.swift; sourceTree = "<group>"; };
+		AA0C020200000002000C0202 /* CheckpointTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckpointTestView.swift; sourceTree = "<group>"; };
+		AA0C020400000003000C0204 /* Dialogue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dialogue.swift; sourceTree = "<group>"; };
+		AA0C020600000004000C0206 /* DialogueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogueView.swift; sourceTree = "<group>"; };
 		AAAA00002F2A000000000001 /* ArabicLetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArabicLetter.swift; sourceTree = "<group>"; };
 		AAAA00022F2A000000000002 /* LevelProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelProgress.swift; sourceTree = "<group>"; };
 		AAAA00042F2A000000000003 /* UserProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProgress.swift; sourceTree = "<group>"; };
@@ -187,6 +382,192 @@
 		DD000002F880000000000002 /* GlyphCalibrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlyphCalibrator.swift; sourceTree = "<group>"; };
 		F11376792F291E5800D25275 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
 		F113767B2F291F9B00D25275 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		F16958922F4C9A5C001B03A1 /* generate_all_audio.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = generate_all_audio.py; sourceTree = "<group>"; };
+		F16958932F4C9A5C001B03A1 /* ab.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ab.mp3; sourceTree = "<group>"; };
+		F16958942F4C9A5C001B03A1 /* abyad.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = abyad.mp3; sourceTree = "<group>"; };
+		F16958952F4C9A5C001B03A1 /* ahmar.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ahmar.mp3; sourceTree = "<group>"; };
+		F16958962F4C9A5C001B03A1 /* akh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = akh.mp3; sourceTree = "<group>"; };
+		F16958972F4C9A5C001B03A1 /* akhdar.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = akhdar.mp3; sourceTree = "<group>"; };
+		F16958982F4C9A5C001B03A1 /* alif.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alif.mp3; sourceTree = "<group>"; };
+		F16958992F4C9A5C001B03A1 /* ana.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ana.mp3; sourceTree = "<group>"; };
+		F169589A2F4C9A5C001B03A1 /* anf.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = anf.mp3; sourceTree = "<group>"; };
+		F169589B2F4C9A5C001B03A1 /* anta.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = anta.mp3; sourceTree = "<group>"; };
+		F169589C2F4C9A5C001B03A1 /* arbaa.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = arbaa.mp3; sourceTree = "<group>"; };
+		F169589D2F4C9A5C001B03A1 /* ard.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ard.mp3; sourceTree = "<group>"; };
+		F169589E2F4C9A5C001B03A1 /* aruz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = aruz.mp3; sourceTree = "<group>"; };
+		F169589F2F4C9A5C001B03A1 /* ashara.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ashara.mp3; sourceTree = "<group>"; };
+		F16958A02F4C9A5C001B03A1 /* aswad.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = aswad.mp3; sourceTree = "<group>"; };
+		F16958A12F4C9A5C001B03A1 /* ayn.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ayn.mp3; sourceTree = "<group>"; };
+		F16958A22F4C9A5C001B03A1 /* ayna.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ayna.mp3; sourceTree = "<group>"; };
+		F16958A32F4C9A5C001B03A1 /* azraq.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = azraq.mp3; sourceTree = "<group>"; };
+		F16958A42F4C9A5C001B03A1 /* b.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = b.mp3; sourceTree = "<group>"; };
+		F16958A52F4C9A5C001B03A1 /* ba_damma.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ba_damma.mp3; sourceTree = "<group>"; };
+		F16958A62F4C9A5C001B03A1 /* ba_fatha.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ba_fatha.mp3; sourceTree = "<group>"; };
+		F16958A72F4C9A5C001B03A1 /* ba_kasra.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ba_kasra.mp3; sourceTree = "<group>"; };
+		F16958A82F4C9A5C001B03A1 /* ba_shadda.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ba_shadda.mp3; sourceTree = "<group>"; };
+		F16958A92F4C9A5C001B03A1 /* ba_sukun.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ba_sukun.mp3; sourceTree = "<group>"; };
+		F16958AA2F4C9A5C001B03A1 /* ba_tanwin_fatha.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ba_tanwin_fatha.mp3; sourceTree = "<group>"; };
+		F16958AB2F4C9A5C001B03A1 /* bab.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bab.mp3; sourceTree = "<group>"; };
+		F16958AC2F4C9A5C001B03A1 /* bahr.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bahr.mp3; sourceTree = "<group>"; };
+		F16958AD2F4C9A5C001B03A1 /* bayt.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bayt.mp3; sourceTree = "<group>"; };
+		F16958AE2F4C9A5C001B03A1 /* bb.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bb.mp3; sourceTree = "<group>"; };
+		F16958AF2F4C9A5C001B03A1 /* bikhair.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bikhair.mp3; sourceTree = "<group>"; };
+		F16958B02F4C9A5C001B03A1 /* bimarifatik.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bimarifatik.mp3; sourceTree = "<group>"; };
+		F16958B12F4C9A5C001B03A1 /* bint.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bint.mp3; sourceTree = "<group>"; };
+		F16958B22F4C9A5C001B03A1 /* d.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = d.mp3; sourceTree = "<group>"; };
+		F16958B32F4C9A5C001B03A1 /* dal_tanwin_fatha.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dal_tanwin_fatha.mp3; sourceTree = "<group>"; };
+		F16958B42F4C9A5C001B03A1 /* dars.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dars.mp3; sourceTree = "<group>"; };
+		F16958B52F4C9A5C001B03A1 /* dhl.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dhl.mp3; sourceTree = "<group>"; };
+		F16958B62F4C9A5C001B03A1 /* dl.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dl.mp3; sourceTree = "<group>"; };
+		F16958B72F4C9A5C001B03A1 /* f.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = f.mp3; sourceTree = "<group>"; };
+		F16958B82F4C9A5C001B03A1 /* fam.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fam.mp3; sourceTree = "<group>"; };
+		F16958B92F4C9A5C001B03A1 /* faransa.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = faransa.mp3; sourceTree = "<group>"; };
+		F16958BA2F4C9A5C001B03A1 /* fasl.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fasl.mp3; sourceTree = "<group>"; };
+		F16958BB2F4C9A5C001B03A1 /* ghayn.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ghayn.mp3; sourceTree = "<group>"; };
+		F16958BC2F4C9A5C001B03A1 /* h.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = h.mp3; sourceTree = "<group>"; };
+		F16958BD2F4C9A5C001B03A1 /* hadha.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hadha.mp3; sourceTree = "<group>"; };
+		F16958BE2F4C9A5C001B03A1 /* halib.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = halib.mp3; sourceTree = "<group>"; };
+		F16958BF2F4C9A5C001B03A1 /* hamza.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hamza.mp3; sourceTree = "<group>"; };
+		F16958C02F4C9A5C001B03A1 /* hiya.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hiya.mp3; sourceTree = "<group>"; };
+		F16958C12F4C9A5C001B03A1 /* huwa.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = huwa.mp3; sourceTree = "<group>"; };
+		F16958C22F4C9A5C001B03A1 /* imtihan.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = imtihan.mp3; sourceTree = "<group>"; };
+		F16958C32F4C9A5C001B03A1 /* ithnan.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ithnan.mp3; sourceTree = "<group>"; };
+		F16958C42F4C9A5C001B03A1 /* ja_damma.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ja_damma.mp3; sourceTree = "<group>"; };
+		F16958C52F4C9A5C001B03A1 /* ja_fatha.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ja_fatha.mp3; sourceTree = "<group>"; };
+		F16958C62F4C9A5C001B03A1 /* ja_kasra.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ja_kasra.mp3; sourceTree = "<group>"; };
+		F16958C72F4C9A5C001B03A1 /* jadd.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = jadd.mp3; sourceTree = "<group>"; };
+		F16958C82F4C9A5C001B03A1 /* jm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = jm.mp3; sourceTree = "<group>"; };
+		F16958C92F4C9A5C001B03A1 /* kaf_tanwin_fatha.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = kaf_tanwin_fatha.mp3; sourceTree = "<group>"; };
+		F16958CA2F4C9A5C001B03A1 /* kalb.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = kalb.mp3; sourceTree = "<group>"; };
+		F16958CB2F4C9A5C001B03A1 /* kf.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = kf.mp3; sourceTree = "<group>"; };
+		F16958CC2F4C9A5C001B03A1 /* kh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = kh.mp3; sourceTree = "<group>"; };
+		F16958CD2F4C9A5C001B03A1 /* khamsa.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = khamsa.mp3; sourceTree = "<group>"; };
+		F16958CE2F4C9A5C001B03A1 /* khubz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = khubz.mp3; sourceTree = "<group>"; };
+		F16958CF2F4C9A5C001B03A1 /* kitab.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = kitab.mp3; sourceTree = "<group>"; };
+		F16958D02F4C9A5C001B03A1 /* kitb.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = kitb.mp3; sourceTree = "<group>"; };
+		F16958D12F4C9A5C001B03A1 /* kurs.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = kurs.mp3; sourceTree = "<group>"; };
+		F16958D22F4C9A5C001B03A1 /* lahm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lahm.mp3; sourceTree = "<group>"; };
+		F16958D32F4C9A5C001B03A1 /* lam_shadda.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lam_shadda.mp3; sourceTree = "<group>"; };
+		F16958D42F4C9A5C001B03A1 /* lam_sukun.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lam_sukun.mp3; sourceTree = "<group>"; };
+		F16958D52F4C9A5C001B03A1 /* layl.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = layl.mp3; sourceTree = "<group>"; };
+		F16958D62F4C9A5C001B03A1 /* lm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lm.mp3; sourceTree = "<group>"; };
+		F16958D72F4C9A5C001B03A1 /* m.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = m.mp3; sourceTree = "<group>"; };
+		F16958D82F4C9A5C001B03A1 /* maa.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = maa.mp3; sourceTree = "<group>"; };
+		F16958D92F4C9A5C001B03A1 /* madha.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = madha.mp3; sourceTree = "<group>"; };
+		F16958DA2F4C9A5C001B03A1 /* madrasa.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = madrasa.mp3; sourceTree = "<group>"; };
+		F16958DB2F4C9A5C001B03A1 /* masjid.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = masjid.mp3; sourceTree = "<group>"; };
+		F16958DC2F4C9A5C001B03A1 /* mift.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mift.mp3; sourceTree = "<group>"; };
+		F16958DD2F4C9A5C001B03A1 /* mim_shadda.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mim_shadda.mp3; sourceTree = "<group>"; };
+		F16958DE2F4C9A5C001B03A1 /* mim_sukun.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mim_sukun.mp3; sourceTree = "<group>"; };
+		F16958DF2F4C9A5C001B03A1 /* min.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = min.mp3; sourceTree = "<group>"; };
+		F16958E02F4C9A5C001B03A1 /* mm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mm.mp3; sourceTree = "<group>"; };
+		F16958E12F4C9A5C001B03A1 /* muallim.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = muallim.mp3; sourceTree = "<group>"; };
+		F16958E22F4C9A5C001B03A1 /* nahr.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = nahr.mp3; sourceTree = "<group>"; };
+		F16958E32F4C9A5C001B03A1 /* najm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = najm.mp3; sourceTree = "<group>"; };
+		F16958E42F4C9A5C001B03A1 /* nn.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = nn.mp3; sourceTree = "<group>"; };
+		F16958E52F4C9A5C001B03A1 /* nour.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = nour.mp3; sourceTree = "<group>"; };
+		F16958E62F4C9A5C001B03A1 /* nun_sukun.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = nun_sukun.mp3; sourceTree = "<group>"; };
+		F16958E72F4C9A5C001B03A1 /* phrase_ahlan.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_ahlan.mp3; sourceTree = "<group>"; };
+		F16958E82F4C9A5C001B03A1 /* phrase_ana_bikhair.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_ana_bikhair.mp3; sourceTree = "<group>"; };
+		F16958E92F4C9A5C001B03A1 /* phrase_ana_bikhair_shukran.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_ana_bikhair_shukran.mp3; sourceTree = "<group>"; };
+		F16958EA2F4C9A5C001B03A1 /* phrase_ana_fi_madrasa.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_ana_fi_madrasa.mp3; sourceTree = "<group>"; };
+		F16958EB2F4C9A5C001B03A1 /* phrase_ana_min_faransa.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_ana_min_faransa.mp3; sourceTree = "<group>"; };
+		F16958EC2F4C9A5C001B03A1 /* phrase_ana_muallim.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_ana_muallim.mp3; sourceTree = "<group>"; };
+		F16958ED2F4C9A5C001B03A1 /* phrase_ana_talib.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_ana_talib.mp3; sourceTree = "<group>"; };
+		F16958EE2F4C9A5C001B03A1 /* phrase_ana_taliba.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_ana_taliba.mp3; sourceTree = "<group>"; };
+		F16958EF2F4C9A5C001B03A1 /* phrase_ana_uhibbu_kitab.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_ana_uhibbu_kitab.mp3; sourceTree = "<group>"; };
+		F16958F02F4C9A5C001B03A1 /* phrase_anta_sadiq.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_anta_sadiq.mp3; sourceTree = "<group>"; };
+		F16958F12F4C9A5C001B03A1 /* phrase_bahr_azraq.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_bahr_azraq.mp3; sourceTree = "<group>"; };
+		F16958F22F4C9A5C001B03A1 /* phrase_bikhair.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_bikhair.mp3; sourceTree = "<group>"; };
+		F16958F32F4C9A5C001B03A1 /* phrase_hadha_anfi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_hadha_anfi.mp3; sourceTree = "<group>"; };
+		F16958F42F4C9A5C001B03A1 /* phrase_hadha_bab.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_hadha_bab.mp3; sourceTree = "<group>"; };
+		F16958F52F4C9A5C001B03A1 /* phrase_hadha_bab_akhdar.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_hadha_bab_akhdar.mp3; sourceTree = "<group>"; };
+		F16958F62F4C9A5C001B03A1 /* phrase_hadha_bayt.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_hadha_bayt.mp3; sourceTree = "<group>"; };
+		F16958F72F4C9A5C001B03A1 /* phrase_hadha_bayt_ahmar.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_hadha_bayt_ahmar.mp3; sourceTree = "<group>"; };
+		F16958F82F4C9A5C001B03A1 /* phrase_hadha_darsi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_hadha_darsi.mp3; sourceTree = "<group>"; };
+		F16958F92F4C9A5C001B03A1 /* phrase_hadha_halib.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_hadha_halib.mp3; sourceTree = "<group>"; };
+		F16958FA2F4C9A5C001B03A1 /* phrase_hadha_kitab.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_hadha_kitab.mp3; sourceTree = "<group>"; };
+		F16958FB2F4C9A5C001B03A1 /* phrase_hadha_kitab_abyad.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_hadha_kitab_abyad.mp3; sourceTree = "<group>"; };
+		F16958FC2F4C9A5C001B03A1 /* phrase_hadha_qalam.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_hadha_qalam.mp3; sourceTree = "<group>"; };
+		F16958FD2F4C9A5C001B03A1 /* phrase_hadha_qalam_aswad.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_hadha_qalam_aswad.mp3; sourceTree = "<group>"; };
+		F16958FE2F4C9A5C001B03A1 /* phrase_hadha_qalam_azraq.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_hadha_qalam_azraq.mp3; sourceTree = "<group>"; };
+		F16958FF2F4C9A5C001B03A1 /* phrase_hadha_wahid.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_hadha_wahid.mp3; sourceTree = "<group>"; };
+		F16959002F4C9A5C001B03A1 /* phrase_hadhihi_ayni.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_hadhihi_ayni.mp3; sourceTree = "<group>"; };
+		F16959012F4C9A5C001B03A1 /* phrase_hiya_taliba.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_hiya_taliba.mp3; sourceTree = "<group>"; };
+		F16959022F4C9A5C001B03A1 /* phrase_huwa_sadiqi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_huwa_sadiqi.mp3; sourceTree = "<group>"; };
+		F16959032F4C9A5C001B03A1 /* phrase_huwa_talib.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_huwa_talib.mp3; sourceTree = "<group>"; };
+		F16959042F4C9A5C001B03A1 /* phrase_indi_khamsa.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_indi_khamsa.mp3; sourceTree = "<group>"; };
+		F16959052F4C9A5C001B03A1 /* phrase_indi_thalatha.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_indi_thalatha.mp3; sourceTree = "<group>"; };
+		F16959062F4C9A5C001B03A1 /* phrase_kayfa_haluk.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_kayfa_haluk.mp3; sourceTree = "<group>"; };
+		F16959072F4C9A5C001B03A1 /* phrase_ma_ismuka.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_ma_ismuka.mp3; sourceTree = "<group>"; };
+		F16959082F4C9A5C001B03A1 /* phrase_maa_min_fadlik.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_maa_min_fadlik.mp3; sourceTree = "<group>"; };
+		F16959092F4C9A5C001B03A1 /* phrase_maa_salama.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_maa_salama.mp3; sourceTree = "<group>"; };
+		F169590A2F4C9A5C001B03A1 /* phrase_madha_turid.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_madha_turid.mp3; sourceTree = "<group>"; };
+		F169590B2F4C9A5C001B03A1 /* phrase_min_ayna.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_min_ayna.mp3; sourceTree = "<group>"; };
+		F169590C2F4C9A5C001B03A1 /* phrase_salam.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_salam.mp3; sourceTree = "<group>"; };
+		F169590D2F4C9A5C001B03A1 /* phrase_samaa_jamila.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_samaa_jamila.mp3; sourceTree = "<group>"; };
+		F169590E2F4C9A5C001B03A1 /* phrase_shukran.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_shukran.mp3; sourceTree = "<group>"; };
+		F169590F2F4C9A5C001B03A1 /* phrase_tasharrafna.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_tasharrafna.mp3; sourceTree = "<group>"; };
+		F16959102F4C9A5C001B03A1 /* phrase_uhibbu_samak.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_uhibbu_samak.mp3; sourceTree = "<group>"; };
+		F16959112F4C9A5C001B03A1 /* phrase_uridu_khubz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_uridu_khubz.mp3; sourceTree = "<group>"; };
+		F16959122F4C9A5C001B03A1 /* phrase_uridu_tuffaha.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_uridu_tuffaha.mp3; sourceTree = "<group>"; };
+		F16959132F4C9A5C001B03A1 /* phrase_yawm_jamil.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phrase_yawm_jamil.mp3; sourceTree = "<group>"; };
+		F16959142F4C9A5C001B03A1 /* qalam.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = qalam.mp3; sourceTree = "<group>"; };
+		F16959152F4C9A5C001B03A1 /* qalb.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = qalb.mp3; sourceTree = "<group>"; };
+		F16959162F4C9A5C001B03A1 /* qamar.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = qamar.mp3; sourceTree = "<group>"; };
+		F16959172F4C9A5C001B03A1 /* qf.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = qf.mp3; sourceTree = "<group>"; };
+		F16959182F4C9A5C001B03A1 /* qi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = qi.mp3; sourceTree = "<group>"; };
+		F16959192F4C9A5C001B03A1 /* r.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = r.mp3; sourceTree = "<group>"; };
+		F169591A2F4C9A5C001B03A1 /* ra_tanwin_fatha.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ra_tanwin_fatha.mp3; sourceTree = "<group>"; };
+		F169591B2F4C9A5C001B03A1 /* ras.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ras.mp3; sourceTree = "<group>"; };
+		F169591C2F4C9A5C001B03A1 /* sa_damma.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sa_damma.mp3; sourceTree = "<group>"; };
+		F169591D2F4C9A5C001B03A1 /* sa_fatha.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sa_fatha.mp3; sourceTree = "<group>"; };
+		F169591E2F4C9A5C001B03A1 /* sa_kasra.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sa_kasra.mp3; sourceTree = "<group>"; };
+		F169591F2F4C9A5C001B03A1 /* saba.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = saba.mp3; sourceTree = "<group>"; };
+		F16959202F4C9A5C001B03A1 /* sadiq.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sadiq.mp3; sourceTree = "<group>"; };
+		F16959212F4C9A5C001B03A1 /* salm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = salm.mp3; sourceTree = "<group>"; };
+		F16959222F4C9A5C001B03A1 /* samaa.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = samaa.mp3; sourceTree = "<group>"; };
+		F16959232F4C9A5C001B03A1 /* samak.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = samak.mp3; sourceTree = "<group>"; };
+		F16959242F4C9A5C001B03A1 /* sana.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sana.mp3; sourceTree = "<group>"; };
+		F16959252F4C9A5C001B03A1 /* shajara.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shajara.mp3; sourceTree = "<group>"; };
+		F16959262F4C9A5C001B03A1 /* shams.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shams.mp3; sourceTree = "<group>"; };
+		F16959272F4C9A5C001B03A1 /* shn.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shn.mp3; sourceTree = "<group>"; };
+		F16959282F4C9A5C001B03A1 /* shukran.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shukran.mp3; sourceTree = "<group>"; };
+		F16959292F4C9A5C001B03A1 /* sin_shadda.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sin_shadda.mp3; sourceTree = "<group>"; };
+		F169592A2F4C9A5C001B03A1 /* sitta.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sitta.mp3; sourceTree = "<group>"; };
+		F169592B2F4C9A5C001B03A1 /* sn.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sn.mp3; sourceTree = "<group>"; };
+		F169592C2F4C9A5C001B03A1 /* t.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = t.mp3; sourceTree = "<group>"; };
+		F169592D2F4C9A5C001B03A1 /* ta_damma.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ta_damma.mp3; sourceTree = "<group>"; };
+		F169592E2F4C9A5C001B03A1 /* ta_fatha.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ta_fatha.mp3; sourceTree = "<group>"; };
+		F169592F2F4C9A5C001B03A1 /* ta_kasra.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ta_kasra.mp3; sourceTree = "<group>"; };
+		F16959302F4C9A5C001B03A1 /* talib.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = talib.mp3; sourceTree = "<group>"; };
+		F16959312F4C9A5C001B03A1 /* taliba.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = taliba.mp3; sourceTree = "<group>"; };
+		F16959322F4C9A5C001B03A1 /* tasharrafna.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tasharrafna.mp3; sourceTree = "<group>"; };
+		F16959332F4C9A5C001B03A1 /* th.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = th.mp3; sourceTree = "<group>"; };
+		F16959342F4C9A5C001B03A1 /* thalatha.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = thalatha.mp3; sourceTree = "<group>"; };
+		F16959352F4C9A5C001B03A1 /* thamaniya.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = thamaniya.mp3; sourceTree = "<group>"; };
+		F16959362F4C9A5C001B03A1 /* tisa.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tisa.mp3; sourceTree = "<group>"; };
+		F16959372F4C9A5C001B03A1 /* tmarba.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tmarba.mp3; sourceTree = "<group>"; };
+		F16959382F4C9A5C001B03A1 /* tuffaha.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tuffaha.mp3; sourceTree = "<group>"; };
+		F16959392F4C9A5C001B03A1 /* turid.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = turid.mp3; sourceTree = "<group>"; };
+		F169593A2F4C9A5C001B03A1 /* udhun.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = udhun.mp3; sourceTree = "<group>"; };
+		F169593B2F4C9A5C001B03A1 /* uhibbu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = uhibbu.mp3; sourceTree = "<group>"; };
+		F169593C2F4C9A5C001B03A1 /* ukht.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ukht.mp3; sourceTree = "<group>"; };
+		F169593D2F4C9A5C001B03A1 /* umm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = umm.mp3; sourceTree = "<group>"; };
+		F169593E2F4C9A5C001B03A1 /* uridu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = uridu.mp3; sourceTree = "<group>"; };
+		F169593F2F4C9A5C001B03A1 /* wahid.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = wahid.mp3; sourceTree = "<group>"; };
+		F16959402F4C9A5C001B03A1 /* wajib.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = wajib.mp3; sourceTree = "<group>"; };
+		F16959412F4C9A5C001B03A1 /* walad.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = walad.mp3; sourceTree = "<group>"; };
+		F16959422F4C9A5C001B03A1 /* ww.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ww.mp3; sourceTree = "<group>"; };
+		F16959432F4C9A5C001B03A1 /* y.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = y.mp3; sourceTree = "<group>"; };
+		F16959442F4C9A5C001B03A1 /* yad.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = yad.mp3; sourceTree = "<group>"; };
+		F16959452F4C9A5C001B03A1 /* yawm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = yawm.mp3; sourceTree = "<group>"; };
+		F16959462F4C9A5C001B03A1 /* zahra.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = zahra.mp3; sourceTree = "<group>"; };
+		F16959472F4C9A5C001B03A1 /* zy.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = zy.mp3; sourceTree = "<group>"; };
+		F16959FF2F4CD347001B03A1 /* dhaa_emp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dhaa_emp.mp3; sourceTree = "<group>"; };
+		F1695A002F4CD347001B03A1 /* haa.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = haa.mp3; sourceTree = "<group>"; };
+		F1695A012F4CD347001B03A1 /* saad.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = saad.mp3; sourceTree = "<group>"; };
+		F1695A022F4CD347001B03A1 /* taa_emp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = taa_emp.mp3; sourceTree = "<group>"; };
 		F17F53E22F391C4800670D3B /* UnifiedCelebrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedCelebrationView.swift; sourceTree = "<group>"; };
 		F17F53EA2F420F7000670D3B /* Noorine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Noorine.entitlements; sourceTree = "<group>"; };
 		F17F53EF2F420FD900670D3B /* NoorineWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NoorineWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -366,6 +747,8 @@
 				AAAA00082F2A000000000005 /* LevelDetailView.swift */,
 				AAAA000A2F2A000000000006 /* LetterLessonView.swift */,
 				AAAA00102F2A000000000010 /* FreeDrawingView.swift */,
+				AA0C020200000002000C0202 /* CheckpointTestView.swift */,
+				AA0C020600000004000C0206 /* DialogueView.swift */,
 				F190A13F2F2B0F5B00F0A090 /* Components */,
 				F190A14B2F2B0F6800F0A090 /* Models */,
 				F1C720732F34143500EDA1E8 /* SolarLunarLessonView.swift */,
@@ -380,6 +763,198 @@
 				DD000002F880000000000002 /* GlyphCalibrator.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		F16959482F4C9A5C001B03A1 /* GeneratedAudio */ = {
+			isa = PBXGroup;
+			children = (
+				F16959FF2F4CD347001B03A1 /* dhaa_emp.mp3 */,
+				F1695A002F4CD347001B03A1 /* haa.mp3 */,
+				F1695A012F4CD347001B03A1 /* saad.mp3 */,
+				F1695A022F4CD347001B03A1 /* taa_emp.mp3 */,
+				F16958932F4C9A5C001B03A1 /* ab.mp3 */,
+				F16958942F4C9A5C001B03A1 /* abyad.mp3 */,
+				F16958952F4C9A5C001B03A1 /* ahmar.mp3 */,
+				F16958962F4C9A5C001B03A1 /* akh.mp3 */,
+				F16958972F4C9A5C001B03A1 /* akhdar.mp3 */,
+				F16958982F4C9A5C001B03A1 /* alif.mp3 */,
+				F16958992F4C9A5C001B03A1 /* ana.mp3 */,
+				F169589A2F4C9A5C001B03A1 /* anf.mp3 */,
+				F169589B2F4C9A5C001B03A1 /* anta.mp3 */,
+				F169589C2F4C9A5C001B03A1 /* arbaa.mp3 */,
+				F169589D2F4C9A5C001B03A1 /* ard.mp3 */,
+				F169589E2F4C9A5C001B03A1 /* aruz.mp3 */,
+				F169589F2F4C9A5C001B03A1 /* ashara.mp3 */,
+				F16958A02F4C9A5C001B03A1 /* aswad.mp3 */,
+				F16958A12F4C9A5C001B03A1 /* ayn.mp3 */,
+				F16958A22F4C9A5C001B03A1 /* ayna.mp3 */,
+				F16958A32F4C9A5C001B03A1 /* azraq.mp3 */,
+				F16958A42F4C9A5C001B03A1 /* b.mp3 */,
+				F16958A52F4C9A5C001B03A1 /* ba_damma.mp3 */,
+				F16958A62F4C9A5C001B03A1 /* ba_fatha.mp3 */,
+				F16958A72F4C9A5C001B03A1 /* ba_kasra.mp3 */,
+				F16958A82F4C9A5C001B03A1 /* ba_shadda.mp3 */,
+				F16958A92F4C9A5C001B03A1 /* ba_sukun.mp3 */,
+				F16958AA2F4C9A5C001B03A1 /* ba_tanwin_fatha.mp3 */,
+				F16958AB2F4C9A5C001B03A1 /* bab.mp3 */,
+				F16958AC2F4C9A5C001B03A1 /* bahr.mp3 */,
+				F16958AD2F4C9A5C001B03A1 /* bayt.mp3 */,
+				F16958AE2F4C9A5C001B03A1 /* bb.mp3 */,
+				F16958AF2F4C9A5C001B03A1 /* bikhair.mp3 */,
+				F16958B02F4C9A5C001B03A1 /* bimarifatik.mp3 */,
+				F16958B12F4C9A5C001B03A1 /* bint.mp3 */,
+				F16958B22F4C9A5C001B03A1 /* d.mp3 */,
+				F16958B32F4C9A5C001B03A1 /* dal_tanwin_fatha.mp3 */,
+				F16958B42F4C9A5C001B03A1 /* dars.mp3 */,
+				F16958B52F4C9A5C001B03A1 /* dhl.mp3 */,
+				F16958B62F4C9A5C001B03A1 /* dl.mp3 */,
+				F16958B72F4C9A5C001B03A1 /* f.mp3 */,
+				F16958B82F4C9A5C001B03A1 /* fam.mp3 */,
+				F16958B92F4C9A5C001B03A1 /* faransa.mp3 */,
+				F16958BA2F4C9A5C001B03A1 /* fasl.mp3 */,
+				F16958BB2F4C9A5C001B03A1 /* ghayn.mp3 */,
+				F16958BC2F4C9A5C001B03A1 /* h.mp3 */,
+				F16958BD2F4C9A5C001B03A1 /* hadha.mp3 */,
+				F16958BE2F4C9A5C001B03A1 /* halib.mp3 */,
+				F16958BF2F4C9A5C001B03A1 /* hamza.mp3 */,
+				F16958C02F4C9A5C001B03A1 /* hiya.mp3 */,
+				F16958C12F4C9A5C001B03A1 /* huwa.mp3 */,
+				F16958C22F4C9A5C001B03A1 /* imtihan.mp3 */,
+				F16958C32F4C9A5C001B03A1 /* ithnan.mp3 */,
+				F16958C42F4C9A5C001B03A1 /* ja_damma.mp3 */,
+				F16958C52F4C9A5C001B03A1 /* ja_fatha.mp3 */,
+				F16958C62F4C9A5C001B03A1 /* ja_kasra.mp3 */,
+				F16958C72F4C9A5C001B03A1 /* jadd.mp3 */,
+				F16958C82F4C9A5C001B03A1 /* jm.mp3 */,
+				F16958C92F4C9A5C001B03A1 /* kaf_tanwin_fatha.mp3 */,
+				F16958CA2F4C9A5C001B03A1 /* kalb.mp3 */,
+				F16958CB2F4C9A5C001B03A1 /* kf.mp3 */,
+				F16958CC2F4C9A5C001B03A1 /* kh.mp3 */,
+				F16958CD2F4C9A5C001B03A1 /* khamsa.mp3 */,
+				F16958CE2F4C9A5C001B03A1 /* khubz.mp3 */,
+				F16958CF2F4C9A5C001B03A1 /* kitab.mp3 */,
+				F16958D02F4C9A5C001B03A1 /* kitb.mp3 */,
+				F16958D12F4C9A5C001B03A1 /* kurs.mp3 */,
+				F16958D22F4C9A5C001B03A1 /* lahm.mp3 */,
+				F16958D32F4C9A5C001B03A1 /* lam_shadda.mp3 */,
+				F16958D42F4C9A5C001B03A1 /* lam_sukun.mp3 */,
+				F16958D52F4C9A5C001B03A1 /* layl.mp3 */,
+				F16958D62F4C9A5C001B03A1 /* lm.mp3 */,
+				F16958D72F4C9A5C001B03A1 /* m.mp3 */,
+				F16958D82F4C9A5C001B03A1 /* maa.mp3 */,
+				F16958D92F4C9A5C001B03A1 /* madha.mp3 */,
+				F16958DA2F4C9A5C001B03A1 /* madrasa.mp3 */,
+				F16958DB2F4C9A5C001B03A1 /* masjid.mp3 */,
+				F16958DC2F4C9A5C001B03A1 /* mift.mp3 */,
+				F16958DD2F4C9A5C001B03A1 /* mim_shadda.mp3 */,
+				F16958DE2F4C9A5C001B03A1 /* mim_sukun.mp3 */,
+				F16958DF2F4C9A5C001B03A1 /* min.mp3 */,
+				F16958E02F4C9A5C001B03A1 /* mm.mp3 */,
+				F16958E12F4C9A5C001B03A1 /* muallim.mp3 */,
+				F16958E22F4C9A5C001B03A1 /* nahr.mp3 */,
+				F16958E32F4C9A5C001B03A1 /* najm.mp3 */,
+				F16958E42F4C9A5C001B03A1 /* nn.mp3 */,
+				F16958E52F4C9A5C001B03A1 /* nour.mp3 */,
+				F16958E62F4C9A5C001B03A1 /* nun_sukun.mp3 */,
+				F16958E72F4C9A5C001B03A1 /* phrase_ahlan.mp3 */,
+				F16958E82F4C9A5C001B03A1 /* phrase_ana_bikhair.mp3 */,
+				F16958E92F4C9A5C001B03A1 /* phrase_ana_bikhair_shukran.mp3 */,
+				F16958EA2F4C9A5C001B03A1 /* phrase_ana_fi_madrasa.mp3 */,
+				F16958EB2F4C9A5C001B03A1 /* phrase_ana_min_faransa.mp3 */,
+				F16958EC2F4C9A5C001B03A1 /* phrase_ana_muallim.mp3 */,
+				F16958ED2F4C9A5C001B03A1 /* phrase_ana_talib.mp3 */,
+				F16958EE2F4C9A5C001B03A1 /* phrase_ana_taliba.mp3 */,
+				F16958EF2F4C9A5C001B03A1 /* phrase_ana_uhibbu_kitab.mp3 */,
+				F16958F02F4C9A5C001B03A1 /* phrase_anta_sadiq.mp3 */,
+				F16958F12F4C9A5C001B03A1 /* phrase_bahr_azraq.mp3 */,
+				F16958F22F4C9A5C001B03A1 /* phrase_bikhair.mp3 */,
+				F16958F32F4C9A5C001B03A1 /* phrase_hadha_anfi.mp3 */,
+				F16958F42F4C9A5C001B03A1 /* phrase_hadha_bab.mp3 */,
+				F16958F52F4C9A5C001B03A1 /* phrase_hadha_bab_akhdar.mp3 */,
+				F16958F62F4C9A5C001B03A1 /* phrase_hadha_bayt.mp3 */,
+				F16958F72F4C9A5C001B03A1 /* phrase_hadha_bayt_ahmar.mp3 */,
+				F16958F82F4C9A5C001B03A1 /* phrase_hadha_darsi.mp3 */,
+				F16958F92F4C9A5C001B03A1 /* phrase_hadha_halib.mp3 */,
+				F16958FA2F4C9A5C001B03A1 /* phrase_hadha_kitab.mp3 */,
+				F16958FB2F4C9A5C001B03A1 /* phrase_hadha_kitab_abyad.mp3 */,
+				F16958FC2F4C9A5C001B03A1 /* phrase_hadha_qalam.mp3 */,
+				F16958FD2F4C9A5C001B03A1 /* phrase_hadha_qalam_aswad.mp3 */,
+				F16958FE2F4C9A5C001B03A1 /* phrase_hadha_qalam_azraq.mp3 */,
+				F16958FF2F4C9A5C001B03A1 /* phrase_hadha_wahid.mp3 */,
+				F16959002F4C9A5C001B03A1 /* phrase_hadhihi_ayni.mp3 */,
+				F16959012F4C9A5C001B03A1 /* phrase_hiya_taliba.mp3 */,
+				F16959022F4C9A5C001B03A1 /* phrase_huwa_sadiqi.mp3 */,
+				F16959032F4C9A5C001B03A1 /* phrase_huwa_talib.mp3 */,
+				F16959042F4C9A5C001B03A1 /* phrase_indi_khamsa.mp3 */,
+				F16959052F4C9A5C001B03A1 /* phrase_indi_thalatha.mp3 */,
+				F16959062F4C9A5C001B03A1 /* phrase_kayfa_haluk.mp3 */,
+				F16959072F4C9A5C001B03A1 /* phrase_ma_ismuka.mp3 */,
+				F16959082F4C9A5C001B03A1 /* phrase_maa_min_fadlik.mp3 */,
+				F16959092F4C9A5C001B03A1 /* phrase_maa_salama.mp3 */,
+				F169590A2F4C9A5C001B03A1 /* phrase_madha_turid.mp3 */,
+				F169590B2F4C9A5C001B03A1 /* phrase_min_ayna.mp3 */,
+				F169590C2F4C9A5C001B03A1 /* phrase_salam.mp3 */,
+				F169590D2F4C9A5C001B03A1 /* phrase_samaa_jamila.mp3 */,
+				F169590E2F4C9A5C001B03A1 /* phrase_shukran.mp3 */,
+				F169590F2F4C9A5C001B03A1 /* phrase_tasharrafna.mp3 */,
+				F16959102F4C9A5C001B03A1 /* phrase_uhibbu_samak.mp3 */,
+				F16959112F4C9A5C001B03A1 /* phrase_uridu_khubz.mp3 */,
+				F16959122F4C9A5C001B03A1 /* phrase_uridu_tuffaha.mp3 */,
+				F16959132F4C9A5C001B03A1 /* phrase_yawm_jamil.mp3 */,
+				F16959142F4C9A5C001B03A1 /* qalam.mp3 */,
+				F16959152F4C9A5C001B03A1 /* qalb.mp3 */,
+				F16959162F4C9A5C001B03A1 /* qamar.mp3 */,
+				F16959172F4C9A5C001B03A1 /* qf.mp3 */,
+				F16959182F4C9A5C001B03A1 /* qi.mp3 */,
+				F16959192F4C9A5C001B03A1 /* r.mp3 */,
+				F169591A2F4C9A5C001B03A1 /* ra_tanwin_fatha.mp3 */,
+				F169591B2F4C9A5C001B03A1 /* ras.mp3 */,
+				F169591C2F4C9A5C001B03A1 /* sa_damma.mp3 */,
+				F169591D2F4C9A5C001B03A1 /* sa_fatha.mp3 */,
+				F169591E2F4C9A5C001B03A1 /* sa_kasra.mp3 */,
+				F169591F2F4C9A5C001B03A1 /* saba.mp3 */,
+				F16959202F4C9A5C001B03A1 /* sadiq.mp3 */,
+				F16959212F4C9A5C001B03A1 /* salm.mp3 */,
+				F16959222F4C9A5C001B03A1 /* samaa.mp3 */,
+				F16959232F4C9A5C001B03A1 /* samak.mp3 */,
+				F16959242F4C9A5C001B03A1 /* sana.mp3 */,
+				F16959252F4C9A5C001B03A1 /* shajara.mp3 */,
+				F16959262F4C9A5C001B03A1 /* shams.mp3 */,
+				F16959272F4C9A5C001B03A1 /* shn.mp3 */,
+				F16959282F4C9A5C001B03A1 /* shukran.mp3 */,
+				F16959292F4C9A5C001B03A1 /* sin_shadda.mp3 */,
+				F169592A2F4C9A5C001B03A1 /* sitta.mp3 */,
+				F169592B2F4C9A5C001B03A1 /* sn.mp3 */,
+				F169592C2F4C9A5C001B03A1 /* t.mp3 */,
+				F169592D2F4C9A5C001B03A1 /* ta_damma.mp3 */,
+				F169592E2F4C9A5C001B03A1 /* ta_fatha.mp3 */,
+				F169592F2F4C9A5C001B03A1 /* ta_kasra.mp3 */,
+				F16959302F4C9A5C001B03A1 /* talib.mp3 */,
+				F16959312F4C9A5C001B03A1 /* taliba.mp3 */,
+				F16959322F4C9A5C001B03A1 /* tasharrafna.mp3 */,
+				F16959332F4C9A5C001B03A1 /* th.mp3 */,
+				F16959342F4C9A5C001B03A1 /* thalatha.mp3 */,
+				F16959352F4C9A5C001B03A1 /* thamaniya.mp3 */,
+				F16959362F4C9A5C001B03A1 /* tisa.mp3 */,
+				F16959372F4C9A5C001B03A1 /* tmarba.mp3 */,
+				F16959382F4C9A5C001B03A1 /* tuffaha.mp3 */,
+				F16959392F4C9A5C001B03A1 /* turid.mp3 */,
+				F169593A2F4C9A5C001B03A1 /* udhun.mp3 */,
+				F169593B2F4C9A5C001B03A1 /* uhibbu.mp3 */,
+				F169593C2F4C9A5C001B03A1 /* ukht.mp3 */,
+				F169593D2F4C9A5C001B03A1 /* umm.mp3 */,
+				F169593E2F4C9A5C001B03A1 /* uridu.mp3 */,
+				F169593F2F4C9A5C001B03A1 /* wahid.mp3 */,
+				F16959402F4C9A5C001B03A1 /* wajib.mp3 */,
+				F16959412F4C9A5C001B03A1 /* walad.mp3 */,
+				F16959422F4C9A5C001B03A1 /* ww.mp3 */,
+				F16959432F4C9A5C001B03A1 /* y.mp3 */,
+				F16959442F4C9A5C001B03A1 /* yad.mp3 */,
+				F16959452F4C9A5C001B03A1 /* yawm.mp3 */,
+				F16959462F4C9A5C001B03A1 /* zahra.mp3 */,
+				F16959472F4C9A5C001B03A1 /* zy.mp3 */,
+			);
+			path = GeneratedAudio;
 			sourceTree = "<group>";
 		};
 		F17F53F02F420FD900670D3B /* Frameworks */ = {
@@ -556,6 +1131,8 @@
 		F1FCEB602F28D77000AE6497 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				F16958922F4C9A5C001B03A1 /* generate_all_audio.py */,
+				F16959482F4C9A5C001B03A1 /* GeneratedAudio */,
 				F1FAA4482F47169D009343A0 /* Extensions.swift */,
 				F1FAA4492F47169D009343A0 /* WatchSyncManager.swift */,
 				F1BDF6892F2FD31A008A9EBC /* FactsData.swift */,
@@ -617,6 +1194,7 @@
 				AAAA00022F2A000000000002 /* LevelProgress.swift */,
 				AAAA00042F2A000000000003 /* UserProgress.swift */,
 				BB000002F660000000000002 /* SRSCard.swift */,
+				AA0C020400000003000C0204 /* Dialogue.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -656,6 +1234,7 @@
 			isa = PBXGroup;
 			children = (
 				F1FCEB752F2909FB00AE6497 /* ProfileView.swift */,
+				AA0C020000000001000C0200 /* WeeklySummaryView.swift */,
 				F113767B2F291F9B00D25275 /* Localizable.xcstrings */,
 			);
 			path = Profile;
@@ -918,6 +1497,192 @@
 				F1BDF67E2F2FB8DB008A9EBC /* flashcards.json in Resources */,
 				F1C720702F32C36100EDA1E8 /* course_content.json in Resources */,
 				F1FCEB3D2F28D60B00AE6497 /* Assets.xcassets in Resources */,
+				F16959492F4C9A5C001B03A1 /* bayt.mp3 in Resources */,
+				F169594A2F4C9A5C001B03A1 /* phrase_samaa_jamila.mp3 in Resources */,
+				F169594B2F4C9A5C001B03A1 /* faransa.mp3 in Resources */,
+				F169594C2F4C9A5C001B03A1 /* saba.mp3 in Resources */,
+				F169594D2F4C9A5C001B03A1 /* t.mp3 in Resources */,
+				F169594E2F4C9A5C001B03A1 /* madha.mp3 in Resources */,
+				F169594F2F4C9A5C001B03A1 /* madrasa.mp3 in Resources */,
+				F16959502F4C9A5C001B03A1 /* mim_shadda.mp3 in Resources */,
+				F16959512F4C9A5C001B03A1 /* nn.mp3 in Resources */,
+				F16959522F4C9A5C001B03A1 /* bb.mp3 in Resources */,
+				F16959532F4C9A5C001B03A1 /* phrase_huwa_sadiqi.mp3 in Resources */,
+				F16959542F4C9A5C001B03A1 /* akhdar.mp3 in Resources */,
+				F16959552F4C9A5C001B03A1 /* lam_sukun.mp3 in Resources */,
+				F16959562F4C9A5C001B03A1 /* ukht.mp3 in Resources */,
+				F16959572F4C9A5C001B03A1 /* b.mp3 in Resources */,
+				F16959582F4C9A5C001B03A1 /* mift.mp3 in Resources */,
+				F16959592F4C9A5C001B03A1 /* phrase_tasharrafna.mp3 in Resources */,
+				F169595A2F4C9A5C001B03A1 /* bab.mp3 in Resources */,
+				F169595B2F4C9A5C001B03A1 /* ba_shadda.mp3 in Resources */,
+				F169595C2F4C9A5C001B03A1 /* phrase_ana_bikhair_shukran.mp3 in Resources */,
+				F169595D2F4C9A5C001B03A1 /* maa.mp3 in Resources */,
+				F169595E2F4C9A5C001B03A1 /* phrase_hadha_qalam_azraq.mp3 in Resources */,
+				F169595F2F4C9A5C001B03A1 /* zahra.mp3 in Resources */,
+				F16959602F4C9A5C001B03A1 /* sa_fatha.mp3 in Resources */,
+				F16959612F4C9A5C001B03A1 /* arbaa.mp3 in Resources */,
+				F16959622F4C9A5C001B03A1 /* r.mp3 in Resources */,
+				F16959632F4C9A5C001B03A1 /* salm.mp3 in Resources */,
+				F16959642F4C9A5C001B03A1 /* phrase_hadha_kitab.mp3 in Resources */,
+				F16959652F4C9A5C001B03A1 /* ta_kasra.mp3 in Resources */,
+				F16959662F4C9A5C001B03A1 /* ab.mp3 in Resources */,
+				F16959672F4C9A5C001B03A1 /* phrase_bahr_azraq.mp3 in Resources */,
+				F16959682F4C9A5C001B03A1 /* masjid.mp3 in Resources */,
+				F16959692F4C9A5C001B03A1 /* fam.mp3 in Resources */,
+				F169596A2F4C9A5C001B03A1 /* phrase_hadha_wahid.mp3 in Resources */,
+				F169596B2F4C9A5C001B03A1 /* tasharrafna.mp3 in Resources */,
+				F169596C2F4C9A5C001B03A1 /* yawm.mp3 in Resources */,
+				F169596D2F4C9A5C001B03A1 /* ahmar.mp3 in Resources */,
+				F169596E2F4C9A5C001B03A1 /* phrase_maa_salama.mp3 in Resources */,
+				F169596F2F4C9A5C001B03A1 /* phrase_madha_turid.mp3 in Resources */,
+				F16959702F4C9A5C001B03A1 /* tisa.mp3 in Resources */,
+				F16959712F4C9A5C001B03A1 /* kalb.mp3 in Resources */,
+				F16959722F4C9A5C001B03A1 /* phrase_hadha_darsi.mp3 in Resources */,
+				F16959732F4C9A5C001B03A1 /* f.mp3 in Resources */,
+				F16959742F4C9A5C001B03A1 /* uhibbu.mp3 in Resources */,
+				F16959752F4C9A5C001B03A1 /* layl.mp3 in Resources */,
+				F16959762F4C9A5C001B03A1 /* kf.mp3 in Resources */,
+				F16959772F4C9A5C001B03A1 /* phrase_hadha_bab.mp3 in Resources */,
+				F16959782F4C9A5C001B03A1 /* phrase_hadha_bayt.mp3 in Resources */,
+				F16959792F4C9A5C001B03A1 /* thalatha.mp3 in Resources */,
+				F169597A2F4C9A5C001B03A1 /* phrase_uridu_tuffaha.mp3 in Resources */,
+				F169597B2F4C9A5C001B03A1 /* ba_tanwin_fatha.mp3 in Resources */,
+				F169597C2F4C9A5C001B03A1 /* turid.mp3 in Resources */,
+				F169597D2F4C9A5C001B03A1 /* h.mp3 in Resources */,
+				F169597E2F4C9A5C001B03A1 /* khamsa.mp3 in Resources */,
+				F169597F2F4C9A5C001B03A1 /* akh.mp3 in Resources */,
+				F16959802F4C9A5C001B03A1 /* shams.mp3 in Resources */,
+				F16959812F4C9A5C001B03A1 /* phrase_ana_talib.mp3 in Resources */,
+				F16959822F4C9A5C001B03A1 /* phrase_min_ayna.mp3 in Resources */,
+				F16959832F4C9A5C001B03A1 /* sa_damma.mp3 in Resources */,
+				F16959842F4C9A5C001B03A1 /* talib.mp3 in Resources */,
+				F16959852F4C9A5C001B03A1 /* phrase_hadha_qalam.mp3 in Resources */,
+				F16959862F4C9A5C001B03A1 /* kh.mp3 in Resources */,
+				F16959872F4C9A5C001B03A1 /* qalam.mp3 in Resources */,
+				F1695A032F4CD347001B03A1 /* saad.mp3 in Resources */,
+				F1695A042F4CD347001B03A1 /* dhaa_emp.mp3 in Resources */,
+				F1695A052F4CD347001B03A1 /* taa_emp.mp3 in Resources */,
+				F1695A062F4CD347001B03A1 /* haa.mp3 in Resources */,
+				F16959882F4C9A5C001B03A1 /* phrase_hadha_bayt_ahmar.mp3 in Resources */,
+				F16959892F4C9A5C001B03A1 /* phrase_maa_min_fadlik.mp3 in Resources */,
+				F169598A2F4C9A5C001B03A1 /* ithnan.mp3 in Resources */,
+				F169598B2F4C9A5C001B03A1 /* phrase_uridu_khubz.mp3 in Resources */,
+				F169598C2F4C9A5C001B03A1 /* ba_sukun.mp3 in Resources */,
+				F169598D2F4C9A5C001B03A1 /* y.mp3 in Resources */,
+				F169598E2F4C9A5C001B03A1 /* phrase_hadha_bab_akhdar.mp3 in Resources */,
+				F169598F2F4C9A5C001B03A1 /* dl.mp3 in Resources */,
+				F16959902F4C9A5C001B03A1 /* bahr.mp3 in Resources */,
+				F16959912F4C9A5C001B03A1 /* tuffaha.mp3 in Resources */,
+				F16959922F4C9A5C001B03A1 /* mm.mp3 in Resources */,
+				F16959932F4C9A5C001B03A1 /* ana.mp3 in Resources */,
+				F16959942F4C9A5C001B03A1 /* phrase_ana_bikhair.mp3 in Resources */,
+				F16959952F4C9A5C001B03A1 /* hiya.mp3 in Resources */,
+				F16959962F4C9A5C001B03A1 /* phrase_ana_uhibbu_kitab.mp3 in Resources */,
+				F16959972F4C9A5C001B03A1 /* bint.mp3 in Resources */,
+				F16959982F4C9A5C001B03A1 /* kitb.mp3 in Resources */,
+				F16959992F4C9A5C001B03A1 /* zy.mp3 in Resources */,
+				F169599A2F4C9A5C001B03A1 /* phrase_yawm_jamil.mp3 in Resources */,
+				F169599B2F4C9A5C001B03A1 /* phrase_bikhair.mp3 in Resources */,
+				F169599C2F4C9A5C001B03A1 /* samaa.mp3 in Resources */,
+				F169599D2F4C9A5C001B03A1 /* yad.mp3 in Resources */,
+				F169599E2F4C9A5C001B03A1 /* hadha.mp3 in Resources */,
+				F169599F2F4C9A5C001B03A1 /* ja_damma.mp3 in Resources */,
+				F16959A02F4C9A5C001B03A1 /* bikhair.mp3 in Resources */,
+				F16959A12F4C9A5C001B03A1 /* ayna.mp3 in Resources */,
+				F16959A22F4C9A5C001B03A1 /* mim_sukun.mp3 in Resources */,
+				F16959A32F4C9A5C001B03A1 /* phrase_salam.mp3 in Resources */,
+				F16959A42F4C9A5C001B03A1 /* nun_sukun.mp3 in Resources */,
+				F16959A52F4C9A5C001B03A1 /* sin_shadda.mp3 in Resources */,
+				F16959A62F4C9A5C001B03A1 /* d.mp3 in Resources */,
+				F16959A72F4C9A5C001B03A1 /* sa_kasra.mp3 in Resources */,
+				F16959A82F4C9A5C001B03A1 /* dars.mp3 in Resources */,
+				F16959A92F4C9A5C001B03A1 /* lm.mp3 in Resources */,
+				F16959AA2F4C9A5C001B03A1 /* kitab.mp3 in Resources */,
+				F16959AB2F4C9A5C001B03A1 /* ja_fatha.mp3 in Resources */,
+				F16959AC2F4C9A5C001B03A1 /* jadd.mp3 in Resources */,
+				F16959AD2F4C9A5C001B03A1 /* sadiq.mp3 in Resources */,
+				F16959AE2F4C9A5C001B03A1 /* phrase_ana_muallim.mp3 in Resources */,
+				F16959AF2F4C9A5C001B03A1 /* shukran.mp3 in Resources */,
+				F16959B02F4C9A5C001B03A1 /* sana.mp3 in Resources */,
+				F16959B12F4C9A5C001B03A1 /* nour.mp3 in Resources */,
+				F16959B22F4C9A5C001B03A1 /* huwa.mp3 in Resources */,
+				F16959B32F4C9A5C001B03A1 /* wajib.mp3 in Resources */,
+				F16959B42F4C9A5C001B03A1 /* aswad.mp3 in Resources */,
+				F16959B52F4C9A5C001B03A1 /* muallim.mp3 in Resources */,
+				F16959B62F4C9A5C001B03A1 /* phrase_huwa_talib.mp3 in Resources */,
+				F16959B72F4C9A5C001B03A1 /* phrase_indi_khamsa.mp3 in Resources */,
+				F16959B82F4C9A5C001B03A1 /* qi.mp3 in Resources */,
+				F16959B92F4C9A5C001B03A1 /* ja_kasra.mp3 in Resources */,
+				F16959BA2F4C9A5C001B03A1 /* phrase_hadha_halib.mp3 in Resources */,
+				F16959BB2F4C9A5C001B03A1 /* anf.mp3 in Resources */,
+				F16959BC2F4C9A5C001B03A1 /* umm.mp3 in Resources */,
+				F16959BD2F4C9A5C001B03A1 /* kaf_tanwin_fatha.mp3 in Resources */,
+				F16959BE2F4C9A5C001B03A1 /* wahid.mp3 in Resources */,
+				F16959BF2F4C9A5C001B03A1 /* walad.mp3 in Resources */,
+				F16959C02F4C9A5C001B03A1 /* phrase_hiya_taliba.mp3 in Resources */,
+				F16959C12F4C9A5C001B03A1 /* ta_damma.mp3 in Resources */,
+				F16959C22F4C9A5C001B03A1 /* ayn.mp3 in Resources */,
+				F16959C32F4C9A5C001B03A1 /* hamza.mp3 in Resources */,
+				F16959C42F4C9A5C001B03A1 /* najm.mp3 in Resources */,
+				F16959C52F4C9A5C001B03A1 /* ghayn.mp3 in Resources */,
+				F16959C62F4C9A5C001B03A1 /* min.mp3 in Resources */,
+				F16959C72F4C9A5C001B03A1 /* phrase_ahlan.mp3 in Resources */,
+				F16959C82F4C9A5C001B03A1 /* uridu.mp3 in Resources */,
+				F16959C92F4C9A5C001B03A1 /* ard.mp3 in Resources */,
+				F16959CA2F4C9A5C001B03A1 /* phrase_hadhihi_ayni.mp3 in Resources */,
+				F16959CB2F4C9A5C001B03A1 /* ww.mp3 in Resources */,
+				F16959CC2F4C9A5C001B03A1 /* ba_kasra.mp3 in Resources */,
+				F16959CD2F4C9A5C001B03A1 /* shn.mp3 in Resources */,
+				F16959CE2F4C9A5C001B03A1 /* phrase_indi_thalatha.mp3 in Resources */,
+				F16959CF2F4C9A5C001B03A1 /* sn.mp3 in Resources */,
+				F16959D02F4C9A5C001B03A1 /* fasl.mp3 in Resources */,
+				F16959D12F4C9A5C001B03A1 /* phrase_kayfa_haluk.mp3 in Resources */,
+				F16959D22F4C9A5C001B03A1 /* taliba.mp3 in Resources */,
+				F16959D32F4C9A5C001B03A1 /* phrase_shukran.mp3 in Resources */,
+				F16959D42F4C9A5C001B03A1 /* khubz.mp3 in Resources */,
+				F16959D52F4C9A5C001B03A1 /* thamaniya.mp3 in Resources */,
+				F16959D62F4C9A5C001B03A1 /* ba_damma.mp3 in Resources */,
+				F16959D72F4C9A5C001B03A1 /* nahr.mp3 in Resources */,
+				F16959D82F4C9A5C001B03A1 /* anta.mp3 in Resources */,
+				F16959D92F4C9A5C001B03A1 /* bimarifatik.mp3 in Resources */,
+				F16959DA2F4C9A5C001B03A1 /* ashara.mp3 in Resources */,
+				F16959DB2F4C9A5C001B03A1 /* aruz.mp3 in Resources */,
+				F16959DC2F4C9A5C001B03A1 /* phrase_hadha_anfi.mp3 in Resources */,
+				F16959DD2F4C9A5C001B03A1 /* lam_shadda.mp3 in Resources */,
+				F16959DE2F4C9A5C001B03A1 /* tmarba.mp3 in Resources */,
+				F16959DF2F4C9A5C001B03A1 /* udhun.mp3 in Resources */,
+				F16959E02F4C9A5C001B03A1 /* dal_tanwin_fatha.mp3 in Resources */,
+				F16959E12F4C9A5C001B03A1 /* th.mp3 in Resources */,
+				F16959E22F4C9A5C001B03A1 /* jm.mp3 in Resources */,
+				F16959E32F4C9A5C001B03A1 /* phrase_ana_taliba.mp3 in Resources */,
+				F16959E42F4C9A5C001B03A1 /* phrase_ana_min_faransa.mp3 in Resources */,
+				F16959E52F4C9A5C001B03A1 /* sitta.mp3 in Resources */,
+				F16959E62F4C9A5C001B03A1 /* samak.mp3 in Resources */,
+				F16959E72F4C9A5C001B03A1 /* halib.mp3 in Resources */,
+				F16959E82F4C9A5C001B03A1 /* lahm.mp3 in Resources */,
+				F16959E92F4C9A5C001B03A1 /* shajara.mp3 in Resources */,
+				F16959EA2F4C9A5C001B03A1 /* qamar.mp3 in Resources */,
+				F16959EB2F4C9A5C001B03A1 /* m.mp3 in Resources */,
+				F16959EC2F4C9A5C001B03A1 /* abyad.mp3 in Resources */,
+				F16959ED2F4C9A5C001B03A1 /* imtihan.mp3 in Resources */,
+				F16959EE2F4C9A5C001B03A1 /* ra_tanwin_fatha.mp3 in Resources */,
+				F16959EF2F4C9A5C001B03A1 /* generate_all_audio.py in Resources */,
+				F16959F02F4C9A5C001B03A1 /* ba_fatha.mp3 in Resources */,
+				F16959F12F4C9A5C001B03A1 /* kurs.mp3 in Resources */,
+				F16959F22F4C9A5C001B03A1 /* phrase_hadha_qalam_aswad.mp3 in Resources */,
+				F16959F32F4C9A5C001B03A1 /* phrase_ma_ismuka.mp3 in Resources */,
+				F16959F42F4C9A5C001B03A1 /* qf.mp3 in Resources */,
+				F16959F52F4C9A5C001B03A1 /* ta_fatha.mp3 in Resources */,
+				F16959F62F4C9A5C001B03A1 /* azraq.mp3 in Resources */,
+				F16959F72F4C9A5C001B03A1 /* alif.mp3 in Resources */,
+				F16959F82F4C9A5C001B03A1 /* phrase_hadha_kitab_abyad.mp3 in Resources */,
+				F16959F92F4C9A5C001B03A1 /* qalb.mp3 in Resources */,
+				F16959FA2F4C9A5C001B03A1 /* phrase_ana_fi_madrasa.mp3 in Resources */,
+				F16959FB2F4C9A5C001B03A1 /* phrase_uhibbu_samak.mp3 in Resources */,
+				F16959FC2F4C9A5C001B03A1 /* phrase_anta_sadiq.mp3 in Resources */,
+				F16959FD2F4C9A5C001B03A1 /* dhl.mp3 in Resources */,
+				F16959FE2F4C9A5C001B03A1 /* ras.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -955,6 +1720,7 @@
 				F1FAA44F2F47176B009343A0 /* Flashcard.swift in Sources */,
 				F1FAA4432F47130E009343A0 /* ArabicLetter.swift in Sources */,
 				F1FAA44E2F4716C1009343A0 /* LanguageManager.swift in Sources */,
+				AA0C020900000005000C0209 /* Dialogue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -980,6 +1746,10 @@
 				F1FCEB762F2909FB00AE6497 /* ProfileView.swift in Sources */,
 				F1BDF6882F2FCF72008A9EBC /* TipBanner.swift in Sources */,
 				F1C720762F34148F00EDA1E8 /* PhraseLessonView.swift in Sources */,
+				AA0C020100000001000C0201 /* WeeklySummaryView.swift in Sources */,
+				AA0C020300000002000C0203 /* CheckpointTestView.swift in Sources */,
+				AA0C020500000003000C0205 /* Dialogue.swift in Sources */,
+				AA0C020700000004000C0207 /* DialogueView.swift in Sources */,
 				F1FCEB722F2909E100AE6497 /* HomeView.swift in Sources */,
 				F1BDF6702F2FB8C7008A9EBC /* ModernCardView.swift in Sources */,
 				F1BDF6862F2FCA9B008A9EBC /* PhoneticDictionary.swift in Sources */,

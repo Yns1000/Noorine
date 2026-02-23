@@ -260,6 +260,8 @@ struct FreePracticeView: View {
                             goalCount: 5,
                             onCompletion: { selectedLevel = nil }
                         )
+                    case .dialogue:
+                        DialogueView(levelNumber: level.levelNumber, onCompletion: { selectedLevel = nil })
                     case .alphabet, .quiz:
                         let letters = ArabicLetter.letters(forLevel: level.levelNumber)
                         if letters.count == 1, let letter = letters.first {
@@ -295,6 +297,7 @@ struct FreePracticeView: View {
         case .solarLunar: return "sun.max.fill"
         case .phrases: return "text.bubble.fill"
         case .speaking: return "mic.fill"
+        case .dialogue: return "bubble.left.and.bubble.right.fill"
         }
     }
 
@@ -307,6 +310,7 @@ struct FreePracticeView: View {
         case .solarLunar: return .yellow
         case .phrases: return .cyan
         case .speaking: return .red
+        case .dialogue: return .teal
         }
     }
 }

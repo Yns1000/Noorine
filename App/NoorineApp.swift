@@ -9,6 +9,12 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         return true
     }
     
+    func applicationWillTerminate(_ application: UIApplication) {
+        if #available(iOS 16.2, *) {
+            LiveActivityManager.shared.stopStreakActivity()
+        }
+    }
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.banner, .sound, .badge])
     }
@@ -81,6 +87,9 @@ struct NoorineApp: App {
             .onChange(of: scenePhase) { _, newPhase in
                 if newPhase == .active {
                     NotificationManager.shared.scheduleAllNotifications()
+                    if #available(iOS 16.2, *) {
+                        LiveActivityManager.shared.cleanupOrphanedStreakActivities()
+                    }
                 }
             }
             .onOpenURL { url in

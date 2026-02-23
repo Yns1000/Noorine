@@ -49,7 +49,7 @@ extension DataManager {
                 wordIds.formUnion(level.contentIds)
             case .phrases:
                 phraseIds.formUnion(level.contentIds)
-            case .solarLunar:
+            case .solarLunar, .dialogue:
                 break
             }
         }

@@ -266,9 +266,10 @@ struct NoorineStreakLiveActivity: Widget {
             } compactTrailing: {
                 Text(timerInterval: Date()...context.state.deadline, countsDown: true)
                     .multilineTextAlignment(.trailing)
-                    .font(.system(size: 12, weight: .bold, design: .monospaced))
+                    .font(.system(size: 11, weight: .bold, design: .rounded))
+                    .monospacedDigit()
                     .foregroundColor(.red)
-                    .frame(maxWidth: 50)
+                    .frame(maxWidth: 64)
             } minimal: {
                 Image(systemName: "flame.fill")
                     .font(.system(size: 14, weight: .bold))
