@@ -246,6 +246,13 @@ struct DialogueView: View {
             selectedOption = nil
             isAnswerRevealed = false
         }
+
+        if let dialogue = dialogue, visibleLineCount > 0, visibleLineCount <= dialogue.lines.count {
+            let line = dialogue.lines[visibleLineCount - 1]
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                AudioManager.shared.playText(line.arabic, style: .phraseNormal, useCache: true)
+            }
+        }
     }
 
     private func finishDialogue() {

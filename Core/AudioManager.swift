@@ -86,6 +86,35 @@ class AudioManager: ObservableObject {
             }
         }
 
+        let dialogueAudio: [String: String] = [
+            "وَعَلَيْكُمُ السَّلَام": "dialogue_wa_alaykum",
+            "قَهْوَة مِن فَضْلِك": "dialogue_qahwa",
+            "تَفَضَّل": "dialogue_tafaddal",
+            "اِسْمِي لُورِين": "dialogue_ismi_laurine",
+            "مِن أَيْنَ أَنْتِ؟": "dialogue_min_ayna",
+            "أَنَا مِن فَرَنْسَا": "dialogue_ana_min_faransa",
+            "أَنَا كَذَلِك": "dialogue_ana_kadhalik",
+            "مَرْحَبًا! أَهْلًا وَسَهْلًا": "dialogue_marhaban_ahlan",
+            "بِكَم هٰذَا؟": "dialogue_bikam",
+            "خَمْسَة دَرَاهِم": "dialogue_khamsa_darahim",
+            "حَسَنًا، أُرِيدُهُ": "dialogue_hasanan_uriduhu",
+            "شُكْرًا! مَعَ السَّلَامَة": "dialogue_shukran_maa_salama",
+        ]
+        for (key, value) in dialogueAudio { map[key] = value }
+
+        let solarLunarAudio: [String: String] = [
+            "الشَّمْس": "ash_shams",
+            "القَمَر": "al_qamar",
+        ]
+        for (key, value) in solarLunarAudio { map[key] = value }
+
+        let tanwinAudio: [String: String] = [
+            "تَنْوِين فَتْح": "tanwin_fatha",
+            "تَنْوِين كَسْر": "tanwin_kasra",
+            "تَنْوِين ضَمّ": "tanwin_damma",
+        ]
+        for (key, value) in tanwinAudio { map[key] = value }
+
         return map
     }()
     

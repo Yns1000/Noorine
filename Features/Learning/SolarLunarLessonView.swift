@@ -139,8 +139,13 @@ struct SolarLunarLessonView: View {
                     ? "ال + شمس → الشَّمْس (the L becomes Sh)"
                     : "ال + شمس → الشَّمْس (le L devient Sh)"
             )
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    AudioManager.shared.playText("الشَّمْس", style: .word, useCache: true)
+                }
+            }
             
-            LetterGrid(letters: ArabicLetter.alphabet.filter { $0.isSolar }, accentColor: .orange)
+            LetterGrid(letters: ArabicLetter.alphabet.filter { $0.isSolar }, accentColor: .orange, playAudio: true)
             
             Spacer()
         }
@@ -172,8 +177,13 @@ struct SolarLunarLessonView: View {
                     ? "ال + قمر → القَمَر (the L stays)"
                     : "ال + قمر → القَمَر (le L reste)"
             )
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    AudioManager.shared.playText("القَمَر", style: .word, useCache: true)
+                }
+            }
             
-            LetterGrid(letters: ArabicLetter.alphabet.filter { $0.isLunar }, accentColor: .blue)
+            LetterGrid(letters: ArabicLetter.alphabet.filter { $0.isLunar }, accentColor: .blue, playAudio: true)
             
             Spacer()
         }
@@ -569,20 +579,29 @@ struct ExampleCard: View {
 struct LetterGrid: View {
     let letters: [ArabicLetter]
     let accentColor: Color
+    var playAudio: Bool = false
     
     private let columns = Array(repeating: GridItem(.flexible(), spacing: 8), count: 7)
     
     var body: some View {
         LazyVGrid(columns: columns, spacing: 8) {
             ForEach(letters) { letter in
-                Text(letter.isolated)
-                    .font(.system(size: 22))
-                    .foregroundColor(.noorText)
-                    .frame(width: 40, height: 40)
-                    .background(
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(accentColor.opacity(0.1))
-                    )
+                Button(action: {
+                    if playAudio {
+                        AudioManager.shared.playLetter(letter.isolated)
+                        HapticManager.shared.impact(.light)
+                    }
+                }) {
+                    Text(letter.isolated)
+                        .font(.system(size: 22))
+                        .foregroundColor(.noorText)
+                        .frame(width: 40, height: 40)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(accentColor.opacity(0.1))
+                        )
+                }
+                .buttonStyle(.plain)
             }
         }
         .padding(.horizontal, 24)
