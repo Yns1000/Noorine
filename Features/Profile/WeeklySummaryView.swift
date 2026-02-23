@@ -51,7 +51,7 @@ struct WeeklySummaryView: View {
                 VStack(spacing: 28) {
                     Spacer().frame(height: 20)
 
-                    EmotionalMascot(mood: .celebrating, size: 80, showAura: true)
+                    EmotionalMascot(mood: .celebrating, size: 80, showAura: false)
 
                     Text(isEnglish ? "Your Week" : "Ta semaine")
                         .font(.system(size: 32, weight: .black, design: .rounded))
