@@ -301,6 +301,12 @@
 		F1695AAA2F4CF314001B03A1 /* qaf_fatha.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F1695A3D2F4CF314001B03A1 /* qaf_fatha.mp3 */; };
 		F1695AAB2F4CF314001B03A1 /* shin_fatha.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F1695A462F4CF314001B03A1 /* shin_fatha.mp3 */; };
 		F1695AAC2F4CF314001B03A1 /* sin_kasra.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F1695A4A2F4CF314001B03A1 /* sin_kasra.mp3 */; };
+		F1695AB32F4D0485001B03A1 /* fatha_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F1695AAE2F4D0485001B03A1 /* fatha_sound.mp3 */; };
+		F1695AB42F4D0485001B03A1 /* damma_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F1695AAD2F4D0485001B03A1 /* damma_sound.mp3 */; };
+		F1695AB52F4D0485001B03A1 /* sukun_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F1695AB12F4D0485001B03A1 /* sukun_sound.mp3 */; };
+		F1695AB62F4D0485001B03A1 /* shadda_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F1695AB02F4D0485001B03A1 /* shadda_sound.mp3 */; };
+		F1695AB72F4D0485001B03A1 /* kasra_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F1695AAF2F4D0485001B03A1 /* kasra_sound.mp3 */; };
+		F1695AB82F4D0485001B03A1 /* tanwin_fatha_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F1695AB22F4D0485001B03A1 /* tanwin_fatha_sound.mp3 */; };
 		F17F53E32F391C4800670D3B /* UnifiedCelebrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17F53E22F391C4800670D3B /* UnifiedCelebrationView.swift */; };
 		F17F53F22F420FD900670D3B /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F17F53F12F420FD900670D3B /* WidgetKit.framework */; };
 		F17F53F42F420FD900670D3B /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F17F53F32F420FD900670D3B /* SwiftUI.framework */; };
@@ -734,6 +740,12 @@
 		F1695A572F4CF314001B03A1 /* zay_damma.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = zay_damma.mp3; sourceTree = "<group>"; };
 		F1695A582F4CF314001B03A1 /* zay_fatha.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = zay_fatha.mp3; sourceTree = "<group>"; };
 		F1695A592F4CF314001B03A1 /* zay_kasra.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = zay_kasra.mp3; sourceTree = "<group>"; };
+		F1695AAD2F4D0485001B03A1 /* damma_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = damma_sound.mp3; sourceTree = "<group>"; };
+		F1695AAE2F4D0485001B03A1 /* fatha_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fatha_sound.mp3; sourceTree = "<group>"; };
+		F1695AAF2F4D0485001B03A1 /* kasra_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = kasra_sound.mp3; sourceTree = "<group>"; };
+		F1695AB02F4D0485001B03A1 /* shadda_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shadda_sound.mp3; sourceTree = "<group>"; };
+		F1695AB12F4D0485001B03A1 /* sukun_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sukun_sound.mp3; sourceTree = "<group>"; };
+		F1695AB22F4D0485001B03A1 /* tanwin_fatha_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tanwin_fatha_sound.mp3; sourceTree = "<group>"; };
 		F17F53E22F391C4800670D3B /* UnifiedCelebrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedCelebrationView.swift; sourceTree = "<group>"; };
 		F17F53EA2F420F7000670D3B /* Noorine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Noorine.entitlements; sourceTree = "<group>"; };
 		F17F53EF2F420FD900670D3B /* NoorineWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NoorineWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -934,6 +946,12 @@
 		F16959482F4C9A5C001B03A1 /* GeneratedAudio */ = {
 			isa = PBXGroup;
 			children = (
+				F1695AAD2F4D0485001B03A1 /* damma_sound.mp3 */,
+				F1695AAE2F4D0485001B03A1 /* fatha_sound.mp3 */,
+				F1695AAF2F4D0485001B03A1 /* kasra_sound.mp3 */,
+				F1695AB02F4D0485001B03A1 /* shadda_sound.mp3 */,
+				F1695AB12F4D0485001B03A1 /* sukun_sound.mp3 */,
+				F1695AB22F4D0485001B03A1 /* tanwin_fatha_sound.mp3 */,
 				F1695A072F4CF314001B03A1 /* al_qamar.mp3 */,
 				F1695A082F4CF314001B03A1 /* ash_shams.mp3 */,
 				F1695A092F4CF314001B03A1 /* ayn_damma.mp3 */,
@@ -1849,6 +1867,12 @@
 				F16959A92F4C9A5C001B03A1 /* lm.mp3 in Resources */,
 				F16959AA2F4C9A5C001B03A1 /* kitab.mp3 in Resources */,
 				F16959AB2F4C9A5C001B03A1 /* ja_fatha.mp3 in Resources */,
+				F1695AB32F4D0485001B03A1 /* fatha_sound.mp3 in Resources */,
+				F1695AB42F4D0485001B03A1 /* damma_sound.mp3 in Resources */,
+				F1695AB52F4D0485001B03A1 /* sukun_sound.mp3 in Resources */,
+				F1695AB62F4D0485001B03A1 /* shadda_sound.mp3 in Resources */,
+				F1695AB72F4D0485001B03A1 /* kasra_sound.mp3 in Resources */,
+				F1695AB82F4D0485001B03A1 /* tanwin_fatha_sound.mp3 in Resources */,
 				F16959AC2F4C9A5C001B03A1 /* jadd.mp3 in Resources */,
 				F16959AD2F4C9A5C001B03A1 /* sadiq.mp3 in Resources */,
 				F16959AE2F4C9A5C001B03A1 /* phrase_ana_muallim.mp3 in Resources */,
@@ -2211,7 +2235,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = NoorineWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 25FS3X3RCW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NoorineWidget/Info.plist;
@@ -2243,7 +2267,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = NoorineWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 25FS3X3RCW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NoorineWidget/Info.plist;
@@ -2274,7 +2298,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 25FS3X3RCW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2307,7 +2331,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 25FS3X3RCW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2558,7 +2582,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Noorine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 25FS3X3RCW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2596,7 +2620,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Noorine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 25FS3X3RCW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

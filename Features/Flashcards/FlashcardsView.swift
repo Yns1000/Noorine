@@ -177,6 +177,28 @@ struct FlashcardsView: View {
     private var responseButtons: some View {
         VStack(spacing: 16) {
             if isFlipped {
+                Button(action: {
+                    if let card = currentCard {
+                        audioManager.playLetter(card.arabic)
+                        HapticManager.shared.impact(.light)
+                    }
+                }) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "speaker.wave.2.fill")
+                            .font(.system(size: 16, weight: .semibold))
+                        Text(isEnglish ? "Listen" : "Écouter")
+                            .font(.system(size: 14, weight: .semibold))
+                    }
+                    .foregroundColor(.noorGold)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 10)
+                    .background(
+                        Capsule().fill(Color.noorGold.opacity(0.12))
+                    )
+                }
+                .buttonStyle(.plain)
+                .transition(.opacity)
+
                 HStack(spacing: 10) {
                     SRSButton(response: .again, interval: "< 1m", isEnglish: isEnglish) {
                         handleResponse(.again)
